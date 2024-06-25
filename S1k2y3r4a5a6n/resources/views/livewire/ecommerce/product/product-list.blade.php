@@ -69,7 +69,8 @@
                                             </div>
                                             <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                 <a href="javascript:void(0)" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms">Add to cart</h6>
+                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms sys-view">Add to cart</h6>
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                 </a>
                                             </div>
                                         </div> 
@@ -77,35 +78,41 @@
                                 </div>
                             </div> 
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name'] }}</h6>
-                                <div class="d-flex gap-3 align-items-center">
-                                    @if($product['discount']!=0)
-                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                    <h6 class="price fw-bold lh-lg align-self-center ">Rs {{$product['sale_price']}}</h6>
-                                    @else
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['price']}}</h6>
-                                    @endif
-                                </div>
-                                <div class="row align-items-center">
-                                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
-                                        @if($product['review']==0)
-                                            <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==1)
-                                            <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==2)
-                                            <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==3)
-                                            <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==4)
-                                            <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==5)
-                                            <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
-                                        @endif
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name'] }}</h6>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 px-0">
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 px-0">
+                                                @if($product['discount']!=0)
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                @else
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>                                
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12">
+                                            @if($product['review']==0)
+                                                <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
+                                                @elseif($product['review']==1)
+                                                <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
+                                                @elseif($product['review']==2)
+                                                <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
+                                                @elseif($product['review']==3)
+                                                <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
+                                                @elseif($product['review']==4)
+                                                <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
+                                                @elseif($product['review']==5)
+                                                <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
+                                            @endif
+                                        </div>
+                                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-6 col-12">
+                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                        </div>
                                     </div>
-                                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -237,7 +244,8 @@
                                             </div>
                                             <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                 <a href="javascript:coid(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0 flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms">Add to cart</h6>
+                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms sys-view">Add to cart</h6>
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                 </a>
                                             </div>
                                         </div> 
@@ -245,31 +253,40 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name']}}</h6>
-                                <div class="d-flex gap-3 align-items-center">
-                                    @if($product['discount']!=0)
-                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50">Rs {{$product['price']}}</del>
-                                    <h6 class="price fw-bold lh-lg align-self-center ">Rs {{$product['sale_price']}}</h6>
-                                    @else
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['price']}}</h6>
-                                    @endif
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-6 px-0">
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                        </div>
+                                        <div class="col-xl-7 col-lg-7 col-md-6 col-sm-6 col-6 px-0">
+                                            @if($product['discount']!=0)
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            @else
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="d-flex gap-xl-2 gap-lg-2 gap-0 align-items-center">
-                                    @if($product['review']==0)
-                                    <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==1)
-                                    <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==2)
-                                    <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==3)
-                                    <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==4)
-                                    <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==5)
-                                    <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
-                                    @endif
-                                    <h6 class="text-secondary text-opacity-50 h-sms">{{$product['review_count']}} reviews</h6>
-                            
+                                <div class="row align-items-center">
+                                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                                        @if($product['review']==0)
+                                            <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==1)
+                                            <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==2)
+                                            <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==3)
+                                            <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==4)
+                                            <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==5)
+                                            <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -402,7 +419,8 @@
                                             </div>
                                             <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                 <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-vew">Add to cart</h6>
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                 </a>
                                             </div>
                                         </div> 
@@ -410,31 +428,40 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name']}}</h6>
-                                <div class="d-flex gap-3 align-items-center">
-                                    @if($product['discount']!=0)
-                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                    <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
-                                    @else
-                                    <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
-                                    @endif
-                                </div>
-                                <div class="d-flex gap-xl-2 gap-lg-2 gap-0 align-items-center">
-                                    @if($product['review']==0)
-                                    <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==1)
-                                    <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==2)
-                                    <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==3)
-                                    <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==4)
-                                    <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                    @elseif($product['review']==5)
-                                    <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
-                                    @endif
-                                    <h6 class="text-secondary text-opacity-50 h-sms">{{$product['review_count']}} reviews</h6>
-                            
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 px-0">
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                        </div>
+                                        <div class="col-6 px-0">
+                                            @if($product['discount']!=0)
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            @else
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <div class="row align-items-center">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        @if($product['review']==0)
+                                            <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==1)
+                                            <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==2)
+                                            <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==3)
+                                            <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==4)
+                                            <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
+                                            @elseif($product['review']==5)
+                                            <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
+                                        @endif
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -548,7 +575,7 @@
                     </div>
                     <div class="col-xl-9 col-xxl-9 col-lg-9 col-md-9 col-sm-9 col-12">
                         <div class="price_info py-3">
-                            <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name']}}</h6>
+                            <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                             <div class="d-flex gap-3 align-items-center">
                                 @if($product['discount']!=0)
                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
@@ -558,7 +585,7 @@
                                 @endif
                             </div>
                             <h6 class="text-secondary text-opacity-50 pb-2 lh-base h-sms">Ajwain The benefits of these seeds are not only limited to the taste but go much beyond that. The goodness of these tiny fruit pods also includes weight loss. Ajwain...</h6>
-                            <div class="d-flex gap-xl-2 gap-lg-2 gap-0 align-items-center pb-2">
+                            <div class="d-flex gap-3 align-items-center pb-2">
                                 @if($product['review']==0)
                                 <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                 @elseif($product['review']==1)
@@ -585,12 +612,12 @@
                                 </button>
                             @else
                                 <div class=" d-flex align-items-center justify-content-start gap-3">
-                                    <div class="qty-container d-flex align-items-center justify-content-center bg-clr p-1 rounded-2 text-white">
-                                        <div class="col text-center px-2 qty-btn-minus"><span>-</span></div>
+                                    <div class="qty-container d-flex align-items-center justify-content-center bg-clr p-1 rounded-2 text-white" style="width: 81px!important;">
+                                        <div class="col text-center qty-btn-minus"><span>-</span></div>
                                         <div class="vr"></div>
-                                        <div class="col text-center px-2"><span class="input-qty h-sms">1</span></div>
+                                        <div class="col text-center"><span class="input-qty h-sms">1</span></div>
                                         <div class="vr"></div>
-                                        <div class="col text-center px-2 qty-btn-plus"><span>+</span></div>
+                                        <div class="col text-center qty-btn-plus"><span>+</span></div>
                                     </div>
                                     <a href="javascript:void(0);" class="card  py-1 px-3 bg-clr round-1 border-0 align-self-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                         <h6 class="text-white text-center py-1 h-sms ">Add to cart</h6>

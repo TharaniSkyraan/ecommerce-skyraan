@@ -3,8 +3,8 @@
     <div class="container py-3">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23000000'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('ecommerce.home') }}">Home</a></li>
-                <li class="breadcrumb-item active text-dark" aria-current="page">{{ $product['name'] }}</li>
+                <li class="breadcrumb-item h-sms"><a href="{{ route('ecommerce.home') }}">Home</a></li>
+                <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
             </ol>
         </nav>
     </div>
@@ -58,7 +58,7 @@
                 <div class="d-flex justify-content-start gap-4 py-2 price-discount align-items-center">
                     @if(isset($discount) && $discount!=0)
                         <del class="del-clr"><h6 class= "text-secondary opacity-50">Rs {{ $price}}</h6></del>
-                        <h6 class="price">Rs {{ $sale_price}}</h6>
+                        <h6 class="price_clr">Rs {{ $sale_price}}</h6>
                         <div class="card border-0">
                             <small class="card border-0 text-center text-white px-1">{{$discount}}% Off</small>
                         </div>
@@ -71,7 +71,7 @@
                     <h6 class="text-dark">&nbsp;@if(isset($stock_status) && $stock_status=='in_stock') In stock @else Out of stock @endif</h6>
                 </div>
                 <hr>
-                <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center ">
+                <div class="d-flex  gap-2 align-items-center ">
                     @if($product['review']==0)
                     <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                     @elseif($product['review']==1)
@@ -264,7 +264,8 @@
                                             </div>
                                             <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                 <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                 </a>
                                             </div>
                                         </div> 
@@ -272,7 +273,7 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name']}}</h6>
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="d-flex gap-3 align-items-center ">
                                     @if($product['discount']!=0)
                                     <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50">Rs {{$product['price']}}</del>
@@ -298,7 +299,7 @@
                                         @endif
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +381,8 @@
                                             </div>
                                             <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                 <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                 </a>
                                             </div>
                                         </div> 
@@ -388,14 +390,20 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms">{{ $product['name']}}</h6>
-                                <div class="d-flex gap-3 align-items-center">
-                                    @if($product['discount']!=0)
-                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50">Rs {{$product['price']}}</del>
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['sale_price']}}</h6>
-                                    @else
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['price']}}</h6>
-                                    @endif
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-6 px-0">
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                        </div>
+                                        <div class="col-6 px-0">
+                                            @if($product['discount']!=0)
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            @else
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
@@ -414,7 +422,7 @@
                                         @endif
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>

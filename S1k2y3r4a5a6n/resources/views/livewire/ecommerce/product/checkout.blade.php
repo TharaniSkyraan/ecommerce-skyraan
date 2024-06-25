@@ -10,7 +10,7 @@
                         <img class="cursor up-ars" style="display:none; width: 9px;" src="{{asset('asset/home/up-ar.svg')}}" alt="">
                     </div>
                     <div class="pe-2">
-                        <span>Rs</sapn> <span class="price">{{ ($total_price - $coupon_discount) + $shipping_charges }}</span>
+                        <span>Rs</sapn> <span class="price_clr">{{ ($total_price - $coupon_discount) + $shipping_charges }}</span>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                                 <img id="toggleImg" class="cursor" src="{{asset('asset/home/down-ar.svg')}}" alt="">
                             </div>
                             <div class="multple-address" @if($addresslist==false) style="display:none" @endif>
-                                <div class="card p-3 mul-address">
+                                <div class="card p-xl-3 p-lg-3 p-md-3 p-sm-2 p-1 mul-address">
                                     <div class="p-3 card1 rounded-1 cursor">
                                         <div class="d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit()">
                                             <img src="{{ asset('asset/home/plus.png')}}" alt="add">
@@ -83,7 +83,7 @@
                             </div>
                         @else
                         <div class="multple-address">
-                            <div class="card p-3 mul-address">
+                            <div class="card p-xl-3 p-lg-3 p-md-3 p-sm-2 p-1 mul-address">
                                 <div class="p-3 card1 rounded-1 cursor">
                                     <div class="d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit()">
                                         <img src="{{ asset('asset/home/plus.png')}}" alt="add">
@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 sys-view pb-3">
-                    <div class="order-summary ">
+                    <div class="order-summary">
                         <div class="px-xl-4 px-lg-4 px-md-3 px-sm-3 px-1">
                             <h5 class="py-3">Order Summary</h5>
                             @include('ecommerce.product.cart-item')
