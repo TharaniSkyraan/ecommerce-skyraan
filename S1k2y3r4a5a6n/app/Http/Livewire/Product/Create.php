@@ -530,5 +530,4 @@ class Create extends Component
         return view('livewire.product.create');
     }
 
-
 }
