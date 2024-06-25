@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id(); 
             $table->unsignedBigInteger('history_id'); 
             $table->unsignedBigInteger('warehouse_id'); 
+            $table->string('product_name',255); 
             $table->unsignedBigInteger('product_id'); 
             $table->unsignedBigInteger('product_variant_id'); 
+            $table->bigInteger('previous_available_quantity')->default(0);
             $table->bigInteger('available_quantity')->default(0);
             $table->bigInteger('upload_quantity')->default(0);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

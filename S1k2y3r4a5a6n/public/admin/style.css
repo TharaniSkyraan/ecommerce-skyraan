@@ -1223,9 +1223,9 @@ table.dataTable tbody th, table.dataTable tbody td {
   color: #fff;
 }
 .text-truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .cursor-pointer{
   cursor: pointer;
@@ -1268,6 +1268,11 @@ table.dataTable tbody th, table.dataTable tbody td {
 }
 .btn-p{
   background: dodgerblue;
+  color: white;
+  border: 1px solid #eee0;
+}
+.btn-pp{
+  background: blue;
   color: white;
   border: 1px solid #eee0;
 }
@@ -1532,4 +1537,11 @@ p{
 }
 .selectize-control.plugin-remove_button .item .remove{
   border-left: 1px solid #eee !important;
+}
+.warehouse{
+  float: inline-end;
+}
+.warehouse select{
+  border-radius: 5px;
+  font-size: 14px;
 }

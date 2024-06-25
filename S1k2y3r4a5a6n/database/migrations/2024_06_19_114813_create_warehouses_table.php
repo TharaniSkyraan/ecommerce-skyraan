@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('warehouses', function (Blueprint $table) {
             $table->id();
+            $table->string('name',180)->nullable();
             $table->string('address',255)->nullable();
+            $table->string('contact',20)->nullable();
             $table->string('lat',30)->nullable();
             $table->string('lng',30)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');

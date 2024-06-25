@@ -30,9 +30,13 @@ class ViewCanvasCart extends Component
         $related_product_ids = [];
 
         $total_price = 0;
+        // dd($datas);
 
         foreach($datas as $key => $data)
         {
+            if(!isset($data['product_id'])){
+                unset($datas[$key]);
+            }else
             if(Product::where('id',$data['product_id'])->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
          
                 $product = Product::where('id',$data['product_id'])->select('id','slug','name','images','related_product_ids','tax_ids','created_at')->first()->toArray();

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('warehouse_id'); 
             $table->unsignedBigInteger('product_id'); 
             $table->unsignedBigInteger('product_variant_id'); 
+            $table->text('product_name'); 
             $table->bigInteger('available_quantity')->default(0);
             $table->enum('stock_status', ['in_stock', 'out_of_stock'])->default('in_stock');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
