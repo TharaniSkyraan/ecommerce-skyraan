@@ -1,15 +1,23 @@
+
 <?php
 
 use Illuminate\Http\Request;
 use App\Mail\ContactusMail;
 use App\Models\User;
+use App\Mail\WelcomeMail;
+use App\Mail\forgetemail;
+use App\Mail\passwordreset;
+use App\Mail\otpmail;
+use App\Mail\PasswordChange;
+use App\Mail\OrderPlaced;
+use App\Mail\CancelOrder;
 
 Route::get('/email_template', function () {
     $user = User::first();
     $data['feedback'] = 'fdfdf';
     $data['email'] = 'fdfdf';
     $data['name'] = 'fdfdf';
-    return new ContactusMail($data);
+    return new CancelOrder($data);
 });
 use App\Http\Controllers\PDFController;
 
