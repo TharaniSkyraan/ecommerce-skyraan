@@ -290,7 +290,9 @@
 }
 
 .drop-hover li:hover{
-   color: var(--next-prev-arrow-color) !important;
+   background-color:var(--items-list-bg-color) !important ;
+   padding: 5px;
+   /* color: var(--next-prev-arrow-color) !important; */
 }
 
 /* Tooltip arrow */

@@ -92,11 +92,22 @@
 .truncate-text {
     max-width: 100%; 
     overflow: hidden; 
-    text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+    text-overflow: ellipsis;
 }
 .item-image{
     height: 250px;
     object-fit: contain;
+}
+.max-height {
+    height: 34px; /* Adjust this height to match two lines of your font size */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+#information p{
+    font-size: 13px;
 }
 /* tab */
 .detail-img .demo-trigger:hover {
@@ -107,6 +118,14 @@
     border: 2px solid black;
     box-sizing: border-box; 
 } */
+.detail-dot {
+    display: inline-block;
+    max-width: 27ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
 
 .details .tab-head{
     color: var(--detailprice-content-color);
@@ -121,6 +140,9 @@
 }
 .tab-content {
     display: none;
+}
+#description p{
+    line-height: 30px;
 }
 .tab-content.active {
     display: block;
@@ -211,11 +233,10 @@
         padding-left: 2rem!important; 
     }
 
-    
 }
 @media only screen and (max-width:600px){
     .detail-card .price-detail .zoom-in {
-      display: none;
+      display: none!important;
     }
     .detail-card .detail_page_carousal .owl-prev, .detail-card .detail_page_carousal .owl-next {
         width: 22px!important;
@@ -254,6 +275,13 @@
     }
     .adadas{
         width: 100%!important;
+    }
+    .max-height {
+        height: 29px;
+        -webkit-line-clamp: 2;
+    }
+    #information p {
+        font-size: 11px;
     }
 }
 @media (min-width: 600px) and (max-width: 1024px){

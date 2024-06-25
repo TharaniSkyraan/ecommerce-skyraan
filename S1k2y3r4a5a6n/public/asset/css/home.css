@@ -167,8 +167,9 @@
     .owl-item {
         height: 171px;
     }
-    img{
-        width: 35%;
+    .center-card{
+        width:180px;
+        height:105px;
     }
 } 
 .card_and_carousal  .card1{
@@ -214,9 +215,8 @@
     margin: 12px!important;
 }
 
-
 .line-with-text {
-    border-bottom: 1px solid #1cdf4a;
+    border-bottom: 1px solid var(--next-prev-arrow-color);
     width: 16px;
 }
 #abt_review{
@@ -233,6 +233,9 @@
 }
 .abt_review h5{
     z-index: 1;
+}
+.abt_review svg path{
+    fill: var(--next-prev-arrow-color);
 }
 .marquee_content{
     background-color: #795548;
@@ -293,14 +296,17 @@
     height: 250px;
     object-fit: contain;
 }
-.max-height{
-    height: 38px;
+.max-height {
+    height: 34px; /* Adjust this height to match two lines of your font size */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+/* .fixed-top{
+    padding-top:11px;
+} */
 @media only screen and (max-width: 333px){
     .with-horizontal-line::before, .with-horizontal-line::after {
         width: 8%!important;
@@ -308,7 +314,6 @@
     .abt_review h6{
         font-size: x-small!important;
     }
-
 }
 @media only screen and (max-width:600px){
     .with-horizontal-line::before, .with-horizontal-line::after {
@@ -331,7 +336,7 @@
             height: 142px;
         }
         .owl-next, .owl-prev{
-            top: 30%;
+            top: 43%;
         }
     }
     .home_first_carousel .owl-dot{
@@ -339,6 +344,14 @@
     }
     .bnr-img {
         height: 199px!important;
+    }
+    .max-height {
+        height: 29px;
+        -webkit-line-clamp: 32
+    }
+    .banner .owl--text {
+        bottom: 1rem;
+        left: 1rem;
     }
 }
 @media (min-width: 600px) and (max-width: 1024px){

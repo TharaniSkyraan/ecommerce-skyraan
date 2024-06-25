@@ -80,6 +80,8 @@
             border-right: var(--bs-border-width) solid var(--items-list-border-color)!important;
             border-bottom: var(--bs-border-width) solid var(--items-list-border-color)!important;
             border-left: var(--bs-border-width) solid #fff !important;
+            font-size: 15px;
+
         }
     }
     .card{
@@ -226,6 +228,7 @@
 hr{
     border-top: #afb8a4 solid 1px !important;
 }
+
 @media only screen and (max-width: 333px){
     /* .nsc img {
         width: 20px!important;
@@ -254,6 +257,31 @@ hr{
     }
     .tick_img {
         width: 17px !important;
+    }
+    .cartList .qty-container{
+        width: 104px;
+    }
+    .total{
+        text-align: end;
+    }
+    .nsc .form-control {
+        height: 37px;
+    }
+    .coupens .card  {
+        height: 45px;
+
+    }
+    .nfhnsjhd{
+        font-size: medium;
+    }
+    .css {
+        .form-control {
+            font-size: 13px!important;
+
+        }
+    }
+    #availableCoupon span{
+        font-size: 14px;
     }
 }
 @media (min-width: 600px) and (max-width: 1024px){
