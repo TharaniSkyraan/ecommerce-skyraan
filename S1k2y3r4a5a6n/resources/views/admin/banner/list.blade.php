@@ -61,6 +61,7 @@ var dataTable = $('#datatable').DataTable({
             serverSide: true,
             stateSave: true,
             searching: false,
+            scrollX: true,
             "order": [[0, "desc"]],
             ajax: {
                 url: '{!! route('admin.fetch.banner.data') !!}',

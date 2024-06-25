@@ -73,9 +73,12 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
         Route::get('warehouses/fetchData','WarehouseController@fetchData')->name('fetch.warehouses.data');
         Route::resource('warehouses','WarehouseController');
        
-        Route::resource('manage-stock','PageController');
+        Route::get('stock-history/fetchData','StockHistoryController@fetchData')->name('fetch.stock-history.data');
+        Route::get('stock-history/Data','StockHistoryController@Data')->name('fetch.data');
+        Route::resource('stock-history','StockHistoryController');
         
-        Route::resource('stock-history','PageController');
+        Route::get('manage-stock/fetchData','ManageStockController@fetchData')->name('fetch.manage-stock.data');
+        Route::resource('manage-stock','ManageStockController');
 
     });
 
