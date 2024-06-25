@@ -25,11 +25,11 @@
                             <div class="row pb-3">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 rfjjfjnew">
                                     <div class="qty-container d-flex align-items-center justify-content-center border rounded-0  text-dark">
-                                        <div class="col text-center px-2 qty-btn-minus"><span>-</span></div>
+                                        <div class="col text-center qty-btn-minus"><span>-</span></div>
                                         <div class="vr"></div>
-                                        <div class="col text-center px-2"><span class="input-qty h-sms px-1">1</span></div>
+                                        <div class="col text-center"><span class="input-qty h-sms px-1">1</span></div>
                                         <div class="vr"></div>
-                                        <div class="col text-center px-2 qty-btn-plus"><span>+</span></div>
+                                        <div class="col text-center qty-btn-plus"><span>+</span></div>
                                     </div>
                                 </div>
                             </div>

@@ -11,7 +11,7 @@
                         <h6 class="">Quantity</h6>
                     </div>
                     <div class="col-3">
-                        <h6 class="">Total</h6>
+                        <h6 class="total">Total</h6>
                     </div>
                 </div>
                 <hr>
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-9 align-self-center pt-2">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-7 align-self-center pt-2 ps-0">
                             <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
@@ -60,7 +60,7 @@
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3 d-flex align-self-center justify-content-start">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
                                 <h6 class="price-clr">₹ {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
                             @else
@@ -94,8 +94,8 @@
                         @if(!empty($coupon_code))
                             <div class=" d-flex pb-3 gap-4">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img src="{{asset('asset/home/tick-icon.png')}}" alt="tickicon" class="tick_img">
-                                    <h6 class="buy-color">Coupen Applied !</h6>
+                                    <img src="{{asset('asset/home/icons-tick.svg')}}" alt="tickicon" class="tick_img">
+                                    <h6 class="green">Coupen Applied !</h6>
                                 </div> 
                                 <div class="d-flex align-items-center gap-2 rounded-5 p-2 coupen-applied">
                                     <h6 class="opacity-75">{{ $coupon_code }}</h6>

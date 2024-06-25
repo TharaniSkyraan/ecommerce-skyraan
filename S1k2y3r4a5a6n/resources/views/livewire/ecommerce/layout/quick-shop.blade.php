@@ -87,11 +87,11 @@
                         <small class="text-dark fw-bold">Quantity :</small>
                         <div class="d-flex gap-3 align-items-center pt-1">
                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                <div class="col text-center px-2 qty-btn-minus"><span>-</span></div>
+                                <div class="col text-center qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
-                                <div class="col text-center px-2"><span class="input-qty h-sms">1</span></div>
+                                <div class="col text-center"><span class="input-qty h-sms">1</span></div>
                                 <div class="vr"></div>
-                                <div class="col text-center px-2 qty-btn-plus"><span>+</span></div>
+                                <div class="col text-center qty-btn-plus"><span>+</span></div>
                             </div>
                         </div>
                     </div>

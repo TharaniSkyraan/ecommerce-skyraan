@@ -55,7 +55,7 @@
                                                         </div>
                                                         <div class="d-flex gap-xl-2 gap-lg-2 gap-md-2 gap-sm-2 gap-1 align-items-center">
                                                             <h6 class="buy-color h-sms cursor">order detail</h6>
-                                                            <img src="{{asset('asset/home/right-ar-clr.png')}}" alt="arrow">
+                                                            <img src="{{asset('asset/home/right-arrow.png')}}" alt="arrow">
                                                         </div>
                                                     </div>
                                                 </div>

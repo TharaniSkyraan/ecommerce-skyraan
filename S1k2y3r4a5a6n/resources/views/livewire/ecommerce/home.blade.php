@@ -11,8 +11,8 @@
                             @else
                             <a href="{{ route('ecommerce.product.detail', ['slug' => $banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($banner['product_created'])->timestamp}}">
                             @endif
-                           <img src="{{ asset('storage') }}/{{$banner['image']}}" alt="image" class="bnr-img">
-                                <button class="owl--text d-flex py-1 px-3 align-items-center ">
+                            <img src="{{ asset('storage') }}/{{$banner['image']}}" alt="image" class="bnr-img">
+                                <button class="owl--text d-flex py-xl-1  py-lg-1 py-md-1 py-sm-1 py-0 py-0 px-xl-3 px-lg-3 px-md-3 px-sm-3 px-1 align-items-center ">
                                     <h6>visit product</h6>
                                 </button>
                             </a>
@@ -64,7 +64,7 @@
             <div class="container">
                 <div class="row">
                     @foreach($promotion_banners as $key => $promotion_banner)
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pb-3">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pb-3">
                             @if(empty($promotion_banner['product_slug']))
                                 <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $promotion_banner['slug']]) }}">
                             @else
@@ -153,7 +153,8 @@
                                                 </div>
                                                 <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                     <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                        <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                        <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
+                                                        <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                     </a>
                                                 </div>
                                             </div> 
@@ -162,13 +163,19 @@
                                 </div>
                                 <div class="price_info py-2">
                                     <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
-                                    <div class="d-flex gap-3 align-items-center">
-                                        @if($product['discount']!=0)
-                                        <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
-                                        @else
-                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
-                                        @endif
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-6 px-0">
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            </div>
+                                            <div class="col-6 px-0">
+                                                @if($product['discount']!=0)
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                @else
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
@@ -187,7 +194,7 @@
                                             @endif
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                            <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
+                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -201,64 +208,39 @@
         @if(count($special_products)!=0)
         <section class="home_sec_carousel sys-view tab-view" wire:ignore>
             <div class="container-fluid">
-                <div class="row py-2 ">
+                <div class="row py-2">
                     <div class="d-flex justify-content-center gap-2 heading-cnt pb-4">
                         <h5 class="text-center fw-bold">SKYRAA HEALTH AND BEAUTY CARE</h5>
                         <img src="{{asset('asset/home/special-product.png')}}" alt="" >
                     </div>
                 </div>
-            </div>
-            <div id="home_sec_carousel" class="owl-carousel jkjew px-5 pb-3">
-                @foreach($special_products as $special_product)
-                    <div class="owl-slide px-xl-5 px-lg-5 px-md-5 px-sm-5 px-2 pt-3">
-                        <div class="position-absolute images_position">
-                            <img src="{{ asset('storage') }}/{{ $special_product['image'] }}" alt="">
-                        </div> 
-                        <div class="pt-2">
-                            <div class="p-4 card card1 border-0 round-2">
-                                <h3 class="text-end fw-bold">{{ $special_product['name'] }}</h3>
-                                <div class=" d-flex justify-content-end pt-2">
-                                    @if(empty($special_product['product_slug']))
-                                        <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $special_product['slug']]) }}" class="but_this d-flex align-items-center">
-                                    @else
-                                        <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}"  class="but_this d-flex align-items-center">
-                                    @endif
-                                        <h6 class="">Buy this item</h6>
-                                    </a> 
+                <div id="home_sec_carousel" class=" row px-5 pb-5">
+                    @foreach($special_products as $special_product)
+                    <div class="col-6">
+                    <div class="card border-0 round-2 p-2 ">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <img src="{{ asset('storage') }}/{{ $special_product['image'] }}" alt="" class=" center-card">
                                 </div>
-                            </div>   
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div id="home_sec_carousel" class=" row px-5 pb-5">
-
-                @foreach($special_products as $special_product)
-                <div class="col-6">
-                <div class="card border-0 round-2 p-2 ">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-4 text-center">
-                                <img src="{{ asset('storage') }}/{{ $special_product['image'] }}" alt="" class="w-75">
-                            </div>
-                            <div class="col-8 align-self-center">
-                                <h3 class="text-end fw-bold">{{ $special_product['name'] }}</h3>
-                                <div class=" d-flex justify-content-end pt-2">
-                                    @if(empty($special_product['product_slug']))
-                                        <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $special_product['slug']]) }}" class="but_this d-flex align-items-center">
-                                    @else
-                                        <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}"  class="but_this d-flex align-items-center">
-                                    @endif
-                                        <h6 class="">Buy this item</h6>
-                                    </a> 
+                                <div class="col-8 align-self-center">
+                                    <h3 class="text-end fw-bold">{{ $special_product['name'] }}</h3>
+                                    <div class=" d-flex justify-content-end pt-2">
+                                        @if(empty($special_product['product_slug']))
+                                            <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $special_product['slug']]) }}" class="but_this d-flex align-items-center">
+                                        @else
+                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}"  class="but_this d-flex align-items-center">
+                                        @endif
+                                            <h6 class="">Buy this item</h6>
+                                        </a> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </div>
+                    @endforeach
                 </div>
-                </div>
-                @endforeach
             </div>
         </section>
         @endif
@@ -334,7 +316,8 @@
                                                 </div>
                                                 <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                     <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                        <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                        <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
+                                                        <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                     </a>
                                                 </div>
                                             </div> 
@@ -344,13 +327,19 @@
                                 </div>
                                 <div class="price_info py-2">
                                     <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
-                                    <div class="d-flex gap-3 align-items-center">
-                                        @if($product['discount']!=0)
-                                        <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
-                                        @else
-                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
-                                        @endif
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-6 px-0">
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            </div>
+                                            <div class="col-6 px-0">
+                                                @if($product['discount']!=0)
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                @else
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
@@ -369,7 +358,7 @@
                                             @endif
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                            <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
+                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -401,8 +390,8 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
-                        <div class="row ">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 px-0">
+                        <div class="row ps-3">
                             <h5 classs="fw-bold ">HEROES OF THE WEEK</h5>
                         </div>
                         <div id="card_and_carousal" class="owl-carousel px-2 pt-4" wire:ignore>
@@ -425,9 +414,9 @@
                                                                     <text x="10" y="28" fill="white" font-size="20">{{$product['label']}}</text>
                                                                 </g>
                                                                 <defs>
-                                                                <clipPath id="clip0_296_5">
-                                                                <rect width="197.161" height="55.9617" fill="white" transform="translate(0.838867 0.0898438)"/>
-                                                                </clipPath>
+                                                                    <clipPath id="clip0_296_5">
+                                                                        <rect width="197.161" height="55.9617" fill="white" transform="translate(0.838867 0.0898438)"/>
+                                                                    </clipPath>
                                                                 </defs>
                                                             </svg>                                               
                                                         </div>                                                 
@@ -473,7 +462,8 @@
                                                         </div>
                                                         <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
                                                             <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                                <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sms text-nowrap">Add to cart</h6>
+                                                                <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
+                                                                <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
                                                             </a>
                                                         </div>
                                                     </div> 
@@ -481,17 +471,23 @@
                                             </div>
                                         </div>
                                         <div class="price_info py-2">
-                                            <h6 class="text-dark fw-bold align-self-center max-height">{{ $product['name']}}</h6>
-                                            <div class="d-flex gap-3 align-items-center py-1">
-                                                @if($product['discount']!=0)
-                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
-                                                @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
-                                                @endif
+                                            <h6 class="text-dark fw-bold align-self-center max-height h-sms">{{ $product['name']}}</h6>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-6 px-0">
+                                                        <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                                    </div>
+                                                    <div class="col-6 px-0">
+                                                        @if($product['discount']!=0)
+                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                        @else
+                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row align-items-center">
-                                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-6">
+                                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
                                                     @if($product['review']==0)
                                                         <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                                         @elseif($product['review']==1)
@@ -506,8 +502,8 @@
                                                         <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                                     @endif
                                                 </div>
-                                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-6">
-                                                    <h6 class="text-secondary text-opacity-50 text-nowrap">{{$product['review_count']}} reviews</h6>
+                                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                                    <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -620,7 +616,12 @@
                         <div class="p-4 card  border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
-                                    <img src="{{asset('asset/home/Group 125.png')}}" alt="" style="width:40px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
+                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
+                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="none"/>
+                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="none"/>
+                                        </g>
+                                    </svg>                                
                                 </div>
                                 <div class="py-3">
                                     <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
@@ -640,7 +641,12 @@
                         <div class="p-4 card  border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
-                                    <img src="{{asset('asset/home/Group 125.png')}}" alt="" style="width:40px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
+                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
+                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
+                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
+                                        </g>
+                                    </svg>                                
                                 </div>
                                 <div class="py-3">
                                     <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
@@ -660,7 +666,12 @@
                         <div class="p-4 card  border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
-                                    <img src="{{asset('asset/home/Group 125.png')}}" alt="" style="width:40px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
+                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
+                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
+                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
+                                        </g>
+                                    </svg>                                
                                 </div>
                                 <div class="py-3">
                                     <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
@@ -680,7 +691,12 @@
                         <div class="p-4 card  border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
-                                    <img src="{{asset('asset/home/Group 125.png')}}" alt="" style="width:40px">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
+                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
+                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
+                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
+                                        </g>
+                                    </svg>                                
                                 </div>
                                 <div class="py-3">
                                     <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
@@ -754,16 +770,6 @@
                 </div>
             </div>
         </section>    
-        
-        <!-- <p id="marquee">
-            <span>this is asadwefdewr</span>
-            <span>simple marqueewere</span>
-            <span>using cwererss</span>
-            <span>only tecwe3eh</span>
-            <span>hjbfeh jwfedefwbhjw</span>
-            <span>dejf jewfewfeqfj</span>
-            <span>wfew ehjfewffeew</span> 
-        </p> -->
         @livewire('ecommerce.product.collection-list')
     </main>
 </div>

@@ -1,26 +1,32 @@
 @foreach($cart_products as $cart_product)
 <div class="row py-2">
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 pe-0">
-        <div class="d-flex gap-2 justify-content-start align-items-center">
-            <img src="{{ $cart_product['image'] }}" alt="" class="w-50 order-img">
-            <div class="qty-clr">
-                <h6 class="fw-bold">{{$cart_product['name']}}</h6>
-                <div><h6 class="py-2 text-secondary fw-normal">{{ $cart_product['attributes'] }}</h6></div>
-                <div class="pb-3"><h6 class="text-secondary fw-normal">Quantity : {{ $cart_product['quantity'] }} nos</h6></div>
-                @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                    <div class="card border-0 jhjhj">
-                        <small class="card border-0 text-center text-white">{{ $cart_product['discount'] }}% Off</small>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4 ps-0">
+                   <img src="{{ $cart_product['image'] }}" alt="" class="w-100 order-img">
+                </div>
+                <div class="col-8 align-self-center">
+                    <div class="qty-clr">
+                        <h6 class="fw-bold h-sms">{{$cart_product['name']}}</h6>
+                        <div><h6 class="py-1 text-secondary fw-normal h-sms">{{ $cart_product['attributes'] }}</h6></div>
+                        <div class="pb-3"><h6 class="text-secondary fw-normal h-sms">Quantity : {{ $cart_product['quantity'] }} nos</h6></div>
+                        @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
+                            <div class="card border-0 jhjhj">
+                                <small class="card border-0 text-center text-white">{{ $cart_product['discount'] }}% Off</small>
+                            </div>
+                        @endif
                     </div>
-                @endif
+                </div>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4 align-self-center">
         @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
             <del class="del-clr"><h6 class="text-secondary opacity-50 text-end">Rs {{ $cart_product['price'] }}</h6></del>
-            <h5 class="price text-end">Rs {{ $cart_product['sale_price'] }}</h6>
+            <h6 class="price_clr text-end">Rs {{ $cart_product['sale_price'] }}</h6>
         @else
-            <h5 class="price text-end">Rs {{ $cart_product['price'] }}</h6>
+            <h6 class="price_clr text-end">Rs {{ $cart_product['price'] }}</h6>
         @endif
     </div>
 </div>
@@ -30,8 +36,8 @@
     @if(!empty($coupon_code))
         <div class=" d-flex pb-3 gap-4">
             <div class="d-flex align-items-center gap-2">
-                <img src="{{asset('asset/home/tick-icon.png')}}" alt="tickicon" class="tick_img">
-                <h6 class="buy-color">Coupen Applied !</h6>
+                <img src="{{asset('asset/home/icons-tick.svg')}}" alt="tickicon" class="tick_img">
+                <h6 class="green">Coupen Applied !</h6>
             </div> 
             <div class="d-flex align-items-center gap-2 rounded-5 p-2 coupen-applied">
                 <h6 class="opacity-75">{{ $coupon_code }}</h6>
@@ -53,7 +59,7 @@
     @endif      
     <div class="d-flex justify-content-between align-items-center pt-3">
         <h6>Sub total</h6>
-        <h6 class="price">Rs {{ $total_price }}</h6>
+        <h6 class="price_clr">Rs {{ $total_price }}</h6>
     </div>
     @if($shipping_charges==0)
     <div class="d-flex justify-content-between align-items-center">
@@ -62,7 +68,7 @@
     </div>
     @else
     <div class="d-flex justify-content-between align-items-center mt-2">
-        <p>Shipping Fee</p>
+        <h6>Shipping Fee</h6>
         <span class="text-secondary lh-lg ">Rs {{$shipping_charges}}</span>
     </div>    
     @endif
@@ -113,7 +119,7 @@
     @endif
     <hr>
     <div class="d-flex justify-content-between align-items-center py-4">
-        <h5 class="">Total</h5>
-        <div class="price d-flex"> <del class="del-clr"><h5 class="text-secondary opacity-50 text-end me-2">Rs {{ $total_price }} </h5> </del> <h5> Rs {{ ($total_price - $coupon_discount) + $shipping_charges }}</h5></div>
+        <h5 class="nfhnsjhd">Total</h5>
+        <div class="price_clr  d-flex"> <del class="del-clr"><h5 class="text-secondary opacity-50 text-end me-2">Rs {{ $total_price }} </h5> </del> <h5> Rs {{ ($total_price - $coupon_discount) + $shipping_charges }}</h5></div>
     </div>
 </div>

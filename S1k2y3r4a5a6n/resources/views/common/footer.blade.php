@@ -21,7 +21,7 @@
                      <a href="tel:+91 78453 35332" class="text-white "><h6 class="fw-normal">+91 {{$siteSetting->phone}}</h6></a>
                   </div>
                </div>
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 pt-xl-5 pt-lg-5 pt-sm-5 pt-md-5 pt-2 ps-xl-5 ps-lg-5 ps-sm-3 ps-md-3 ps-2 ">
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12 pt-xl-5 pt-lg-5 pt-sm-4 pt-md-4 pt-2 ps-xl-5 ps-lg-5 ps-sm-3 ps-md-3 ps-2 ">
                   <div class="sys-view">
                      <h6 class="text-white fw-bold pb-3">Information</h6>
                      <a href="{{url('/aboutus')}}"><h6 class="text-white  pb-3 fw-normal">About Us </h6></a>
