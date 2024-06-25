@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProductStock;
 use App\Models\Warehouse;
-use Carbon\Carbon;
+use Carbon\Carbon; 
 use DataTables;
 
 class ManageStockController extends Controller
