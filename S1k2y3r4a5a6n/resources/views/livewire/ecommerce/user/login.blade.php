@@ -7,7 +7,7 @@
         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 py-xl-5 py-lg-5 py-sm-5 py-md-5 py-2 sign-in-bg jhhrf">
             <div class="px-xl-3 px-lg-3 px-sm-3 px-md-3 px-2 text-center">
                 <form autocomplete="off">
-                    <h5 class="fw-bold heading">Sign in</h5>
+                    <h5 class="fw-bold heading text-start">Sign in</h5>
                     <div class="pt-3 d-flex username" wire:ignore>
                         <input type="text" name="username" wire:model="username" class="form-control" id="username" placeholder="Email or Phone" autocomplete="off">
                     </div>

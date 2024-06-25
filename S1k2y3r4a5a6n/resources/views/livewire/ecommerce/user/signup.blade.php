@@ -5,7 +5,7 @@
         </div>
         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 py-xl-5 py-lg-5 py-sm-5 py-md-5 py-2 sign-in-bg ">
             <div class="px-xl-4 px-lg-4 px-sm-4 px-md-4 px-3">
-                <h6 class="fw-bold heading">Sign up</h5>
+                <h5 class="fw-bold heading">Sign up</h5>
                 <div class="py-3">
                     <input type="text" class="form-control" placeholder="Name" wire:model="name">
                     @error('name') <span class="error"> {{$message}}</span> @endif
