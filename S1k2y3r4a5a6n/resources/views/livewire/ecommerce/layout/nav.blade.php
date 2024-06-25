@@ -7,6 +7,7 @@
             </button>
             <div class="w-100 position-relative" role="search" id="search">
                 <form autocomplete="off">
+                    @csrf
                     <div class="input-group">
                         <input class="form-control border-end-0 rounded-end-0" name="search" id="query" wire:model="query" type="search" placeholder="Search" aria-label="Search" autocomplete="off" required>
                         <button class="search-btn btn p-0 border-start-0 rounded-end-2 srch_icon px-2 bg-white cursor" wire:click.prevent="Search"><i class="bi bi-search"></i></button>  
@@ -68,7 +69,7 @@
         <div class="col-6 ps-xl-2 ps-lg-1 ps-0 align-self-center">
             <div class="collapse navbar-collapse" id="navbarScroll">
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll menu_icons">
-                    <a class="nav-link d-flex align-items-center px-3 gap-1" aria-current="page" href="{{ route('ecommerce.home') }}" ><img src="{{asset('asset/home/home.svg')}}" alt="home" class=""><h6 class="text-dark">Home</h6></a>
+                    <a class="nav-link d-flex align-items-center px-3 gap-1" aria-current="page" href="{{ route('ecommerce.home') }}" ><img src="{{asset('asset/home/home.svg')}}" alt="home" class=""><h6 class="text-dark h-sms">Home</h6></a>
                     <li class="nav-item dropdown menu-large px-3 py-3 d-flex align-items-center">
                         <a href="javascript:void(0)" class="dropdown-toggle" id="services" data-toggle="dropdown"><h6 class="h-sms ">All Categories</h6><span class="caret"></span></a>
                         <div class="dropdown-menu megamenu py-0" role="menu">
@@ -167,7 +168,7 @@
     </div>
 </nav>
 
-<div class="tab-views mbl-view" id="top-menu-res">
+<div class="tab-views mbl-view search_menu_nav" id="top-menu-res">
     <div class="ps-md-2 ps-sm-2 ps-0 pe-md-3 pe-sm-3 pe-3 py-2 d-flex justify-content-between align-items-center">
         <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuopen" aria-controls="offcanvasExample" id="menuIcon">
             <img src="{{asset('asset/home/responsive-menu.svg')}}" alt="menu" >
@@ -190,7 +191,7 @@
     
     <!-- Menu offcanva right -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="menuopen" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header pt-3 pb-0">
+        <div class="offcanvas-header pt-3">
             <h5 class="fw-bold menu-font" id="offcanvasExampleLabel">Menu</h5>
             <img id="closeIcon" src="{{asset('asset/home/close-vector.svg')}}" alt="close_icon" class="cursor">
         </div>

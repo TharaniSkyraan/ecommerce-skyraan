@@ -31,11 +31,11 @@
                                         </h6>
                                         <div class="d-flex gap-xl-3 gap-lg-3 gap-md-3 gap-sm-3 gap-2 align-items-center pt-1">
                                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                                <div class="col text-center px-2 qty-btn-minus"><span>-</span></div>
+                                                <div class="col text-center qty-btn-minus"><span>-</span></div>
                                                 <div class="vr"></div>
-                                                <div class="col text-center px-2"><span class="input-qty h-sms px-1">{{ $cart_product['quantity'] }}</span></div>
+                                                <div class="col text-center"><span class="input-qty h-sms px-1">{{ $cart_product['quantity'] }}</span></div>
                                                 <div class="vr"></div>
-                                                <div class="col text-center px-2 qty-btn-plus"><span>+</span></div>
+                                                <div class="col text-center qty-btn-plus"><span>+</span></div>
                                             </div>
                                             @if($cart_product['product_type']>1)
                                             <div>
@@ -54,9 +54,29 @@
                         </div>
                     @endforeach
                 </div>
+                @if(count($related_products) !=0)
+                    <div class="related-items py-2">
+                        <div class="row py-2">
+                            <h6 class="text-center">You might also like</h6>
+                        </div>
+                        <div id="related-items-cart" class="owl-carousel px-3">
+                            @foreach($related_products as $product)
+                                @php
+                                    $images = json_decode($product['images'], true);
+                                    $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                                @endphp
+                                <div class="owl-slide mx-1">
+                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                        <img src="{{ $image }}" alt="image" class="cursor">
+                                    </a>
+                                </div> 
+                            @endforeach
+                        </div>
+                    </div>  
+                @endif 
             </div>
         @else
-            <div class="row pb-2 list-items empty-cart">
+            <div class="row pb-2 list-items empty-cart cart_add_section">
                 <div class="col-12 pb-3">
                     <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
                     <h6 class="py-4">Your cart is empty.</h6>
@@ -66,35 +86,16 @@
         @endif
     </div>
     <div class="cart_add_section cardsfww">
-        @if(count($related_products) !=0)
-            <div class="related-items py-2">
-                <div class="row py-2">
-                    <h6 class="text-center">You might also like</h6>
-                </div>
-                <div id="related-items-cart" class="owl-carousel px-3">
-                    @foreach($related_products as $product)
-                        @php
-                            $images = json_decode($product['images'], true);
-                            $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-                        @endphp
-                        <div class="owl-slide mx-1">
-                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
-                                <img src="{{ $image }}" alt="image" class="cursor">
-                            </a>
-                        </div> 
-                    @endforeach
-                </div>
-            </div>  
-        @endif 
-        <div class="py-2 subtotal px-1">
+        
+        <div class="py-2 subtotal px-1 bg-white">
             <div class="card p-2">
                 <div class="d-flex justify-content-between">
-                    <h5 class="text-dark fw-bold ">Subtotal</h5>
-                    <h5 class="text-dark fw-bold  sub-total">Rs {{$total_price}}</h5>
+                    <h6 class="text-dark fw-bold ">Subtotal</h6>
+                    <h6 class="text-dark fw-bold  sub-total">Rs {{$total_price}}</h6>
                 </div>
             </div>
         </div>
-        <div class="check-out px-2 py-4">
+        <div class="check-out px-2 py-4 bg-white">
             <div class="d-flex justify-content-between">
                 @if(\Auth::check())
                     <a href="{{route('ecommerce.cart')}}" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Go to cart</h6></a>
