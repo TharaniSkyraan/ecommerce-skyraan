@@ -1,0 +1,107 @@
+$(document).ready(function ($) {
+    $("#detail-card-carousel").owlCarousel({
+      loop: false,
+      dots: false,
+      nav: true,
+      items: 5
+    });
+    var owl = $("#detail-card-carousel");
+    owl.owlCarousel();
+    $(".next-btn").click(function () {
+      owl.trigger("next.owl.carousel");
+    });
+    $(".prev-btn").click(function () {
+      owl.trigger("prev.owl.carousel");
+    });
+    $(".prev-btn").addClass("disabled");
+    $(owl).on("translated.owl.carousel", function (event) {
+      if ($(".owl-prev").hasClass("disabled")) {
+        $(".prev-btn").addClass("disabled");
+      } else {
+        $(".prev-btn").removeClass("disabled");
+      }
+      if ($(".owl-next").hasClass("disabled")) {
+        $(".next-btn").addClass("disabled");
+      } else {
+        $(".next-btn").removeClass("disabled");
+      }
+    });
+    
+    $(document).on('click','.likedislike', function()
+    {
+        if($(this).attr('data-id')=='unlike'){
+            $(this).attr('src', '../../asset/home/like.svg');
+            $(this).attr('data-id','like');
+        }else{
+            $(this).attr('src', '../../asset/home/like-filled.svg');
+            $(this).attr('data-id','unlike');
+        }
+    });
+});
+
+// $(document).ready(function(){
+//     $(".tab-head h6").click(function(){
+//         $(".d-flex h6").removeClass("activated");
+//         $(this).addClass("activated");
+
+//         $(".tab-content").removeClass("active");
+//         var tabId = $(this).data("tab");
+//         $("#" + tabId).addClass("active");
+//     });
+// });
+
+var demoTrigger = document.querySelector('.demo-trigger');
+var paneContainer = document.querySelector('.zoom-in');
+
+// Check if the screen width is less than or equal to a certain value (e.g., 768 pixels for tablets)
+if (window.innerWidth > 768) {
+    new Drift(demoTrigger, {
+        paneContainer: paneContainer,
+        inlinePane: false,
+    });
+}
+
+$('#related-images').owlCarousel({
+  loop: false,
+  margin: 10,
+  nav: true,
+  autoplay: false,
+  responsive: {
+    0: {
+      items: 2
+    },
+    600: {
+      items: 3
+    },
+    1000: {
+      items: 4
+    }
+  },
+})
+
+$('#frequent-images').owlCarousel({
+  loop: false,
+  margin: 10,
+  nav: true,
+  autoplay: false,
+  responsive: {
+    0: {
+      items: 2
+    },
+    600: {
+      items: 3
+    },
+    1000: {
+      items: 4
+    }
+  },
+})
+
+// hover img
+
+$('.detail-img .demo-trigger').hover(function() {
+  $('.zoom-in').addClass('hovered').css('height', '80%');
+}, function() {
+  $('.zoom-in').removeClass('hovered').css('height', '0%'); 
+});
+

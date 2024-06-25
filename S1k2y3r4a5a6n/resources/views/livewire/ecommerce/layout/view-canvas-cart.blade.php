@@ -1,0 +1,109 @@
+<div>
+    <div class="offcanvas-body cart_add_section pb-5">
+        @if(count($cart_products)!=0)
+            <div class="row pb-2 list-items">
+                <div class="col-12 pb-3">
+                    @foreach($cart_products as $cart_product)
+                        <div class="card cartList main-card p-2 mb-2 PrdRow" data-id="{{ $cart_product['id'] }}">
+                            <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
+                            <a href="javascript:void(0)">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="card card1 position-relative border-0 p-2 cursor">
+                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp}}">
+                                            <!-- <div class="position-absolute like-img">
+                                                <img src="{{asset('asset/home/Group 32139.png')}}" alt="like" class="w-75">
+                                            </div> -->
+                                            <img src="{{ $cart_product['image'] }}" alt="list_items" class="w-100">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 price_info">
+                                        <h6 class="fw-bold h-sms">{{ $cart_product['name'] }}</h6>
+                                        <h6 class="py-1 h-sms">{{ $cart_product['attributes'] }}</h6>
+                                        <h6 class="h-sms">
+                                            @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
+                                                <del class="text-secondary opacity-75 del-clr h-sms">Rs {{ $cart_product['price'] }}</del>
+                                                <small class="fw-bold py-1 price ps-2">Rs<span class="fw-bold product-price"> {{ $cart_product['sale_price'] }}</span></small>
+                                            @else
+                                                <small class="fw-bold py-1 price">Rs <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
+                                            @endif
+                                        </h6>
+                                        <div class="d-flex gap-xl-3 gap-lg-3 gap-md-3 gap-sm-3 gap-2 align-items-center pt-1">
+                                            <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
+                                                <div class="col text-center px-2 qty-btn-minus"><span>-</span></div>
+                                                <div class="vr"></div>
+                                                <div class="col text-center px-2"><span class="input-qty h-sms px-1">{{ $cart_product['quantity'] }}</span></div>
+                                                <div class="vr"></div>
+                                                <div class="col text-center px-2 qty-btn-plus"><span>+</span></div>
+                                            </div>
+                                            @if($cart_product['product_type']>1)
+                                            <div>
+                                                <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                                    <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="w-75">
+                                                </button>
+                                            </div>
+                                            @endif
+                                            <div class="deleteCart cursor">
+                                                <img src="{{asset('asset/home/3917378.png')}}" alt="delete" class="w-75">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @else
+            <div class="row pb-2 list-items empty-cart">
+                <div class="col-12 pb-3">
+                    <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
+                    <h6 class="py-4">Your cart is empty.</h6>
+                    <a href="{{ url('/') }}" class="btnss cart-btn text-white h-sms py-2 px-3">RETURN TO SHOP</a>
+                </div>
+            </div>
+        @endif
+    </div>
+    <div class="cart_add_section cardsfww">
+        @if(count($related_products) !=0)
+            <div class="related-items py-2">
+                <div class="row py-2">
+                    <h6 class="text-center">You might also like</h6>
+                </div>
+                <div id="related-items-cart" class="owl-carousel px-3">
+                    @foreach($related_products as $product)
+                        @php
+                            $images = json_decode($product['images'], true);
+                            $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                        @endphp
+                        <div class="owl-slide mx-1">
+                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                <img src="{{ $image }}" alt="image" class="cursor">
+                            </a>
+                        </div> 
+                    @endforeach
+                </div>
+            </div>  
+        @endif 
+        <div class="py-2 subtotal px-1">
+            <div class="card p-2">
+                <div class="d-flex justify-content-between">
+                    <h5 class="text-dark fw-bold ">Subtotal</h5>
+                    <h5 class="text-dark fw-bold  sub-total">Rs {{$total_price}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="check-out px-2 py-4">
+            <div class="d-flex justify-content-between">
+                @if(\Auth::check())
+                    <a href="{{route('ecommerce.cart')}}" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Go to cart</h6></a>
+                    <a href="{{route('ecommerce.checkout')}}" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Check out</h6></a>
+                @else
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Go to cart</h6></a>
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Check out</h6></a>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>

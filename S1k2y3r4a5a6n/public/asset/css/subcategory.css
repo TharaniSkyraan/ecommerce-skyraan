@@ -1,0 +1,311 @@
+.div{
+    border: 1px solid var(--items-list-bg-color);
+}
+.filter-grid .filter_inside .card{
+    background-color:var(--items-list-bg-color) ;
+}
+.filter-grid .filter_responses .card{
+    background-color:var(--items-list-bg-color) ;
+}
+/* PRICE RANGE */
+
+::selection {
+  color: #fff;
+  background: #17a2b8;
+}
+
+.slider ,.slider1 {
+    height: 2px;
+    position: relative;
+    background-color: #c6c6c6bd;
+}
+.slider .progress, .slider1 .progress {
+  height: 100%;
+  left: 5%;
+  right: 5%;
+  position: absolute;
+  border-radius: 2px;
+  background: var(--next-prev-arrow-color);
+}
+.range-input, .range-input1 {
+  position: relative;
+}
+.range-input input , .range-input1 input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -4px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: var(--next-prev-arrow-color);
+  pointer-events: auto;
+  -webkit-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+input[type="range"]::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border: none;
+  border-radius: 50%;
+  background: var(--next-prev-arrow-color);
+  pointer-events: auto;
+  -moz-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+.filter-grid .input-group-text {
+    padding: 0.375rem 0.2rem;
+}
+
+.filter-grid .grid-view-align .grid-img img{
+     width: 25px;
+     height: 25px;
+}
+
+.grid-img .card {
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.grid-img .active svg path {
+    fill: var(--next-prev-arrow-color);
+}
+
+.hidden {
+    display: none;
+}
+.filter-grid .col-3 .border-end{
+    border-right:1px solid var(--next-prev-arrow-color)!important;
+}
+.filter_response .btn{
+    --bs-btn-padding-x: 0rem!important;
+}
+.check_out_li .form-check-input {
+    border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
+}
+.filter-grid {
+    .form-check-input {
+        border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
+    }
+    .form-check-input:checked {
+        background-color: var(--next-prev-arrow-color) !important;
+    }
+     .form-check-input:focus {
+        box-shadow: 0 0 10px var(--items-list-border-color) !important;
+    }
+}
+.filter-scroll .card {
+    max-height: 300px; 
+    overflow-y: auto;
+}
+
+.filter-scroll .card::-webkit-scrollbar {
+    width:3px;
+}
+
+.filter-scroll .card::-webkit-scrollbar-track {
+    background: #FFF; 
+}
+
+.filter-scroll .card::-webkit-scrollbar-thumb {
+    background: #cac9c9; 
+    width: 2px;
+}
+.filter-col{
+    .form-check img{
+        width: 104px;
+    }
+}
+.filter-reponsive-mob{
+    .form-check img{
+        width: 104px;
+    }
+}
+#grid-two{
+    .product_img {
+        max-width: 100%;
+        height: 300px; /* Set your desired height here */
+        object-fit: cover; /* This will make the image cover the entire container */
+    }
+}
+#grid-tre{
+    .product_img {
+        max-width: 100%;
+        height: 202px; /* Set your desired height here */
+        object-fit: cover; /* This will make the image cover the entire container */
+    }
+}
+#grid-for{
+    .product_img {
+        max-width: 100%;
+        height: 148px; /* Set your desired height here */
+        object-fit: cover; /* This will make the image cover the entire container */
+    }
+    .star3{
+        width: 90px;
+    }
+    .best-seller {
+        .svg-img {
+            width: 92px;
+            margin-left: -21px;
+        }
+    }
+}
+#grid-one{
+    .product_img {
+        max-width: 100%;
+        height: 166px; /* Set your desired height here */
+        object-fit: cover; /* This will make the image cover the entire container */
+    }    
+
+}
+.card .best_seller {
+    width: 105px;
+}
+@media only screen and (max-width: 488px){
+    #grid-two{
+        .best-text{
+            left: 30%!important;
+        }
+    }
+}
+@media only screen and (max-width:600px){
+
+    .filter_response .offcanvas{
+        width: 80%;
+    }
+    .card .best_seller {
+        margin-left: -10px!important;
+        width: 100px;
+        
+    }
+    .adsas .justify-content-start{
+        justify-content: end!important;
+    }
+    .jfw{
+        padding-top: 14px;
+    }
+    .grid-img{
+        justify-content: end!important;
+    }
+    #grid-two{
+        .product_img {
+            height: 134px!important;
+        }
+    }
+    #grid-tre{
+        .product_img {
+            height: 202px;
+        }
+    }
+    #grid-for{
+        .product_img {
+            height: 148px; 
+        }
+    }
+    #grid-one{
+        .product_img {
+            height: 166px; 
+        }    
+        .svg-img {
+            width: 103px !important;
+        }   
+        .best-text {
+            left: 12%!important;
+        }
+    }
+   
+}
+.filter-col{
+    display: none;
+}
+@media (min-width: 992px){
+    .filter-col{
+        display: block;
+    }
+    .filter_response{
+        display: none;
+    }
+    .card .best_seller {
+        margin-left: -9px;
+    }
+
+}
+.sub_banner {
+    /* background-image: url('../home/banner.png'); */
+    background-repeat: round;
+    position: relative;
+    height:26%;
+    background-size: cover;
+}
+.selectedfilter{
+    background: var(--next-prev-arrow-color) !important;
+    padding: 2px 6px;
+    margin: 2px;
+    color: white;
+    display: inline-flex;
+    border-radius: 3px;
+    a {
+        color:white !important;
+        padding: 0px 1px 0px 10px;
+    }
+}
+.float-end{
+    float: right;
+}
+.w-fill{
+    width:-webkit-fill-available;    
+}
+
+.card-skeleton {
+    background: #f0f0f0;
+    border-radius: 8px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  
+  .skeleton-text {
+    width: 80%;
+    height: 12px;
+    margin: 13px auto;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 2px;
+    color: transparent !important;
+    .form-check-input{
+        display: none;
+    }
+  }
+  .skeleton-title{
+    height: 22px;
+  }  
+  .skeleton-image{
+    height: 11rem;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  #load-more button{
+    background: none;
+    border: none;
+  }
+  .no-product{
+    text-align-last: center;
+    img {
+        width: 25%;
+    }
+  }
