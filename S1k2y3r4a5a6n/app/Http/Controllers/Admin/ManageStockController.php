@@ -88,18 +88,6 @@ class ManageStockController extends Controller
         //
     }
 
-    public function Data(Request $request)
-    {
-        $instock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('in_stock')->count();
-        $outofstock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('out_of_stock')->count();
-        $total = ProductStock::whereWarehouseId($request->warehouse)->count();
-        
-        $data['instock'] = ($instock!=0)?round((($instock / $total)*100), 2):0;
-        $data['outofstock'] = ($outofstock!=0)?round((($outofstock / $total)*100),2):0;
-        
-        return $data;
-    }
-    
     public function fetchData(Request $request)
     {
         $admin_id = \Auth::guard('admin')->user()->id;     
