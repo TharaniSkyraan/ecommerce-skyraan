@@ -556,7 +556,7 @@ class Checkout extends Component
             $amount = (($this->total_price - $this->coupon_discount)+$this->shipping_charges).'00';
             $order = $api->order->create([
                 'receipt' => 'order_rcptid_' . time(),
-                'amount' => '100',
+                'amount' => $amount,
                 'currency' => 'INR',
             ]);
 

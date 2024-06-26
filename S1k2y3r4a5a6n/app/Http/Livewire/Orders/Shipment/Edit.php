@@ -10,6 +10,7 @@ use App\Models\OrderHistory;
 use App\Models\ShippingHistory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Razorpay\Api\Api;
 
 class Edit extends Component
 {
@@ -65,6 +66,19 @@ class Edit extends Component
         ShippingHistory::updateOrCreate(['order_id'=>$this->shipment->order_id,'user_id'=>$this->shipment->user_id,'action'=>$this->status,'shipment_id'=>$this->shipping_id],['description'=>$shipping_description]);
         
         if($this->status=='shipped'||$this->status=='delivered'||$this->status=='cancelled'||$this->status=='out_for_delivery'){
+            $order = Order::find($this->shipment->order_id);
+            if(!empty($order->payments->charge_id) && $this->status=='cancelled'){
+                try {
+                    $amount = $order->payments->amount;
+                    $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
+                    $refund = $api->payment->fetch($order->payments->charge_id)->refund([
+                        'amount' => $amount ? $amount * 100 : null  // Amount in paise
+                    ]);
+                    \Log::info('Refund successful: ' . $refund['id']);
+                } catch (\Exception $e) {
+                    \Log::info('Refund failed: ' . $e->getMessage());
+                }
+            }
             Order::where('id',$this->shipment->order_id)->update(['status'=>$this->status]);            
             OrderHistory::updateOrCreate(['order_id'=>$this->shipment->order_id,'action'=>$this->status],['description'=>$description]);
         }

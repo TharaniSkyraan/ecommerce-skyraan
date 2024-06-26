@@ -133,6 +133,9 @@ body.dark {
 .menu_stock::before {
   content: "Stock Maintenance";
 }
+.menu_sales::before {
+  content: "Sales";
+}
 .sidebar.close .menu_title::before {
   content: "";
   position: absolute;
