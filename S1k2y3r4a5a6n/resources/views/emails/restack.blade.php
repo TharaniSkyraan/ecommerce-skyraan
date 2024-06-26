@@ -27,9 +27,6 @@
                 font-weight: 500;
                 font-size: 16px;
             }
-            .welcome-img{
-                margin:7px 10px 0px 10px;
-            }
             .title{
                 font-size: 25px;
                 font-weight: 400;
@@ -45,13 +42,20 @@
                 }
             }
             .title-content{
-                color: #000000bd !important;
+                color: #000 !important;
                 line-height: 1.5em;
                 font-size: 23px;
-                text-align: left !important;
                 font-weight: 500;
                 margin: 20px 10px 20px 10px;
                 text-align:center!important;
+            }
+            .title-contents{
+                color: #000000bd !important;
+                line-height: 1.5em;
+                font-size: 18px;
+                text-align: center !important;
+                font-weight: 600;
+                margin: 18px 133px 20px 143px;
             }
             .header{
                 padding:32px!important
@@ -68,11 +72,7 @@
                 border-top: 1px #e0dede solid;
                 margin: 0px 10px;
             }
-            .rounded-circle {
-                border-radius: 50% !important;
-                margin: 18px 23px 13px 26px;
-                padding: 20px!important;
-            }
+
             .py-2 {
                 padding-top: .5rem !important;
                 padding-bottom: .5rem !important;
@@ -100,25 +100,11 @@
             .text-white{
                 color:#fff;
             }
-            .delivery-cnt{
-                width: 100%;
-                border-top: #e0dede 1px solid;
-                border-bottom: #e0dede 1px solid;
-                margin: 23px 0 38px 0;
 
-                td{
-                    font-size:14px;
-                }
-              
-                table{
-                    margin-left: auto;
-                    margin-right: auto;             
-                }
-
-            }
             button{
                 background-color:#797676;
                 border:none;
+                border-radius:3px;
             }
             .forward-icon{
                 filter: brightness(0) invert(1) grayscale(1);
@@ -137,52 +123,31 @@
             .td1{
                 padding-bottom:25px!important;
             }
-            .center {
-                margin-left: auto;
-                margin-right: auto;
-                }
+            .fdfd{
+                font-weight: 500;
+            }
+            @media only screen and (max-width:460px){
+                .title-contents{
+                    margin: 18px 18px 20px 18px!important;
+                } 
+            }
         </style>
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
-    <p class="title-content"><b>Welcome Elena !</b></p>
-    <p class="text-left text-center">We’re so happy to have you here! Thank you for choosing us as your go-to shopping destination.</p>
-    <p class="text-left text-center">We hope to meet all your needs and expectations. Skyraa E-Commerce provides products in various categories and helps you stay updated about our new arrivals.  </p>
-    <img class="welcome-img" src="{{asset('asset/home/welcome-mail.svg')}}" alt="welocme-mail">
-    <div class="delivery-cnt text-center">
-        <table class="center">
-            <tr>
-                <td class="">
-                    <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel2.png')}}" alt="welocme-mail">
-                    </div>
-                </td>
-                <td class="">
-                    <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel1.png')}}" alt="welocme-mail">
-                    </div>
-                </td>
-                <td class="">
-                    <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel3.png')}}" alt="welocme-mail">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">Secure Payments</td>
-                <td  class="td1">Fast Shipping</td>
-                <td  class="td1">Easy Returns</td>
-            </tr>
-        </table>
+    <p class="title-content"><b>Back In Stock!</b></p>
+    <p class="text-left text-center">FINALLY!!! The wait is over. We’re so thrilled to inform you that the product you’ve been eagerly awaiting have finally been restocked.</p>
+    <div class="text-center">
+        <img  src="{{asset('asset/home/restock.png')}}" alt="restock">
     </div>
     <div class="bottom-classs">
-        <p class="title-content">Ready to start shopping?</p>
-        <p class="text-left text-center">Use your sign-up bonus for your first purchase. Head over to Skyraa Ecommerce and let the adventure begin. </p>
-        <div class="text-center my-3"><button class="text-center px-3 py-3"><span class="text-white">shop now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
-        <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="">help@skyraaorganics.com</a></p>
+        <p class="title-contents">Premium Crunchy Love Corn Cheese & onion Flavour</p>
+        <div class="text-center my-3"><button class="text-center px-3 py-3"><span class="text-white">Get it Now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
+        <p class="title-content">Why are you still waiting?</p>
+        <p class="text-center fdfd">Own it before it’s too late!</p>
     </div>
     <div class="footer-content">
-        <p class="text-center"> <b> Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails, <a href="">click here</a></p>
+        <p class="text-center">Contact us via email <a href="">help@skyraaorganics.com</a>  regarding any queries.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

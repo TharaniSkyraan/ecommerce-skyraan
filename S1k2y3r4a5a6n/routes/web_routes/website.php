@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use App\Mail\ContactusMail;
 use App\Models\User;
-
 Route::get('/email_template', function () {
     $user = User::first();
     $data['feedback'] = 'fdfdf';

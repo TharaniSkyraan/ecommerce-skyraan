@@ -21,6 +21,7 @@ $(document).ready(function() {
       }
     });
 
+
     var owl = $('#home_first_carousel');
     owl.owlCarousel({
         loop: false,
