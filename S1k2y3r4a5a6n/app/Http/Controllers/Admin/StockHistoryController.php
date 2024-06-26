@@ -90,10 +90,31 @@ class StockHistoryController extends Controller
 
     public function Data(Request $request)
     {
-        $instock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('in_stock')->count();
-        $outofstock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('out_of_stock')->count();
-        $total = ProductStock::whereWarehouseId($request->warehouse)->count();
-        
+        if($request->warehouse!='')
+        {    
+            $instock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('in_stock')->count();
+            $outofstock = ProductStock::whereWarehouseId($request->warehouse)->whereStockStatus('out_of_stock')->count();
+            $total = ProductStock::whereWarehouseId($request->warehouse)->count();
+        }else
+        {
+
+            if(\Auth::guard('admin')->user()->role!='admin')
+            {
+                $admin_id = \Auth::guard('admin')->user()->id;     
+                $warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->pluck('id')->toArray(); 
+            
+                $total = ProductStock::whereIn('warehouse_id',$warehouse_ids)->count();
+                $instock = ProductStock::whereIn('warehouse_id',$warehouse_ids)->whereStockStatus('in_stock')->count();
+                $outofstock = ProductStock::whereIn('warehouse_id',$warehouse_ids)->whereStockStatus('out_of_stock')->count();
+            }else{              
+                
+                $total = ProductStock::count();
+                $instock = ProductStock::whereStockStatus('in_stock')->count();
+                $outofstock = ProductStock::whereStockStatus('out_of_stock')->count();
+            }
+
+        }
+
         $data['instock'] = ($instock!=0)?round((($instock / $total)*100), 2):0;
         $data['outofstock'] = ($outofstock!=0)?round((($outofstock / $total)*100),2):0;
         
