@@ -29,12 +29,12 @@
                                             <h6 class="fw-bold h-sms">{{$product['name']}}</h6>
                                             @if($product['discount']!=0)
                                             <div class="d-flex gap-2 align-items-center">
-                                                <del class="text-secondary opacity-75 del-clr h-sms">Rs {{$product['price']}}</del>
-                                                <small class="fw-bold py-1 price">Rs {{$product['sale_price']}}</small>
+                                                <del class="text-secondary opacity-75 del-clr h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                                <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</small>
                                                 <small class="off">{{$product['discount']}}% off</small>
                                             </div>
                                             @else                                    
-                                                <small class="fw-bold py-1 price">Rs {{$product['price']}}</small>
+                                                <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</small>
                                             @endif
                                             <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center">
                                                 @if($product['review']==0)

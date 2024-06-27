@@ -19,13 +19,13 @@
                 <input type="hidden" wire:model="product_id">
                 <div class="d-flex justify-content-start gap-2 py-2 price-discount align-items-center">
                     @if(isset($discount) && $discount!=0)
-                    <del class="del-clr"><h6 class= "text-secondary opacity-50 fw-bold">Rs {{ $price}}</h6></del>
-                    <h6 class="price fw-bold">Rs {{ $sale_price}}</h6>
+                    <del class="del-clr"><h6 class= "text-secondary opacity-50 fw-bold">{{ $ip_data->currency_symbol??'₹' }} {{ $price}}</h6></del>
+                    <h6 class="price fw-bold">{{ $ip_data->currency_symbol??'₹' }} {{ $sale_price}}</h6>
                     <div class="card border-0">
                         <small class="card border-0 text-center text-white px-1">{{$discount}}% Off</small>
                     </div>
                     @else
-                    <h6 class="price fw-bold">Rs {{ $price??0}}</h6>
+                    <h6 class="price fw-bold">{{ $ip_data->currency_symbol??'₹' }} {{ $price??0}}</h6>
                     @endif
                 </div>
                 <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center ">

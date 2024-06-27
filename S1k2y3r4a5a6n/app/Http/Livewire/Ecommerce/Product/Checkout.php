@@ -242,6 +242,8 @@ class Checkout extends Component
 
     public function completeOrder(){
 
+        dd($ip_data);
+
         $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) {
             if (! $this->pointInPolygon($value)) {
                     $fail('Shipment not available here.');

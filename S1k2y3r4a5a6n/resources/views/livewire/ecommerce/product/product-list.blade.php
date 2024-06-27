@@ -82,13 +82,13 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 px-0">
-                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 px-0">
                                                 @if($product['discount']!=0)
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                 @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                 @endif
                                             </div>
                                         </div>
@@ -257,13 +257,13 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-6 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-6 col-sm-6 col-6 px-0">
                                             @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                             @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                             @endif
                                         </div>
                                     </div>
@@ -432,13 +432,13 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-6 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                         </div>
                                         <div class="col-6 px-0">
                                             @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                             @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                             @endif
                                         </div>
                                     </div>
@@ -578,10 +578,10 @@
                             <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                             <div class="d-flex gap-3 align-items-center">
                                 @if($product['discount']!=0)
-                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
-                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                 @else
-                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                 @endif
                             </div>
                             <h6 class="text-secondary text-opacity-50 pb-2 lh-base h-sms">Ajwain The benefits of these seeds are not only limited to the taste but go much beyond that. The goodness of these tiny fruit pods also includes weight loss. Ajwain...</h6>

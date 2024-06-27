@@ -62,7 +62,7 @@
                                             <div class="col-4 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Delivered to <small class="fw-bold h-sm">Arun kumar S <img src="{{asset('asset/home/edit.png')}}" alt="edit"></small></small></div>
                                             <div class="col-2 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Status<small class="fw-bold h-sm"> Shipped</small></small></div>
                                             <div class="col-1 text-center  border-end border-white ps-0 pe-0"><small class="fw-bold ps-1 h-sm">Invoice</small></div>
-                                            <div class="col-2 text-center ps-0 pe-0"><small>Total<small class="fw-bold ps-1 h-sm">Rs 299.00</small></small></div>
+                                            <div class="col-2 text-center ps-0 pe-0"><small>Total<small class="fw-bold ps-1 h-sm">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small></div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                                 </div>
                                                 
                                                 <div class="d-flex justify-content-between py-2">
-                                                    <small>Total<small class="fw-bold ps-1">Rs 299.00</small></small>
+                                                    <small>Total<small class="fw-bold ps-1">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small>
                                                     <small>Status<small class="fw-bold price"> Shipped</small></small>
                                                 </div>
                                             </div>
@@ -194,7 +194,7 @@
                                             <div class="col-4 order-track align-self-center ">
                                                 <div class="d-flex gap-3 justify-content-end">
                                                     <h6 class="">Sub Total</h6>
-                                                    <h6 class="b-ia">Rs 299.00</h6>
+                                                    <h6 class="b-ia">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                 </div>
                                                 <a href=""><h5 class="text-end pt-4 buy-color">Buy again</h5></a>
                                             </div>
@@ -239,7 +239,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-between py-2 align-items-center">
-                                                    <small>Total<small class="fw-bold ps-1">Rs 299.00</small></small>
+                                                    <small>Total<small class="fw-bold ps-1">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small>
                                                     <h4 class="fw-bold buy_now"> Buy again</h4>
                                                 </div>
                                             </div>
@@ -318,15 +318,15 @@
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end">
                                                     <h6 class="h-sms ">Sub Total</h6>
-                                                    <h6 class="b-ia h-sms">Rs 299.00</h6>
+                                                    <h6 class="b-ia h-sms">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end align-items-center">
                                                     <h6 class="free-del h-sms">Free delivery</h6>
-                                                    <del class="del-clr text-secondary lh-lg text-opacity-50">Rs 299.00</del>
+                                                    <del class="del-clr text-secondary lh-lg text-opacity-50">{{ $ip_data->currency_symbol??'₹' }} 299.00</del>
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end align-items-center">
                                                     <h6 class="fw-bold">Total</h6>
-                                                    <h6 class="fw-bold price">Rs 299.00</h6>
+                                                    <h6 class="fw-bold price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                 </div>
                                                 <div class="text-end pt-2">
                                                     <a href="{{url('/view-invoice')}}"><small class=" free-del text-decoration-underline h-sms">View Invoice</small></a>
@@ -371,7 +371,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-between py-1 align-items-center">
-                                                    <small>Total<small class="fw-bold ps-1">Rs 299.00</small></small>
+                                                    <small>Total<small class="fw-bold ps-1">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small>
                                                     <h4 class="fw-bold buy_now"> Buy again</h4>
                                                 </div>
                                                 <div class="d-flex gap-2 pb-2">
@@ -394,15 +394,15 @@
                                                     <div class="accordion-body">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <h6>Sub Total</h6>
-                                                            <h6 class="price">Rs 299.00</h6>
+                                                            <h6 class="price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center py-1">
                                                             <h6 class="free-del">Free Delivery</h6>
-                                                            <del class="del-clr price">Rs 299.00</del>
+                                                            <del class="del-clr price">{{ $ip_data->currency_symbol??'₹' }} 299.00</del>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center jkf">
                                                             <h6 class="fw-bold">Total</h6>
-                                                            <h6 class="fw-bold price">Rs 299.00</h6>
+                                                            <h6 class="fw-bold price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                         </div>
                                                         <div class="text-end pt-2">
                                                         <h6 class=" free-del text-decoration-underline ">View Invoice</h6>
@@ -465,15 +465,15 @@
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end">
                                                     <h6 class="h-sms">Sub Total</h6>
-                                                    <h6 class="b-ia h-sms">Rs 299.00</h6>
+                                                    <h6 class="b-ia h-sms">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end align-items-center fsz">
                                                     <h6 class="free-del h-sms">Free delivery</h6>
-                                                    <del class="del-clr text-secondary  lh-lg text-opacity-50">Rs 299.00</del>
+                                                    <del class="del-clr text-secondary  lh-lg text-opacity-50">{{ $ip_data->currency_symbol??'₹' }} 299.00</del>
                                                 </div>
                                                 <div class="d-flex gap-3 justify-content-end align-items-center">
                                                     <h6 class="fw-bold">Total</h6>
-                                                    <h6 class="fw-bold price">Rs 299.00</h6>
+                                                    <h6 class="fw-bold price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                 </div>
                                                 <div class="text-end pt-2">
                                                     <a href=""><small class=" free-del text-decoration-underline">View Invoice</small></a>
@@ -519,7 +519,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex justify-content-between py-1 align-items-center">
-                                                    <small>Total<small class="fw-bold ps-1">Rs 299.00</small></small>
+                                                    <small>Total<small class="fw-bold ps-1">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small>
                                                     <h4 class="fw-bold buy_now"> Buy again</h4>
                                                 </div>
                                                 <div class="d-flex gap-2 align-items-center pb-2">
@@ -541,15 +541,15 @@
                                                     <div class="accordion-body">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <h6>Sub Total</h6>
-                                                            <h6 class="price">Rs 299.00</h6>
+                                                            <h6 class="price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center py-1">
                                                             <h6 class="free-del">Free Delivery</h6>
-                                                            <del class="del-clr price">Rs 299.00</del>
+                                                            <del class="del-clr price">{{ $ip_data->currency_symbol??'₹' }} 299.00</del>
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center jkf">
                                                             <h6 class="fw-bold">Total</h6>
-                                                            <h6 class="fw-bold price">Rs 299.00</h6>
+                                                            <h6 class="fw-bold price">{{ $ip_data->currency_symbol??'₹' }} 299.00</h6>
                                                         </div>
                                                         <div class="text-end pt-2">
                                                         <h6 class=" free-del text-decoration-underline ">View Invoice</h6>

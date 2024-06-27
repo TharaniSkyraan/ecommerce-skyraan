@@ -16,11 +16,11 @@
                             </div>                            
                             @if($order['product']['discount']!=0)
                             <div class="d-flex py-2">
-                                <del class="del-clr">₹ {{$order['product']['price']}} </del>
-                                <h6 class="fw-bold px-2 align-self-center">₹ {{$order['product']['sale_price']}}</h6>
+                                <del class="del-clr">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['price']}} </del>
+                                <h6 class="fw-bold px-2 align-self-center">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['sale_price']}}</h6>
                             </div>
                             @else
-                                <h6 class="fw-bold py-2">₹ {{$order['product']['price']}}</h6>
+                                <h6 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['price']}}</h6>
                             @endif
                             <div class="row pb-3">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 rfjjfjnew">

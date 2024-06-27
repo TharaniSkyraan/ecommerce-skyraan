@@ -28,6 +28,10 @@ class Locale
             $ipData = $this->getCity($ip??'183.82.250.192');            
             $country = \App\Models\Country::where('code',$ipData??'IN')->first();
             session(['ip_config' => $country]);
+            view()->share('ip_data',Session::get('ip_config'));
+
+        }else{
+            view()->share('ip_data',Session::get('ip_config'));
         }
         return $next($request);
     }

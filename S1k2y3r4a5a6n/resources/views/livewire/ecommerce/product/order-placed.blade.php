@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4 o-border">
                         <h6 class="pb-3 text-nowrap">Total</h6>
-                        <span class="h-sms ">₹ {{$order->total_amount}}</span>
+                        <span class="h-sms ">{{ $ip_data->currency_symbol??'₹' }} {{$order->total_amount}}</span>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-4">
                         <h6 class="pb-3 text-nowrap">Payment Mode</h6>

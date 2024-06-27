@@ -9,7 +9,6 @@
                 {{session('message')}}
             </div>                
         @endif
-        {{ dd(\Session::get('ip_config')) }}
         <div class="row">
             <div class="col-12">
                 <div class="float-end"> <a class="btn btn-s btn-lg" href="{{ route('admin.warehouses.create') }}">Create Warehouse</a> </div>
