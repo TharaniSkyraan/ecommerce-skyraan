@@ -22,13 +22,15 @@ class Locale
     public function handle($request, Closure $next, $guard = null)
     {
 
+        $ip = $request->ip();   
+        $ipData = $this->getCity($ip??'183.82.250.192');   
+                dd($ipData); 
+        $country = \App\Models\Country::where('code',$ipData??'IN')->first();
+        session(['ip_config' => $country]);
+        view()->share('ip_data',Session::get('ip_config'));
+
         if(Session::has('ip_config')==false)
         {
-            $ip = $request->ip();   
-            $ipData = $this->getCity($ip??'183.82.250.192');            
-            $country = \App\Models\Country::where('code',$ipData??'IN')->first();
-            session(['ip_config' => $country]);
-            view()->share('ip_data',Session::get('ip_config'));
 
         }else{
             view()->share('ip_data',Session::get('ip_config'));

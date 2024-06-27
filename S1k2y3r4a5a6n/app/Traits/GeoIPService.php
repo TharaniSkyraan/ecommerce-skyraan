@@ -18,7 +18,12 @@ trait GeoIPService
     {
         try {
             $record = $this->reader->city($ip);
-            return $record->country->isoCode??'IN';
+            
+            return [
+                'postalcode' => $record->postal->code??'',
+                'country_code' => $record->country->isoCode??'IN'
+            ];
+
         } catch (AddressNotFoundException $e) {
             return null;
         }
