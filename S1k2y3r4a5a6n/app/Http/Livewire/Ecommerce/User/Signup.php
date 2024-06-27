@@ -17,13 +17,15 @@ class Signup extends Component
 
     public function updated($propertyName)
     {
+        $ipData = \Session::get('ip_config');
+
         // Dynamically adjust validation rules
         if ($propertyName === 'phone') {
             $this->resetValidation('phone');
             $this->phone_validate = false;
             $this->verified_status = '';
             $this->validateOnly($propertyName, [
-                'phone' => 'required|numeric|phone:IN|unique:users',
+                'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users',
             ],[
                 'phone.required' => 'Phone number is required',
                 'phone.numeric'=> 'Please enter valid Phone Number',
@@ -81,8 +83,10 @@ class Signup extends Component
 
     public function signup(){
         
+        $ipData = \Session::get('ip_config');
+        
         $validatedData = $this->validate([
-            'phone' => 'required|numeric|phone:IN|unique:users',
+            'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users',
             'email' => 'required|string|max:180|email|unique:users',
             'name' => 'required|string|min:3|max:180',
             'password' => 'required'

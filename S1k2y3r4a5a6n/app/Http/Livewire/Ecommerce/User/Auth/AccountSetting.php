@@ -18,13 +18,15 @@ class AccountSetting extends Component
 
     public function updated($propertyName)
     {
+        $ipData = \Session::get('ip_config');
+        
         // Dynamically adjust validation rules
         if ($propertyName === 'phone') {
             $this->resetValidation('phone');
             $this->phone_validate = false;
             $this->verified_status = '';
             $this->validateOnly($propertyName, [
-                'phone' => 'required|numeric|phone:IN|unique:users,phone,'.auth()->user()->id.',id',
+                'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users,phone,'.auth()->user()->id.',id',
             ],[
                 'phone.required' => 'Phone number is required',
                 'phone.numeric'=> 'Please enter valid Phone Number',
@@ -70,8 +72,10 @@ class AccountSetting extends Component
     }
     public function AccountUpdate(){
 
+        $ipData = \Session::get('ip_config');
+        
         $validatedData = $this->validate([
-            'phone' => 'required|numeric|phone:IN|unique:users,phone,'.auth()->user()->id.',id',
+            'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users,phone,'.auth()->user()->id.',id',
             'email' => 'required|string|max:180|email|unique:users,email,'.auth()->user()->id.',id',
             'name' => 'required|string|min:3|max:180',
         ], [

@@ -146,11 +146,11 @@ class Cart extends Component
     }
     public function Checkout()
     {
-        
+        $ipData = \Session::get('ip_config');
         $this->resetValidation();
         $validateData = $this->validate([
             'notes' => 'nullable|max:10|max:180',
-            'postal_code' => 'required|postal_code:IN'
+            'postal_code' => 'required|postal_code:'.$ipData->code
         ], [
             'postal_code.required' => 'Postal code is required',
             'notes.min' => 'Notes must be at least 10 characters',

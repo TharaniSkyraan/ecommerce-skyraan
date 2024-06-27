@@ -40,17 +40,19 @@ class SavedAddresses extends Component
         }
     }
 
-    public function store(){
+    public function store()
+    {
 
+        $ipData = \Session::get('ip_config');
         $validatedData = $this->validate([
-            'phone' => 'required|numeric|phone:IN',
-            'alternative_phone' => 'nullable|numeric|phone:IN',
+            'phone' => 'required|numeric|phone:'.$ipData->code,
+            'alternative_phone' => 'nullable|numeric|phone:'.$ipData->code,
             'name' => 'required|string|min:3|max:30',
             'state' => 'required',
             'city' => 'required|string|min:3|max:100',
             'landmark' => 'nullable|string|min:3|max:100',
             'address' => 'required|string|min:3|max:255',
-            'zip_code' => 'required|postal_code:IN',
+            'zip_code' => 'required|postal_code:'.$ipData->code,
         ], [
             'phone.required' => 'Phone number is required',
             'phone.numeric'=> 'Please enter valid Phone Number',
@@ -75,7 +77,7 @@ class SavedAddresses extends Component
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['country'] = 'IN';
+        $validatedData['country'] = $ipData->code;
         
         if(!isset(auth()->user()->address)){
             $validatedData['is_default'] = 'yes';
