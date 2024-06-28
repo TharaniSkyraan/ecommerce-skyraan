@@ -19,11 +19,11 @@
                             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 price_info align-self-center">
                                 <h6 class="fw-bold h-sms">{{$product['name']}}</h6>
                                 @if($product['discount']!=0)
-                                    <del class="text-secondary opacity-75 h-sms del-clr">Rs {{$product['price']}}</del>
-                                    <small class="fw-bold py-1 price">Rs {{$product['sale_price']}}</small>
+                                    <del class="text-secondary opacity-75 h-sms del-clr">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                    <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</small>
                                     <small class="off">{{$product['discount']}}% off</small>
                                 @else                                    
-                                    <small class="fw-bold py-1 price">Rs {{$product['price']}}</small>
+                                    <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</small>
                                 @endif
                                 
                                 <div class="d-flex  gap-1 align-items-center">

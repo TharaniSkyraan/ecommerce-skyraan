@@ -10,5 +10,5 @@ class Zone extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable = ['zone_coordinates','zone','lat','lng','status'];
+    protected $fillable = ['zone_coordinates','zone','warehouse_ids','lat','lng','status'];
 }

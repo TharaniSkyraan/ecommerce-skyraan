@@ -57,13 +57,13 @@
                 <h3 class="text-dark">{{ $product['name'] }}</h3>
                 <div class="d-flex justify-content-start gap-4 py-2 price-discount align-items-center">
                     @if(isset($discount) && $discount!=0)
-                        <del class="del-clr"><h6 class= "text-secondary opacity-50">Rs {{ $price}}</h6></del>
-                        <h6 class="price_clr">Rs {{ $sale_price}}</h6>
+                        <del class="del-clr"><h6 class= "text-secondary opacity-50">{{ $ip_data->currency_symbol??'₹' }} {{ $price}}</h6></del>
+                        <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $sale_price}}</h6>
                         <div class="card border-0">
                             <small class="card border-0 text-center text-white px-1">{{$discount}}% Off</small>
                         </div>
                     @else
-                        <h6 class="price">Rs {{ $price??0}}</h6>
+                        <h6 class="price">{{ $ip_data->currency_symbol??'₹' }} {{ $price??0}}</h6>
                     @endif
                 </div>
                 <div class="d-flex py-2">
@@ -276,10 +276,10 @@
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="d-flex gap-3 align-items-center ">
                                     @if($product['discount']!=0)
-                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50">Rs {{$product['price']}}</del>
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['sale_price']}}</h6>
+                                    <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                    <h6 class="price fw-bold lh-lg align-self-center">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                     @else
-                                    <h6 class="price fw-bold lh-lg align-self-center">Rs {{$product['price']}}</h6>
+                                    <h6 class="price fw-bold lh-lg align-self-center">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                     @endif
                                 </div>
                                 <div class="row align-items-center">
@@ -394,13 +394,13 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-6 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                         </div>
                                         <div class="col-6 px-0">
                                             @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                             @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                             @endif
                                         </div>
                                     </div>

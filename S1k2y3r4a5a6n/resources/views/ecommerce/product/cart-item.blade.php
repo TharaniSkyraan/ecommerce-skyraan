@@ -23,10 +23,10 @@
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4 align-self-center">
         @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-            <del class="del-clr"><h6 class="text-secondary opacity-50 text-end">Rs {{ $cart_product['price'] }}</h6></del>
-            <h6 class="price_clr text-end">Rs {{ $cart_product['sale_price'] }}</h6>
+            <del class="del-clr"><h6 class="text-secondary opacity-50 text-end">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['price'] }}</h6></del>
+            <h6 class="price_clr text-end">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['sale_price'] }}</h6>
         @else
-            <h6 class="price_clr text-end">Rs {{ $cart_product['price'] }}</h6>
+            <h6 class="price_clr text-end">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['price'] }}</h6>
         @endif
     </div>
 </div>
@@ -59,7 +59,7 @@
     @endif      
     <div class="d-flex justify-content-between align-items-center pt-3">
         <h6>Sub total</h6>
-        <h6 class="price_clr">Rs {{ $total_price }}</h6>
+        <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $total_price }}</h6>
     </div>
     @if($shipping_charges==0)
     <div class="d-flex justify-content-between align-items-center">
@@ -69,7 +69,7 @@
     @else
     <div class="d-flex justify-content-between align-items-center mt-2">
         <h6>Shipping Fee</h6>
-        <span class="text-secondary lh-lg ">Rs {{$shipping_charges}}</span>
+        <span class="text-secondary lh-lg ">{{ $ip_data->currency_symbol??'₹' }} {{$shipping_charges}}</span>
     </div>    
     @endif
     
@@ -113,13 +113,13 @@
             </div>
         </div>
         @if($coupon_discount!=0)
-            <span class="text-secondary lh-lg text-opacity-50 free-delivery">- Rs {{ $coupon_discount }}</span>
+            <span class="text-secondary lh-lg text-opacity-50 free-delivery">- {{ $ip_data->currency_symbol??'₹' }} {{ $coupon_discount }}</span>
         @endif
     </div>
     @endif
     <hr>
     <div class="d-flex justify-content-between align-items-center py-4">
         <h5 class="nfhnsjhd">Total</h5>
-        <div class="price_clr  d-flex"> <del class="del-clr"><h5 class="text-secondary opacity-50 text-end me-2">Rs {{ $total_price }} </h5> </del> <h5> Rs {{ ($total_price - $coupon_discount) + $shipping_charges }}</h5></div>
+        <div class="price_clr  d-flex"> <del class="del-clr"><h5 class="text-secondary opacity-50 text-end me-2">{{ $ip_data->currency_symbol??'₹' }} {{ $total_price }} </h5> </del> <h5> {{ $ip_data->currency_symbol??'₹' }} {{ ($total_price - $coupon_discount) + $shipping_charges }}</h5></div>
     </div>
 </div>

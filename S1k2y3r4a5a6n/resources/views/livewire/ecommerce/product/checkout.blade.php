@@ -10,7 +10,7 @@
                         <img class="cursor up-ars" style="display:none; width: 9px;" src="{{asset('asset/home/up-ar.svg')}}" alt="">
                     </div>
                     <div class="pe-2">
-                        <span>Rs</sapn> <span class="price_clr">{{ ($total_price - $coupon_discount) + $shipping_charges }}</span>
+                        <span>{{ $ip_data->currency_symbol??'₹' }}</sapn> <span class="price_clr">{{ ($total_price - $coupon_discount) + $shipping_charges }}</span>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                 <div class="modal-bodys p-4">
                     <div class="text-center"> 
                         <img src="{{asset('asset/home/coupen_applied.svg')}}" alt="coupen_applied" class="pb-2">
-                        @if(isset($coupon_discount) && $coupon_discount!=0)<h5 class="fw-bold">₹ {{ $coupon_discount }}</h5>
+                        @if(isset($coupon_discount) && $coupon_discount!=0)<h5 class="fw-bold">{{ $ip_data->currency_symbol??'₹' }} {{ $coupon_discount }}</h5>
                         <h6 class="text-secondary opacity-75 py-2">saved</h6>@endif
                         <h5 class="text-secondary">{{ $coupon_code }} Applied !</h5>
                     </div>

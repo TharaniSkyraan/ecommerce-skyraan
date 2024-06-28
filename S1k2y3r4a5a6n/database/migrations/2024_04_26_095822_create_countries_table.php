@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id')->index();
             $table->string('code');
+            $table->string('currency_symbol');
+            $table->string('currency_code');
             $table->string('name');
             $table->integer('phonecode')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

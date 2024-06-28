@@ -24,6 +24,18 @@
                     @error('zone') <span class="error"> {{$message}}</span> @endif
                 </div>    
                 <div class="form-group">
+                    <label for="locationSets">Warehouse</label>
+                    <section wire:ignore>
+                        <select name="locationSets" id="locationSets" multiple="multiple" placeholder="Filter by...">
+                            @foreach($warehouses as $warehouse)
+                            <option value="{{ $warehouse->id }}" @if(in_array($warehouse->id,$warehouse_ids)) selected @endif>{{ ucwords($warehouse->address) }}</option>
+                            @endforeach
+                        </select>
+                    </section>
+                    @error('warehouse_ids') <span class="error"> {{$message}}</span> @endif
+
+                </div>  
+                <div class="form-group">
                     <div class="float-end">
                         <div id="button-container">
                             <button class="btn btn-s btn-lg" id="clear-button" wire:ignore>Clear</button>
@@ -58,6 +70,7 @@
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyC5S9f4bqHOjf0DP3yeL1C32t0S609fUQM&libraries=drawing,places"></script> 
+<script src="https://s.cdpn.io/55638/selectize.min.0.6.9.js"></script> 
 <script>
     var searchInput = 'zone';
     
@@ -77,6 +90,8 @@
     });
 </script>
 <script>
+    var selector = $('#locationSets');
+
     $(document).ready(function () {
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 4,
@@ -201,6 +216,13 @@
             updateCoordinates();
             
             $('#clear-button').toggle();
+        });
+        
+        selector.selectize({
+            plugins: ['remove_button'],
+            onChange: function(value) {               
+            @this.set('warehouse_ids', value);
+          }
         });
 
     });

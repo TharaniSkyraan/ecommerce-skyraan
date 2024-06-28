@@ -20,7 +20,7 @@
                             </div>
                             <div>                               
                                 @if($available_coupon['apply_for']=='minimum-order' && ($available_coupon['minimum_order'] > $total_price))
-                                    <span class="text-danger">Add ₹{{ $available_coupon['minimum_order'] - $total_price }} more to avail this offer</span>
+                                    <span class="text-danger">Add {{ $ip_data->currency_symbol??'₹' }} {{ $available_coupon['minimum_order'] - $total_price }} more to avail this offer</span>
                                 @else
                                 <h5 class="buy-color cursor" wire:click="applyCoupon('{{ $available_coupon['coupon_code'] }}')">Apply</h5>
                                 @endif

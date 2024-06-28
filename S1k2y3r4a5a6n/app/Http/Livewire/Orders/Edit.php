@@ -11,6 +11,7 @@ use App\Models\ShippingHistory;
 use App\Models\OrderHistory;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Razorpay\Api\Api;
 
 class Edit extends Component
 {
@@ -74,6 +75,19 @@ class Edit extends Component
             $data['invoice_date'] = ($this->status=='delivered')?Carbon::now():null;
             Order::where('id',$this->order_id)->update($data);            
             OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>$this->status],['description'=>$description]);
+           
+            if(!empty($this->order->payments->charge_id) && $this->status=='cancelled'){
+                try {
+                    $amount = $this->order->payments->amount;
+                    $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
+                    $refund = $api->payment->fetch($this->order->payments->charge_id)->refund([
+                        'amount' => $amount ? $amount * 100 : null  // Amount in paise
+                    ]);
+                    \Log::info('Refund successful: ' . $refund['id']);
+                } catch (\Exception $e) {
+                    \Log::info('Refund failed: ' . $e->getMessage());
+                }
+            }
             $this->getOrder();
         }else{
             $this->shipment = $this->order->shipment;
@@ -94,11 +108,27 @@ class Edit extends Component
 
     public function cancelOrder(){
         $shipping_id = $this->shipment->id;
+      
+        if(!empty($this->order->payments->charge_id)){
+            try {
+                $amount = $this->order->payments->amount;
+                $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
+                $refund = $api->payment->fetch($this->order->payments->charge_id)->refund([
+                    'amount' => $amount ? $amount * 100 : null  // Amount in paise
+                ]);
+                \Log::info('Refund successful: ' . $refund['id']);
+            } catch (\Exception $e) {
+                \Log::info('Refund failed: ' . $e->getMessage());
+            }
+        }
+
         Order::where('id',$this->order_id)->update(['status'=>'cancelled']);
         OrderShipment::where('order_id',$this->order_id)->update(['status'=>'cancelled']);
         OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'Order cancelled by admin.']);
         ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$this->order->user_id,'action'=>'order_cancelled','shipment_id'=>$shipping_id],['description'=>'Order cancelled by admin.']);
+        
         $this->getOrder();
+
         session()->flash('message', 'Order Cancelled.');
     }
 

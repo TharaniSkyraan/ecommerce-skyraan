@@ -15,6 +15,16 @@
           @foreach($menus as $menu)
             @php $key = $menu['key']; @endphp
             @switch($key)
+                @case('admin-dashboard')
+                    <li class="item">
+                      <a href="{{ route('admin.dashboard') }}" class="nav_link submenu_item  {{ (request()->is('admin/dashboard*')) ? 'show_submenu active' : '' }}">
+                        <span class="navlink_icon">
+                          <i class="bx bx-grid-alt"></i>
+                        </span>
+                        <span class="navlink">Admin Dashboard</span>
+                      </a>
+                    </li>
+                    @break
                 @case('sub-admin')
                     <li class="item">
                       <a href="{{ route('admin.subadmin.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/subadmin*')) ? 'show_submenu active' : '' }}">
@@ -119,7 +129,7 @@
                               @switch($submenukey)
                                 @case('manage-stock')
                                   <li class="item">
-                                    <a href="{{ route('admin.manage-stock.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/stock-information*')) ? 'show_submenu active' : '' }}">
+                                    <a href="{{ route('admin.manage-stock.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/manage-stock*')) ? 'show_submenu active' : '' }}">
                                       <span class="navlink_icon">
                                         <i class="bx bx-cube-alt"></i>
                                       </span>
@@ -129,7 +139,7 @@
                                   @break
                                 @case('stock-history')
                                   <li class="item">
-                                    <a href="{{ route('admin.stock-history.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/stock-information*')) ? 'show_submenu active' : '' }}">
+                                    <a href="{{ route('admin.stock-history.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/stock-history*')) ? 'show_submenu active' : '' }}">
                                       <span class="navlink_icon">
                                         <i class="bx bx-data"></i>
                                       </span>
@@ -162,11 +172,43 @@
                         @endforeach
                   </ul>
                   @break
+                @case('sales')
+                  <ul class="menu_items">
+                    <div class="menu_title menu_sales"></div>                    
+                        @foreach($menu->sub_modules as $submenu)
+                            @php $submenukey = $submenu->key; @endphp
+                            @if(in_array($submenukey,$submenus))                            
+                              @switch($submenukey)
+                                @case('sales-dashboard')
+                                  <li class="item">
+                                    <a href="{{ route('admin.sales-dashboard.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/sales-dashboard*')) ? 'show_submenu active' : '' }}">
+                                      <span class="navlink_icon">
+                                        <i class="bx bx-grid-alt"></i>
+                                      </span>
+                                      <span class="navlink">Sales Dashboard</span>
+                                    </a>
+                                  </li>
+                                  @break
+                                @case('sales-report')
+                                  <li class="item">
+                                    <a href="{{ route('admin.sales-report.index') }}" class="nav_link submenu_item  {{ (request()->is('admin/sales-report*')) ? 'show_submenu active' : '' }}">
+                                      <span class="navlink_icon">
+                                        <i class="bx bxs-report"></i>
+                                      </span>
+                                      <span class="navlink">Sales Report</span>
+                                    </a>
+                                  </li>
+                                  @break
+                              @endswitch
+                            @endif
+                        @endforeach
+                  </ul>
+                  @break
                 @case('settings')
                   <ul class="menu_items">
                     <div class="menu_title menu_setting"></div>
                     <li class="item">
-                      <div href="javascript:void(0)" class="nav_link submenu_item  {{ ((request()->is('admin/tax*'))||(request()->is('admin/pages*'))||(request()->is('admin/settings'))) ? 'show_submenu active' : '' }}">
+                      <div href="javascript:void(0)" class="nav_link submenu_item {{ ((request()->is('admin/tax*'))||(request()->is('admin/pages*'))||(request()->is('admin/settings'))) ? 'show_submenu active' : '' }}">
                         <span class="navlink_icon">
                           <i class="bx bx-cog"></i>
                         </span>

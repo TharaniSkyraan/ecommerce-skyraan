@@ -48,7 +48,7 @@
                                         <span class="h-sms">Total</span>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-sm-6 col-md-12 col-12 text-md-start text-start text-sm-end fwedw">
-                                        <span>₹ {{$order['total_amount']}}</span>
+                                        <span>{{ $ip_data->currency_symbol??'₹' }} {{$order['total_amount']}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 <div class=""><span class="h-sms">{{ ucwords($attribute->attribute->name) }} : <span class="fw-bold">{{ ucwords($attribute->name) }}</span></span></div>
                                 @endforeach
                                 <div class=""><span class="h-sms">Quantity : <span class="fw-bold">{{ $item['quantity'] }} nos</span></span></div>
-                                <h5 class="fw-bold py-2">₹ {{ $item['total_amount'] }}</h5>
+                                <h5 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
                             </div>
                             @if((count($items)-1) != $key) 
                                 <div class="col-12"> <hr> </div> 
@@ -102,7 +102,7 @@
                                 </div>   
                                 <div>
                                     <span class="h-sms fw-bold">Total</span>
-                                    <span class="h-sms text-opacity-75">₹ {{ $order['total_amount'] }}</span>
+                                    <span class="h-sms text-opacity-75">{{ $ip_data->currency_symbol??'₹' }} {{ $order['total_amount'] }}</span>
                                 </div> 
                             </div>
                         </div>

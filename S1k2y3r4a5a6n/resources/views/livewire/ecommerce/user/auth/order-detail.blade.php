@@ -74,7 +74,7 @@
                                             <p class="h-smk">Items Subtotal</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{ $order->sub_total }}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{ $order->sub_total }}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -82,7 +82,7 @@
                                             <p class="h-smk py-1">Coupon Discount</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{ $order->discount_amount}}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{ $order->discount_amount}}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -90,7 +90,7 @@
                                             <p class="h-smk">Shipping Cost</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{ $order->shipping_amount }}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{ $order->shipping_amount }}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -99,7 +99,7 @@
                                             <p class="fw-bold opacity-75 h-sms">Total</p>
                                         </div>
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">₹ {{ $order->total_amount }}</p>
+                                            <p class="fw-bold opacity-75 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -223,13 +223,13 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                            <span class="h-sms">₹ {{ $item->gross_amount/$item->quantity }}</span>
+                            <span class="h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $item->gross_amount/$item->quantity }}</span>
                             </div>
                             <div class="col-2">
                             <span class="h-sms">{{ $item->quantity }}</span>
                             </div>
                             <div class="col-3 text-end">
-                            <span class="h-sms">₹ {{ $item->gross_amount }}</span>
+                            <span class="h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $item->gross_amount }}</span>
                             </div>
                         </div>
                         @endforeach
@@ -285,7 +285,7 @@
                                             <p class="h-smk">Items Subtotal</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{$order->sub_total}}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{$order->sub_total}}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -293,7 +293,7 @@
                                             <p class="h-smk py-1">Coupon Discount</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{$order->discount_amount}}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{$order->discount_amount}}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">
@@ -301,7 +301,7 @@
                                             <p class="h-smk">Shipping Cost</p>
                                         </div>
                                         <div>
-                                            <p class="h-smk">₹ {{$order->shipping_amount}}</p>
+                                            <p class="h-smk">{{ $ip_data->currency_symbol??'₹' }} {{$order->shipping_amount}}</p>
                                         </div>
                                     </div>
                                     <hr>
@@ -310,7 +310,7 @@
                                             <p class="fw-bold opacity-75 h-sms">Total</p>
                                         </div>
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">₹ {{ $order->total_amount }}</p>
+                                            <p class="fw-bold opacity-75 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
                                         </div>
                                     </div>
                             </div>
@@ -342,7 +342,7 @@
                                                         @endforeach</h5>
                                                 </div>
                                                 <div class=" "><span class=" h-sms">Quantity  : <span class="fw-bold">{{ $item->quantity }} nos</span></span></div>
-                                                <h5 class="fw-bold py-2">₹ {{ $item->gross_amount/$item->quantity }}</h5>
+                                                <h5 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{ $item->gross_amount/$item->quantity }}</h5>
                                             </div>
                                         </div>
                                     @endforeach

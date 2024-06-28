@@ -38,12 +38,13 @@ class Settings extends Component
     public function storegeneral()
     {
 
-       $rules = [
+        $ipData = \Session::get('ip_config');
+        $rules = [
             'site_name' => 'required|max:100|min:3',
             'theme_primary_color' => 'required|max:7|min:4', 
             'theme_secondary_color' => 'required|max:7|min:4', 
             'theme_tertiary_color' => 'required|max:7|min:4', 
-            'phone' => 'required|numeric|phone:IN', 
+            'phone' => 'required|numeric|phone:'.$ipData->code, 
             'mail_from_address' => 'required|string|max:180|email',
             'mail_to_address' => 'required|string|max:180|email',
             'mail_support_address' => 'required|string|max:180|email',

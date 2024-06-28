@@ -79,6 +79,12 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
         
         Route::get('manage-stock/fetchData','ManageStockController@fetchData')->name('fetch.manage-stock.data');
         Route::resource('manage-stock','ManageStockController');
+        
+        Route::get('sales-dashboard/fetchData','ManageStockController@fetchData')->name('fetch.sales-dahbsoard.data');
+        Route::resource('sales-dashboard','ManageStockController');
+        
+        Route::get('sales-report/fetchData','ManageStockController@fetchData')->name('fetch.sales-report.data');
+        Route::resource('sales-report','ManageStockController');
 
     });
 

@@ -175,7 +175,7 @@ function cartProductQuantity(){
             quantity = $(this).find('.input-qty').html();
             price = price + (parseFloat(product_price)*parseFloat(quantity));
         });
-        $('.sub-total').html('₹ '+price+' INR');
+        $('.sub-total').html(price);
         Livewire.emit('addCartinUserCart',productsArray);
     }
 }

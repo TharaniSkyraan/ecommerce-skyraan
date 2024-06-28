@@ -49,7 +49,7 @@
                 <a href="javascript:void(0)" wire:click="resetPrice" class="resetPrice"><small class="text-secondary text-decoration-underline"> {{ (($max != $max_price)||($min != $min_price))?'Reset':'' }} </small></a>
             </div>
             <div wire:ignore>
-                <small class="text-secondary opacity-50 py-1 pb-3 h-sms">Maximum price is Rs.{{$max}}</small>
+                <small class="text-secondary opacity-50 py-1 pb-3 h-sms">Maximum price is {{ $ip_data->currency_symbol??'₹' }}.{{$max}}</small>
                 <div class="slider mt-2" >
                     <div class="progress"></div>
                 </div>
@@ -64,14 +64,14 @@
                 <div class="row input-range price-input align-items-center">
                     <div class="col-5">
                         <div class="input-group input-range price-input align-items-center bg-white">
-                            <span class="input-group-text border-0  bg-white  text-secondary">₹</span>
+                            <span class="input-group-text border-0  bg-white  text-secondary">{{ $ip_data->currency_symbol??'₹' }}</span>
                             <input class="input-min form-control border-0 text-end text-secondary h-sms" data-id="min_price" wire:model="min_price" value="{{$min_price}}" readonly>
                         </div>
                     </div>
                     <div class="col-1 text-center"> - </div>
                     <div class="col-5">
                         <div class="input-group input-range price-input bg-white align-items-center">
-                            <span class="input-group-text border-0 bg-white  text-secondary">₹</span>
+                            <span class="input-group-text border-0 bg-white  text-secondary">{{ $ip_data->currency_symbol??'₹' }}</span>
                             <input class="input-max form-control border-0 text-end text-secondary px-1 h-sms" data-id="max_price" wire:model="max_price" value="{{$max_price}}" readonly>
                         </div>
                     </div>

@@ -29,10 +29,10 @@
                                     <h6 class="fw-bold">{{$cart_product['name']}}</h6>
                                     <div class="d-flex gap-3 align-items-center py-1">
                                         @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                            <del class="del-clr text-secondary lh-lg text-opacity-50">₹ {{ $cart_product['price'] }}</del>
-                                            <h6 class="price lh-lg align-self-center">₹ <span class="fw-bold product-price">{{ $cart_product['sale_price'] }}</span></h6>
+                                            <del class="del-clr text-secondary lh-lg text-opacity-50">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['price'] }}</del>
+                                            <h6 class="price lh-lg align-self-center">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['sale_price'] }}</span></h6>
                                         @else
-                                            <h6 class="price lh-lg align-self-center">₹ <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></h6>
+                                            <h6 class="price lh-lg align-self-center">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></h6>
                                         @endif
                                     </div>
                                     <h6 class="pb-1">{{ $cart_product['attributes'] }}</h6>
@@ -62,9 +62,9 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                <h6 class="price-clr">₹ {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
+                                <h6 class="price-clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
                             @else
-                                <h6 class="price-clr">₹ {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
+                                <h6 class="price-clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
                             @endif    
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
                         <div class="d-flex justify-content-between py-2">
                             <h6 class="">Subtotal</h6>
-                            <h6 class="sub-total">₹ {{ $total_price }} INR</h6>
+                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
                         </div>
                         <div>
                             <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
@@ -153,7 +153,7 @@
                     <div class="modal-bodys p-4">
                         <div class="text-center"> 
                             <img src="{{asset('asset/home/coupen_applied.svg')}}" alt="coupen_applied" class="pb-2">
-                            @if(isset($coupon_discount) && $coupon_discount!=0)<h5 class="fw-bold">₹ {{ $coupon_discount }}</h5>
+                            @if(isset($coupon_discount) && $coupon_discount!=0)<h5 class="fw-bold">{{ $ip_data->currency_symbol??'₹' }} {{ $coupon_discount }}</h5>
                             <h6 class="text-secondary opacity-75 py-2">saved</h6>@endif
                             <h5 class="text-secondary">{{ $coupon_code }} Applied !</h5>
                         </div>

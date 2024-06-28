@@ -166,13 +166,14 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-6 px-0">
-                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                                
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
                                             <div class="col-6 px-0">
                                                 @if($product['discount']!=0)
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                 @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                 @endif
                                             </div>
                                         </div>
@@ -330,13 +331,13 @@
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-6 px-0">
-                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
                                             <div class="col-6 px-0">
                                                 @if($product['discount']!=0)
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                 @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                 @endif
                                             </div>
                                         </div>
@@ -475,13 +476,13 @@
                                             <div class="container-fluid">
                                                 <div class="row">
                                                     <div class="col-6 px-0">
-                                                        <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">Rs {{$product['price']}}</del>
+                                                        <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                                     </div>
                                                     <div class="col-6 px-0">
                                                         @if($product['discount']!=0)
-                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['sale_price']}}</h6>
+                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                         @else
-                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">Rs {{$product['price']}}</h6>
+                                                        <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                         @endif
                                                     </div>
                                                 </div>

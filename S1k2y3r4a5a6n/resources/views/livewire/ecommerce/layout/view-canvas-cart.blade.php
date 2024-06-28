@@ -23,10 +23,10 @@
                                         <h6 class="py-1 h-sms">{{ $cart_product['attributes'] }}</h6>
                                         <h6 class="h-sms">
                                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                                <del class="text-secondary opacity-75 del-clr h-sms">Rs {{ $cart_product['price'] }}</del>
-                                                <small class="fw-bold py-1 price ps-2">Rs<span class="fw-bold product-price"> {{ $cart_product['sale_price'] }}</span></small>
+                                                <del class="text-secondary opacity-75 del-clr h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['price'] }}</del>
+                                                <small class="fw-bold py-1 price ps-2">{{ $ip_data->currency_symbol??'₹' }}<span class="fw-bold product-price"> {{ $cart_product['sale_price'] }}</span></small>
                                             @else
-                                                <small class="fw-bold py-1 price">Rs <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
+                                                <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
                                             @endif
                                         </h6>
                                         <div class="d-flex gap-xl-3 gap-lg-3 gap-md-3 gap-sm-3 gap-2 align-items-center pt-1">
@@ -91,7 +91,7 @@
             <div class="card p-2">
                 <div class="d-flex justify-content-between">
                     <h6 class="text-dark fw-bold ">Subtotal</h6>
-                    <h6 class="text-dark fw-bold  sub-total">Rs {{$total_price}}</h6>
+                    <h6 class="text-dark fw-bold ">{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span> {{ $ip_data->currency_code??'INR' }}</h6>
                 </div>
             </div>
         </div>
