@@ -1,6 +1,7 @@
 <x-admin.app-layout>
     <x-slot name="styles">
         <link rel="stylesheet" href="{{ asset('admin/css/modal.css')}}" />
+
     </x-slot>
     <style>
         .highcharts-figure,
@@ -46,6 +47,43 @@
         .highcharts-credits, .highcharts-button-symbol{
             display: none;
         }
+        .selected-products, .selected-customers {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding: 10px;
+            background: #eeeeee38;
+        }
+        .autocomplete{
+            height: 400px;
+            overflow-y: scroll;
+        }
+        .bg-selected {
+            background-color: #e2e9e6; 
+        }
+        .bg-secondary{
+           background-color:#eee;
+        }
+        .autocomplete .product_id {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            margin:10px 20px 10px 10px;
+        }
+        .autocomplete span{
+            display: flex;
+            justify-content:center;
+            font-size: 17px;
+            margin:10px 20px 10px 10px;
+        }
+        .autocomplete img{
+            border: 1px solid #dedede;
+            border-radius: 5px;
+            width: 60px;
+            height: 60px;
+            margin: 0px 10px;
+        }
     </style>
     <ul class="breadcrumb">
         <li><a href="{{url('/')}}">Dashboard</a></li>
@@ -75,7 +113,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
-                <div class="float-end"> <a class="btn btn-s btn-lg" href="javascript:void(0)">Add Product Stock</a> </div>
+                <div class="float-end"> <a class="btn btn-s btn-lg modal-edit" href="javascript:void(0)">Add Product Stock</a> </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
                         <thead>
@@ -114,10 +152,10 @@
         <div class="modal-window modal-window-lg">
             <div class="modal-toggle"> 
                 <div class="modal-header">
-                    <h1> Add Product Stock </h1>
+                    <h1 > Add Product Stock </h1>
                     <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
                 </div>
-                @livewire('manage-product.update-stock')
+                @livewire('manage-product.update-stock')                
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -314,16 +352,23 @@
             });
             
             $(document).on('click', '.modal-edit', function () {   
+                // alert(2); 
+
+                Livewire.emit('OpenUpdatestock','new');
                 document.body.classList.add('modal-open');
                 $('.modal-window').addClass('show');
             });
+            $(document).on('click', '.modal-update', function () { 
+                var productId = $(this).attr('data-id'); 
+                Livewire.emit('OpenUpdatestock','update',productId);
+                document.body.classList.add('modal-open');
+                $('.modal-window').addClass('show');
+            });
+
             $(document).on('click', '.modal-close, .modal-dismiss', function () {   
                 document.body.classList.remove('modal-open');
                 $('.modal-window').removeClass('show');
-            });
-            $(document).on('click', '.modal-submit', function () {   
-                document.body.classList.remove('modal-open');
-                $('.modal-window').removeClass('show');
+                Livewire.emit('resetInputvalues');
             });
     
         </script>

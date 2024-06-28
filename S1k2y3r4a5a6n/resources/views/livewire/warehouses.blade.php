@@ -55,7 +55,6 @@
         var autocomplete;
         autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
             types: ['geocode']
-            
         });
     
         google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -68,8 +67,8 @@
         selector.selectize({
             plugins: ['remove_button'],
             onChange: function(value) {               
-            @this.set('admin_ids', value);
-          }
+                @this.set('admin_ids', value);
+            }
         });
     });
 </script>

@@ -9,7 +9,8 @@ class ProductStock extends Model
 {
     use HasFactory;
  
-       
+    protected $fillable = ['id','product_name','warehouse_id','product_id','product_variant_id','available_quantity','stock_status','created_at','updated_at'];
+
     public function warehouse()
     {    
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
