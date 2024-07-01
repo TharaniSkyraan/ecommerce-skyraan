@@ -20,7 +20,8 @@ trait GeoIPService
             $record = $this->reader->city($ip);
             
             return [
-                'postalcode' => $record->postal->code??'',
+                'latitude' => $record->location->latitude??'',
+                'longitude' => $record->location->longitude??'',
                 'country_code' => $record->country->isoCode??'IN'
             ];
 
