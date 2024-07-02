@@ -1,7 +1,7 @@
-<section class="marquee_content2">
+<section class="marquee_content marquee_content2">
     <div class="marquee py-4">
         <div class="marquee__group ">
-            @foreach($collection1 as $collection)
+            @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
                     <a href="{{ route('ecommerce.product.list', ['type' => 'collection', 'slug' => $collection['slug']]) }}">
                         <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="{{$collection['name']}}">
@@ -13,8 +13,9 @@
                 @endif
             @endforeach
         </div>
+        @foreach($collections_data as $collection)
         <div aria-hidden="true" class="marquee__group">
-            @foreach($collection2 as $collection)
+            @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
                     <a href="{{ route('ecommerce.product.list', ['type' => 'collection', 'slug' => $collection['slug']]) }}">
                         <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="{{$collection['name']}}">
@@ -26,5 +27,6 @@
                 @endif
             @endforeach
         </div>
+        @endforeach
     </div>
 </section>
