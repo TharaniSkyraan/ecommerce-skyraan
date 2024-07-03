@@ -255,6 +255,7 @@
     justify-content: space-around;
     min-width: 100%;
     animation: scroll var(--duration) linear infinite;
+    padding-left: 30px;
 }
 .marquee_content .marquee h5{
    color: #fff;

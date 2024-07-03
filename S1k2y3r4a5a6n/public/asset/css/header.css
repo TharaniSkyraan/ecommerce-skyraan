@@ -268,6 +268,9 @@ fieldset, legend {
 
 /* marquee */
 
+.marquee_content2{
+    background-color: #FFFFFF !important;
+}
 .marquee_content2 .marquee {
     --duration: 14s;
     display: flex;
@@ -286,8 +289,8 @@ fieldset, legend {
    color: #fff;
 }
 .marquee_content2 .marquee__group img{ 
-    width: 250px;
-    height: 310px;
+    width: 270px !important;
+    height: 310px !important;
 }
 .marquee_content2 .marquee:hover .marquee__group {
     animation-play-state: paused;
