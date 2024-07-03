@@ -49,7 +49,6 @@
                             <div class="row py-4">
                             @if($action != "new")
                             <div class="col-4 text-center py-3 bg-secondary">Warehouse</div>
-
                             @endif
                                 <div class="col-4 text-center py-3 bg-secondary">Products</div>
                                 <div class="col-4 text-center py-3 bg-secondary">Available Stock</div>
