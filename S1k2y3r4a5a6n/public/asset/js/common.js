@@ -430,18 +430,21 @@ $('#about-us').owlCarousel({
   
 // mobile screen category collapse
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const mainItem = document.querySelector('.main-item');
-    const subList = document.querySelector('.sub-list');
-    const toggleSymbol = document.querySelector('.toggle-symbol');
+document.addEventListener('DOMContentLoaded', () => {
+    const mainItems = document.querySelectorAll('.main-item');
 
-    mainItem.addEventListener('click', () => {
-        if (subList.style.display === 'none' || subList.style.display === '') {
-            subList.style.display = 'block';
-            toggleSymbol.textContent = '-';
-        } else {
-            subList.style.display = 'none';
-            toggleSymbol.textContent = '+';
-        }
+    mainItems.forEach(mainItem => {
+        const subList = mainItem.querySelector('.sub-list');
+        const toggleSymbol = mainItem.querySelector('.toggle-symbol');
+
+        mainItem.addEventListener('click', () => {
+            if (subList.style.display === 'none' || subList.style.display === '') {
+                subList.style.display = 'block';
+                toggleSymbol.textContent = '-';
+            } else {
+                subList.style.display = 'none';
+                toggleSymbol.textContent = '+';
+            }
+        });
     });
 });

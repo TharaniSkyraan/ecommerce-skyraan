@@ -69,7 +69,7 @@
                         </div>
                     </div>
                     <div class="col-1 text-center"> - </div>
-                    <div class="col-5">
+                    <div class="col-5 pe-0">
                         <div class="input-group input-range price-input bg-white align-items-center">
                             <span class="input-group-text border-0 bg-white  text-secondary">{{ $ip_data->currency_symbol??'₹' }}</span>
                             <input class="input-max form-control border-0 text-end text-secondary px-1 h-sms" data-id="max_price" wire:model="max_price" value="{{$max_price}}" readonly>

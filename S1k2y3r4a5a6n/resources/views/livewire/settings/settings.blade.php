@@ -8,6 +8,7 @@
         <div class="tab {{ ($tab=='general')?'active-tab':'' }}" data-linkid="general">General</div>
         <div class="tab {{ ($tab=='notification')?'active-tab':'' }}" data-linkid="notification">Notification's</div>
         <div class="tab {{ ($tab=='shipment')?'active-tab':'' }}" data-linkid="shipment">Shipping & Payment </div>
+        <div class="tab {{ ($tab=='why_choose')?'active-tab':'' }}" data-linkid="why_choose">Why Choose</div>
     </div>
     <div id="general" class="tab-content pt-5 {{ ($tab=='general')?'active-content':'' }}">
         @include('admin.settings.general-setting')
@@ -22,6 +23,12 @@
             @include('admin.settings.shipment')   
         @endif
     </div>
+    <div id="why_choose" class="tab-content pt-5 {{ ($tab=='why_choose')?'active-content':'' }}">
+        @if($tab=='why_choose')  
+            @include('admin.settings.why_choose')   
+        @endif
+    </div>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>

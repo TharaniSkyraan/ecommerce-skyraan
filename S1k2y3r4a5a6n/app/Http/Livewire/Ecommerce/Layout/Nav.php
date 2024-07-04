@@ -160,7 +160,12 @@ class Nav extends Component
         if(\Auth::check()){
 
             foreach($datas as $data)
-            {
+            { 
+                // dd($data);
+                if (!isset($data['product_id']) || !isset($data['product_variant_id'])) {
+                    continue; // Skip this iteration if keys are missing
+                }
+    
                 $cart = Cart::whereProductId($data['product_id'])
                             ->whereProductVariantId($data['product_variant_id'])
                             ->whereUserId(auth()->user()->id)->first();
@@ -187,7 +192,6 @@ class Nav extends Component
                 $this->emit('updatedCart', $datas);
             }
         }
-
     }
     
     public function render()

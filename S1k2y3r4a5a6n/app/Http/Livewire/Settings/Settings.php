@@ -6,6 +6,7 @@ use Livewire\Component;
 
 use Livewire\WithFileUploads;
 use App\Models\Setting;
+use App\Models\Whychoose;
 
 class Settings extends Component
 {
@@ -27,7 +28,10 @@ class Settings extends Component
     public $google_map_api_key,$payment_platform,$payment_app_key,$payment_secret_key,
     $minimum_km,$cost_minimum_km,$cost_per_km,$minimum_kg,$cost_minimum_kg,$cost_per_kg,
     $is_enabled_shipping_charges;
-    
+
+     // why choose
+     public $why_chs_title,$why_chs_desc,$why_chs_img;
+
     public $tab='general';
 
     protected $queryString = ['tab'];
@@ -154,6 +158,28 @@ class Settings extends Component
 
         session()->flash('message', 'Updated Successfully.');
     }
+
+    public function storewhychoose(){
+        $rules = [
+            'why_chs_title' => 'required|max:100|min:3',
+            'why_chs_desc' => 'required|max:255|min:10', 
+        ];
+        if(empty($this->why_chs_img)){
+            $rules['why_chs_img'] = 'required|image|max:1024|mimes:svg';            
+        }
+        $validateData = $this->validate($rules);
+        unset($validateData['why_chs_img']);
+        if(!empty($this->why_chs_img)){
+            $filename = $this->why_chs_img->store('setting','public');
+            $validateData['why_chs_img'] = $filename;
+        }
+        Whychoose::updateOrCreate(
+            ['id' => 0],
+            $validateData
+        );
+
+        session()->flash('message', 'Updated Successfully.');
+    }
     public function mount(){
         
         $setting = Setting::first();
@@ -216,7 +242,12 @@ class Settings extends Component
             $this->payment_platform = $setting->payment_platform;
             $this->payment_app_key = $setting->payment_app_key;
             $this->payment_secret_key = $setting->payment_secret_key;
-        
+         
+            // why choose
+            $this->why_chs_title = $setting->why_chs_title;
+            // dd($this->why_chs_title);
+            $this->why_chs_img = $setting->why_chs_img;
+            $this->why_chs_desc = $setting->why_chs_desc;
         }
     }
     public function render()

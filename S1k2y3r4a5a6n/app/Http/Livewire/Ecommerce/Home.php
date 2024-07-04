@@ -11,6 +11,7 @@ use App\Models\Review;
 use App\Models\Label;
 use App\Models\WishList;
 use App\Models\ProductVariant;
+use App\models\Whychoose;
 use Auth;
 use Carbon\Carbon;
 
@@ -90,6 +91,11 @@ class Home extends Component
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
+        $why_choose = Whychoose::get();
+        $this->why_choose = $why_choose;
+        $reviews = Review::where('rating', 5)->with('user')->get();
+
+        $this->reviews = $reviews;
 
     }
     public function productList($type,$ids){

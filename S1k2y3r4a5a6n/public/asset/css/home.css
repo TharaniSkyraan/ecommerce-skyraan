@@ -205,6 +205,7 @@
     transform: translateY(-130%);
     right: 0;
     left: auto;
+    bottom: -25px;
 }
 .why-choose .owl-carousel .owl-nav button.owl-next, .why-choose .owl-carousel .owl-nav button.owl-prev{
     background-color:  var(--next-prev-arrow-color);
@@ -229,7 +230,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(0 0 0 / 33%);
+    background-color: rgb(0 0 0 / 25%);
 }
 .abt_review h5{
     z-index: 1;

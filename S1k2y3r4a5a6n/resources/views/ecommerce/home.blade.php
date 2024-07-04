@@ -14,7 +14,7 @@
         }
         .abt_review{
             position: relative;
-            background-image: url('{{ asset('asset/home/banner.png') }}');
+            background-image: url('{{ asset('asset/home/abt-header.svg') }}');
             background-repeat: round;
             background-size: cover;
         }

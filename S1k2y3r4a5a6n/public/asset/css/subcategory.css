@@ -89,43 +89,34 @@ input[type="range"]::-moz-range-thumb {
 .check_out_li .form-check-input {
     border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
 }
-.filter-grid {
-    .form-check-input {
-        border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
-    }
-    .form-check-input:checked {
-        background-color: var(--next-prev-arrow-color) !important;
-    }
-     .form-check-input:focus {
-        box-shadow: 0 0 10px var(--items-list-border-color) !important;
-    }
+.filter-grid .form-check-input {
+    border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
+}
+.filter-grid .form-check-input:checked {
+    background-color: var(--next-prev-arrow-color) !important;
+}
+.filter-grid .form-check-input:focus {
+    box-shadow: 0 0 10px var(--items-list-border-color) !important;
 }
 .filter-scroll .card {
     max-height: 300px; 
     overflow-y: auto;
 }
-
 .filter-scroll .card::-webkit-scrollbar {
     width:3px;
 }
-
 .filter-scroll .card::-webkit-scrollbar-track {
     background: #FFF; 
 }
-
 .filter-scroll .card::-webkit-scrollbar-thumb {
     background: #cac9c9; 
     width: 2px;
 }
-.filter-col{
-    .form-check img{
-        width: 104px;
-    }
+.filter-col .form-check img{
+    width: 104px;
 }
-.filter-reponsive-mob{
-    .form-check img{
-        width: 104px;
-    }
+.filter-reponsive-mob .form-check img{
+    width: 104px;
 }
 .max-height {
     height: 34px; /* Adjust this height to match two lines of your font size */
@@ -135,70 +126,56 @@ input[type="range"]::-moz-range-thumb {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
-#grid-two{
-    .product_img {
-        max-width: 100%;
-        height: 300px; /* Set your desired height here */
-        object-fit: cover; /* This will make the image cover the entire container */
-    }
+#grid-two .product_img {
+    max-width: 100%;
+    height: 300px; /* Set your desired height here */
+    object-fit: cover; /* This will make the image cover the entire container */
 }
-#grid-tre{
-    .product_img {
-        max-width: 100%;
-        height: 202px; /* Set your desired height here */
-        object-fit: cover; /* This will make the image cover the entire container */
-    }
+#grid-tre .product_img {
+    max-width: 100%;
+    height: 202px; /* Set your desired height here */
+    object-fit: cover; /* This will make the image cover the entire container */
 }
-#grid-for{
-    .product_img {
-        max-width: 100%;
-        height: 148px; /* Set your desired height here */
-        object-fit: cover; /* This will make the image cover the entire container */
-    }
-    .star3{
-        width: 90px;
-    }
-    .best-seller {
-        .svg-img {
-            width: 92px;
-            margin-left: -21px;
-        }
-    }
+#grid-for .product_img {
+    max-width: 100%;
+    height: 148px; /* Set your desired height here */
+    object-fit: cover; /* This will make the image cover the entire container */
 }
-#grid-one{
-    .product_img {
-        max-width: 100%;
-        height: 166px; /* Set your desired height here */
-        object-fit: cover; /* This will make the image cover the entire container */
-    }    
-
+#grid-for .star3{
+    width: 90px;
+}
+#grid-for .best-seller .svg-img {
+    width: 92px;
+    margin-left: -21px;
+}
+#grid-one .product_img {
+    max-width: 100%;
+    height: 166px; /* Set your desired height here */
+    object-fit: cover; /* This will make the image cover the entire container */
 }
 .card .best_seller {
     width: 105px;
 }
+.filter-col{
+    display: none;
+}
 @media only screen and (max-width: 488px){
-    #grid-two{
-        .best-text{
-            left: 30%!important;
-        }
+    #grid-two .best-text{
+        left: 30%!important;
     }
 }
 @media only screen and (max-width: 400px){
-    #grid-one{
-        .product_img {
-            height: 200px!important; 
-        }  
+    #grid-one .product_img {
+        height: 200px!important; 
     }
 }
 @media only screen and (max-width:600px){
-
     .filter_response .offcanvas{
         width: 80%;
     }
     .card .best_seller {
         margin-left: -10px!important;
         width: 100px;
-        
     }
     .adsas .justify-content-start{
         justify-content: end!important;
@@ -209,50 +186,34 @@ input[type="range"]::-moz-range-thumb {
     .grid-img{
         justify-content: end!important;
     }
-    #grid-two{
-        .product_img {
-            height: 134px!important;
-        }
+    #grid-two .product_img {
+        height: 134px!important;
     }
-    #grid-tre{
-        .product_img {
-            height: 202px;
-        }
+    #grid-tre .product_img {
+        height: 202px;
     }
-    #grid-for{
-        .product_img {
-            height: 148px; 
-        }
+    #grid-for .product_img {
+        height: 148px; 
     }
-    #grid-one{
-        .product_img {
-            height: 300px; 
-        }    
-        .svg-img {
-            width: 103px !important;
-        }   
-        .best-text {
-            left: 12%!important;
-        }
-        
+    #grid-one .product_img {
+        height: 300px; 
+    }    
+    #grid-one .svg-img {
+        width: 103px !important;
+    }   
+    #grid-one .best-text {
+        left: 12%!important;
     }
-
     .max-height {
         height: 29px;
         -webkit-line-clamp: 2;
     }
-
     .grid-img .card:nth-child(1) {
         order: 2;
     }
     .grid-img .card:nth-child(4) {
         order: 1;
     }
-
-}
-
-.filter-col{
-    display: none;
 }
 @media (min-width: 992px){
     .filter-col{
@@ -264,10 +225,8 @@ input[type="range"]::-moz-range-thumb {
     .card .best_seller {
         margin-left: -9px;
     }
-
 }
 .sub_banner {
-    /* background-image: url('../home/banner.png'); */
     background-repeat: round;
     position: relative;
     height:26%;
@@ -280,10 +239,10 @@ input[type="range"]::-moz-range-thumb {
     color: white;
     display: inline-flex;
     border-radius: 3px;
-    a {
-        color:white !important;
-        padding: 0px 1px 0px 10px;
-    }
+}
+.selectedfilter a {
+    color:white !important;
+    padding: 0px 1px 0px 10px;
 }
 .float-end{
     float: right;
@@ -291,15 +250,12 @@ input[type="range"]::-moz-range-thumb {
 .w-fill{
     width:-webkit-fill-available;    
 }
-
 .card-skeleton {
     background: #f0f0f0;
     border-radius: 8px;
     animation: shimmer 1.5s infinite;
-  }
-
-  
-  .skeleton-text {
+}
+.skeleton-text {
     width: 80%;
     height: 12px;
     margin: 13px auto;
@@ -308,33 +264,33 @@ input[type="range"]::-moz-range-thumb {
     animation: shimmer 1.5s infinite;
     border-radius: 2px;
     color: transparent !important;
-    .form-check-input{
-        display: none;
-    }
-  }
-  .skeleton-title{
+}
+.skeleton-text .form-check-input{
+    display: none;
+}
+.skeleton-title{
     height: 22px;
-  }  
-  .skeleton-image{
+}  
+.skeleton-image{
     height: 11rem;
-  }
+}
   
-  @keyframes shimmer {
+@keyframes shimmer {
     0% {
       background-position: 200% 0;
     }
     100% {
       background-position: -200% 0;
     }
-  }
+}
   
-  #load-more button{
+#load-more button{
     background: none;
     border: none;
-  }
-  .no-product{
+}
+.no-product{
     text-align-last: center;
-    img {
-        width: 25%;
-    }
-  }
+}
+.no-product img {
+    width: 25%;
+}

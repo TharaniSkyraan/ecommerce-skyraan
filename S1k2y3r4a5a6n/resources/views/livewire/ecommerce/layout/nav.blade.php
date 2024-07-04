@@ -207,26 +207,33 @@
                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                         <div class="h-sms">
                             <ul>
-                                <li class="main-item">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="">Main</span>
-                                        <span class="toggle-symbol sybl">+</span>
-                                    </div>
-                                    <ul class="sub-list py-1 ps-3">
-                                        <li>sub</li>
-                                        <li>sub</li>
-                                        <li>sub</li>
-                                        <li>sub</li>
-                                    </ul>
-                                </li>
-                                @foreach($all_categories as $category)
-                                <li class="py-1"><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}">{{$category->name}}</a></li>
+                                @foreach($categories as $category)
+                                    <li class="main-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>{{ $category->name }}</span>
+                                            @if(count($category->sub_categories) > 0)
+                                                <span class="toggle-symbol sybl">+</span>
+                                            @endif
+                                        </div>
+                                        @if(count($category->sub_categories) > 0)
+                                            <ul class="sub-list py-1 ps-3">
+                                                @foreach($category->sub_categories as $sub_category)
+                                                    <li>{{ $sub_category->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
+
+                                @foreach($all_categories->where('parent_id', null) as $category)
+                                    <li class="py-1"><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
             @if(\Auth::check())
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">

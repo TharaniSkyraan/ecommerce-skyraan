@@ -8,8 +8,8 @@
             <div class="row">
                 <nav class="breadcrumb-nav" aria-label="breadcrumb">
                     <ol class="breadcrumb d-flex align-items-center mt-2">
-                        <li class="breadcrumb-item text-white"><a href="{{url('/')}}" class="text-white">Home</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Product List</li>
+                        <li class="breadcrumb-item text-dark"><a href="{{url('/')}}" class="text-dark">Home</a></li>
+                        <li class="breadcrumb-item text-dark active" aria-current="page">Product List</li>
                     </ol>
                 </nav>
             </div>

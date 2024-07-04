@@ -211,7 +211,7 @@
             <div class="container-fluid">
                 <div class="row py-2">
                     <div class="d-flex justify-content-center gap-2 heading-cnt pb-4">
-                        <h5 class="text-center fw-bold">SKYRAA HEALTH AND BEAUTY CARE</h5>
+                        <h5 class="text-center fw-bold">{{$siteSetting->site_name}} SPECIAL PRODUCTS</h5>
                         <img src="{{asset('asset/home/special-product.png')}}" alt="" >
                     </div>
                 </div>
@@ -526,52 +526,28 @@
                         <div class="why_bnr p-3  d-table">
                             <div class="d-table-cell align-middle">
                                 <h5 class="text-white fw-normal">WHY CHOOSE</h5>
-                                <h3 class="text-white fw-bold pt-2">SKYRAA ORGANIC</h3>
+                                <h3 class="text-white fw-bold pt-2">{{$siteSetting->site_name}}</h3>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-9 align-self-center">
                         <div id="why-choose" class="owl-carousel">
+                            @foreach($why_choose as $why_chooses)
                             <div class="owl-slide ">
                                 <div class="card px-3 py-xl-0 py-lg-0 py-md-3 py-sm-3 py-0 border-0" >
                                     <div class="row">
                                         <div class="col-5 d-flex justify-content-center">
-                                            <img src="{{asset('asset/home/Group 32129.png')}}" alt="image" class="w-75" >
+                                            <img src="{{ asset('storage') }}/{{$why_chooses->why_chs_img}}" alt="image" class="w-75 py-3" >
                                         </div>
                                         <div class="col-7 align-self-center">
-                                            <h5 class="text-dark fw-bold">HIGH NUTRITIONAL VALUE</h6>
-                                            <h6 class="text-dark pt-2 lh-base fw-normal">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
+                                            <h5 class="text-dark fw-bold">{{$why_chooses->why_chs_title}}</h6>
+                                            <h6 class="text-dark pt-2 lh-base fw-normal">{{$why_chooses->why_chs_desc}}</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="owl-slide ">
-                                <div class="card px-3 py-xl-0 py-lg-0 py-md-3 py-sm-3 py-0 border-0" >
-                                    <div class="row">
-                                        <div class="col-5 d-flex justify-content-center">
-                                            <img src="{{asset('asset/home/Group 32129.png')}}" alt="image" class="w-75" >
-                                        </div>
-                                        <div class="col-7 align-self-center">
-                                            <h5 class="text-dark fw-bold">HIGH NUTRITIONAL VALUE</h6>
-                                            <h6 class="text-dark pt-2 lh-base fw-normal">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="owl-slide ">
-                                <div class="card px-3 py-xl-0 py-lg-0 py-md-3 py-sm-3 py-0 border-0" >
-                                    <div class="row">
-                                        <div class="col-5 d-flex justify-content-center">
-                                            <img src="{{asset('asset/home/Group 32129.png')}}" alt="image" class="w-75" >
-                                        </div>
-                                        <div class="col-7 align-self-center">
-                                            <h5 class="text-dark fw-bold">HIGH NUTRITIONAL VALUE</h6>
-                                            <h6 class="text-dark pt-2 lh-base fw-normal">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>  
@@ -605,6 +581,7 @@
                 </div>
             </div>
         </section>
+        @if($reviews->isNotEmpty())
         <section class="abt_review" wire:ignore>
             <div class="container-fluid">
                 <div class="row">
@@ -612,6 +589,7 @@
                 </div>
             </div>
             <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3">
+                @foreach($reviews as $reviews_data)
                 <div class="owl-slide px-3">
                     <a  href="javascript:void(0);" class="">
                         <div class="p-4 card  border-0 round-2">
@@ -625,95 +603,22 @@
                                     </svg>                                
                                 </div>
                                 <div class="py-3">
-                                    <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
+                                    <h6 class="text-start lh-base ">{{$reviews_data->commends}}</h6>
                                 </div>
                                 <div class="d-flex gap-2 justify-content-end align-items-center">
                                     <div class="line-with-text"></div>
                                     <div>
-                                    <h6 class=" text-end lh-base fw-bold">Akash gowda</h6>
+                                    <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>           
                     </a>
                 </div>
-                <div class="owl-slide px-3">
-                    <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2">
-                            <div class="row">
-                                <div class="text-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
-                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
-                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
-                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
-                                        </g>
-                                    </svg>                                
-                                </div>
-                                <div class="py-3">
-                                    <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
-                                </div>
-                                <div class="d-flex gap-2 justify-content-end align-items-center">
-                                    <div class="line-with-text"></div>
-                                    <div>
-                                    <h6 class=" text-end lh-base fw-bold">Akash gowda</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>           
-                    </a>
-                </div>
-                <div class="owl-slide px-3">
-                    <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2">
-                            <div class="row">
-                                <div class="text-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
-                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
-                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
-                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
-                                        </g>
-                                    </svg>                                
-                                </div>
-                                <div class="py-3">
-                                    <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
-                                </div>
-                                <div class="d-flex gap-2 justify-content-end align-items-center">
-                                    <div class="line-with-text"></div>
-                                    <div>
-                                    <h6 class=" text-end lh-base fw-bold">Akash gowda</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>           
-                    </a>
-                </div>
-                <div class="owl-slide px-3">
-                    <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2">
-                            <div class="row">
-                                <div class="text-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
-                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
-                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="#none"/>
-                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="#none"/>
-                                        </g>
-                                    </svg>                                
-                                </div>
-                                <div class="py-3">
-                                    <h6 class="text-start lh-base ">When one switches to Skyraa Organic products there is no turning back. ...</h6>
-                                </div>
-                                <div class="d-flex gap-2 justify-content-end align-items-center">
-                                    <div class="line-with-text"></div>
-                                    <div>
-                                    <h6 class=" text-end lh-base fw-bold">Akash gowda</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>           
-                    </a>
-                </div>
+                @endforeach
             </div>
         </section>
+        @endif
         <section class="marquee_content">
             <div class="marquee py-2">
                 <div class="marquee__group">
