@@ -11,7 +11,7 @@ use App\Models\Review;
 use App\Models\Label;
 use App\Models\WishList;
 use App\Models\ProductVariant;
-use App\models\Whychoose;
+use App\Models\Whychoose;
 use Auth;
 use Carbon\Carbon;
 
