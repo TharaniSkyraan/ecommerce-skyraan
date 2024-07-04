@@ -91,7 +91,7 @@ class Home extends Component
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
-        $why_choose = Whychoose::get();
+        $why_choose = Whychoose::all();
         $this->why_choose = $why_choose;
         $reviews = Review::where('rating', 5)->with('user')->get();
 
