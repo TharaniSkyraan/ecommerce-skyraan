@@ -28,6 +28,7 @@ class SearchResult extends Component
         if($type!='category'&&$type!="search"&&$type!='collection'&&$type!='special'&&$type!='product-collection'){
             abort(404);
         }
+        
     }
 
     public function render()

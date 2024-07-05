@@ -210,23 +210,19 @@
                                 @foreach($categories as $category)
                                     <li class="main-item">
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span>{{ $category->name }}</span>
+                                            <span><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}" class="fw-bold-res">{{ $category->name }}</a></span>
                                             @if(count($category->sub_categories) > 0)
-                                                <span class="toggle-symbol sybl">+</span>
+                                                <span class="toggle-symbol sybl fw-bold-res">+</span>
                                             @endif
                                         </div>
                                         @if(count($category->sub_categories) > 0)
-                                            <ul class="sub-list py-1 ps-3">
+                                            <ul class="sub-list py-1 ps-3 fw-bold">
                                                 @foreach($category->sub_categories as $sub_category)
-                                                    <li>{{ $sub_category->name }}</li>
+                                                    <li><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" >{{ $sub_category->name }}</a></li>
                                                 @endforeach
                                             </ul>
                                         @endif
                                     </li>
-                                @endforeach
-
-                                @foreach($all_categories->where('parent_id', null) as $category)
-                                    <li class="py-1"><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

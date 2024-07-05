@@ -13,7 +13,7 @@
                             @endif
                             <img src="{{ asset('storage') }}/{{$banner['image']}}" alt="image" class="bnr-img">
                                 <button class="owl--text d-flex py-xl-1  py-lg-1 py-md-1 py-sm-1 py-0 py-0 px-xl-3 px-lg-3 px-md-3 px-sm-3 px-1 align-items-center ">
-                                    <h6>visit product</h6>
+                                    <h6 class="text-dark">visit product</h6>
                                 </button>
                             </a>
                         </div>
@@ -31,7 +31,7 @@
                     <h5 class="text-center fw-bold">OUR TOP CATEGORIES</h5>
                 </div>
             </div>
-            <div id="home_first_carousel" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
+            <div id="home_first_carousel" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-4 px-sm-4 px-0">
                 @foreach($categories as $key => $category)                
                     <div class="owl-slide">
                         <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="owl--text d-flex py-1 px-3 justify-content-center">

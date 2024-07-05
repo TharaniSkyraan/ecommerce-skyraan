@@ -110,6 +110,7 @@
     padding-left: 8px;
     content: "\0279E";
     transition: transform 0.3s ease-out;
+    color: #000;
 }
 .home_first_carousel .bg-darks{
     background-color: #FFEDED;
@@ -339,6 +340,10 @@
         }
         .owl-next, .owl-prev{
             top: 43%;
+            display: none;
+        }
+        .owl-stage{
+           padding-left: 0px!important;
         }
     }
     .home_first_carousel .owl-dot{
@@ -354,6 +359,20 @@
     .banner .owl--text {
         bottom: 1rem;
         left: 1rem;
+    }
+    .top_carousal{
+        .owl-prev, .owl-next {
+            display: none!important;
+        }
+        .owl-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 @media (min-width: 600px) and (max-width: 1024px){

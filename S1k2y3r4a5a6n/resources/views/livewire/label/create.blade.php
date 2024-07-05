@@ -17,7 +17,7 @@
                     </select>
                     @error('status') <span class="error"> {{$message}}</span> @endif
                 </div>
-                <div class="form-group" >
+                <div class="form-group">
                     <label for="color">Color</label>
                     <div class="d-flex color-picker" wire:ignore>
                         <input type="color" class="b-none" id="colorPicker" placeholder="Color Code" wire:model="color">

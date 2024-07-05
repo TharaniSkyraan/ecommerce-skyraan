@@ -47,7 +47,6 @@ class Orders extends Component
     
     public function cancelOrder()
     {
-
         $validatedData =  $this->validate([
             'order_id'=>'required',
             'reason'=>'required',
@@ -83,7 +82,6 @@ class Orders extends Component
     }
 
     public function invoiceGenerate($order_id){
-        
         $order = Order::find($order_id);
         $data['shipment_address'] = $order->shipmentAddress->toArray();
         $data['shipment'] = $order->shipment->toArray();
@@ -96,8 +94,6 @@ class Orders extends Component
         return response()->streamDownload(function() use ($pdf) {
             echo $pdf->output();
         }, $order->invoice_number.'.pdf');
-        // return $pdf->download('document.pdf');
-
     }
     
     public function loadMore()
@@ -151,8 +147,10 @@ class Orders extends Component
                             $q->where('user_id',auth()->user()->id)
                               ->where('status','delivered');
                         })
+                        ->orderBy('created_at','desc')
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
+
                         ->paginate(2, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
@@ -195,7 +193,6 @@ class Orders extends Component
                                         $sale_price = $variant->sale_price;
                                         $discount = ($sale_price/$price)*100;
                                     }
-                                    
                                 }
                                 
                                 if(!empty($product['tax_ids']))

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('whychoose', function (Blueprint $table) {
+        Schema::create('why_chooses', function (Blueprint $table) {
             $table->id();
             $table->string('why_chs_title');
             $table->text('why_chs_desc');
             $table->text('why_chs_img');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('why_chooses');
     }
 };

@@ -312,7 +312,7 @@ class Detail extends Component
                                             ->whereIsDefault('yes')                                     
                                             ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
-
+    
             $label = Label::find($product['label_id']);
             $rating_count = Review::whereProductId($product['id'])->count();
             $rating_sum = Review::whereProductId($product['id'])->sum('rating');

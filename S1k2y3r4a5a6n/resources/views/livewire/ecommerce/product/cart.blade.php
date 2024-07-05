@@ -62,9 +62,9 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                <h6 class="price-clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
+                                <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
                             @else
-                                <h6 class="price-clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
+                                <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
                             @endif    
                         </div>
                     </div>

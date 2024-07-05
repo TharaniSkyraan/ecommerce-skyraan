@@ -32,7 +32,7 @@
         }
     @endphp       
     <section class="order_details">
-        @if($screenWidth > 767)
+        @if($screenWidth >= 767)
             <div class="container systems-view">
                 <div class="d-flex justify-content-between">
                     <div>
@@ -365,7 +365,7 @@
                                                 <div class="row">
                                                     <div class="col-12 position-relative">
                                                         <div class="vertical-line"></div>
-                                                        <div class="vertical-line-filled" style="height:{{($width==100)?'95':($width+25)}}%"></div>
+                                                        <div class="vertical-line-filled" style="height:{{($width==100)?'90':($width+20)}}%"></div>
                                                         <div class="row">
                                                             <div class="col-3 align-self-center">
                                                                 <div class="order-tracking completed px-0">

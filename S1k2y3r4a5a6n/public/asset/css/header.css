@@ -225,7 +225,7 @@ fieldset, legend {
     border-bottom: 11px solid transparent;
   }
 .card .add-to-cart {
-    visibility: visible;
+    visibility: hidden;
     bottom: 0;
 }
 .card .add-to-cart .p-1{
@@ -371,7 +371,9 @@ fieldset, legend {
     border: none;
     box-shadow: none;
 }
-
+.fw-bold-res{
+    font-weight: 500;
+}
 #menuopen hr {
     margin: 0rem 1rem;
 }
@@ -585,6 +587,9 @@ padding-top: 155px!important;
     svg path{
         fill: var(--alterprice-content-color);
     }
+}
+.orderpacedpng{
+    filter: grayscale(2) invert(0);
 }
 .passwordStrength.strong, .phone_number_verified{
     color: var(--password-green-color);
