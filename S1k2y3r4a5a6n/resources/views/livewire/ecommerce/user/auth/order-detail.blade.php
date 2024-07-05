@@ -112,7 +112,7 @@
                     <div class="card container-fluid rounded-1">
                         <div class="order-track  px-2 py-3">
                             <div class="row header p-2 ">
-                                <div class="col-xl-3 col-lg-3 col-md-2 col-sm-3 col-2 ps-0">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-2 ps-0">
                                     <p class="fw-bold h-sms">Tracking ID</p>
                                     <p class="fw-bold h-sms pt-1"># {{ $order->shipment->tracking_id }}</p>
                                 </div>
@@ -367,12 +367,12 @@
                                                         <div class="vertical-line"></div>
                                                         <div class="vertical-line-filled" style="height:{{($width==100)?'90':($width+20)}}%"></div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking completed px-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track1.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start completed px-0">
                                                                     <p class="h-sms fw-bold p1">Order placed</p>
                                                                     <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d M Y h:i A') }}</p>
@@ -380,12 +380,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking {{ ($order->status=='new_request')?'completed1':(($width>=25)?'completed':'')}} px-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start {{ ($order->status=='new_request')?'completed1':(($width>=25)?'completed':'')}} px-0">
                                                                     <p class="h-sms fw-bold p1">Order confirmed</p>
                                                                     @if($order->order_histories['order_confirmed']) <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['order_confirmed'])->format('d M Y') }}</p> @endif
@@ -393,12 +393,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking {{ ($order->status=='order_confirmed')?'completed1':(($width>=50)?'completed':'')}} px-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track2.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start  {{ ($order->status=='order_confirmed')?'completed1':(($width>=50)?'completed':'')}} px-0">
                                                                     <p class="h-sms fw-bold p1">Shipped</p>
                                                                     @if($order->order_histories['shipped']) <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['shipped'])->format('d M Y') }}</p> @endif
@@ -406,12 +406,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking {{ ($order->status=='shipped')?'completed1':(($width>=70)?'completed':'')}} px-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track3.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start {{ ($order->status=='shipped')?'completed1':(($width>=70)?'completed':'')}} px-0">
                                                                     <p class="h-sms fw-bold p1">Out for delivered</p>
                                                                     @if($order->order_histories['out_for_delivery']) <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['out_for_delivery'])->format('d M Y') }}</p> @endif
@@ -419,12 +419,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking {{ ($order->status=='out_for_delivery')?'completed1':(($width==100)?'completed':'') }} px-0 mb-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track4.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start {{ ($order->status=='out_for_delivery')?'completed1':(($width==100)?'completed':'') }} px-0">
                                                                     <p class="h-sms fw-bold p1">Delivered</p>
                                                                     @if($order->order_histories['delivered']) <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['delivered'])->format('d M Y') }}</p> @endif
@@ -438,12 +438,12 @@
                                                     <div class="col-12 cancelled position-relative">
                                                         <div class="vertical-line-filled vertical-line-filled1"></div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking completed px-0">
                                                                     <span class="is-complete"><img src="{{asset('asset/home/track1.svg')}}" alt="track" class="pt-2"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start completed px-0">
                                                                     <p class="h-sms fw-bold p1">Order placed</p>
                                                                     <p class="h-sm fw-normal p2">{{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d M Y') }}</p>
@@ -451,12 +451,12 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-3 align-self-center">
+                                                            <div class="col-sm-2 col-3 align-self-center">
                                                                 <div class="order-tracking completed1 px-0">
                                                                     <span class="is-complete" style="background-color:#FF4C4C"><img src="{{asset('asset/home/track-cancel.svg')}}" alt="track" class="pt-2 mt-1"></span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-9">
+                                                            <div class="col-sm-10 col-9">
                                                                 <div class="order-tracking text-start completed1 px-0">
                                                                     <p class="h-sms fw-bold text-danger">Cancelled</p>
                                                                     <p class="h-sm fw-normal text-danger">* {{ $order_statuses }}</p>

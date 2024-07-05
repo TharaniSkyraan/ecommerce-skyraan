@@ -519,6 +519,7 @@
             </div>
         </section>
         @endif
+        @if($why_choose->isNotEmpty())
         <section class="why-choose sys-view" wire:ignore>
             <div class="container  py-5 ">
                 <div class="row">
@@ -553,6 +554,7 @@
                 </div>  
             </div>
         </section>
+        @endif
         <section class="mbl-view"  wire:ignore>
             <div class="row py-4">
                 <div><h5 class="fw-bold text-secondary opacity-50 text-center">WHY CHOOSE </h5></div>
