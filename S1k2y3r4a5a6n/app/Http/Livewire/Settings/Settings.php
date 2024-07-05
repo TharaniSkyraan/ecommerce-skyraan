@@ -6,7 +6,7 @@ use Livewire\Component;
 
 use Livewire\WithFileUploads;
 use App\Models\Setting;
-use App\Models\Whychoose;
+use App\Models\WhyChoose;
 
 class Settings extends Component
 {
@@ -173,7 +173,7 @@ class Settings extends Component
             $filename = $this->why_chs_img->store('setting','public');
             $validateData['why_chs_img'] = $filename;
         }
-        Whychoose::updateOrCreate(
+        WhyChoose::updateOrCreate(
             ['id' => 0],
             $validateData
         );
