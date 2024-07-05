@@ -732,6 +732,9 @@
                   padding-top: 13px;
               }
           }
+          .vertical-line{
+             left: 12%;
+           }
           .vertical-line-filled{
             border-left: 2px solid green;
             position: absolute;
@@ -744,9 +747,9 @@
           }
           .order-track {
             & #tracking {
-                .order-tracking.completed {
-                  margin-bottom: 20px;
-                }
+               .order-tracking {
+                 margin-bottom: 20px;
+               }
                }
             }
         
@@ -794,15 +797,16 @@
    .vertical-line{
       border-left: 2px solid #ddd!important;
       position: absolute;
-      height: 70%;
+      height: 90%;
       left: 5%;
+      top: 5%;
     }
     .vertical-line-filled{
       border-left: 2px solid green;
       position: absolute;
       height: 70%;
       left: 5%;
-      top: 12%;
+      top: 5%;
     }
     
     .vertical-line-filled1{
@@ -810,7 +814,7 @@
     }
     .order-track {
       & #tracking {
-          .order-tracking.completed {
+          .order-tracking {
             margin-bottom: 30px;
           }
          }
