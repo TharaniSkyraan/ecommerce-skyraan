@@ -16,7 +16,7 @@ class Create extends Component
     {
 
         $rules = [
-            'name' => 'required|max:180|unique:labels,name,'.$this->label_id.',id,deleted_at,NULL',
+            'name' => 'required|max:16|unique:labels,name,'.$this->label_id.',id,deleted_at,NULL',
             'color' => 'required|max:7', 
             'status' => 'required'
         ];

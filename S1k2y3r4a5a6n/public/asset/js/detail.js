@@ -39,16 +39,20 @@ $(document).ready(function ($) {
     });
 });
 
-// $(document).ready(function(){
-//     $(".tab-head h6").click(function(){
-//         $(".d-flex h6").removeClass("activated");
-//         $(this).addClass("activated");
+$(document).ready(function() {
+  $('.star').click(function() {
+      var rating = $(this).data('rating');
 
-//         $(".tab-content").removeClass("active");
-//         var tabId = $(this).data("tab");
-//         $("#" + tabId).addClass("active");
-//     });
-// });
+      $('.star path').each(function(index) {
+          if (index < rating) {
+              $(this).addClass('active');
+          } else {
+              $(this).removeClass('active');
+          }
+      });
+  });
+});
+
 
 var demoTrigger = document.querySelector('.demo-trigger');
 var paneContainer = document.querySelector('.zoom-in');
@@ -85,17 +89,28 @@ $('#frequent-images').owlCarousel({
   nav: true,
   autoplay: false,
   responsive: {
-    0: {
-      items: 2
+    0:{
+      items: 1,
+      stagePadding: 25
     },
-    600: {
-      items: 3
+    400:{
+        items: 1,
+        stagePadding: 40 
     },
-    1000: {
-      items: 4
+    500:{
+        items: 1,
+        stagePadding: 80 
+    },
+    600:{
+        items: 3,
+        stagePadding: 0 
+    },
+    1000:{
+        items: 4,
+        stagePadding: 0 
     }
   },
-})
+});
 
 // hover img
 
@@ -104,4 +119,3 @@ $('.detail-img .demo-trigger').hover(function() {
 }, function() {
   $('.zoom-in').removeClass('hovered').css('height', '0%'); 
 });
-

@@ -29,12 +29,29 @@
             <div class="review-form">
                 <form>
                     <h6 class="fw-normal">Ratings</h6>
-                    <div class="d-flex  gap-1 align-items-center py-2 ratings" wire:ignore>
+                    <!-- <div class="d-flex  gap-1 align-items-center py-2 ratings" wire:ignore>
                         <img src="{{ asset('asset/home/star-img.svg') }}" alt="star" class="star cursor">
                         <img src="{{ asset('asset/home/star-img.svg') }}" alt="star" class="star cursor">
                         <img src="{{ asset('asset/home/star-img.svg') }}" alt="star" class="star cursor">
                         <img src="{{ asset('asset/home/star-img.svg') }}" alt="star" class="star cursor">
                         <img src="{{ asset('asset/home/star-img.svg') }}" alt="star" class="star cursor">
+                    </div> -->
+                    <div class="d-flex gap-1 align-items-center py-2 ratings" wire:ignore>
+                        <svg class="star" data-rating="1" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+                            <path d="M256 0L316.433 195.567H512L353.783 316.433L414.217 512L256 391.133L97.7831 512L158.217 316.433L0 195.567H195.567L256 0Z" fill="#D6D6D6"/>
+                        </svg>
+                        <svg class="star" data-rating="2" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+                            <path d="M256 0L316.433 195.567H512L353.783 316.433L414.217 512L256 391.133L97.7831 512L158.217 316.433L0 195.567H195.567L256 0Z" fill="#D6D6D6"/>
+                        </svg>
+                        <svg class="star" data-rating="3" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+                            <path d="M256 0L316.433 195.567H512L353.783 316.433L414.217 512L256 391.133L97.7831 512L158.217 316.433L0 195.567H195.567L256 0Z" fill="#D6D6D6"/>
+                        </svg>
+                        <svg class="star" data-rating="4" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+                            <path d="M256 0L316.433 195.567H512L353.783 316.433L414.217 512L256 391.133L97.7831 512L158.217 316.433L0 195.567H195.567L256 0Z" fill="#D6D6D6"/>
+                        </svg>
+                        <svg class="star" data-rating="5" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+                            <path d="M256 0L316.433 195.567H512L353.783 316.433L414.217 512L256 391.133L97.7831 512L158.217 316.433L0 195.567H195.567L256 0Z" fill="#D6D6D6"/>
+                        </svg>
                     </div>
                     @error('rating') <span class="error"> {{$message}}</span> @endif
                     <div class="mb-3">

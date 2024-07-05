@@ -17,7 +17,7 @@
     </section>
     <main>
         <section class="filter-grid">
-            @livewire('ecommerce.product.search-result',['type'=>$type,'slug'=>$slug])
+        @livewire('ecommerce.product.search-result',['type'=>$type,'slug'=>$slug])
         </section>
         @livewire('ecommerce.product.collection-list')
     </main>

@@ -78,6 +78,7 @@ class ProductList extends Component
     public function GetView($view){
         $this->view = $view;
     }
+
     public function GetSortBy($sort_by){
         $this->ResetAllFilters();
         $this->sort_by = $sort_by;
@@ -97,7 +98,6 @@ class ProductList extends Component
         $this->type = $type;
         $this->slug = $slug;
         $this->filterProduct();
-
     }
 
     public function filterProduct()
@@ -278,7 +278,6 @@ class ProductList extends Component
             }
         }
     }
-
 
     public function render()
     {

@@ -25,12 +25,14 @@
                                                     <h6 class="h-sms fw-bold">#{{$order['code']}}</h6>
                                                 </div>
                                                 <div class="mbl-view">
-                                                    <div class="d-flex justify-content-between">
-                                                        <span class="h-sms fw-bold ">Order ID #{{$order['code']}}</span><br>
-                                                        <div class="">
+                                                    <a href="{{ route('ecommerce.order-detail') }}?ordId={{$order['code']}}&ordRef={{ \Carbon\Carbon::parse($order['created_at'])->timestamp}}">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span class="h-sms fw-bold ">Order ID #{{$order['code']}}</span><br>
+                                                            <div class="">
                                                             <img src="{{asset('asset/home/forward-icon.png')}}" alt="">
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 text-start text-xl-end text-lg-end text-xxl-end">

@@ -2,23 +2,30 @@
 $(document).ready(function() {
  
     $('#owl-example').owlCarousel({
-    loop : true,
-    autoplay : false,
-    slideSpeed : 500,
-    nav : true,
-    dots:false,
-    singleItem: true,
-      responsive:{
-        0:{
-        items:1
-        },
-        600:{
-        items:1
-        },
-        1000:{
-        items:1
+        loop: true,
+        slideSpeed: 500,
+        nav: true,
+        dots: false,
+        singleItem: true,
+        responsive: {
+            0: {
+                items: 1,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true
+            },
+            600: {
+                items: 1,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true
+            },
+            1000: {
+                items: 1
+            }
         }
-      }
     });
 
 
@@ -30,13 +37,24 @@ $(document).ready(function() {
         dots: true,
         responsive: {
             0:{
-                items: 1
+                items: 1,
+                stagePadding: 0 
+            },
+            400:{
+                items: 1,
+                stagePadding: 40 
+            },
+            500:{
+                items: 1,
+                stagePadding: 80 
             },
             600:{
-                items: 2
+                items: 2,
+                stagePadding: 0 
             },
             1000:{
-                items: 3
+                items: 3,
+                stagePadding: 0 
             }
         }
     });

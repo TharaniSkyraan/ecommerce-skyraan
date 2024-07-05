@@ -8,10 +8,17 @@
 .detail-card .detail_page_carousal .card.active{
     border: 3px solid var(--items-list-border-color);
 }
+.star path {
+    transition: fill 0.3s;
+}
 
-.ratings .star {
+.star path.active {
+    fill: var(--next-prev-arrow-color);
+}
+.ratings svg {
     width: 25px!important;
     height: 25px!important;
+    cursor: pointer;
 }
 .detail-card .detail_page_carousal .owl-prev {
     left: -13px;
@@ -246,18 +253,11 @@
         height: 40px!important;
     }
     .carousel-wrap .owl-carousel
-    .owl-next {
-        right: -10px!important;
-    }
-    .carousel-wrap .owl-carousel
-    .owl-prev {
-        left: -10px!important;
-    }
-    .carousel-wrap .owl-carousel
     .owl-prev, .owl-next {
-        width: 26px!important;
-        height: 28px!important;
-        top: 50%!important;
+        display: none;
+    }
+    .carousel-wrap .owl-stage{
+        padding-left: 0px!important;
     }
     .detail-img img {
         height: 327px!important;
@@ -287,6 +287,7 @@
 @media (min-width: 600px) and (max-width: 1024px){
     .detail-card .price-detail .zoom-in {
         width: 96%;
+        /* display: none!important; */
         /* height: 30%; */
     }
     .detail_page_carousal img {
