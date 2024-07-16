@@ -1548,3 +1548,14 @@ p{
   border-radius: 5px;
   font-size: 14px;
 }
+table::-webkit-scrollbar {
+  width: 5px;
+}
+table::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border-radius: 3px;
+}
+table::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 3px;
+}

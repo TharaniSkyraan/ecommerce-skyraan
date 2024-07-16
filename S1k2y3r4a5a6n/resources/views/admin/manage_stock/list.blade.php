@@ -55,8 +55,13 @@
             padding: 10px;
             background: #eeeeee38;
         }
-        .autocomplete{
-            height: 400px;
+        .autocomplete {
+            background: #eeeeee66;
+            border-radius: 5px;
+        }
+        .autocomplete .prdlist{
+            max-height: 400px;
+            min-height: fit-content;
             overflow-y: scroll;
         }
         .bg-selected {
@@ -84,6 +89,19 @@
             height: 60px;
             margin: 0px 10px;
         }
+        .prdlist::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .prdlist::-webkit-scrollbar-thumb {
+            background-color: #bdbdbd5c;
+            border-radius: 3px;
+        }
+
+        .prdlist::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 3px;
+        }
     </style>
     <ul class="breadcrumb">
         <li><a href="{{url('/')}}">Dashboard</a></li>
@@ -105,11 +123,7 @@
         </figure>
     </div>                
     <div class="card">
-        @if(session()->has('message'))
-            <div class="alert-success my-2">
-                {{session('message')}}
-            </div>                
-        @endif
+        <div class="success"></div>
         <div class="row">
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
@@ -147,23 +161,29 @@
                     </table>
                 </div>
             </div>
+            <div class="mt-2">
+                <button href="javascript:void(0);" class="btn btn-lg btn-pp"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>
+                <button href="javascript:void(0);" class="btn btn-lg btn-p modal-bulk-update"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>
+            </div>
         </div>
-        
+
         <div class="modal-window modal-window-lg">
             <div class="modal-toggle"> 
                 <div class="modal-header">
-                    <h1 > Add Product Stock </h1>
+                    <h1> Add Product Stock </h1>
                     <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
                 </div>
                 @livewire('manage-product.update-stock')                
             </div>
         </div>
+
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        
         <script>
           var dataTable = $('#datatable').DataTable({
                 processing: true,
@@ -264,7 +284,7 @@
                     if (init) {
                         // Hide points on init
                         points.forEach(point => {
-                            point.opacity = 0;
+                            // point.opacity = 0;
                         });
                     } else {
                         fanAnimate(points[0], startAngleRad);
@@ -351,9 +371,25 @@
                 }
             });
             
-            $(document).on('click', '.modal-edit', function () {   
-                // alert(2); 
+            $(document).on('click', '.modal-bulk-update', function () 
+            { 
+                var productStockValues = [];
+                // Loop through each input with name="product_stock[]" and push the value to the array
+                $('input[name="product_stock[]"]').each(function() {
+                    if($(this).prop('checked')){
+                        productStockValues.push($(this).attr('id'));
+                    }
+                });
+                // Log the array of values to the console
+                var productIds = productStockValues.join(',');
+                if(productIds!=''){
+                    Livewire.emit('OpenUpdatestock','bulkupdate',productIds);
+                    document.body.classList.add('modal-open');
+                    $('.modal-window').addClass('show');
+                }
+            });
 
+            $(document).on('click', '.modal-edit', function () {  
                 Livewire.emit('OpenUpdatestock','new');
                 document.body.classList.add('modal-open');
                 $('.modal-window').addClass('show');

@@ -9,6 +9,7 @@ class StockHistory extends Model
 {
     use HasFactory;
     
+    protected $fillable = ['stock_type', 'warehouse_to_id', 'warehouse_from_id', 'reference_number', 'sent_date', 'received_date', 'status'];
     
     public function warehouse_from()
     {    
