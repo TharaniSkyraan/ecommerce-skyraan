@@ -69,11 +69,6 @@ class UpdateStock extends Component
 
     }
 
-    public function isSelected($variant_id)
-    {
-        return isset($this->selected_products[$variant_id]);
-    }
-
     public function updatedWarehouseId()
     {
         $this->selected_products = [];
@@ -111,6 +106,9 @@ class UpdateStock extends Component
             'selected_products' => 'required'
         ];
         
+        if($this->action=='new'){
+            $rules['warehouse_id'] = 'required';
+        }
         $validateData = $this->validate($rules);
         $date = Carbon::now();
         if($this->warehouse_id)
@@ -131,9 +129,9 @@ class UpdateStock extends Component
             {                
                 $history =  StockHistory::updateOrCreate([
                                 'reference_number' => $this->reference_number,
-                                'warehouse_to_id' => $product['warehouse_id']
-                            ],[
+                                'warehouse_to_id' => $product['warehouse_id'],
                                 'stock_type' => 'upload',
+                            ],[
                                 'warehouse_from_id' => 0,
                                 'received_date' => $date,
                                 'sent_date' => $date,
@@ -148,7 +146,7 @@ class UpdateStock extends Component
                 'product_id' => $product['product_id'],
                 'product_variant_id' => $product['variant_id'],
                 'previous_available_quantity' => $product['available_stock'],
-                'upload_quantity' => $product['quantity'],
+                'updated_quantity' => $product['quantity'],
                 'available_quantity' => $product['quantity'] + $product['available_stock'],
             ]);
 
@@ -158,10 +156,9 @@ class UpdateStock extends Component
                     'product_variant_id' => $product['variant_id']
                 ],
                 [
-                    'warehouse_id' => $product['warehouse_id'],
-                    'product_variant_id' => $product['variant_id'],
                     'available_quantity' => $product['quantity'] + $product['available_stock'],
                     'product_id' => $product['product_id'],
+                    'stock_status' => 'in_stock',
                 ]
             );
 

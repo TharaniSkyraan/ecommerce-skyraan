@@ -127,7 +127,7 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
-                <div class="float-end"> <a class="btn btn-s btn-lg modal-edit" href="javascript:void(0)">Add Product Stock</a> </div>
+                <div class="float-end"> <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
                         <thead>
@@ -162,20 +162,31 @@
                 </div>
             </div>
             <div class="mt-2">
-                <button href="javascript:void(0);" class="btn btn-lg btn-pp"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>
-                <button href="javascript:void(0);" class="btn btn-lg btn-p modal-bulk-update"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>
+                <button href="javascript:void(0);" class="btn btn-lg btn-pp m-0 bulk-update-stock-transfer-modal"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Bulk Stock</button>
+                <button href="javascript:void(0);" class="btn btn-lg btn-p m-0 bulk-update-stock-modal"><i class="bx bx-upload" aria-hidden="true"></i> Upload Bulk Stock</button>
             </div>
         </div>
 
-        <div class="modal-window modal-window-lg">
+        <div class="modal-window modal-window-lg update-stock">
             <div class="modal-toggle"> 
                 <div class="modal-header">
-                    <h1> Add Product Stock </h1>
+                    <h1> Upload Stock </h1>
                     <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
                 </div>
                 @livewire('manage-product.update-stock')                
             </div>
         </div>
+
+        <div class="modal-window modal-window-lg transfer-stock">
+            <div class="modal-toggle"> 
+                <div class="modal-header">
+                    <h1> Transfer Stock </h1>
+                    <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
+                </div>
+                @livewire('manage-product.transfer-stock')                
+            </div>
+        </div>
+
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
@@ -185,7 +196,7 @@
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
         
         <script>
-          var dataTable = $('#datatable').DataTable({
+            var dataTable = $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 stateSave: true,
@@ -291,7 +302,6 @@
                     }
                 };
             }(Highcharts));
-
             var chart = Highcharts.chart('container', {
                 chart: {
                     type: 'pie'
@@ -340,7 +350,6 @@
                     }]
                 }]
             });
-
             function updateChart(){
                 $.ajax({
                     url: '{!! route('admin.fetch.data') !!}',
@@ -370,8 +379,21 @@
                     $('input[type="checkbox"]').prop('checked', false);
                 }
             });
+
+            $(document).on('click', '.add-stock-modal', function () {  
+                Livewire.emit('OpenUpdatestock','new');
+                document.body.classList.add('modal-open');
+                $('.update-stock').addClass('show');
+            });
             
-            $(document).on('click', '.modal-bulk-update', function () 
+            $(document).on('click', '.update-stock-modal', function () { 
+                var productId = $(this).attr('data-id'); 
+                Livewire.emit('OpenUpdatestock','update',productId);
+                document.body.classList.add('modal-open');
+                $('.update-stock').addClass('show');
+            });
+
+            $(document).on('click', '.bulk-update-stock-modal', function () 
             { 
                 var productStockValues = [];
                 // Loop through each input with name="product_stock[]" and push the value to the array
@@ -385,20 +407,39 @@
                 if(productIds!=''){
                     Livewire.emit('OpenUpdatestock','bulkupdate',productIds);
                     document.body.classList.add('modal-open');
-                    $('.modal-window').addClass('show');
+                    $('.update-stock').addClass('show');
                 }
             });
 
-            $(document).on('click', '.modal-edit', function () {  
-                Livewire.emit('OpenUpdatestock','new');
+            $(document).on('click', '.add-transfer-stock-modal', function () {  
+                Livewire.emit('OpenStockLimit','new');
                 document.body.classList.add('modal-open');
-                $('.modal-window').addClass('show');
+                $('.transfer-stock').addClass('show');
             });
-            $(document).on('click', '.modal-update', function () { 
+
+            $(document).on('click', '.transfer-stock-modal', function () { 
                 var productId = $(this).attr('data-id'); 
-                Livewire.emit('OpenUpdatestock','update',productId);
+                Livewire.emit('OpenStockLimit','update',productId);
                 document.body.classList.add('modal-open');
-                $('.modal-window').addClass('show');
+                $('.transfer-stock').addClass('show');
+            });
+            
+            $(document).on('click', '.bulk-update-stock-transfer-modal', function () 
+            { 
+                var productStockValues = [];
+                // Loop through each input with name="product_stock[]" and push the value to the array
+                $('input[name="product_stock[]"]').each(function() {
+                    if($(this).prop('checked')){
+                        productStockValues.push($(this).attr('id'));
+                    }
+                });
+                // Log the array of values to the console
+                var productIds = productStockValues.join(',');
+                if(productIds!=''){
+                    Livewire.emit('OpenStockLimit','bulkupdate',productIds);
+                    document.body.classList.add('modal-open');
+                    $('.transfer-stock').addClass('show');
+                }
             });
 
             $(document).on('click', '.modal-close, .modal-dismiss', function () {   
@@ -406,7 +447,6 @@
                 $('.modal-window').removeClass('show');
                 Livewire.emit('resetInputvalues');
             });
-    
         </script>
     </div>
   <x-slot name="scripts">

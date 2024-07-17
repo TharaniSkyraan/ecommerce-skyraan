@@ -9,7 +9,7 @@ class ProductStockUpdateQuantityHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'history_id','warehouse_id','product_name','product_id','product_variant_id','previous_available_quantity','upload_quantity','available_quantity'];
+    protected $fillable = [ 'history_id','warehouse_id','product_name','product_id','product_variant_id','previous_available_quantity','updated_quantity','available_quantity'];
        
     public function warehouse()
     {    
