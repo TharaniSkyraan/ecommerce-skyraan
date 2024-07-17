@@ -1,8 +1,13 @@
 <div>
+        @if(session()->has('message'))
+            <div class="alert-success">
+                {{session('message')}}
+            </div>                
+        @endif
     <div class="row">
         <div class="col-12 shipment">
             <div class="card mt-3 mx-2">
-                <h1 class="mb-3 font-bold"> Stock Information  <span class="font-bold float-end me-2 success"><a href="javascript:void(0)" class="primary" wire:click="invoiceGenerate"><p>View Invoice <i class="bx bx-download"></i></p></a> </span> </h1>
+                <h1 class="mb-3 font-bold"> Stock Information @if(in_array($stock_history->warehouse_to_id, $warehouse_ids) && $stock_history->status=='sent')  <a href="javascript:void(0)" id="stockReceived" class="btn btn-s float-end me-2">Stock receive </a> @endif</h1>
                 <hr> <br>
                 @php 
                     $histories = $stock_history->updatedproducts;
@@ -14,7 +19,7 @@
                     </div>
                     <div class="product-det">
                         <div class="title">Warehouse :</div>
-                        <div class="font-bold">{{ $stock_history->warehouse_to->name??'' }}</div>
+                        <div class="font-bold">{{ $stock_history->warehouse_to->name??'-' }}</div>
                     </div>
                     <div class="product-det">
                         <div class="title">Warehouse From:</div>
@@ -36,10 +41,17 @@
                         <div class="title">No.of Product:</div>
                         <div class="font-bold">{{ count($stock_history->updatedproducts) }}</div>
                     </div>  
-                    <div class="product-det">
-                        <div class="title">Status:</div>
-                        <div class="font-bold">{{ ucwords($stock_history->status) }}</div>
-                    </div>  
+                    @if(in_array($stock_history->warehouse_to_id, $warehouse_ids)) 
+                        <div class="product-det">
+                            <div class="title">Status:</div>
+                            <div class="font-bold">{{ ($stock_history->status=='sent')?'Pending':ucwords($stock_history->status); }}</div>
+                        </div>  
+                    @else
+                        <div class="product-det">
+                            <div class="title">Status:</div>
+                            <div class="font-bold">{{ ucwords($stock_history->status) }}</div>
+                        </div>  
+                    @endif
                 </div> 
             </div>
         </div>
@@ -70,3 +82,13 @@
         @endif
     </div>
 </div>
+@push('scripts')
+<script>
+    $('#stockReceived').on('click', function (e) {
+        if (confirm('Are you sure! stock is received?')) {
+            Livewire.emit('stockReceived');
+        }
+    });
+</script>
+
+@endpush
