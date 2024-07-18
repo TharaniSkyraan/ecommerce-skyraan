@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_variant_id'); 
             $table->bigInteger('previous_available_quantity')->default(0);
             $table->bigInteger('available_quantity')->default(0);
-            $table->bigInteger('upload_quantity')->default(0);
+            $table->bigInteger('updated_quantity')->default(0);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

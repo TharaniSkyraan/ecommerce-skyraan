@@ -23,7 +23,7 @@
       border-radius: 4px;
     }
   }
-  .modal-window-lg .modal-toggle{
+  .modal-window-lg .modal-toggle{ 
     width: 80%;
   }
   .modal-window.show {
