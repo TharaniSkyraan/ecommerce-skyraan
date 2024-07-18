@@ -283,6 +283,9 @@
     #information p {
         font-size: 11px;
     }
+    .prdct_name{
+        font-size: 17px;
+    }
 }
 @media (min-width: 600px) and (max-width: 1024px){
     .detail-card .price-detail .zoom-in {

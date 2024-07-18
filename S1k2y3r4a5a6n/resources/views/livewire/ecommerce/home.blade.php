@@ -504,7 +504,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                                    <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                                    <h6 class="text-secondary text-opacity-50 text-nowrap h-sms pt-1">{{$product['review_count']}} reviews</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -621,60 +621,23 @@
             </div>
         </section>
         @endif
-        <section class="marquee_content">
+        <section class="marquee_content ">
             <div class="marquee py-2">
                 <div class="marquee__group">
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/100.png')}}" alt="">
-                        <h5 class="fw-normal">100 Natural</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/forms.png')}}" alt="">
-                        <h5 class="fw-normal">Direct from farms</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/free_ship.png')}}" alt="">
-                        <h5 class="fw-normal">Free Shipping</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/certified.png')}}" alt="">
-                        <h5 class="fw-normal">Certified Organic</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/100.png')}}" alt="">
-                        <h5 class="fw-normal">100 Natural</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/forms.png')}}" alt="">
-                        <h5 class="fw-normal">Direct from farms</h5>
-                    </div>
+                    @foreach($collections as $collection)
+                        <div class="d-flex gap-2 align-items-center marquee-item">
+                            <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="feature_image">
+                            <h5 class="fw-normal">{{$collection['name']}}</h5>
+                        </div>
+                    @endforeach
                 </div>
-
                 <div aria-hidden="true" class="marquee__group">
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/free_ship.png')}}" alt="">
-                        <h5 class="fw-normal">Free Shipping</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/certified.png')}}" alt="">
-                        <h5 class="fw-normal">Certified Organic</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/100.png')}}" alt="">
-                        <h5 class="fw-normal">100 Natural</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/forms.png')}}" alt="">
-                        <h5 class="fw-normal">Direct from farms</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/free_ship.png')}}" alt="">
-                        <h5 class="fw-normal">Free Shipping</h5>
-                    </div>
-                    <div class="d-flex gap-2 align-items-center marquee-item">
-                        <img src="{{asset('asset/home/certified.png')}}" alt="">
-                        <h5 class="fw-normal">Certified Organic</h5>
-                    </div>
+                    @foreach($collections as $collection)
+                        <div class="d-flex gap-2 align-items-center marquee-item">
+                            <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="feature_image">
+                            <h5 class="fw-normal">{{$collection['name']}}</h5>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>    

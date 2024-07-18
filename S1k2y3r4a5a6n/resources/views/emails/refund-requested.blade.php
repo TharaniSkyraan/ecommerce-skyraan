@@ -105,7 +105,7 @@
             }
             .div1{
                 width: 48%;
-                padding: 14px 0px 14px 0px;
+                padding: 14px 0px 0px 0px;
             }
             .fs-2{
                 font-size:14px;
@@ -114,8 +114,9 @@
                 float:right!important;
             }
             .bottom-div p{
-                font-size:16px;
+                font-size:13px;
                 color:#000;
+                padding: 10px 0px 0px 0px;
             }
             .txt-start{
                 float:left!important;
@@ -130,7 +131,7 @@
                 border: 1px solid #eee;
             }
             .order-div .td1 img{
-                padding:20px 20px 0px 20px;
+                padding:0px 20px 10px 20px;
                 /* border-bottom:1px solid #eee; */
             }
             .order-div .td2 {
@@ -143,21 +144,18 @@
             .green{
                 color:#4CAF50!important;
             }
-
         </style>
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/cancel-mail.png')}}" alt="">
-        <p class="title-content text-center"><b>We're Sad to See You Cancel</b></p>
-        <p class="text-left text-center">We regret to let you know that your recent order has been successfully cancelled.</p>
+        <img src="{{asset('asset/home/refund-requested.png')}}" alt="">
+        <p class="title-content text-center"><b>Refund Requested</b></p>
+        <p class="text-left text-center">We have received your request for a refund. Our team is currently reviewing your request and will get back to you as soon as possible. </p>
     </div>
     <div class="order-summary text-center">
         <div class="div1">
-            <p class="font-bold">Order Summary</p>
-            <p class="fs-2">Order number : #1234567910</p>
-            <p class="fs-2">Order Placed : 23 Jun 2024</p>
+            <p class="font-bold">Order Number #1234567910</p>
         </div>
     </div>
     <div class="order-div text-center">
@@ -169,7 +167,8 @@
                 <td class="margin-left td2">
                     <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
                     <p>Quantity : <b>2</b></p>
-                    <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
+                    <p><b>₹345.00</b></p>
+                    <p>Reason for refund <span class="red">Incorrect Item</span></p>
                 </td>
             </tr>
             <tr>
@@ -179,14 +178,15 @@
                 <td class="margin-left td2">
                     <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
                     <p>Quantity : <b>2</b></p>
+                    <p><b>₹345.00</b></p>
                     <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
                 </td>
             </tr>
         </table>
     </div>
     <div class="bottom-div">
-        <p>We strive to provide the best service to our customers, but unfortunately you had to cancel your order. We apologise for failing to satisfy your needs. We’ll make sure that such activities will not happen in the future.</p>
-        <p class="font-bold text-center">Hoping to receive an order from you very soon!</p>
+        <p class=" text-center">We will notify you once your refund is processed. 
+        We appreciate your patience and understanding during this process<p>
     </div>
     <div class="footer-content">
         <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">help@skyraaorganics.com</a> </p>

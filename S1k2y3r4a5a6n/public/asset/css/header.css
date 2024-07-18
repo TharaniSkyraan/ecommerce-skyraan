@@ -268,10 +268,48 @@ fieldset, legend {
 }
 
 /* marquee */
+marquee_content{
+    background-color: #795548;
+}
+
+.marquee_content .marquee {
+    --duration: 14s;
+    display: flex;
+    overflow: hidden;
+    gap: var(--gap);
+}
+
+.marquee_content .marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100%;
+    animation: scroll var(--duration) linear infinite;
+    padding-left: 30px;
+}
+.marquee_content .marquee h5{
+   color: #fff;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-100% ));
+    }
+}
+
+.marquee_content .marquee img{
+   width: 25px;
+}
 
 .marquee_content2{
     background-color: #FFFFFF !important;
 }
+
 .marquee_content2 .marquee {
     --duration: 14s;
     display: flex;
@@ -296,15 +334,7 @@ fieldset, legend {
 .marquee_content2 .marquee:hover .marquee__group {
     animation-play-state: paused;
 }
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
 
-    100% {
-        transform: translateX(calc(-100% ));
-    }
-}
 .hover-pading .py-1{
     padding-top: 0.3rem !important;
     padding-bottom: 0.3rem !important;
@@ -1158,8 +1188,11 @@ padding-top: 155px!important;
         right: -10px;
     }
     .marquee_content2 .marquee__group img {
-        width: 168px !important;
+        width: 208px !important;
         height: 223px !important;
+    }
+    .marquee_content .marquee__group {
+        min-width: 222%;
     }
     .menu-font{
         font-size: large;    
@@ -1287,6 +1320,9 @@ padding-top: 155px!important;
     textarea::placeholder {
         font-size: 14px;
     }
+    .list-items {
+        height: 554px!important;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1359,6 +1395,9 @@ padding-top: 155px!important;
             }
         }
     }
+    .marquee_content .marquee__group {
+        min-width: 115%;
+    }
     .contact-us {
         .center-cnt {
             padding-left: 0px!important;
@@ -1382,7 +1421,9 @@ padding-top: 155px!important;
             width:89px!important;
         }
     }
-
+    .list-items {
+        height: 554px!important;
+    }
 }
 @media (min-width: 1025px) and (max-width: 1199px){
     .search_menu_nav 

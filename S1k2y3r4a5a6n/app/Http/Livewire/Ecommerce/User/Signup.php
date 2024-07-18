@@ -18,24 +18,32 @@ class Signup extends Component
     public function updated($propertyName)
     {
         $ipData = \Session::get('ip_config');
-
-        // Dynamically adjust validation rules
         if ($propertyName === 'phone') {
             $this->resetValidation('phone');
             $this->phone_validate = false;
             $this->verified_status = '';
-            $this->validateOnly($propertyName, [
-                'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users',
-            ],[
+    
+            if ($ipData && isset($ipData->code)) {
+                $validationRules = [
+                    'phone' => 'required|numeric|phone:' . $ipData->code . '|unique:users',
+                ];
+            } else {
+                $validationRules = [
+                    'phone' => 'required|numeric|unique:users',
+                ];
+            }
+    
+            $this->validateOnly($propertyName, $validationRules, [
                 'phone.required' => 'Phone number is required',
-                'phone.numeric'=> 'Please enter valid Phone Number',
-                'phone.unique' => 'The given phone number already exist',
-                'phone.phone' => 'Please enter valid Phone Number',
+                'phone.numeric' => 'Please enter a valid phone number',
+                'phone.unique' => 'The given phone number already exists',
+                'phone.phone' => 'Please enter a valid phone number',
             ]);
-            if($this->phone != $this->verified_phone_number){
+    
+            if ($this->phone != $this->verified_phone_number) {
                 $this->phone_validate = true;
                 $this->verified_status = '';
-            }else{
+            } else {
                 $this->phone_validate = false;
                 $this->verified_status = 'verified';
             }

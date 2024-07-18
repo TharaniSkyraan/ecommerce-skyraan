@@ -126,6 +126,9 @@
             .fdfd{
                 font-weight: 500;
             }
+            .green{
+                color:#4CAF50!important;
+            }
             @media only screen and (max-width:460px){
                 .title-contents{
                     margin: 18px 18px 20px 18px!important;
@@ -147,7 +150,7 @@
         <p class="text-center fdfd">Own it before it’s too late!</p>
     </div>
     <div class="footer-content">
-        <p class="text-center">Contact us via email <a href="">help@skyraaorganics.com</a>  regarding any queries.</p>
+        <p class="text-center">Contact us via email <a href="" class="green">help@skyraaorganics.com</a>  regarding any queries.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

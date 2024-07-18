@@ -2,12 +2,12 @@
     <div class="d-flex justify-content-between">
         <h5 class="fw-bold">Customer Reviews</h5>
         @if(!Auth::check())
-        <div><h6 class="hide-reviews h-sms fw-normal">Write a review</h6>
+        <div><h6 class="hide-reviews h-sms fw-normal text-end">Write a review</h6>
         <span class="hide-review h-sms">*Login to write a review</span></div>
         @endif
         @if(Auth::check() && !($review_form) && !isset($is_reviewed) && $purchased_product!='yes')<h6 class="write-review" wire:click.prevent="ReviewForm">Write a review</h6> @endif
     </div>
-    <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center py-2">
+    <div class="d-flex gap-xl-1 gap-lg-1 gap-1 align-items-center py-2">
         @if($review==0)
         <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
         @elseif($review==1)
@@ -82,7 +82,7 @@
     @endif
 
     @if(isset($is_reviewed))
-        <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center py-2">
+        <div class="d-flex gap-xl-1 gap-lg-1 gap-1 align-items-center py-2">
             @if($is_reviewed->rating==0)
             <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
             @elseif($is_reviewed->rating==1)
@@ -109,7 +109,7 @@
     @endif
     
     @foreach($reviews as $key => $rev)
-        <div class="d-flex gap-xl-1 gap-lg-1 gap-0 align-items-center py-2">
+        <div class="d-flex gap-xl-1 gap-lg-1 gap-1 align-items-center py-2">
             @if($rev['rating']==0)
             <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
             @elseif($rev['rating']==1)

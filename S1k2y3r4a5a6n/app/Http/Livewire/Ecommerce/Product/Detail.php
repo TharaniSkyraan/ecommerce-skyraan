@@ -288,8 +288,12 @@ class Detail extends Component
                                 
         $this->productList('frequently_bought_products',json_encode($frequently));
 
-        $this->buying_options = BuyingOption::whereStatus('active')->get()->toArray();
-   
+        $this->buying_options = BuyingOption::where('status', 'active')
+        ->where('feature_type', '<>', 'product')
+        ->take(3)
+        ->get()
+        ->toArray();
+        
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;

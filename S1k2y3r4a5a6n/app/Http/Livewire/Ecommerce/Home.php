@@ -12,6 +12,7 @@ use App\Models\Label;
 use App\Models\WishList;
 use App\Models\ProductVariant;
 use App\Models\WhyChoose;
+use App\Models\BuyingOption;
 use Auth;
 use Carbon\Carbon;
 
@@ -94,8 +95,39 @@ class Home extends Component
         $why_choose = WhyChoose::all();
         $this->why_choose = $why_choose;
         $reviews = Review::where('rating', 5)->with('user')->get();
-
         $this->reviews = $reviews;
+
+        $collections = BuyingOption::where('status', 'active')
+                                ->where(function ($query) {
+                                    $query->where('feature_type', '!=', 'buying');
+                                })
+                                ->get()
+                                ->toArray();
+
+        $count = count($collections);
+        $duplicationCount = 10 - $count;
+
+        $data = $collections;
+        for ($i = 0; $i < $duplicationCount; $i++) {
+        $data = array_merge($data, $collections);
+        }
+
+        // Split the array into two arrays
+
+        $result = array_chunk($data, 5);
+
+        // Check the count of the last chunk
+        $lastChunkIndex = count($result) - 1;
+        $lastChunkCount = count($result[$lastChunkIndex]);
+
+        // If the last chunk has fewer than 6 elements, merge it with the first chunk
+        if ($lastChunkCount < 5) {
+        $result[$lastChunkIndex] = array_slice(array_merge($result[0], $result[$lastChunkIndex]), 0, 5);
+        }
+
+        $this->collections = $result[0];
+        unset($result[0]);
+        $this->collections_data = $result;
 
     }
     public function productList($type,$ids){

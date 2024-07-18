@@ -54,7 +54,7 @@
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 price-detail pt-xl-0 pt-lg-0 pt-sm-4 pt-md-0 pt-4">
             <div class="zoom-in"></div>
-                <h3 class="text-dark">{{ $product['name'] }}</h3>
+                <h3 class="text-dark prdct_name">{{ $product['name'] }}</h3>
                 <div class="d-flex justify-content-start gap-4 py-2 price-discount align-items-center">
                     @if(isset($discount) && $discount!=0)
                         <del class="del-clr"><h6 class= "text-secondary opacity-50">{{ $ip_data->currency_symbol??'₹' }} {{ $price}}</h6></del>

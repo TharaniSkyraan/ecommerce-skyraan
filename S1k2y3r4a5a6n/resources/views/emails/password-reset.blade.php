@@ -93,6 +93,9 @@
                     color:#111111;
                 }
             }
+            .green{
+                color:#4CAF50!important;
+            }
         </style>
     @endslot
     {{-- Body --}}
@@ -105,7 +108,7 @@
         <p class="text-center text-dark">Link valid only for 10 minutes.</p>
     </div>
     <div class="footer-content">
-        <p class="text-center"> <b> Note : </b>If the password reset is no longer required, kindly disregard this email. For further queries, please contact us through <a href="">help@skyraaorganics.com</a></p>
+        <p class="text-center"> <b> Note : </b>If the password reset is no longer required, kindly disregard this email. For further queries, please contact us through <a href="" class="green">help@skyraaorganics.com</a></p>
     </div>
     {{-- Footer --}}
     @slot('footer')
