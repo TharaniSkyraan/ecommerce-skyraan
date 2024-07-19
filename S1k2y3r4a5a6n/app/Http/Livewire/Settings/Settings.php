@@ -76,13 +76,12 @@ class Settings extends Component
             $logoname = $this->fav_icon->store('setting','public');
             $validateData['fav_icon'] = $logoname;
         }        
-        dd($validateData);
         Setting::updateOrCreate(
             ['id' => 1],
             $validateData
         );
-        // \Artisan::call('config:clear');
-        // \Artisan::call('cache:clear');
+        \Artisan::call('config:clear');
+        \Artisan::call('cache:clear');
         \Artisan::call('config:cache');
 
         session()->flash('message', 'Updated Successfully.');
