@@ -28,7 +28,7 @@
         <section class="home_first_carousel" wire:ignore>
             <div class="container-fluid">
                 <div class="row py-3">
-                    <h5 class="text-center fw-bold">OUR TOP CATEGORIES</h5>
+                    <h5 class="text-center fw-bold hghg">OUR TOP CATEGORIES</h5>
                 </div>
             </div>
             <div id="home_first_carousel" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-4 px-sm-4 px-0">
@@ -84,7 +84,7 @@
         <section class="item-list">
             <div class="container">
                 <div class="row pb-3">
-                    <h5 class="text-center fw-bold with-horizontal-line">OUR TOP SELLING</h5>
+                    <h5 class="text-center fw-bold with-horizontal-line hghg">OUR TOP SELLING</h5>
                 </div>
                 <div class="row pb-xl-5 pb-lg-5 pb-md-3 pb-sm-3 pb-0">
                     @forelse($top_selling_products as $product)
@@ -195,7 +195,7 @@
                                             @endif
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms ">{{$product['review_count']}} reviews</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
             <div class="container-fluid">
                 <div class="row py-2">
                     <div class="d-flex justify-content-center gap-2 heading-cnt pb-4">
-                        <h5 class="text-center fw-bold">{{$siteSetting->site_name}} SPECIAL PRODUCTS</h5>
+                        <h5 class="text-center fw-bold hghg">{{$siteSetting->site_name}} SPECIAL PRODUCTS</h5>
                         <img src="{{asset('asset/home/special-product.png')}}" alt="" >
                     </div>
                 </div>
@@ -249,7 +249,7 @@
         <section class="item-list">
             <div class="container">
                 <div class="row py-4">
-                <h5 class="text-center fw-bold with-horizontal-line">HURRY UP! LIMITED TIME ONLY</h5>
+                <h5 class="text-center fw-bold with-horizontal-line hghg">HURRY UP! LIMITED TIME ONLY</h5>
                 </div>
                 <div class="row pb-5">
                     @forelse($new_products as $product)
@@ -371,7 +371,7 @@
         </section>
         @endif
         @if(count($top_selling_products)!=0)
-        <section class="card_and_carousal">
+        <section class="card_and_carousal pb-4">
             <div class="container">
                 <div class="row">
 
@@ -393,7 +393,7 @@
                     </div>
                     <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 px-0">
                         <div class="row ps-3">
-                            <h5 classs="fw-bold ">HEROES OF THE WEEK</h5>
+                            <h5 class="fw-bold hghg">HEROES OF THE WEEK</h5>
                         </div>
                         <div id="card_and_carousal" class="owl-carousel px-2 pt-4" wire:ignore>
                             @forelse($top_selling_products as $key => $product)
@@ -504,12 +504,11 @@
                                                     @endif
                                                 </div>
                                                 <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                                    <h6 class="text-secondary text-opacity-50 text-nowrap h-sms pt-1">{{$product['review_count']}} reviews</h6>
+                                                    <h6 class="text-secondary text-opacity-50 text-nowrap h-sms pt-2">{{$product['review_count']}} reviews</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 @endif
                             @endforeach                            
@@ -526,7 +525,7 @@
                     <div class="col-3">
                         <div class="why_bnr p-3  d-table">
                             <div class="d-table-cell align-middle">
-                                <h5 class="text-white fw-normal">WHY CHOOSE</h5>
+                                <h5 class="text-white fw-normal hghg">WHY CHOOSE</h5>
                                 <h3 class="text-white fw-bold pt-2">{{$siteSetting->site_name}}</h3>
                             </div>
                         </div>
@@ -535,19 +534,23 @@
                     <div class="col-9 align-self-center">
                         <div id="why-choose" class="owl-carousel">
                             @foreach($why_choose as $why_chooses)
-                            <div class="owl-slide ">
-                                <div class="card px-3 py-xl-0 py-lg-0 py-md-3 py-sm-3 py-0 border-0" >
-                                    <div class="row">
-                                        <div class="col-5 d-flex justify-content-center">
-                                            <img src="{{ asset('storage') }}/{{$why_chooses->why_chs_img}}" alt="image" class="w-75 py-3" >
-                                        </div>
-                                        <div class="col-7 align-self-center">
-                                            <h5 class="text-dark fw-bold">{{$why_chooses->why_chs_title}}</h6>
-                                            <h6 class="text-dark pt-2 lh-base fw-normal">{{$why_chooses->why_chs_desc}}</h6>
+                                <div class="owl-slide">
+                                    <div class="card px-3 py-xl-0 py-lg-0 py-md-3 py-sm-3 py-0 border-0">
+                                        <div class="row">
+                                            <div class="col-5 d-flex justify-content-center">
+                                                @php
+                                                    $imagePath = asset('storage') . '/' . $why_chooses->why_chs_img;
+                                                    $defaultImage = asset('asset/home/flat-design-omnichannel-illustration.png');
+                                                @endphp
+                                                <img src="{{ $why_chooses->why_chs_img ? $imagePath : $defaultImage }}" alt="image" class="w-75 py-3">
+                                            </div>
+                                            <div class="col-7 align-self-center">
+                                                <h5 class="text-dark fw-bold">{{ $why_chooses->why_chs_title }}</h5>
+                                                <h6 class="text-dark pt-2 lh-base fw-normal">{{ $why_chooses->why_chs_desc }}</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
@@ -557,7 +560,7 @@
         @endif
         <section class="mbl-view"  wire:ignore>
             <div class="row py-4">
-                <div><h5 class="fw-bold text-secondary opacity-50 text-center">WHY CHOOSE </h5></div>
+                <div><h5 class="fw-bold text-secondary opacity-50 text-center hghg">WHY CHOOSE </h5></div>
                 <div><h3 class="fw-bold text-secondary opacity-75 text-center">SKYRAA ORGANIC </h3></div>
                 <div class="px-5 py-2">
                     <div id="why-choosnne" class="owl-carousel">
@@ -587,7 +590,7 @@
         <section class="abt_review" wire:ignore>
             <div class="container-fluid">
                 <div class="row">
-                    <h5 class="text-white text-center py-3">WHAT OUR CUSTOMERS SAY!</h5>
+                    <h5 class="text-white text-center py-3 hghg">WHAT OUR CUSTOMERS SAY!</h5>
                 </div>
             </div>
             <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3">
@@ -635,7 +638,7 @@
                     @foreach($collections as $collection)
                         <div class="d-flex gap-2 align-items-center marquee-item">
                             <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="feature_image">
-                            <h5 class="fw-normal">{{$collection['name']}}</h5>
+                            <h5 class="fw-normal ">{{$collection['name']}}</h5>
                         </div>
                     @endforeach
                 </div>

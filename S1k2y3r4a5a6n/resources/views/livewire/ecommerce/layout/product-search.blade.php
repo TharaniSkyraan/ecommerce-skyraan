@@ -6,17 +6,17 @@
     <div class="position-absolute w-100 ">
     <!-- {{($show_result)?'':'d-none'}} -->
         <ul class="list-group text-start rounded-2 px-xl-3 px-lg-3 px-md-3 px-sm-3 px-2" id="result">
-            <h6 class="fw-bold pt-2 h-sms">Suggestions ({{ count($products)}})</h6>
+            <h6 class="fw-bold pb-2 h-sms">Suggestions ({{ count($products)}})</h6>
             @forelse($products as $product)
                 <div class="p-2">
                     <li  class="container-fluid">
                         <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}" class="row pb-2">
-                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4 px-0">
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4 px-0">
                                 <div class="card card1 position-relative border-0">
                                     <img src="{{$product['image']}}" alt="list_items" class="srch-img">
                                 </div>
                             </div>
-                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 price_info align-self-center">
+                            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-8 price_info align-self-center">
                                 <h6 class="fw-bold h-sms">{{$product['name']}}</h6>
                                 @if($product['discount']!=0)
                                     <del class="text-secondary opacity-75 h-sms del-clr">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>

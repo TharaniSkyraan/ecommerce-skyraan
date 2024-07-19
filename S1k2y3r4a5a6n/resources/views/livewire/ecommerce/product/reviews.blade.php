@@ -7,7 +7,7 @@
         @endif
         @if(Auth::check() && !($review_form) && !isset($is_reviewed) && $purchased_product!='yes')<h6 class="write-review" wire:click.prevent="ReviewForm">Write a review</h6> @endif
     </div>
-    <div class="d-flex gap-xl-1 gap-lg-1 gap-1 align-items-center py-2">
+    <div class="d-flex gap-xl-1 gap-lg-1 gap-2 align-items-center py-2">
         @if($review==0)
         <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
         @elseif($review==1)

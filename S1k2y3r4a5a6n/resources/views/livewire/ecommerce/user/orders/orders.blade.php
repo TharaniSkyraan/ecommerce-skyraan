@@ -97,7 +97,7 @@
                             <div class="col-xl-6 col-lg-6 col-sm-6 col-md-6 col-6 align-self-center">
                                 @if($shipmentstatus != 'order_placed' && $shipmentstatus != 'cancelled' && $shipmentstatus != 'delivered')
                                     <div class="text-end mb-3">
-                                        <a href="javascript:vois(0);" class="text-white h-sms py-2 px-xl-5 px-lg-5 px-sm-5 px-md-5 px-2 rounded-0 bg-secondary text-nowrap">Track Order</a>
+                                        <a href="{{ route('ecommerce.order-detail') }}?ordId={{$order['code']}}&ordRef={{ \Carbon\Carbon::parse($order['created_at'])->timestamp}}" class="text-white h-sms py-2 px-xl-5 px-lg-5 px-sm-5 px-md-5 px-2 rounded-0 bg-secondary text-nowrap">Track Order</a>
                                     </div>
                                 @endif
                                 @if($order['status']=='new_request'||$order['status']=='order_confirmed')

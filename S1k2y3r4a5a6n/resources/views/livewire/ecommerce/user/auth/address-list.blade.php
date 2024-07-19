@@ -36,8 +36,8 @@
                         </div>
                         <div class="p-3 card1 rounded-1 cursor">
                             <div class="d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit()">
-                                <img src="{{asset('asset/home/plus.png')}}" alt="add">
-                                <h6 class="text-secondary opacity-50">Add Address</h6>
+                                <img src="{{asset('asset/home/plus.svg')}}" alt="add" class="plus-icon">
+                                <h6 class="price_clr">Add Address</h6>
                             </div> 
                         </div>
                     </div>
