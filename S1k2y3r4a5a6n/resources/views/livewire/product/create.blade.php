@@ -31,18 +31,36 @@
             </div>
 
             <div class="card m-2">
-
                 <div class="d-flex justify-content-between my-2">
                     <div>
-                        <h4>Product has variations</h4>
+                        <h4>Product variant type</h4>
                     </div>
                     <div>
-                        <a href="javascript:void(0)" id="addEditAttrmodal" class="btn-p btn">Edit Attribute</a>
-                        <a href="javascript:void(0)" id="addEditVariantmodal" class="btn-p btn">Add New variation</a>
+                        @if($product_variant_type=='multiple')<a href="javascript:void(0)" id="addEditAttrmodal" class="btn-p btn">Edit Attribute</a>@endif
+                        @if(count($selectedattrList)>0)<a href="javascript:void(0)" id="addEditVariantmodal" class="btn-p btn">Add New variation</a>@endif
                     </div>
                 </div>
+                <div>                    
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-3 d-flex">
+                                <input type="radio" wire:model="product_variant_type" id="productVariantType1" value="single">
+                                <label for="productVariantType1"> &nbsp; Has single product</label>
+                            </div>
+                            <div class="col-3 d-flex">
+                                <input type="radio" wire:model="product_variant_type" id="productVariantType2" value="multiple">
+                                <label for="productVariantType2"> &nbsp; Has variant product </label>
+                            </div>
+                        </div>
+                    </div>
+                    @error('product_variant_type') <span class="error"> {{$message}} </span> @endif    
+                </div>
                 <hr>
-                <div class="my-2">
+
+                <div class="my-2 {{ (count($productVariantList)==0)?'d-none':'' }}">
+                    <div class="mb-2">
+                        <h4>Product variant List</h4>
+                    </div>
                     <div class="productVariant">
                         <table class="table dataTable form-group">
                             <thead>
@@ -67,8 +85,6 @@
                                                 }
                                             @endphp
                                             <td><img src="{{ $image }}" alt="ATtr-icon" class="my-1 cat-image"> </td>
-                                        @elseif($key=='available_quantity')
-                                        <td>{{ !empty($variant[$key])?$variant[$key]:'∞'; }}</td>
                                         @elseif($key=='price')
                                         <td>{{ $variant[$key] }}</td>
                                         @elseif($key=='is_default')
@@ -87,8 +103,12 @@
                             </tbody> 
                         </table>
                     </div>
-                    @error('productVariantList') <span class="error"> Add product variant atleast one </span> @endif    
-                    @error('is_default') <span class="error"> {{$message}} </span> @endif    
+                    @error('productVariantList') <span class="error"> Add product variant atleast one </span> <br> @endif    
+                    @error('is_default') <span class="error"> {{$message}} </span>  <br>  @endif    
+                    @foreach($selectedattrList as $selectedattr)
+                        @php $sattr = 'productVariantList.*'.$selectedattr->slug; @endphp
+                        @error($sattr) <span class="error"> {{ ucwords($selectedattr->slug) }} field is required </span> <br>@endif    
+                    @endforeach
                 </div>
             </div>
             <div class="card m-2">

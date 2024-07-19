@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable =['name','slug','images','label_id','category_ids','tax_ids','brand','status','description','content','related_product_ids','cross_selling_product_ids','attribute_ids','rating'];
+    protected $fillable =['name','slug','images','label_id','category_ids','tax_ids','brand','status','description','content','related_product_ids','cross_selling_product_ids','attribute_ids','rating','product_variant_type'];
    
     public function product_variant()
     {
