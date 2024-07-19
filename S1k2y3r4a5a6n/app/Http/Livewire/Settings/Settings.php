@@ -43,7 +43,6 @@ class Settings extends Component
     {
 
         $ipData = \Session::get('ip_config');
-        // dd($ipData);
         $rules = [
             'site_name' => 'required|max:100|min:3',
             'theme_primary_color' => 'required|max:7|min:4', 
@@ -83,7 +82,7 @@ class Settings extends Component
         \Artisan::call('config:clear');
         \Artisan::call('cache:clear');
         \Artisan::call('config:cache');
-
+dd('tes');
         session()->flash('message', 'Updated Successfully.');
 
     }
@@ -246,7 +245,6 @@ class Settings extends Component
          
             // why choose
             $this->why_chs_title = $setting->why_chs_title;
-            // dd($this->why_chs_title);
             $this->why_chs_img = $setting->why_chs_img;
             $this->why_chs_desc = $setting->why_chs_desc;
         }
