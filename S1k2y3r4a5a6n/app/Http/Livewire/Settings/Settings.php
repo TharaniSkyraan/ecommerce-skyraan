@@ -43,6 +43,7 @@ class Settings extends Component
     {
 
         $ipData = \Session::get('ip_config');
+        dd($ipData);
         $rules = [
             'site_name' => 'required|max:100|min:3',
             'theme_primary_color' => 'required|max:7|min:4', 
