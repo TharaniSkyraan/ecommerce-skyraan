@@ -39,7 +39,7 @@
                                                     <div class="prdlist">
                                                         <ul>
                                                             @foreach($products as $productVariant)
-                                                                <li class="product_id d-flex @if(in_array(($productVariant['id'].'-'.$warehouse_id), $selected_products)) bg-selected @endif" wire:click="ProductsArray({{ $productVariant->id }})">
+                                                                <li class="product_id d-flex @if(in_array(($productVariant['id'].'-'.$warehouse_id), array_keys($selected_products))) bg-selected @endif" wire:click="ProductsArray({{ $productVariant->id }})">
                                                                     <img src="{{ asset('storage/' . $productVariant->product_image) }}" alt="Product Image">
                                                                     {{ $productVariant->product->name }} {{ !empty($productVariant->getSetAttribute()) ? '/' . $productVariant->getSetAttribute() : '' }}
                                                                 </li>

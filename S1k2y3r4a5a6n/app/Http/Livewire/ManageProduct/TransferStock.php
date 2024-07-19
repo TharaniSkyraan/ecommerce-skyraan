@@ -55,14 +55,14 @@ class TransferStock extends Component
         {
         
             $available_stock = ProductStock::whereWarehouseId($this->warehouse_id)->whereProductVariantId($variant_id)->select('id','available_quantity')->first();
-
+            $available_quantity = $available_stock->available_quantity??0;
             $data['product_name']= $productVariant->product->name.(!empty($productVariant->getSetAttribute())? '/'.$productVariant->getSetAttribute() : '');
             $data['product_id'] = $productVariant->product_id;
             $data['variant_id'] = $productVariant->id;
-            $data['available_stock'] = $available_stock->available_quantity??0;
+            $data['available_stock'] = $available_quantity;
             $data['product_stock_id'] = $available_stock->id??'';
             $data['warehouse_id'] = $this->warehouse_id;
-            $data['quantity'] = ($available_stock->available_quantity!=0 && isset($available_stock->available_quantity))?1:0;
+            $data['quantity'] = ($available_quantity!=0)?1:0;
             $this->selected_products[$index] = $data;  
 
         }
@@ -83,14 +83,16 @@ class TransferStock extends Component
 
             foreach($available_stocks as $available_stock)
             {
+                $available_quantity = $available_stock->available_quantity??0;
+
                 $data['product_name']= $available_stock->product_name??'';
                 $data['product_id'] = $available_stock->product_id??'';
                 $data['variant_id'] = $available_stock->product_variant_id??'';
-                $data['available_stock'] = $available_stock->available_quantity??0;
+                $data['available_stock'] = $available_quantity;
                 $data['product_stock_id'] = $available_stock->id??'';
                 $data['warehouse_id'] = $available_stock->warehouse_id??'';
                 $data['warehouse_name'] = $available_stock->warehouse->name??'';
-                $data['quantity'] = ($available_stock->available_quantity!=0 && isset($available_stock->available_quantity))?1:0;
+                $data['quantity'] = ($available_quantity!=0)?1:0;
                 $index = $available_stock->product_variant_id;
                 $this->selected_products[$index.'-'.$available_stock->warehouse_id] = $data;
             }
@@ -229,6 +231,7 @@ class TransferStock extends Component
 
     public function render()
     {
+       
         return view('livewire.manage-product.transfer-stock');
     }
 }

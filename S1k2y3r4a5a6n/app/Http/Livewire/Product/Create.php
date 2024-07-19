@@ -21,9 +21,8 @@ use Carbon\Carbon;
 class Create extends Component
 {
     use WithFileUploads;
-    public $product_id, $description, $content, $name, $status, $slug, $brand, $tax_ids, $query, $crosssellingquery, $label_id;
-    public $variant_id, $sku, $price, $sale_price, $cost_per_item, $available_quantity, $shipping_wide, $shipping_length, $shipping_height, $shipping_weight, $images, $is_default, $discount_duration, $discount_start_date, $discount_end_date;
-    public $stock_status = 'in_stock';
+    public $product_id, $description, $content, $name, $status, $slug, $brand, $tax_ids, $query, $crosssellingquery, $label_id, $product_variant_type;
+    public $variant_id, $sku, $price, $sale_price, $cost_per_item, $shipping_wide, $shipping_length, $shipping_height, $shipping_weight, $images, $is_default, $discount_duration, $discount_start_date, $discount_end_date;
     public $category_ids = [];
     public $collection_ids = [];
     public $imageList = [];
@@ -32,8 +31,8 @@ class Create extends Component
     public $selectedattrList = [];
     public $attrModalisOpen = '';
     public $variantModalisOpen = '';
-    public $product_variant_menus = ['id'=>'Id', 'image'=>'Image', 'available_quantity'=>'Quantity', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
-    public $default_menu = ['id'=>'Id', 'image'=>'Image', 'available_quantity'=>'Quantity', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
+    public $product_variant_menus = ['id'=>'Id', 'image'=>'Image', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
+    public $default_menu = ['id'=>'Id', 'image'=>'Image', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
     protected $listeners = ['initialize','attropenModal','variantopenModal','closeModal','GetImages','GetVariantImages','suggestion','unsetsuggestion','cross_selling_suggestion','unset_cross_selling_suggestion','GetDate'];
 
     public $productVariantList = [];
@@ -61,9 +60,22 @@ class Create extends Component
     }
 
     public function closeModal(){
+        if(($this->attrModalisOpen=='show' && count($this->selectedattrList)==0) || ($this->variantModalisOpen=='show' && count($this->productVariantList)==0)){
+            $this->reset(['product_variant_type','is_default']);
+        }
         $this->variantModalisOpen = $this->attrModalisOpen = '';
         $this->emit('resetvariantImageInputvalues');
         $this->resetproductVariants();
+    }
+
+    public function updatedProductVariantType(){
+        $this->selectedattrList = $this->productVariantList = [];
+        if($this->product_variant_type=='single'){
+            $this->emit('variantopenModal');
+        }if($this->product_variant_type=='multiple'){
+            $this->emit('attropenModal');
+        }
+
     }
 
     public function addAttr()
@@ -84,7 +96,7 @@ class Create extends Component
                 
                 $KeyInserted = false;
 
-                if ($key === "available_quantity" && !isset($product_variant_menus[$attribute->slug]) && !$KeyInserted) {
+                if ($key === "price" && !isset($product_variant_menus[$attribute->slug]) && !$KeyInserted) {
                     $newmenus[$attribute->slug] = ucwords($attribute->name);
                     $KeyInserted = true;
                     if($key1 == (count($this->selectedattrList)-1)){
@@ -121,9 +133,6 @@ class Create extends Component
             $rules['discount_start_date']='required';
             $rules['discount_end_date']='required';
         }
-        if(!empty($this->available_quantity)){
-            $rules['available_quantity']='min:1|numeric';
-        }
         foreach($this->selectedattrList as $index => $attribute){
             $rules["productAttributeList.$index.{$attribute->slug}"] = 'required';
         }
@@ -132,7 +141,7 @@ class Create extends Component
         
         foreach($this->selectedattrList as $index => $attribute){
             
-            $attribute_set = AttributeSet::whereSlug($this->productAttributeList[$index]["{$attribute->slug}"])->first();
+            $attribute_set = AttributeSet::whereSlug($this->productAttributeList[$index]["{$attribute->slug}"])->whereAttributeId($attribute->id)->first();
             $productVariantList["{$attribute->slug}"][] = $attribute_set->name??$this->productAttributeList[$index]["{$attribute->slug}"];
             $productVariantList["{$attribute->slug}"][] = $this->productAttributeList[$index]["{$attribute->slug}"];
         }
@@ -144,13 +153,11 @@ class Create extends Component
         $productVariantList['discount_end_date'] = ($this->discount_duration=='yes')?Carbon::parse($this->discount_end_date)->format('Y-m-d H:i'):null;
         $productVariantList['discount_duration'] = ($this->discount_duration=='yes')?'yes':'no'; 
         $productVariantList['cost_per_item'] = $this->cost_per_item; 
-        $productVariantList['available_quantity'] = $this->available_quantity; 
         $productVariantList['shipping_wide'] = $this->shipping_wide; 
         $productVariantList['shipping_height'] = $this->shipping_height; 
         $productVariantList['shipping_weight'] = $this->shipping_weight; 
         $productVariantList['shipping_length'] = $this->shipping_length; 
         $productVariantList['images'] = $this->variantImageList;
-        $productVariantList['stock_status'] = $this->stock_status;
         $productVariantList['image'] = !empty($productVariantList['images'][0]['image'])?$productVariantList['images'][0]['image']:(!empty($productVariantList['images'][0]['temp_image'])?$productVariantList['images'][0]['temp_image']:'');
         //  asset('storage').'/'.$productVariantList['images'][0]['image']
        
@@ -158,6 +165,9 @@ class Create extends Component
             $this->productVariantList[$this->iseditproductVariant] = $productVariantList;
         }else{
             $this->productVariantList[] = $productVariantList;
+        }
+        if($this->product_variant_type=='single'){
+            $this->is_default = 0;
         }
         $this->emit('closeModal');
     }
@@ -179,12 +189,10 @@ class Create extends Component
         $this->discount_duration = ($productVariantList['discount_duration']=='yes')?'yes':'';
         $this->sale_price = $productVariantList['sale_price']; 
         $this->cost_per_item = $productVariantList['cost_per_item']; 
-        $this->available_quantity = $productVariantList['available_quantity']; 
         $this->shipping_wide = $productVariantList['shipping_wide']; 
         $this->shipping_height = $productVariantList['shipping_height']; 
         $this->shipping_weight = $productVariantList['shipping_weight']; 
         $this->shipping_length = $productVariantList['shipping_length']; 
-        $this->stock_status = $productVariantList['stock_status']; 
         $this->variantImageList = $productVariantList['images'];
 
         $this->emit('editVariantImages', $this->variantImageList);
@@ -198,8 +206,8 @@ class Create extends Component
     }
     
     private function resetproductVariants(){
-        $this->reset(['variant_id','sku','price','sale_price','discount_start_date','discount_end_date','discount_duration','cost_per_item','productAttributeList','available_quantity',
-                       'shipping_wide','shipping_height','shipping_weight','shipping_length','stock_status','variantImageList','iseditproductVariant']); 
+        $this->reset(['variant_id','sku','price','sale_price','discount_start_date','discount_end_date','discount_duration','cost_per_item','productAttributeList',
+                       'shipping_wide','shipping_height','shipping_weight','shipping_length','variantImageList','iseditproductVariant']); 
 
     }
 
@@ -293,8 +301,13 @@ class Create extends Component
             'imageList' => 'required', 
             'productVariantList' => 'required', 
             'is_default' => 'required', 
+            'product_variant_type' => 'required', 
         ];
+        foreach($this->selectedattrList as $attr){
+            $rules['productVariantList.*.'.$attr->slug] = 'required';
+        }
         $this->validate($rules);
+        
         $product = new Product();
         if(!empty($this->product_id)){
             $product = Product::find($this->product_id);
@@ -311,13 +324,17 @@ class Create extends Component
         $product->category_ids  = ','.implode(',',$category_ids).',';
         $product->label_id  = !empty($this->label_id)?$this->label_id:0;
         $product->attribute_ids = ','.implode(',',$attr_ids).',';
+        if(!empty($this->product_id) && ($this->product_variant_type != $product->product_variant_type))
+        {
+            ProductVariant::whereProductId($this->product_id)->delete();
+        }
+        $product->product_variant_type = $this->product_variant_type;
 
         $productimages = [];
         foreach ($this->imageList as $images) {
             // Move the image from temporary to permanent storage
             if(!empty($images['image'])){
                 \Storage::disk('public')->move($images['image'], 'product/images/' . basename($images['image']));
-
                 $productimages[] = 'product/images/' . basename($images['image']);
             }else if(!empty($images['temp_image'])){
                 $productimages[] = $images['temp_image'];
@@ -344,8 +361,8 @@ class Create extends Component
 
         }
 
-        foreach($this->productVariantList as $index => $variant){
-
+        foreach($this->productVariantList as $index => $variant)
+        {
             $productvariantimages = [];
             if(empty($variant['id'])){
                 $productVariant = new ProductVariant();
@@ -364,12 +381,10 @@ class Create extends Component
             $productVariant->discount_duration = $variant['discount_duration'];
             $productVariant->discount_start_date = $variant['discount_start_date']??null;
             $productVariant->discount_end_date = $variant['discount_end_date']??null;
-            $productVariant->available_quantity = (!empty($variant['available_quantity']))?$variant['available_quantity']:0;
             $productVariant->shipping_wide   = (!empty($variant['shipping_wide']))?$variant['shipping_wide']:0;
             $productVariant->shipping_height = (!empty($variant['shipping_height']))?$variant['shipping_height']:0;
             $productVariant->shipping_weight = (!empty($variant['shipping_weight']))?$variant['shipping_weight']:0;
             $productVariant->shipping_length = (!empty($variant['shipping_length']))?$variant['shipping_length']:0;
-            $productVariant->stock_status = $variant['stock_status']??0;
 
             if($index==$this->is_default){
                 $productVariant->is_default = 'yes';
@@ -379,7 +394,6 @@ class Create extends Component
                 // Move the image from temporary to permanent storage
                 if(!empty($images['image'])){
                     \Storage::disk('public')->move($images['image'], 'product/variant/images/' . basename($images['image']));
-
                     $productvariantimages[] = 'product/variant/images/' . basename($images['image']);
                 }else if(!empty($images['temp_image'])){
                     $productvariantimages[] = $images['temp_image'];
@@ -389,14 +403,17 @@ class Create extends Component
             $productVariant->save();
 
             $product_variant_id = $productVariant->id;
-            
+            // dd($this->selectedattrList);
             foreach($this->selectedattrList as $index => $attribute){
-                
-                $attribute_set = AttributeSet::whereSlug($variant[$attribute->slug][1])->first();
+                $attribute_set = AttributeSet::whereSlug($variant[$attribute->slug][1])
+                                             ->whereAttributeId($attribute->id)
+                                             ->first();
                 if(isset($attribute_set)){
 
                     $checkexist = ProductAttributeSet::whereProductVariantId($product_variant_id)
                                                      ->whereAttributeId($attribute->id)->first();
+           
+
                     if(isset($checkexist)){
                         $product_attribute_set = ProductAttributeSet::find($checkexist->id);
                     }else{
@@ -448,6 +465,7 @@ class Create extends Component
             $this->description  = $product->description;
             $this->status       = $product->status;
             $this->content      = $product->content??' ';
+            $this->product_variant_type = $product->product_variant_type;
             $this->product_ids  = array_filter(array_values(explode(',',$product->related_product_ids)));
             $this->cross_selling_product_ids  = array_filter(array_values(explode(',',$product->cross_selling_product_ids)));
             $this->brand         = ($product->brand!=0)?$product->brand:null;
@@ -491,12 +509,13 @@ class Create extends Component
                 if($productvariant['is_default']=='yes'){
                     $is_default = $key;
                 }
-
                 foreach($this->selectedattrList as $index => $attribute){
                     $product_attribute_set = ProductAttributeSet::whereProductVariantId($productvariant['id'])->whereAttributeId($attribute->id)->first();
-                    $productvariant["{$attribute->slug}"][] = ucwords($product_attribute_set->attribute_set->name);
-                    $productvariant["{$attribute->slug}"][] = $product_attribute_set->attribute_set_slug;
-                }
+                    if(isset($product_attribute_set)){
+                        $productvariant["{$attribute->slug}"][] = ucwords($product_attribute_set->attribute_set->name??'');
+                        $productvariant["{$attribute->slug}"][] = $product_attribute_set->attribute_set_slug??'';    
+                    }
+                 }
                 
                 return $productvariant;
 

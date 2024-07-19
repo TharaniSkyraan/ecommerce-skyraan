@@ -80,9 +80,8 @@ class Settings extends Component
             $validateData
         );
         \Artisan::call('config:clear');
-        \Artisan::call('cache:clear');
-        \Artisan::call('config:cache');
-
+        // \Artisan::call('cache:clear');
+        // \Artisan::call('config:cache');
         session()->flash('message', 'Updated Successfully.');
 
     }
@@ -245,7 +244,6 @@ class Settings extends Component
          
             // why choose
             $this->why_chs_title = $setting->why_chs_title;
-            // dd($this->why_chs_title);
             $this->why_chs_img = $setting->why_chs_img;
             $this->why_chs_desc = $setting->why_chs_desc;
         }

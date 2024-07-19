@@ -122,7 +122,7 @@
                                 </div>
                                 @php $attributes = \App\Models\AttributeSet::find(explode(',',$item['attribute_set_ids'])); @endphp
                                 @foreach($attributes as $attribute)
-                                <div class=""><span class="h-sms">{{ ucwords($attribute->attribute->name) }} : <span class="fw-bold">{{ ucwords($attribute->name) }}</span></span></div>
+                                <div class=""><span class="h-sms">{{ ucwords($attribute->attribute->name??'') }} : <span class="fw-bold">{{ ucwords($attribute->name??'') }}</span></span></div>
                                 @endforeach
                                 <div class=""><span class="h-sms">Quantity : <span class="fw-bold">{{ $item['quantity'] }} nos</span></span></div>
                                 <h5 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
