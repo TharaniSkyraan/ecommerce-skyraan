@@ -141,7 +141,7 @@ class Create extends Component
         
         foreach($this->selectedattrList as $index => $attribute){
             
-            $attribute_set = AttributeSet::whereSlug($this->productAttributeList[$index]["{$attribute->slug}"])->first();
+            $attribute_set = AttributeSet::whereSlug($this->productAttributeList[$index]["{$attribute->slug}"])->whereAttributeId($attribute->id)->first();
             $productVariantList["{$attribute->slug}"][] = $attribute_set->name??$this->productAttributeList[$index]["{$attribute->slug}"];
             $productVariantList["{$attribute->slug}"][] = $this->productAttributeList[$index]["{$attribute->slug}"];
         }
@@ -403,9 +403,11 @@ class Create extends Component
             $productVariant->save();
 
             $product_variant_id = $productVariant->id;
+            // dd($this->selectedattrList);
             foreach($this->selectedattrList as $index => $attribute){
-                
-                $attribute_set = AttributeSet::whereSlug($variant[$attribute->slug][1])->first();
+                $attribute_set = AttributeSet::whereSlug($variant[$attribute->slug][1])
+                                             ->whereAttributeId($attribute->id)
+                                             ->first();
                 if(isset($attribute_set)){
 
                     $checkexist = ProductAttributeSet::whereProductVariantId($product_variant_id)
@@ -507,7 +509,6 @@ class Create extends Component
                 if($productvariant['is_default']=='yes'){
                     $is_default = $key;
                 }
-
                 foreach($this->selectedattrList as $index => $attribute){
                     $product_attribute_set = ProductAttributeSet::whereProductVariantId($productvariant['id'])->whereAttributeId($attribute->id)->first();
                     if(isset($product_attribute_set)){
