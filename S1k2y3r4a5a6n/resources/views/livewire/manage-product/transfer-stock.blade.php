@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-11 me-2 my-1">
                     <div class="row mb-4">
-                        <div class="col-6">
+                        <div class="{{ ($action == 'new')?'col-4':'col-6' }}">
                             <div class="form-group me-2">
                                 <label for="reference_number">Reference Number</label>
                                 <input type="text" name="reference_number" id="reference_number" placeholder="Reference Number" wire:model="reference_number">
@@ -12,22 +12,36 @@
                             </div>                        
                         </div>
                         @if($action == "new")
-                            <div class="col-6">
-                                <div class="form-group mb-4">
-                                    <label for="locationSets" id="warehouseLabel">Warehouse</label>
-                                    <section wire:ignore>
-                                        <select name="locationSets" id="locationSets" wire:model="warehouse_id">
+                            <div class="col-4">
+                                <div class="form-group mb-4 me-2">
+                                    <label for="fromlocationSets" id="fromwarehouseLabel">From Warehouse</label>
+                                        <select name="fromlocationSets" id="fromlocationSets" wire:model="warehouse_id">
                                             <option value="">Select warehouse</option>
                                             @foreach($warehouses as $index => $warehouse)
-                                                <option value="{{ $warehouse->id }}" @if($index == 0) selected @endif>
+                                                <option value="{{ $warehouse->id }}">
                                                     {{ ucwords($warehouse->address) }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                    </section>
                                     @error('warehouse_id') <span class="error">{{ $message }}</span> @enderror
                                 </div> 
                             </div>
+                        @endif
+                        <div class="{{ ($action == 'new')?'col-4':'col-6' }}">
+                            <div class="form-group mb-4">
+                                <label for="tolocationSets" id="towarehouseLabel">To Warehouse</label>
+                                <select name="tolocationSets" id="tolocationSets" wire:model="warehouse_to_id">
+                                    <option value="">Select to warehouse</option>
+                                    @foreach($warehouses as $index => $warehouse)
+                                        <option value="{{ $warehouse->id }}" @if($index == 0) selected @endif>
+                                            {{ ucwords($warehouse->address) }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('warehouse_to_id') <span class="error">{{ $message }}</span> @enderror
+                            </div> 
+                        </div>
+                        @if($action == "new")
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="query">Product</label>
@@ -71,14 +85,14 @@
                             <div class="form-group position-relative table key-buttons text-md-nowrap" style="display:unset">
                                 @if(count($selected_products) > 0)
                                     <table>
-                                        <thead>
+                                        <thead style="background: darkseagreen;color: #ffffff;">
                                             <tr>
                                                 @if($action != "new")
-                                                    <th class="p-0"> <p>Warehouse</p></th>
+                                                    <th class="p-0"><p>Warehouse</p></th>
                                                 @endif
-                                                <th class="p-0"> <p>Products</p></th>
-                                                <th class="p-0"> <p>Available Stock</p></th>
-                                                <th class="p-0"> <p>Quantity</p></th>
+                                                <th class="p-0"><p>Products</p></th>
+                                                <th class="p-0"><p>Available Stock</p></th>
+                                                <th class="p-0"><p>Transfer Quantity</p></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -91,15 +105,19 @@
                                                     <td> <p>  {{ $sproduct['available_stock'] }} </p> </td>
                                                     <td> 
                                                         <div class="d-flex justify-content-between">
+                                                            @if($sproduct['available_stock'] >= 1)
                                                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1 text-dark" style="width:150px; margin: 0 auto;">
                                                                 <div class="text-center px-2 qty-btn-minus" wire:click="decreaseQuantity('{{ $key }}')" style="align-content: center;"><span>-</span></div>
                                                                 <div class="vr"></div>
                                                                 <div class="col text-center">
-                                                                    <input type="number" min="1" class="input-qty h-sms" wire:model="selected_products.{{ $key }}.quantity" style="border-top:transparent;border-bottom:transparent; border-top-left-radius: 0px;border-bottom-left-radius: 0px; border-top-right-radius: 0px;border-bottom-right-radius: 0px;"/>
+                                                                    <input type="number" min="1" class="input-qty h-sms" wire:model="selected_products.{{ $key }}.quantity" wire:keyup="updateQuantity('{{ $key }}')" style="border-top:transparent;border-bottom:transparent; border-top-left-radius: 0px;border-bottom-left-radius: 0px; border-top-right-radius: 0px;border-bottom-right-radius: 0px;"/>
                                                                 </div>
                                                                 <div class="vr"></div>
                                                                 <div class="text-center px-2 qty-btn-plus" wire:click="increaseQuantity('{{ $key }}')" style="align-content: center;"><span>+</span></div>
                                                             </div>
+                                                            @else
+                                                                <span class="error">Out of stock</span>                                                            
+                                                            @endif
                                                             @if(count($selected_products)>1)
                                                                 <div class="align-self-center">
                                                                     <i class="bx bx-x cursor-pointer"  wire:click="removeProduct('{{ $key }}')" style="color:red"></i>
@@ -113,7 +131,7 @@
                                     </table>
                                 @endif
                             </div>
-                            @error('selected_products') <span class="error"> Select product to update stock</span> @endif
+                            @error('selected_products') <span class="error"> {{ $message }} </span> @endif
                         </div>
                     </div>
                 </div>
@@ -133,8 +151,12 @@
 
 <script>
     $(document).ready(function() {
-        $('#warehouseLabel').click(function() {
-            $('#locationSets').show();
+        $('#fromwarehouseLabel').click(function() {
+            $('#fromlocationSets').show();
+            $(this).hide();
+        });
+        $('#towarehouseLabel').click(function() {
+            $('#tolocationSets').show();
             $(this).hide();
         });
     });
@@ -152,7 +174,7 @@
             $('#all_product_stock').prop('checked', false);
             $('input[type="checkbox"]').prop('checked', false);
             document.body.classList.remove('modal-open');
-            $('.update-stock').removeClass('show');      
+            $('.transfer-stock').removeClass('show');      
             $('.success').html(`<div class="alert-success my-2">
                 Stock updated successfully.
             </div>`);  

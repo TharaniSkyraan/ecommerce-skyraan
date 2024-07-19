@@ -126,8 +126,8 @@ class ManageStockController extends Controller
                             }
                         })
                         ->addColumn('action', function ($product_stocks) {
-							$action = '<button href="javascript:void(0);" class="btn btn-pp"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>
-                           <button href="javascript:void(0);"  class="btn btn-p modal-update" data-id="'.$product_stocks->id.'"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>';
+							$action = '<button href="javascript:void(0);" class="btn btn-pp transfer-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>
+                           <button href="javascript:void(0);"  class="btn btn-p update-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>';
                             return $action;
                         })
                         ->rawColumns(['action','warehouse','status','checkbox'])

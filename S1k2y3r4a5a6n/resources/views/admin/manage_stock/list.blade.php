@@ -55,8 +55,13 @@
             padding: 10px;
             background: #eeeeee38;
         }
-        .autocomplete{
-            height: 400px;
+        .autocomplete {
+            background: #eeeeee66;
+            border-radius: 5px;
+        }
+        .autocomplete .prdlist{
+            max-height: 400px;
+            min-height: fit-content;
             overflow-y: scroll;
         }
         .bg-selected {
@@ -84,6 +89,19 @@
             height: 60px;
             margin: 0px 10px;
         }
+        .prdlist::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .prdlist::-webkit-scrollbar-thumb {
+            background-color: #bdbdbd5c;
+            border-radius: 3px;
+        }
+
+        .prdlist::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 3px;
+        }
     </style>
     <ul class="breadcrumb">
         <li><a href="{{url('/')}}">Dashboard</a></li>
@@ -105,15 +123,11 @@
         </figure>
     </div>                
     <div class="card">
-        @if(session()->has('message'))
-            <div class="alert-success my-2">
-                {{session('message')}}
-            </div>                
-        @endif
+        <div class="success"></div>
         <div class="row">
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
-                <div class="float-end"> <a class="btn btn-s btn-lg modal-edit" href="javascript:void(0)">Add Product Stock</a> </div>
+                <div class="float-end"> <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
                         <thead>
@@ -147,25 +161,42 @@
                     </table>
                 </div>
             </div>
+            <div class="mt-2">
+                <button href="javascript:void(0);" class="btn btn-lg btn-pp m-0 bulk-update-stock-transfer-modal"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Bulk Stock</button>
+                <button href="javascript:void(0);" class="btn btn-lg btn-p m-0 bulk-update-stock-modal"><i class="bx bx-upload" aria-hidden="true"></i> Upload Bulk Stock</button>
+            </div>
         </div>
-        
-        <div class="modal-window modal-window-lg">
+
+        <div class="modal-window modal-window-lg update-stock">
             <div class="modal-toggle"> 
                 <div class="modal-header">
-                    <h1 > Add Product Stock </h1>
+                    <h1> Upload Stock </h1>
                     <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
                 </div>
                 @livewire('manage-product.update-stock')                
             </div>
         </div>
+
+        <div class="modal-window modal-window-lg transfer-stock">
+            <div class="modal-toggle"> 
+                <div class="modal-header">
+                    <h1> Transfer Stock </h1>
+                    <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
+                </div>
+                @livewire('manage-product.transfer-stock')                
+            </div>
+        </div>
+
+
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        
         <script>
-          var dataTable = $('#datatable').DataTable({
+            var dataTable = $('#datatable').DataTable({
                 processing: true,
                 serverSide: true,
                 stateSave: true,
@@ -264,14 +295,13 @@
                     if (init) {
                         // Hide points on init
                         points.forEach(point => {
-                            point.opacity = 0;
+                            // point.opacity = 0;
                         });
                     } else {
                         fanAnimate(points[0], startAngleRad);
                     }
                 };
             }(Highcharts));
-
             var chart = Highcharts.chart('container', {
                 chart: {
                     type: 'pie'
@@ -320,7 +350,6 @@
                     }]
                 }]
             });
-
             function updateChart(){
                 $.ajax({
                     url: '{!! route('admin.fetch.data') !!}',
@@ -350,19 +379,67 @@
                     $('input[type="checkbox"]').prop('checked', false);
                 }
             });
-            
-            $(document).on('click', '.modal-edit', function () {   
-                // alert(2); 
 
+            $(document).on('click', '.add-stock-modal', function () {  
                 Livewire.emit('OpenUpdatestock','new');
                 document.body.classList.add('modal-open');
-                $('.modal-window').addClass('show');
+                $('.update-stock').addClass('show');
             });
-            $(document).on('click', '.modal-update', function () { 
+            
+            $(document).on('click', '.update-stock-modal', function () { 
                 var productId = $(this).attr('data-id'); 
                 Livewire.emit('OpenUpdatestock','update',productId);
                 document.body.classList.add('modal-open');
-                $('.modal-window').addClass('show');
+                $('.update-stock').addClass('show');
+            });
+
+            $(document).on('click', '.bulk-update-stock-modal', function () 
+            { 
+                var productStockValues = [];
+                // Loop through each input with name="product_stock[]" and push the value to the array
+                $('input[name="product_stock[]"]').each(function() {
+                    if($(this).prop('checked')){
+                        productStockValues.push($(this).attr('id'));
+                    }
+                });
+                // Log the array of values to the console
+                var productIds = productStockValues.join(',');
+                if(productIds!=''){
+                    Livewire.emit('OpenUpdatestock','bulkupdate',productIds);
+                    document.body.classList.add('modal-open');
+                    $('.update-stock').addClass('show');
+                }
+            });
+
+            $(document).on('click', '.add-transfer-stock-modal', function () {  
+                Livewire.emit('OpenStockLimit','new');
+                document.body.classList.add('modal-open');
+                $('.transfer-stock').addClass('show');
+            });
+
+            $(document).on('click', '.transfer-stock-modal', function () { 
+                var productId = $(this).attr('data-id'); 
+                Livewire.emit('OpenStockLimit','update',productId);
+                document.body.classList.add('modal-open');
+                $('.transfer-stock').addClass('show');
+            });
+            
+            $(document).on('click', '.bulk-update-stock-transfer-modal', function () 
+            { 
+                var productStockValues = [];
+                // Loop through each input with name="product_stock[]" and push the value to the array
+                $('input[name="product_stock[]"]').each(function() {
+                    if($(this).prop('checked')){
+                        productStockValues.push($(this).attr('id'));
+                    }
+                });
+                // Log the array of values to the console
+                var productIds = productStockValues.join(',');
+                if(productIds!=''){
+                    Livewire.emit('OpenStockLimit','bulkupdate',productIds);
+                    document.body.classList.add('modal-open');
+                    $('.transfer-stock').addClass('show');
+                }
             });
 
             $(document).on('click', '.modal-close, .modal-dismiss', function () {   
@@ -370,7 +447,6 @@
                 $('.modal-window').removeClass('show');
                 Livewire.emit('resetInputvalues');
             });
-    
         </script>
     </div>
   <x-slot name="scripts">

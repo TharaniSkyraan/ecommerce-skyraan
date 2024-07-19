@@ -32,21 +32,21 @@ class Locale
                 $ipLocationData = $this->getCity($ip??'183.82.250.192');   
             }else{            
                 $ipLocationData = array(
-                    'country_code' => $ip_data->geoplugin_countryCode??'',
-                    'latitude' => $ip_data->geoplugin_latitude??'',
-                    'longitude' => $ip_data->geoplugin_longitude??''
+                    'country_code' => $ipLocationData->geoplugin_countryCode??'',
+                    'latitude' => $ipLocationData->geoplugin_latitude??'',
+                    'longitude' => $ipLocationData->geoplugin_longitude??''
                 );        
             }
             
             if($ipLocationData && $ipLocationData!=null)
             {
                 $country = \App\Models\Country::where('code',$ipLocationData['country_code']??'IN')->first();
-                session(['ip_config' => $country]);
-                view()->share('ip_data',Session::get('ip_config'));
+                session(['zone_config' => $country]);
+                view()->share('zone_data',Session::get('zone_config'));
             }
 
         }else{
-            $location_config = Session::has('zone_config');
+            view()->share('zone_data',Session::get('zone_config'));
         }
         
 
@@ -59,9 +59,9 @@ class Locale
                 $ipData = $this->getCity($ip??'183.82.250.192');   
             }else{            
                 $ipData = array(
-                    'country_code' => $ip_data->geoplugin_countryCode??'',
-                    'latitude' => $ip_data->geoplugin_latitude??'',
-                    'longitude' => $ip_data->geoplugin_longitude??''
+                    'country_code' => $ipData->geoplugin_countryCode??'',
+                    'latitude' => $ipData->geoplugin_latitude??'',
+                    'longitude' => $ipData->geoplugin_longitude??''
                 );        
             }
             
@@ -74,7 +74,6 @@ class Locale
         }else{
             view()->share('ip_data',Session::get('ip_config'));
         }   
-
 
         return $next($request);
     }
