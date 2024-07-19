@@ -76,6 +76,7 @@ class Settings extends Component
             $logoname = $this->fav_icon->store('setting','public');
             $validateData['fav_icon'] = $logoname;
         }        
+        dd('tes');
         Setting::updateOrCreate(
             ['id' => 1],
             $validateData
