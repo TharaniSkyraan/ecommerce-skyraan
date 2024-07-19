@@ -79,11 +79,11 @@ class Settings extends Component
             ['id' => 1],
             $validateData
         );
-        // \Artisan::call('config:clear');
-        // \Artisan::call('cache:clear');
-        // \Artisan::call('config:cache');
 
         session()->flash('message', 'Updated Successfully.');
+        \Artisan::call('config:clear');
+        \Artisan::call('cache:clear');
+        \Artisan::call('config:cache');
 
     }
     public function storenotification(){
