@@ -80,8 +80,8 @@ class Settings extends Component
             $validateData
         );
         \Artisan::call('config:clear');
-        \Artisan::call('cache:clear');
-        \Artisan::call('config:cache');
+        // \Artisan::call('cache:clear');
+        // \Artisan::call('config:cache');
         session()->flash('message', 'Updated Successfully.');
 
     }
