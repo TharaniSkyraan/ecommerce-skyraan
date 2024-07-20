@@ -71,17 +71,29 @@ $('#related-images').owlCarousel({
   nav: true,
   autoplay: false,
   responsive: {
-    0: {
-      items: 2
+    0:{
+      items: 1,
+      stagePadding: 55
     },
-    600: {
-      items: 3
+    400:{
+        items: 1,
+        stagePadding: 70 
     },
-    1000: {
-      items: 4
+    500:{
+        items: 1,
+        stagePadding: 85 
+    },
+    600:{
+        items: 3,
+        stagePadding: 0 
+    },
+    1000:{
+        items: 4,
+        stagePadding: 0 
     }
   },
-})
+});
+
 
 $('#frequent-images').owlCarousel({
   loop: false,
@@ -91,15 +103,15 @@ $('#frequent-images').owlCarousel({
   responsive: {
     0:{
       items: 1,
-      stagePadding: 25
+      stagePadding: 55
     },
     400:{
         items: 1,
-        stagePadding: 40 
+        stagePadding: 70 
     },
     500:{
         items: 1,
-        stagePadding: 80 
+        stagePadding: 85 
     },
     600:{
         items: 3,

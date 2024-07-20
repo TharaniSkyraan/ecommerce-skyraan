@@ -141,12 +141,15 @@
             .red{
                 color:#FF4C4C!important;
             }
+            .green{
+                color:#4CAF50!important;
+            }
         </style>
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/cancel-mail.png')}}" alt="">
+        <img src="{{asset('asset/home/refund_request_initiated.png')}}" alt="">
         <p class="title-content text-center"><b>Refund Request Initiated</b></p>
         <p class="text-left text-center">The refund has been initiated, it may take 2 to 3 business days for the refunded amount to reflect in your account. </p>
     </div>
@@ -164,7 +167,8 @@
                 <td class="margin-left td2">
                     <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
                     <p>Quantity : <b>2</b></p>
-                    <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
+                    <p><b>₹345.00</b></p>
+                    <p>Reason for refund <span class="red">Incorrect Item</span></p>
                 </td>
             </tr>
             <tr>
@@ -174,6 +178,7 @@
                 <td class="margin-left td2">
                     <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
                     <p>Quantity : <b>2</b></p>
+                    <p><b>₹345.00</b></p>
                     <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
                 </td>
             </tr>
@@ -183,7 +188,7 @@
         <p class=" text-center">We are hoping to receive an order from you very soon!<p>
     </div>
     <div class="footer-content">
-        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="">help@skyraaorganics.com</a> </p>
+        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">help@skyraaorganics.com</a> </p>
     </div>
     {{-- Footer --}}
     @slot('footer')

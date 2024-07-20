@@ -100,6 +100,9 @@
             .word{
                 top:-14px;
             }
+            .green{
+                color:#4CAF50!important;
+            }
         </style>
     @endslot
     {{-- Body --}}
@@ -113,7 +116,7 @@
         <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">Login</span></button></div>
     </div>
     <div class="footer-content">
-        <p class="text-center">If it’s not you, then kindly contact our support team immediately via <a href="">help@skyraaorganics.com </a>As our users’ security is our top priority, we will investigate further to ensure the safety of your account.</p>
+        <p class="text-center">If it’s not you, then kindly contact our support team immediately via <a href="" class="green">help@skyraaorganics.com </a>As our users’ security is our top priority, we will investigate further to ensure the safety of your account.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

@@ -9,6 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class BuyingOption extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $fillable = ['name','image','logo','slug','status', 'description'];
-    
+    protected $fillable = ['name','image','logo','slug','status', 'description','feature_type'];
 }

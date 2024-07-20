@@ -25,6 +25,7 @@ class AdminController extends Controller
      *
      * @var \Illuminate\Contracts\Auth\StatefulGuard
      */
+    
     protected $guard;
 
     /**

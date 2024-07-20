@@ -89,7 +89,7 @@
     height: 39px;
 }
 .detail-img img{
-   height:450px;
+   /* height:450px; */
    object-fit: contain;
 }
 .detail_page_carousal img{
@@ -230,10 +230,10 @@
 .detail-card .PrdRow .qty-container{
     width: 120px;
 }
-@media only screen and (max-width: 333px){
+@media only screen and (max-width: 346px){
 
     .details .tab-head h6{
-        font-size: 11px!important;
+        font-size: 9px!important;
     }
     .add-to-cart .card .px-5{
         padding-right: 2rem!important;
@@ -244,6 +244,9 @@
 @media only screen and (max-width:600px){
     .detail-card .price-detail .zoom-in {
       display: none!important;
+    }
+    .details .tab-head h6{
+        font-size: 11px;
     }
     .detail-card .detail_page_carousal .owl-prev, .detail-card .detail_page_carousal .owl-next {
         width: 22px!important;
@@ -260,7 +263,7 @@
         padding-left: 0px!important;
     }
     .detail-img img {
-        height: 327px!important;
+        /* height: 327px!important; */
     }
     .item-image {
         height: 130px!important;
@@ -283,6 +286,9 @@
     #information p {
         font-size: 11px;
     }
+    .prdct_name{
+        font-size: 17px;
+    }
 }
 @media (min-width: 600px) and (max-width: 1024px){
     .detail-card .price-detail .zoom-in {
@@ -292,6 +298,12 @@
     }
     .detail_page_carousal img {
         height: 47px!important;
+    }
+    .details .tab-head h6{
+        font-size: 15px!important;
+    }
+    .hghg{
+        font-size: 16px;
     }
 }
 @media (min-width: 600px) and (max-width: 767px){

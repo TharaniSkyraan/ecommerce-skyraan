@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RefundInitiated extends Mailable
+class RefundRequestedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class RefundInitiated extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Refund Initiated',
+            subject: 'Refund Requested Mail',
         );
     }
 
@@ -48,6 +48,6 @@ class RefundInitiated extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.refund_initiated');
-    }   
+        return $this->markdown('emails.refund-requested');
+    }
 }

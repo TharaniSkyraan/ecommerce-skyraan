@@ -10,10 +10,12 @@ class Create extends Component
 {
     use WithFileUploads;
     public $buying_option_id,$name,$image,$temp_image,$description,$status,$slug;
+    public $feature_type='all';
 
     /**
      * Store new or existing category in database
      */
+    
     public function store()
     {
 
@@ -25,10 +27,10 @@ class Create extends Component
         if(!empty($this->buying_option_id))
         {
             if(!empty($this->image)){
-                $rules['image'] = 'required|image|max:1024';
+                $rules['image'] = 'required|image|max:1024|mimes:svg';
             }
         }else{
-            $rules['image'] = 'required|image|max:1024';
+            $rules['image'] = 'required|image|max:1024|mimes:svg';
         }
         $validateData = $this->validate($rules);
         if(!empty($this->image)){
@@ -36,11 +38,13 @@ class Create extends Component
             $validateData['image'] = $filename;
         }
         $validateData['slug'] = str_replace(' ','-',strtolower($this->name));
+        $validateData['feature_type'] = $this->feature_type;
         $buying_option = BuyingOption::updateOrCreate(
             ['id' => $this->buying_option_id],
             $validateData
         );
         $this->buying_option_id = $buying_option->id;
+
         session()->flash('message', 'Buying Option successfully saved.');
         
         return redirect()->to('admin/buying-option');
@@ -62,8 +66,7 @@ class Create extends Component
             $this->description = $buying_option->description;
             $this->slug = $buying_option->slug;
             $this->status = $buying_option->status;
+            $this->feature_type = $buying_option->feature_type;
         }
     }
-
-
 }

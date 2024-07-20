@@ -16,8 +16,8 @@
                 <div class="row">
                     <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23000000'/%3E%3C/svg%3E&#34;);z-index: 1;" aria-label="breadcrumb">
                         <ol class="breadcrumb d-flex align-items-center ">
-                            <li class="breadcrumb-item"><a href="{{ route('ecommerce.home') }}" class="">Home</a></li>
-                            <li class="breadcrumb-item  active" aria-current="page">Terms and Condition</li>
+                            <li class="breadcrumb-item h-sms"><a href="{{ route('ecommerce.home') }}" class="">Home</a></li>
+                            <li class="breadcrumb-item  active h-sms" aria-current="page">Terms and Condition</li>
                         </ol>
                     </nav>
                     <div style="z-index: 1; ">

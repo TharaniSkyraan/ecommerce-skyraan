@@ -350,7 +350,7 @@
        display: none;
     }
     .bnr-img {
-        height: 199px!important;
+        height: 163px!important;
     }
     .max-height {
         height: 29px;
@@ -393,6 +393,9 @@
     }
     .why-choose .why_bnr h3{
         font-size: medium;
+    }
+    .hghg{
+        font-size: 16px;
     }
 }
 @media (min-width: 1374px) and (max-width: 1700px){

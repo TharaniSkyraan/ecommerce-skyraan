@@ -189,6 +189,9 @@
             .related-products p{
                 font-size:14px;
             }
+            .green{
+                color:#4CAF50!important;
+            }
         </style>
     @endslot
     {{-- Body --}}
