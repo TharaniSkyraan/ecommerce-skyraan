@@ -274,7 +274,7 @@ class Detail extends Component
         
         // Related product // you might also like
         $related_product_ids = array_unique(array_merge($related_product_ids, array_filter(explode(',',$product['related_product_ids']))));
-        $this->productList('related_products',json_encode($related_product_ids));
+        $this->productList('related_products',implode(',',$related_product_ids));
 
         
         // FREQUENTLY BOUGHT
@@ -286,7 +286,7 @@ class Detail extends Component
                                 ->limit(12)
                                 ->pluck('id')->toArray();
                                 
-        $this->productList('frequently_bought_products',json_encode($frequently));
+        $this->productList('frequently_bought_products',implode(',',$frequently));
 
         $this->buying_options = BuyingOption::whereStatus('active')->get()->toArray();
    
@@ -298,8 +298,7 @@ class Detail extends Component
     public function productList($type,$product_ids)
     {        
 
-        $ids = json_decode($product_ids);
-        dd($ids[0]);
+        $ids = explode(',',$product_ids);
         $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
                             ->whereIn('id',$ids)
                             ->get()
