@@ -27,7 +27,7 @@ class Create extends Component
             'name' => 'required|max:180|unique:brands,name,'.$this->brand_id.',id,deleted_at,NULL',
             'description' => 'required|max:180', 
             'status' => 'required',
-            'website_link' => 'url|max:180'
+            'website_link' => 'nullable|url|max:180'
         ];
         if(!empty($this->brand_id))
         {

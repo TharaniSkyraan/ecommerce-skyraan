@@ -100,7 +100,6 @@ class BuyingOptionController extends Controller
                                 return '<img src="'. asset('storage').'/'.$buying_options->image.'" alt="BuyingOption-icon" width="20%">';
                             }else{
                                 return '<img src="'. asset('admin/images/placeholder.png').'" alt="BuyingOption-icon" width="20%">';
-
                             }
                         })
                         ->editColumn('status', function ($buying_options) {
@@ -124,6 +123,5 @@ class BuyingOptionController extends Controller
                         ->make(true);
   
     }
-
 
 }

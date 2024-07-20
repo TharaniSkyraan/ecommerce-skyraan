@@ -25,6 +25,23 @@
                     <label for="description">Description</label>
                     <textarea name="description" id="description" placeholder="Buying Option description" wire:model="description">{!! $description !!}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="feature_type">Feature Type</label>
+                    <div class="row">
+                        <div class="col-3 d-flex">
+                            <input type="radio" wire:model="feature_type" id="feature_type3" value="all">
+                            <label for="feature_type3"> &nbsp; All</label>
+                        </div>
+                        <div class="col-3 d-flex">
+                            <input type="radio" wire:model="feature_type" id="feature_type1" value="product">
+                            <label for="feature_type1"> &nbsp; Product</label>
+                        </div>
+                        <div class="col-3 d-flex">
+                            <input type="radio" wire:model="feature_type" id="feature_type2" value="buying">
+                            <label for="feature_type2"> &nbsp; Buying</label>
+                        </div>
+                    </div>
+                </div>
                 @error('description') <span class="error"> {{$message}}</span> @endif
                 <div class="form-group mb-4">
                     <label for="name">Status</label>

@@ -604,7 +604,10 @@ class Checkout extends Component
                     
                         if ($intersect) $inside = !$inside;
                     }
-                    if ($inside) $this->zone = $zone->id; 
+                    if ($inside) {
+                        $this->zone = $zone->id;
+                        break; // Stop looping once inside is true
+                    }
                 }
                 
             }

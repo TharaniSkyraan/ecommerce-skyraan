@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Traits\GeoIPService;
-use Closure, Session, View;
+use Closure, Session, View, App\Models\Zone;
 use Auth;
 use Cookie;
 
@@ -40,7 +40,46 @@ class Locale
             
             if($ipLocationData && $ipLocationData!=null)
             {
+
                 $country = \App\Models\Country::where('code',$ipLocationData['country_code']??'IN')->first();
+               
+                $zone_id = null;
+                $warehouse_ids = '';
+
+                $x = $ipLocationData['latitude'];
+                $y = $ipLocationData['longitude'];
+                $inside = false;
+
+                $zones = Zone::whereStatus('active')->get();
+
+                foreach($zones as $zone){
+
+                    $polygon = json_decode($zone->zone_coordinates);
+                    $vertices = count($polygon);
+                    if(!$inside){
+                        for ($i = 0, $j = $vertices - 1; $i < $vertices; $j = $i++) {
+                            
+                            $xi = $polygon[$i]->lat;
+                            $yi = $polygon[$i]->lng;
+                            $xj = $polygon[$j]->lat;
+                            $yj = $polygon[$j]->lng;
+                    
+                            $intersect = (($yi > $y) != ($yj > $y)) && ($x < ($xj - $xi) * ($y - $yi) / ($yj - $yi) + $xi);
+                        
+                            if ($intersect) $inside = !$inside;
+                        }
+                        if ($inside) {
+                            $zone_id = $zone->id;
+                            $warehouse_ids = $zone->warehouse_ids;
+                            break; // Stop looping once inside is true
+                        }
+                    }
+                    
+                }
+
+                $country->zone_id = $zone_id;
+                $country->warehouse_ids = $warehouse_ids;
+
                 session(['zone_config' => $country]);
                 view()->share('zone_data',Session::get('zone_config'));
             }
@@ -49,7 +88,6 @@ class Locale
             view()->share('zone_data',Session::get('zone_config'));
         }
         
-
         if(Session::has('ip_config')==false)
         {
             $ip = $request->ip();   

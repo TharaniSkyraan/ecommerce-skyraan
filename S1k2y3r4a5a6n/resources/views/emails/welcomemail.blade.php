@@ -141,6 +141,9 @@
                 margin-left: auto;
                 margin-right: auto;
                 }
+            .green{
+                color:#4CAF50!important;
+            }
         </style>
     @endslot
     {{-- Body --}}
@@ -179,7 +182,7 @@
         <p class="title-content">Ready to start shopping?</p>
         <p class="text-left text-center">Use your sign-up bonus for your first purchase. Head over to Skyraa Ecommerce and let the adventure begin. </p>
         <div class="text-center my-3"><button class="text-center px-3 py-3"><span class="text-white">shop now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
-        <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="">help@skyraaorganics.com</a></p>
+        <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">help@skyraaorganics.com</a></p>
     </div>
     <div class="footer-content">
         <p class="text-center"> <b> Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails, <a href="">click here</a></p>

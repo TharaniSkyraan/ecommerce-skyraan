@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 @empty
-                    <div class="col-12 no-product">
+                    <div class="col-12 no-product py-5">
                         <img src="{{asset('asset/home/empty-wishlist-placeholder.svg')}}" alt="no-product">
                         <h6 class="pt-2">No wishlist found !</h6>
                     </div>

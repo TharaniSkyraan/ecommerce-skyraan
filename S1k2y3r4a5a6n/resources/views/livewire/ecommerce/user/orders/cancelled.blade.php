@@ -90,7 +90,7 @@
                             @if((count($items)-1) != $key) 
                                 <div class="col-12"> <hr> </div> 
                             @else 
-                                <div class="col-12 text-danger pt-4 px-5"> {{ $order['order_status'] }}</div> 
+                                <div class="col-12 text-danger pt-4 px-5"><h6>{{ $order['order_status'] }}</h6> </div> 
                             @endif
                         </div>
                         @endforeach

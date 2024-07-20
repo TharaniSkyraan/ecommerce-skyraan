@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\ContactusMail;
+use App\Mail\RefundCancelMail;
 use App\Models\User;
 Route::get('/email_template', function () {
     $user = User::first();
     $data['feedback'] = 'fdfdf';
     $data['email'] = 'fdfdf';
     $data['name'] = 'fdfdf';
-    return new ContactusMail($data);
+    return new RefundCancelMail($data);
 });
 use App\Http\Controllers\PDFController;
 

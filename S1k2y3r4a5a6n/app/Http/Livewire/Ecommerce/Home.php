@@ -12,6 +12,7 @@ use App\Models\Label;
 use App\Models\WishList;
 use App\Models\ProductVariant;
 use App\Models\WhyChoose;
+use App\Models\BuyingOption;
 use Auth;
 use Carbon\Carbon;
 
@@ -94,9 +95,56 @@ class Home extends Component
         $why_choose = WhyChoose::all();
         $this->why_choose = $why_choose;
         $reviews = Review::where('rating', 5)->with('user')->get();
-
         $this->reviews = $reviews;
+        // dd($why_choose);
 
+        $collections = BuyingOption::where('status', 'active')
+                                ->where(function ($query) {
+                                    $query->where('feature_type', '!=', 'buying');
+                                })
+                                ->get()
+                                ->toArray();
+
+                                $count = count($collections);
+                                $duplicationCount = 10 - $count;
+                                
+                                $data = $collections;
+                                for ($i = 0; $i < $duplicationCount; $i++) {
+                                    $data = array_merge($data, $collections);
+                                }
+                                
+                                // Split the array into chunks
+                                $result = array_chunk($data, 5);
+                                
+                                // Ensure the result is not empty before proceeding
+                                if (!empty($result)) {
+                                    // Check the count of the last chunk
+                                    $lastChunkIndex = count($result) - 1;
+                                    $lastChunkCount = count($result[$lastChunkIndex]);
+                                
+                                    // If the last chunk has fewer than 5 elements, merge it with the first chunk
+                                    if ($lastChunkCount < 5) {
+                                        if (isset($result[0])) {
+                                            $result[$lastChunkIndex] = array_slice(array_merge($result[0], $result[$lastChunkIndex]), 0, 5);
+                                            unset($result[0]); // Unset the first chunk after merging
+                                        }
+                                    }
+                                
+                                    // Ensure collections are not empty before assigning
+                                    if (!empty($result)) {
+                                        $this->collections = $result[0];
+                                        unset($result[0]);
+                                    } else {
+                                        $this->collections = [];
+                                    }
+                                    
+                                    $this->collections_data = $result;
+                                } else {
+                                    // Handle the case where result is empty
+                                    $this->collections = [];
+                                    $this->collections_data = [];
+                                }
+                                
     }
     public function productList($type,$ids){
         
