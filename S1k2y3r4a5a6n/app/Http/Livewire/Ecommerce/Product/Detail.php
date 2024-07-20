@@ -274,6 +274,7 @@ class Detail extends Component
         
         // Related product // you might also like
         $related_product_ids = array_unique(array_merge($related_product_ids, array_filter(explode(',',$product['related_product_ids']))));
+                                        dd($related_product_ids);
         $this->productList('related_products',json_encode($related_product_ids));
 
         
