@@ -295,10 +295,11 @@ class Detail extends Component
         $this->wishlist = $wishlist;
     }
 
-    public function productList($type,$ids)
+    public function productList($type,$product_ids)
     {        
-        $ids = json_decode($ids);
-        dd($ids);
+        dd($product_ids);
+
+        $ids = json_decode($product_ids);
         $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
                             ->whereIn('id',$ids)
                             ->get()
