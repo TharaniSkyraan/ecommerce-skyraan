@@ -297,9 +297,9 @@ class Detail extends Component
 
     public function productList($type,$product_ids)
     {        
-        dd($product_ids);
 
         $ids = json_decode($product_ids);
+        dd($ids);
         $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
                             ->whereIn('id',$ids)
                             ->get()
