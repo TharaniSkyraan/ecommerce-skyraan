@@ -11,7 +11,7 @@ class SearchResult extends Component
     public $type,$slug;
     public $loader = true;
 
-    protected $listeners = ['screenWidthUpdated'=>'screenWidthUpdated','disbaleLoader'];
+    protected $listeners = ['screenWidthUpdated','disbaleLoader'];
 
     public function screenWidthUpdated($width)
     {

@@ -129,6 +129,7 @@ class Cart extends Component
                 $this->CouponApplied('true');
             }
         }
+
     }
     public function removeCoupon(){
         $this->coupon_code = '';    

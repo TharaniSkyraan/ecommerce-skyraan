@@ -164,7 +164,7 @@ class Home extends Component
                                                 ->whereProductId($product['id'])->first();
                 $discount = $price = $sale_price = 0;
 
-                $label = Label::find($product['label_id']);
+                $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
                 $rating_count = Review::whereProductId($product['id'])->count();
                 $rating_sum = Review::whereProductId($product['id'])->sum('rating');
 
@@ -187,12 +187,12 @@ class Home extends Component
                             // Validate start date
                             if ($startDate <= $currentDate && $currentDate <= $endDate) {
                                 $sale_price = $default->sale_price;
-                                $discount = ($sale_price/$price)*100;
+                                $discount = (($price-$sale_price)/$price)*100;
                             } 
 
                         }else{
                             $sale_price = $default->sale_price;
-                            $discount = ($sale_price/$price)*100;
+                            $discount = (($price-$sale_price)/$price)*100;
                         }                        
                     }
 
@@ -218,7 +218,7 @@ class Home extends Component
                 $product['slug'] = $product['slug'];
                 $product['variant_id'] = $default->id??0;
                 $product['sale_price'] = $sale_price;
-                $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+                $product['discount'] = ($discount!=0)?(round($discount)):0;
                 $product['label'] = (isset($label->name))?$label->name:'';
                 $product['label_color_code'] = (isset($label->color))?$label->color:'';
                 $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
@@ -245,7 +245,7 @@ class Home extends Component
 
                 $discount = $price = $sale_price = 0;
               
-                $label = Label::find($product['label_id']);
+                $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
                 $rating_count = Review::whereProductId($product['id'])->count();
                 $rating_sum = Review::whereProductId($product['id'])->sum('rating');
 
@@ -265,12 +265,12 @@ class Home extends Component
                         // Validate start date
                         if ($startDate <= $currentDate && $currentDate <= $endDate) {
                             $sale_price = $default['sale_price'];
-                            $discount = ($sale_price/$price)*100;
+                            $discount = (($price-$sale_price)/$price)*100;
                         } 
 
                     }else{                        
                         $sale_price = $default['sale_price'];
-                        $discount = ($sale_price/$price)*100;
+                        $discount = (($price-$sale_price)/$price)*100;
                     }
                     
                 }
@@ -294,7 +294,7 @@ class Home extends Component
                 $product['price'] = $price;
                 $product['variant_id'] = $default['variant_id'];
                 $product['sale_price'] = $sale_price;
-                $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+                $product['discount'] = ($discount!=0)?(round($discount)):0;
                 $product['label'] = (isset($label->name))?$label->name:'';
                 $product['label_color_code'] = (isset($label->color))?$label->color:'';
                 $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;

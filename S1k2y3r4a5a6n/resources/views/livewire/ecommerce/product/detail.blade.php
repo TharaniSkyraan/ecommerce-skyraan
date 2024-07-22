@@ -246,9 +246,13 @@
                                     </div> 
                                 </a>
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['product_type'] > 1)
+                                    <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                        <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
+                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                    </button>
+                                    <!-- @if($product['product_type'] > 1)
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                            <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop</h6>
+                                            <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                         </button>
                                     @elseif($product['stock_status']=='out_of_stock')
@@ -271,7 +275,7 @@
                                                 </a>
                                             </div>
                                         </div> 
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                             <div class="price_info py-3">
@@ -369,9 +373,13 @@
                                     </div> 
                                 </a>
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['product_type'] > 1)
+                                    <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                        <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
+                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                    </button>
+                                    <!-- @if($product['product_type'] > 1)
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                            <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop</h6>
+                                            <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                         </button>
                                     @elseif($product['stock_status']=='out_of_stock')
@@ -394,7 +402,7 @@
                                                 </a>
                                             </div>
                                         </div> 
-                                    @endif
+                                    @endif -->
                                 </div>
                             </div>
                             <div class="price_info py-3">

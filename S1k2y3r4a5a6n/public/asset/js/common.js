@@ -167,12 +167,14 @@ $(document).on('click','.deleteCart', function()
     var product_variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
     var index = product_id+'-'+product_variant_id;
     delete productsArray[index];    
-    $(this).closest('.PrdRow').remove();
     localStorage.setItem('cart',JSON.stringify(productsArray));
     Livewire.emit('RemoveProductFromCart',index);
     Livewire.emit('MyCart',productsArray);
     updateRelatedCaurosel()
     cartProductQuantity();
+    if(!($(".product-list").hasClass('cartpage'))){
+        $(this).closest('.PrdRow').remove();
+    }
 });
 
 function cartProductQuantity(){
@@ -188,7 +190,7 @@ function cartProductQuantity(){
     
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     
-    if($(".cartList").hasClass('price-list')){
+    if($(".product-list").hasClass('cartpage')){
         Livewire.emit('addCartinUserCart',productsArray,'cartpage');
     }else{
         var price = 0;

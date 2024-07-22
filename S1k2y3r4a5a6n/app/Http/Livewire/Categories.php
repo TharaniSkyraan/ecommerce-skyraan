@@ -88,10 +88,12 @@ class Categories extends Component
             ['id' => $this->category_id],
             $validateData
         );
-        if(empty($this->parent_id) && $this->status =='inactive'){
-            Category::whereParentId($this->category_id)->update(['status' => 'inactive']);
-        }elseif(empty($this->parent_id)){
-            Category::whereParentId($this->category_id)->update(['status' => 'active']);
+        if(!empty($this->category_id)){
+            if(empty($this->parent_id) && $this->status =='inactive'){
+                Category::whereParentId($this->category_id)->update(['status' => 'inactive']);
+            }elseif(empty($this->parent_id)){
+                Category::whereParentId($this->category_id)->update(['status' => 'active']);
+            }
         }
         session()->flash('message', 'Category successfully saved.');
         $this->resetInputvalues();

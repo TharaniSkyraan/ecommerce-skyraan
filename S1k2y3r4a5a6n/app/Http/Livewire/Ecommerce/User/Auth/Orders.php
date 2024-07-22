@@ -186,12 +186,12 @@ class Orders extends Component
                                         // Validate start date
                                         if ($startDate <= $currentDate && $currentDate <= $endDate) {
                                             $sale_price = $variant->sale_price;
-                                            $discount = ($sale_price/$price)*100;
+                                            $discount = (($price-$sale_price)/$price)*100;
                                         } 
                 
                                     }else{
                                         $sale_price = $variant->sale_price;
-                                        $discount = ($sale_price/$price)*100;
+                                        $discount = (($price-$sale_price)/$price)*100;
                                     }
                                 }
                                 
@@ -221,7 +221,7 @@ class Orders extends Component
                             $product['attributes'] = implode('| ',$attributes);
                             $product['variant_id'] = $variant->id??0;
                             $product['sale_price'] = $sale_price;
-                            $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+                            $product['discount'] = ($discount!=0)?(round($discount)):0;
                             $product['last_buy'] = OrderItem::whereHas('orders', function($q){
                                                                 $q->whereStatus('delivered');
                                                             })->whereProductId($order->product_id)
