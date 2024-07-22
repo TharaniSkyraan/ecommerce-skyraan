@@ -161,7 +161,7 @@ class Nav extends Component
 
             foreach($datas as $data)
             { 
-                // dd($data);
+                
                 if (!isset($data['product_id']) || !isset($data['product_variant_id'])) {
                     continue; // Skip this iteration if keys are missing
                 }
