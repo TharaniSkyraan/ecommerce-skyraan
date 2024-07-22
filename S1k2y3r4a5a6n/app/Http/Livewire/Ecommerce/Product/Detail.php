@@ -162,6 +162,7 @@ class Detail extends Component
         $product = $product->toArray();
         
         $this->product_id = $id = $product['id'];
+        // dd($this->product_id);
         if(!empty($this->variant)){
             $default = ProductVariant::select('id as variant_id','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                     ->where('id',$this->variant)
