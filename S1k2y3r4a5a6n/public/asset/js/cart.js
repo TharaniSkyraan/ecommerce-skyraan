@@ -65,10 +65,4 @@ function isNumberKey(event) {
         input.value = value.slice(0, -1);
         return;
     }
-
-    // Convert the value to a number and check if it exceeds 100000
-    const numericValue = parseFloat(value);
-    if (numericValue > 100000) {
-        input.value = value.slice(0, -1);
-    }
 }
