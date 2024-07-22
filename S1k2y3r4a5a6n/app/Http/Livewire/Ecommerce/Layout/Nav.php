@@ -32,7 +32,7 @@ class Nav extends Component
         //     $query->where('status', 'active');
         // }, '>', 0)->orderBy('sort','asc')->whereStatus('active')->get();
 
-        $this->categories = Category::whereNULL('parent_id')->whereStatus('active')->get();
+        $this->categories = Category::whereNULL('parent_id')->whereStatus('active')->orderBy('sort','asc')->get();
         
         
         $this->all_categories = Category::whereStatus('active')->where(function($q){
