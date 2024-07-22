@@ -385,11 +385,7 @@ class Create extends Component
             $productVariant->shipping_height = (!empty($variant['shipping_height']))?$variant['shipping_height']:0;
             $productVariant->shipping_weight = (!empty($variant['shipping_weight']))?$variant['shipping_weight']:0;
             $productVariant->shipping_length = (!empty($variant['shipping_length']))?$variant['shipping_length']:0;
-
-            if($index==$this->is_default){
-                $productVariant->is_default = 'yes';
-            }
-
+            $productVariant->is_default = ($index==$this->is_default)?'yes':'no';
             foreach ($variant['images'] as $images) {
                 // Move the image from temporary to permanent storage
                 if(!empty($images['image'])){

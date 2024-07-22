@@ -98,7 +98,7 @@ class Detail extends Component
             $this->stock_status = $default->stock_status;
             $this->price = $price;
             $this->sale_price = $sale_price;
-            $this->discount = ($discount!=0)?(100 - round($discount)):0;    
+            $this->discount = ($discount!=0)?(round($discount)):0;    
         
         }
         
@@ -199,12 +199,12 @@ class Detail extends Component
                 // Validate start date
                 if ($startDate <= $currentDate && $currentDate <= $endDate) {
                     $sale_price = $default['sale_price'];
-                    $discount = ($sale_price/$price)*100;
+                    $discount = (($price-$sale_price)/$price)*100;
                 } 
 
             }else{
                 $sale_price = $default['sale_price'];
-                $discount = ($sale_price/$price)*100;
+                $discount = (($price-$sale_price)/$price)*100;
             }
             
         }
@@ -229,7 +229,7 @@ class Detail extends Component
         $this->stock_status = $default['stock_status'];
         $this->price = $price;
         $this->sale_price = $sale_price;
-        $this->discount = ($discount!=0)?(100 - round($discount)):0;
+        $this->discount = ($discount!=0)?(round($discount)):0;
         
         $product['label'] = (isset($label->name))?$label->name:'';
         $product['label_color_code'] = (isset($label->color))?$label->color:'';
@@ -370,7 +370,7 @@ class Detail extends Component
             $product['slug'] = $product['slug'];
             $product['variant_id'] = $default->id??0;
             $product['sale_price'] = $sale_price;
-            $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+            $product['discount'] = ($discount!=0)?(round($discount)):0;
             $product['label'] = (isset($label->name))?$label->name:'';
             $product['label_color_code'] = (isset($label->color))?$label->color:'';
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
