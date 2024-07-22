@@ -117,12 +117,12 @@ class Checkout extends Component
                             // Validate start date
                             if ($startDate <= $currentDate && $currentDate <= $endDate) {
                                 $sale_price = $default->sale_price;
-                                $discount = ($sale_price/$price)*100;
+                                $discount = (($price-$sale_price)/$price)*100;
                             } 
 
                         }else{
                             $sale_price = $default->sale_price;
-                            $discount = ($sale_price/$price)*100;
+                            $discount = (($price-$sale_price)/$price)*100;
                         }
 
                     }
@@ -148,7 +148,7 @@ class Checkout extends Component
                     $product['shipping_gross_amount'] = 0;
                     $product['shipping_tax'] = 0;
                     $product['sale_price'] = $sale_price;
-                    $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+                    $product['discount'] = ($discount!=0)?(round($discount)):0;
                     $product['quantity'] = $data['quantity'];
                     $product['attributes'] = implode(', ',$attribute_set_name);
                     $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
@@ -604,7 +604,10 @@ class Checkout extends Component
                     
                         if ($intersect) $inside = !$inside;
                     }
-                    if ($inside) $this->zone = $zone->id; 
+                    if ($inside) {
+                        $this->zone = $zone->id;
+                        break; // Stop looping once inside is true
+                    }
                 }
                 
             }

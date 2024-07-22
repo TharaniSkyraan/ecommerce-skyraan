@@ -48,7 +48,15 @@ $(document).ready(function() {
             var product_variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
             var index = product_id+'-'+product_variant_id;
             productsArray[index].quantity = parseInt(qty);
-            localStorage.setItem('cart',JSON.stringify(productsArray));
+            
+            var newProductsArray = {};
+            newProductsArray[index] = productsArray[index];
+            for (var key in productsArray) {
+                if (key !== index) {
+                    newProductsArray[key] = productsArray[key];
+                }
+            }
+            localStorage.setItem('cart',JSON.stringify(newProductsArray));
             cartProductQuantity();
         }
     });
@@ -74,7 +82,14 @@ $(document).ready(function() {
             var index = product_id+'-'+product_variant_id;
             productsArray[index].quantity = parseInt(qty);
             // console.log(productsArray[index]);
-            localStorage.setItem('cart',JSON.stringify(productsArray));
+            var newProductsArray = {};
+            newProductsArray[index] = productsArray[index];
+            for (var key in productsArray) {
+                if (key !== index) {
+                    newProductsArray[key] = productsArray[key];
+                }
+            }
+            localStorage.setItem('cart',JSON.stringify(newProductsArray));
             cartProductQuantity();
         }
     });
@@ -130,8 +145,15 @@ $(document).on('click','.AddCart', function()
     }else{
         productsArray[index] = {product_id: product_id, product_variant_id: product_variant_id, quantity: parseInt(qty)};
     }
-    localStorage.setItem('cart',JSON.stringify(productsArray));
-    Livewire.emit('MyCart',productsArray);
+    var newProductsArray = {};
+    newProductsArray[index] = productsArray[index];
+    for (var key in productsArray) {
+        if (key !== index) {
+            newProductsArray[key] = productsArray[key];
+        }
+    }
+    localStorage.setItem('cart',JSON.stringify(newProductsArray));
+    Livewire.emit('MyCart',newProductsArray);
     updateRelatedCaurosel();
     cartProductQuantity();
     
@@ -147,8 +169,8 @@ $(document).on('click','.deleteCart', function()
     delete productsArray[index];    
     $(this).closest('.PrdRow').remove();
     localStorage.setItem('cart',JSON.stringify(productsArray));
-    Livewire.emit('MyCart',productsArray);
     Livewire.emit('RemoveProductFromCart',index);
+    Livewire.emit('MyCart',productsArray);
     updateRelatedCaurosel()
     cartProductQuantity();
 });

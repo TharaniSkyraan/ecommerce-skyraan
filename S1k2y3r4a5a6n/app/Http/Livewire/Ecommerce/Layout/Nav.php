@@ -113,12 +113,12 @@ class Nav extends Component
                         // Validate start date
                         if ($startDate <= $currentDate && $currentDate <= $endDate) {
                             $sale_price = $default->sale_price;
-                            $discount = ($sale_price/$price)*100;
+                            $discount = (($price-$sale_price)/$price)*100;
                         } 
 
                     }else{
                         $sale_price = $default->sale_price;
-                        $discount = ($sale_price/$price)*100;
+                        $discount = (($price-$sale_price)/$price)*100;
                     }
                 }
                 
@@ -139,7 +139,7 @@ class Nav extends Component
             $product['slug'] = $product['slug'];
             $product['price'] = $price;
             $product['sale_price'] = $sale_price;
-            $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+            $product['discount'] = ($discount!=0)?(round($discount)):0;
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
             $product['review_count'] = $rating_count;
             return $product;
@@ -161,7 +161,7 @@ class Nav extends Component
 
             foreach($datas as $data)
             { 
-                // dd($data);
+                
                 if (!isset($data['product_id']) || !isset($data['product_variant_id'])) {
                     continue; // Skip this iteration if keys are missing
                 }

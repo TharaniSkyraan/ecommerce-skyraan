@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('buying_options', function (Blueprint $table) {
-            $table->enum('feature_type', ['product', 'buying', 'all'])->default('all');
+            $table->dropColumn('feature_type');
         });
     }
 };

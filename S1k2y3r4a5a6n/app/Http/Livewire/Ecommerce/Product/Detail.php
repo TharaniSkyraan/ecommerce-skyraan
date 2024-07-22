@@ -98,7 +98,7 @@ class Detail extends Component
             $this->stock_status = $default->stock_status;
             $this->price = $price;
             $this->sale_price = $sale_price;
-            $this->discount = ($discount!=0)?(100 - round($discount)):0;    
+            $this->discount = ($discount!=0)?(round($discount)):0;    
         
         }
         
@@ -162,6 +162,7 @@ class Detail extends Component
         $product = $product->toArray();
         
         $this->product_id = $id = $product['id'];
+        // dd($this->product_id);
         if(!empty($this->variant)){
             $default = ProductVariant::select('id as variant_id','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                     ->where('id',$this->variant)
@@ -198,12 +199,12 @@ class Detail extends Component
                 // Validate start date
                 if ($startDate <= $currentDate && $currentDate <= $endDate) {
                     $sale_price = $default['sale_price'];
-                    $discount = ($sale_price/$price)*100;
+                    $discount = (($price-$sale_price)/$price)*100;
                 } 
 
             }else{
                 $sale_price = $default['sale_price'];
-                $discount = ($sale_price/$price)*100;
+                $discount = (($price-$sale_price)/$price)*100;
             }
             
         }
@@ -228,7 +229,7 @@ class Detail extends Component
         $this->stock_status = $default['stock_status'];
         $this->price = $price;
         $this->sale_price = $sale_price;
-        $this->discount = ($discount!=0)?(100 - round($discount)):0;
+        $this->discount = ($discount!=0)?(round($discount)):0;
         
         $product['label'] = (isset($label->name))?$label->name:'';
         $product['label_color_code'] = (isset($label->color))?$label->color:'';
@@ -274,7 +275,7 @@ class Detail extends Component
         
         // Related product // you might also like
         $related_product_ids = array_unique(array_merge($related_product_ids, array_filter(explode(',',$product['related_product_ids']))));
-        $this->productList('related_products',json_encode($related_product_ids));
+        $this->productList('related_products',implode(',',$related_product_ids));
 
         
         // FREQUENTLY BOUGHT
@@ -286,23 +287,19 @@ class Detail extends Component
                                 ->limit(12)
                                 ->pluck('id')->toArray();
                                 
-        $this->productList('frequently_bought_products',json_encode($frequently));
+        $this->productList('frequently_bought_products',implode(',',$frequently));
 
-        $this->buying_options = BuyingOption::where('status', 'active')
-        ->where('feature_type', '<>', 'product')
-        ->take(3)
-        ->get()
-        ->toArray();
-        
+        $this->buying_options = BuyingOption::whereStatus('active')->get()->toArray();
+   
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
     }
 
-    public function productList($type,$ids)
+    public function productList($type,$product_ids)
     {        
-        $ids = json_decode($ids);
-        
+
+        $ids = explode(',',$product_ids);
         $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
                             ->whereIn('id',$ids)
                             ->get()
@@ -373,7 +370,7 @@ class Detail extends Component
             $product['slug'] = $product['slug'];
             $product['variant_id'] = $default->id??0;
             $product['sale_price'] = $sale_price;
-            $product['discount'] = ($discount!=0)?(100 - round($discount)):0;
+            $product['discount'] = ($discount!=0)?(round($discount)):0;
             $product['label'] = (isset($label->name))?$label->name:'';
             $product['label_color_code'] = (isset($label->color))?$label->color:'';
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
