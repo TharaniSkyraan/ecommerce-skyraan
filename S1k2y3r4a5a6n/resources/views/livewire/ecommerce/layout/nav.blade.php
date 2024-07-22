@@ -90,10 +90,12 @@
                                             @if($i==$count) @php  $i=0; $j++; @endphp</div>@endif
                                             <!-- subcategory -->
                                             @foreach($category->sub_categories as $sub_category)
-                                                @if($i==0) <div class="border_dcz col-md-{{$class_name}} asd {{ ($j % 2 == 0) ? 'bg-grey' : 'bg-white' }}"> @endif
-                                                    <h6 class="p-1 "><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" class="fw-light">{{ $sub_category->name }}</a></h6>
-                                                    @php $i++; @endphp
-                                                @if($i==$count) @php $i=0; $j++; @endphp </div>@endif
+                                                @if($sub_category->status=='active')
+                                                    @if($i==0) <div class="border_dcz col-md-{{$class_name}} asd {{ ($j % 2 == 0) ? 'bg-grey' : 'bg-white' }}"> @endif
+                                                        <h6 class="p-1 "><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" class="fw-light">{{ $sub_category->name }}</a></h6>
+                                                        @php $i++; @endphp
+                                                    @if($i==$count) @php $i=0; $j++; @endphp </div>@endif
+                                                @endif
                                             @endforeach
                                         @endforeach                                   
                                     </div>
@@ -218,7 +220,9 @@
                                         @if(count($category->sub_categories) > 0)
                                             <ul class="sub-list ps-3 fw-bold">
                                                 @foreach($category->sub_categories as $sub_category)
-                                                    <li><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" >{{ $sub_category->name }}</a></li>
+                                                    @if($sub_category->status=='active')
+                                                        <li><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" >{{ $sub_category->name }}</a></li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         @endif
@@ -295,7 +299,7 @@
                         <div class="d-flex gap-2 justify-content-center align-items-center">
                             <img src="{{asset('asset/home/logout.svg')}}" alt="logout" class="logout" >
                             <div>
-                                <h5 class="text-white text-center  h-sm">Logout</h5>
+                                <h5 class="text-white text-center h-sm">Logout</h5>
                             </div>
                         </div>
                     </a>

@@ -29,19 +29,20 @@ class VariantImages extends Component
     public function addvariantImageRow()
     {
         $this->variantImageList[] = ['id' => '', 'image' => null, 'temp_image' => null];
-        
     }
 
     public function mount()
     {
         $this->variantImageList[] = ['id' => '', 'image' => null, 'temp_image' => null];
-        
     }
 
     public function removevariantImageRow($index)
     {
         unset($this->variantImageList[$index]);
         $this->variantImageList = array_values($this->variantImageList); // Re-index the array
+        $variantImageList = $this->variantImageList;
+        array_pop($variantImageList);
+        $this->emit('GetVariantImages', $variantImageList);
     }
 
     public function resetvariantImageInputvalues(){      
@@ -50,15 +51,14 @@ class VariantImages extends Component
     }  
 
     public function editVariantImages($imageData){  
-        if(count($imageData)!=0){
-            $this->variantImageList = $imageData;
-        }
+        // if(count($imageData)!=0){
+        // }
+        $this->variantImageList = $imageData;
         $this->addvariantImageRow();
     }
 
     public function render()
     {
-    
         return view('livewire.product.variant-images');
     }
 

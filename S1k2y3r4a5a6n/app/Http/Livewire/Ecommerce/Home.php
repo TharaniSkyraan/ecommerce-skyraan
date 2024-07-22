@@ -164,7 +164,7 @@ class Home extends Component
                                                 ->whereProductId($product['id'])->first();
                 $discount = $price = $sale_price = 0;
 
-                $label = Label::find($product['label_id']);
+                $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
                 $rating_count = Review::whereProductId($product['id'])->count();
                 $rating_sum = Review::whereProductId($product['id'])->sum('rating');
 
@@ -245,7 +245,7 @@ class Home extends Component
 
                 $discount = $price = $sale_price = 0;
               
-                $label = Label::find($product['label_id']);
+                $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
                 $rating_count = Review::whereProductId($product['id'])->count();
                 $rating_sum = Review::whereProductId($product['id'])->sum('rating');
 
