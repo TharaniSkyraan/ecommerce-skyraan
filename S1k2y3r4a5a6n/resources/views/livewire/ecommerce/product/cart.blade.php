@@ -1,7 +1,7 @@
 <div>    
     @if(count($cart_products)!=0)
         <input type="hidden" id="total_price" value="{{$total_price}}">
-        <section class="product-list">
+        <section class="product-list cartpage">
             <div class="container">
                 <div class="row pt-4 ">
                     <div class="col-5">
