@@ -959,6 +959,7 @@ padding-top: 155px!important;
         margin-bottom: 4px;
     }
   }
+  
   /* .after-login:hover + .box {
      display: block;
    } */
@@ -966,7 +967,7 @@ padding-top: 155px!important;
   .box.arrow-top:after {
     content: " ";
     position: absolute;
-    right: 80px;
+    right: 73px;
     top: -15px;
     border-top: none;
     border-right: 15px solid transparent;
@@ -1337,6 +1338,18 @@ padding-top: 155px!important;
     }
     .card:hover .add-to-cart {
         visibility:visible;
+    }
+    #privacy-policy h1{
+        font-size: 22px;
+    }
+    #privacy-policy p,  #privacy-policy li{
+        font-size: 12px;
+    }
+    .about-us-banner {
+        height: 120px!important;
+    }
+    .contact-us-banner {
+        height: 113px!important;
     }
 }
 @media (min-width: 768px) and (max-width: 900px){

@@ -89,7 +89,7 @@
     height: 39px;
 }
 .detail-img img{
-   /* height:450px; */
+   height:450px;
    object-fit: contain;
 }
 .detail_page_carousal img{
@@ -263,7 +263,7 @@
         padding-left: 0px!important;
     }
     .detail-img img {
-        /* height: 327px!important; */
+        height: 327px!important;
     }
     .item-image {
         height: 130px!important;
