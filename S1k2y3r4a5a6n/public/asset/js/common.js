@@ -169,8 +169,8 @@ $(document).on('click','.deleteCart', function()
     delete productsArray[index];    
     $(this).closest('.PrdRow').remove();
     localStorage.setItem('cart',JSON.stringify(productsArray));
-    Livewire.emit('MyCart',productsArray);
     Livewire.emit('RemoveProductFromCart',index);
+    Livewire.emit('MyCart',productsArray);
     updateRelatedCaurosel()
     cartProductQuantity();
 });
