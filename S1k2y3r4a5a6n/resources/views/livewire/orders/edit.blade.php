@@ -76,7 +76,7 @@
             <div class="row">
                 <div class="col-12 mb-3">
                     <div class="card mx-2">
-                        <h2 class="mb-2 font-bold d-flex justify-content-between">Summary <span class="font-bold float-end me-2 primary cursor-pointer" wire:click="invoiceGenerate"><p class="p-0">View Invoice <i class="bx bx-download"></i></p></span></h2>
+                        <h2 class="mb-2 font-bold d-flex justify-content-between">Summary  @if($order_status=='delivered'||$order_status=='replaced') <span class="font-bold float-end me-2 primary cursor-pointer" wire:click="invoiceGenerate"><p class="p-0">View Invoice <i class="bx bx-download"></i></p></span> @endif </h2>
                         <div class="d-flex justify-content-between">
                             <div> <p> Order ID </p> </div> 
                             <div> <p class="font-bold"> #{{$order->code}} </p> </div>

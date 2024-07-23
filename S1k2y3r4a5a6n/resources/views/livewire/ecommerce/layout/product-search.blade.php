@@ -1,7 +1,10 @@
 <div>
     <div class="offcanvas-body position-relative">
-        <input type="search" name="search" wire:model="query" placeholder="Search" id="productsearch" class="input-text" aria-label="Search our store" autocomplete="off" required>   
-        <button class="search-btn btn p-0" wire:click="Search"><i class="bi bi-search"></i></button>    
+        <form autocomplete="off">
+            @csrf
+            <input type="search" name="search" wire:model="query" placeholder="Search" id="productsearch" class="input-text" aria-label="Search our store" autocomplete="off" required>   
+            <button class="search-btn btn p-0" wire:click.prevent="Search"><i class="bi bi-search"></i></button>    
+        </form>
     </div>
     <div class="position-absolute w-100 ">
     <!-- {{($show_result)?'':'d-none'}} -->

@@ -1,7 +1,7 @@
 <div>    
     @if(count($cart_products)!=0)
         <input type="hidden" id="total_price" value="{{$total_price}}">
-        <section class="product-list">
+        <section class="product-list cartpage">
             <div class="container">
                 <div class="row pt-4 ">
                     <div class="col-5">
@@ -81,10 +81,9 @@
                         @error('notes')<span class="error">{{$message}}</span> @endif
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-2 pt-2 pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0">
-                        <h6 class="text-dark pb-2">Shipping Charge</h6>
                         <div class="pb-3">
                             <label for="postalCode" class="form-label h-sms">Postal Code</label>
-                            <input class="form-control " id="postalCode" wire:model="postal_code" aria-describedby="postalCode" placeholder="Postal code">
+                            <input type="number" class="form-control " id="postalCode" wire:model="postal_code" oninput="isNumberKey(event)" aria-describedby="postalCode" placeholder="Postal code">
                             @error('postal_code') <span class="error">{{$message}}</span> @endif
                         </div> 
                     </div>

@@ -13478,4 +13478,13 @@ textarea.form-control-lg {
 {
   color: var(--price-content-color);
 }
+
 /*# sourceMappingURL=bootstrap.min.css.map */
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}

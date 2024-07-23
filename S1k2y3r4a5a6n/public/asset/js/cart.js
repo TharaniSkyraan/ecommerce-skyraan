@@ -51,3 +51,18 @@ $(document).ready(function(){
         // $('.more-detl').toggle();
     });
 });
+
+function isNumberKey(event) {
+    const input = event.target;
+    const value = input.value;
+
+    // Allow empty input
+    if (value === '') return;
+
+    // Allow valid number input
+    const validNumber = /^[0-9]*\.?[0-9]*$/.test(value);
+    if (!validNumber) {
+        input.value = value.slice(0, -1);
+        return;
+    }
+}

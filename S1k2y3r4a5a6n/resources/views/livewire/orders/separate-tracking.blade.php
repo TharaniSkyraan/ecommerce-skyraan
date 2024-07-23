@@ -41,7 +41,7 @@
         @elseif($order_status=='cancelled')        
             <div class="steps">
                 <div class="step completed">
-                    <span>Order Confirmed  <br><text> {{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d M y h:i A') }} </text> </span>
+                    <span>Order Placed  <br><text> {{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d M y h:i A') }} </text> </span>
                 </div>
                 <div class="step cancelled">
                     <span>Cancelled  @if($order->order_histories['cancelled']) <br><text> {{ \Carbon\Carbon::parse($order->order_histories['cancelled'])->format('d M y h:i A') }}</text> @endif </text></span>

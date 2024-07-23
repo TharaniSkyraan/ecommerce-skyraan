@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name',180);
             $table->string('slug',180);
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->double('percentage', 4, 2)->notNullable();
+            $table->double('percentage', 6, 2)->notNullable();
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
