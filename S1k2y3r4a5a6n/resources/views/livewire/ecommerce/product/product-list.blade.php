@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-12 no-product">
+                    <div class="col-12 no-product pt--5">
                         <img src="{{asset('asset/home/no-product.svg')}}" alt="no-product">
                         <h6 class="pt-2">No products found !</h6>
                     </div>
@@ -300,7 +300,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-12 no-product">
+                    <div class="col-12 no-product pt--5">
                         <img src="{{asset('asset/home/no-product.svg')}}" alt="no-product">
                         <h6 class="pt-2">No products found !</h6>
                     </div>
@@ -479,7 +479,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-12 no-product">
+                    <div class="col-12 no-product pt--5">
                         <img src="{{asset('asset/home/no-product.svg')}}" alt="no-product">
                         <h6 class="pt-2">No products found !</h6>
                     </div>
@@ -644,7 +644,7 @@
                     </div>
                 </div>
             @empty
-                <div class="col-12 no-product">
+                <div class="col-12 no-product pt--5">
                     <img src="{{asset('asset/home/no-product.svg')}}" alt="no-product">
                     <h6 class="pt-2">No products found !</h6>
                 </div>

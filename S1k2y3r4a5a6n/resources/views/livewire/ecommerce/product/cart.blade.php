@@ -45,7 +45,7 @@
                                             </div>
                                         @endif
                                         <div class="deleteCart cursor mx-2">
-                                            <img src="{{asset('asset/home/3917378.png')}}" alt="delete" class="w-75">
+                                            <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
                                         </div>
                                     </div>
                                 </div>

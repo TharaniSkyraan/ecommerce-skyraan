@@ -38,8 +38,8 @@
                 @case('ecommerce')
                   <li class="item">
                     <div href="javascript:void(0)" class="nav_link submenu_item  {{ ((request()->is('admin/category*')) ||  
-                      (request()->is('admin/coupon*')) || 
-                      (request()->is('admin/brand*')) || (request()->is('admin/collection*')) || 
+                      (request()->is('admin/coupon*')) || (request()->is('admin/special-product*')) ||
+                      (request()->is('admin/brand*')) || (request()->is('admin/collection*')) ||  (request()->is('admin/cacnel_reasons*')) ||
                       (request()->is('admin/banner*')) || (request()->is('admin/label*')) || (request()->is('admin/buying-option*')) || 
                       (request()->is('admin/attribute*')) || (request()->is('admin/product*'))) ? 'show_submenu active' : '' }}">
                       <span class="navlink_icon">
@@ -82,6 +82,9 @@
                               @break
                             @case('special-products')
                               <a href="{{ route('admin.special-product') }}" class="nav_link sublink {{ (request()->is('admin/special-product')) ? 'active' : '' }}">Special Products</a>
+                              @break
+                            @case('cancel-reasons')
+                              <a href="{{ route('admin.cancel_reasons.index') }}" class="nav_link sublink {{ (request()->is('admin/cancel_reasons*')) ? 'active' : '' }}">Cancel Reasons</a>
                               @break
                           @endswitch
                         @endif

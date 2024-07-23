@@ -14,9 +14,11 @@
                         <input type="text" name="email" id="email" placeholder="Email" wire:model="email">
                         @error('email') <span class="error"> {{$message}}</span> @endif
                     </div> 
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="text" name="password" id="password" placeholder="Password" wire:model="password">
+                    <div class="form-group" >
+                        <label for="password" style="width:100%">Password @if(!empty($subadmin_id) && $password_input=='hide')<a href="javascript:void(0)" class="primary float-end" wire:click="changePassword"> Change Password</a>@endif</label>
+                        @if($password_input=='show')
+                            <input type="text" name="password" id="password" placeholder="Password" wire:model="password">
+                        @endif
                         @error('password') <span class="error"> {{$message}}</span> @endif
                     </div>
                     <div class="form-group">

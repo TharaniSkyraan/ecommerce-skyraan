@@ -10,7 +10,7 @@
         <link href="{{asset('asset/css/header.css')}}" rel="stylesheet" type="text/css" />
     </x-slot>
 
-    <section class="about-us">
+    <section class="about-us" id="privacy-policy">
         <section class="about-us-banner">
             <div class="py-3 container-fluid">
                 <div class="row">

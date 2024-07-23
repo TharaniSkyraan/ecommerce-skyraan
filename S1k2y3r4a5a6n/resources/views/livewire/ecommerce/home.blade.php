@@ -132,7 +132,7 @@
                                             @endif
                                         </div> 
                                     </a>
-                                    <div class="container-fluid position-absolute add-div">
+                                    <div class="container-fluid ps-1 position-absolute add-div">
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
@@ -382,7 +382,6 @@
         <section class="card_and_carousal pb-4">
             <div class="container">
                 <div class="row">
-
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 sys-view">
                         <a href="javascript:void(0);" class="position-relative d-block">
                             <div class="card card1 border-0 rounded-3 d-flex justify-content-center cursor">
@@ -399,7 +398,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 px-0">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 px-0">
                         <div class="row ps-3">
                             <h5 class="fw-bold hghg">HEROES OF THE WEEK</h5>
                         </div>

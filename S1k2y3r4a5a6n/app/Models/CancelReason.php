@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CancelReason extends Model
 {
     use HasFactory;
+    
+    protected $fillable = ['name'];
 }

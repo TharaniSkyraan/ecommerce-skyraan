@@ -16,6 +16,7 @@ class Create extends Component
     public $privileges = [];
     public $warehouse_ids = [];
     public $selected_warehouse_ids = [];
+    public $password_input = 'show';
 
     /**
      * Store new or existing category in database
@@ -91,6 +92,9 @@ class Create extends Component
         
         return view('livewire.subadmin.create');
     }
+    public function changePassword(){
+        $this->password_input = 'show';
+    }
 
     public function mount($subadmin_id)
     {
@@ -104,6 +108,7 @@ class Create extends Component
             $this->privileges =  array_fill_keys(explode(',',$subadmin->privileges), true);
             $this->warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$subadmin_id])->whereStatus('active')->pluck('id')->toArray();
             $this->selected_warehouse_ids = $this->warehouse_ids;
+            $this->password_input = 'hide';
         }
         $this->warehouses = Warehouse::whereStatus('active')->get();
     }
