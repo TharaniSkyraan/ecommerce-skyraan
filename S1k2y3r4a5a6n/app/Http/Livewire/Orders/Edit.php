@@ -9,12 +9,14 @@ use App\Models\ShippingStatus;
 use App\Models\OrderShipment;
 use App\Models\ShippingHistory;
 use App\Models\OrderHistory;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
+use App\Traits\OrderInvoice;
 
 class Edit extends Component
 {
+    use OrderInvoice;
+
     public $order_id,$order,$order_status,$modalisOpen,$status,$shipment;
 
     public $statuses = [];
@@ -29,23 +31,9 @@ class Edit extends Component
         $this->IsModalOpen();
     }
 
-    public function invoiceGenerate(){
-        
-        $order = $this->order;
-        $data['shipment_address'] = $order->shipmentAddress->toArray();
-        $data['shipment'] = $order->shipment->toArray();
-        $data['order_items'] = $order->orderItems->toArray();
-        $data['order'] = $order->toArray();
-        
-        $imagePath = 'https://skyraa-ecommerce.skyraan.net/storage/setting/eB7sQkTnA7rdrXOxAAiPKYGt82C0QUABpeJc2yaB.svg';
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $data['logo_base64'] = 'data:image/png;base64,' . $imageData;
-        
-        $pdf = Pdf::loadView('ecommerce.order.invoice', $data);
-        $pdfBase64 = base64_encode($pdf->output());
-
-        $this->emit('previewInvoice',$pdfBase64);
-
+    public function invoiceGenerate()
+    {
+        return $this->generateinvoice($this->order->id, 'preview');
     }
     
     public function UpdateStatus(){
@@ -106,7 +94,7 @@ class Edit extends Component
         session()->flash('message', 'Order confirmed.');
     }
 
-    public function cancelOrder(){
+    public function cancelOrder($reason=''){
         $shipping_id = $this->shipment->id;
       
         if(!empty($this->order->payments->charge_id)){
@@ -124,8 +112,8 @@ class Edit extends Component
 
         Order::where('id',$this->order_id)->update(['status'=>'cancelled']);
         OrderShipment::where('order_id',$this->order_id)->update(['status'=>'cancelled']);
-        OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'Order cancelled by admin.']);
-        ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$this->order->user_id,'action'=>'order_cancelled','shipment_id'=>$shipping_id],['description'=>'Order cancelled by admin.']);
+        OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'Admin cancelled the order because of '.$reason.'.']);
+        ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$this->order->user_id,'action'=>'order_cancelled','shipment_id'=>$shipping_id],['description'=>'Admin cancelled the order because of '.$reason.'.']);
         
         $this->getOrder();
 

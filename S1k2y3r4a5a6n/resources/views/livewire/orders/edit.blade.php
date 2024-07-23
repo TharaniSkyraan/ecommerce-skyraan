@@ -105,10 +105,10 @@
                             <div class="card1">
                                 <div>
                                 @if($order_status=='new_request')
-                                    <a href="javacript:void(0)" wire:click="confirmOrder"> <span class="btn btn-s">Confirm Order</span></a>
+                                    <a href="javascript:void(0)" wire:click="confirmOrder"> <span class="btn btn-s">Confirm Order</span></a>
                                 @endif
                                 @if($order_status=='new_request'||$order_status=='order_confirmed')
-                                    <a href="javacript:void(0)" class="cancelOrder"> <span class="btn btn-c">Cancel Order</span></a>
+                                    <a href="javascript:void(0)" class="cancelOrder"> <span class="btn btn-c">Cancel Order</span></a>
                                 @endif
                                 </div>
                             </div>
@@ -152,7 +152,8 @@
                     </div>  
                     <div class="product-det">
                         <div class="title">Last Update At :</div>
-                        <div class="font-bold">{{ \Carbon\Carbon::parse($shipment->updated_at)->format('d M y h:i A')}}</div>
+                        @php $updated_at = $shipment->updated_at->copy()->timezone('Asia/Kolkata') @endphp
+                        <div class="font-bold">{{ \Carbon\Carbon::parse($updated_at)->format('d M y h:i A')}}</div>
                     </div>   
                 </div> 
                 @if($order_status=='order_confirmed' || $order_status=='shipped' || $order_status=='out_for_delivery')
@@ -185,9 +186,14 @@
     });    
     $(document).on('click', '.cancelOrder', function () {  
 
-        if (confirm('Are you sure! you want to cancel?')) {
-            Livewire.emit('cancelOrder');  
+        var reason =prompt('Please provide a reason for cancellation:');
+        if (reason !== null && reason !== "") {
+            // Proceed with cancellation using the provided reason
+            Livewire.emit('cancelOrder',reason);  
             alert('Order Cancelled');
+            // Your logic for handling the cancellation
+        } else {
+            alert('Cancellation reason is required.');
         }
     });
     document.addEventListener('livewire:load', function () { 

@@ -163,6 +163,7 @@
             }
             .col-foo{
                 width:250px;
+                padding-top:40px !important
             }
             .pt-0{
                 padding-top:0px!important;
@@ -225,14 +226,14 @@
             .b-none{
                 border:none!important;
             }
-
+            
         </style>
     </head>
     <body>
         <div class="container pb-4" id="invoice">
             <div>
                 <div class="invoice-container">
-                    <p class="fw-normal b-0 hjfew"><img src="{{ $logo_base64 }}" alt="" class="text-start logo-img"> <span class="text-end"> Invoice No : {{ $order['invoice_number']??'' }} <br><br> Date : {{ \Carbon\Carbon::parse($order['invoice_date'])->format('d-m-Y h:i A')}} </span></p>
+                    <p class="fw-normal b-0 hjfew"><img src="{{ $logo_base64 }}" alt="" class="text-start logo-img"> <span class="text-end"> Invoice No : {{ $order['invoice_number']??'' }} <br><br> Date : {{ \Carbon\Carbon::parse($order['invoiced_date'])->format('d-m-Y h:i A')}} </span></p>
                 </div>
             </div>
             <hr>
@@ -244,7 +245,7 @@
                     </p>
                     <p class="">
                         <small class="fw-bold">Order Date</small>
-                        <span class="pe-xl-3 pe-0">:&nbsp;&nbsp;{{ \Carbon\Carbon::parse($order['created_at'])->format('d M Y h:i: A')}}</span>
+                        <span class="pe-xl-3 pe-0">:&nbsp;&nbsp;{{ \Carbon\Carbon::parse($order['order_date'])->format('d M Y h:i: A')}}</span>
                     </p>
                     <p class=" pb-3">
                         <small class="fw-bold">Shipping Address</small>
@@ -304,7 +305,7 @@
                 </table>
                 <div class="row class-headers py-4 px-3">
                     <span class=" text-start fw-bold" >AMOUNT IN WORDS</span>
-                    <span class=" text-end   fw-bold" style="padding-left:60px;">FIVE HUNDRED AND SIXTEEN RUPES AND SIXTY SIX PAISE</span>
+                    <span class=" text-end   fw-bold" style="padding-left:60px;">{{ $order['prininword'] }}</span>
                 </div>
             </div>
         </div>
@@ -312,7 +313,7 @@
             <table class="b-none">
                 <thead class="b-none">
                     <tr class="b-none">
-                        <th class="col b-none "><h6 class="fw-bold ewhjd text-start ">SOLD BY SKYRAA ORGANICS</h6></th>
+                        <th class="col text-center b-none"><h6 class="fw-bold ewhjd text-start ">SOLD BY SKYRAA ORGANICS</h6></th>
                     </tr>
                 </thead>
                 <tbody>
