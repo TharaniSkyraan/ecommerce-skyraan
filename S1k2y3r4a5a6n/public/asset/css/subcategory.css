@@ -159,9 +159,15 @@ input[type="range"]::-moz-range-thumb {
 .filter-col{
     display: none;
 }
+.pt--5{
+    padding-top: 6rem;
+}
 @media only screen and (max-width: 488px){
     #grid-two .best-text{
         left: 30%!important;
+    }
+    .pt--5{
+        padding-top: 4rem!important;
     }
 }
 @media only screen and (max-width: 400px){
