@@ -7,14 +7,14 @@
     <div class="row">
         <div class="col-12 shipment">
             <div class="card mt-3 mx-2">
-                <h1 class="mb-3 font-bold"> Shipment Information  <span class="font-bold float-end me-2 success"><a href="javascript:void(0)" class="primary" wire:click="invoiceGenerate"><p>View Invoice <i class="bx bx-download"></i></p></a> </span> </h1>
-                <hr> <br>
                 @php 
                     $trackings = $shipment->shipping_history;
                     $shipmentstatus = $shipment->status;
                     $order = $shipment->order;
                     $order_status = $order->status;
                 @endphp
+                <h1 class="mb-3 font-bold"> Shipment Information  @if($order_status=='delivered'||$order_status=='replaced') <span class="font-bold float-end me-2 success"><a href="javascript:void(0)" class="primary" wire:click="invoiceGenerate"><p>View Invoice <i class="bx bx-download"></i></p></a> </span> @endif </h1>
+                <hr> <br>
                 <div>
                     <div class="product-det">
                         <div class="title">Order Id :</div>

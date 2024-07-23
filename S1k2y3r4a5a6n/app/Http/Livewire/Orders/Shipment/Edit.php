@@ -8,12 +8,14 @@ use App\Models\ShippingStatus;
 use App\Models\Order;
 use App\Models\OrderHistory;
 use App\Models\ShippingHistory;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
+use App\Traits\OrderInvoice;
 
 class Edit extends Component
 {
+    use OrderInvoice;
+    
     public $shipping_id,$shipment,$modalisOpen,$status,$order_status;
 
     public $statuses = [];
@@ -26,24 +28,9 @@ class Edit extends Component
         $this->IsModalOpen();
     }
     
-    public function invoiceGenerate(){
-        
-        $order = Order::find($this->shipment->order_id);
-        $data['shipment_address'] = $order->shipmentAddress->toArray();
-        $data['shipment'] = $order->shipment->toArray();
-        $data['order_items'] = $order->orderItems->toArray();
-        $data['order'] = $order->toArray();
-        $data['order']['prininword'] = ucwords($this->numToWordsRec($data['order']['total_amount']));
-        
-        $imagePath = 'https://skyraa-ecommerce.skyraan.net/storage/setting/eB7sQkTnA7rdrXOxAAiPKYGt82C0QUABpeJc2yaB.svg';
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $data['logo_base64'] = 'data:image/png;base64,' . $imageData;
-        
-        $pdf = Pdf::loadView('ecommerce.order.invoice', $data);
-        $pdfBase64 = base64_encode($pdf->output());
-
-        $this->emit('previewInvoice',$pdfBase64);
-
+    public function invoiceGenerate()
+    {
+        $this->generateinvoice($this->shipment->order_id, 'preview');
     }
     
     function numToWordsRec($number) {

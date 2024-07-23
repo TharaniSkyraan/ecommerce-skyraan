@@ -93,7 +93,7 @@ class OrdersController extends Controller
                             return ucwords($orders->name);
                         })
                         ->editColumn('order_at', function ($orders) {
-                            return \Carbon\Carbon::parse($orders->created_at)->format('d-m-y h:i A');
+                            return \Carbon\Carbon::parse($orders->created_at->copy()->timezone('Asia/Kolkata'))->format('d-m-y h:i A');
                         })
                         ->addColumn('payment_method', function ($orders) {
                             return ($orders->payments)?ucwords($orders->payments->payment_chennal):'';

@@ -13,7 +13,6 @@
                 @endif
             @endforeach
         </div>
-        @foreach($collections_data as $collection)
         <div aria-hidden="true" class="marquee__group">
             @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
@@ -27,6 +26,5 @@
                 @endif
             @endforeach
         </div>
-        @endforeach
     </div>
 </section>

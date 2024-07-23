@@ -17,12 +17,12 @@ use App\Models\CancelReason;
 use App\Models\OrderShipment;
 use App\Models\OrderHistory;
 use App\Models\ShippingHistory;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Razorpay\Api\Api;
+use App\Traits\OrderInvoice;
 
 class Orders extends Component
 {
-    use WithPagination;
+    use WithPagination, OrderInvoice;
     public $tab='all';
     public $pageloading = 'false';
     public $morepage = false;
@@ -83,20 +83,7 @@ class Orders extends Component
 
     public function invoiceGenerate($order_id)
     {
-        $order = Order::find($order_id);
-        $data['shipment_address'] = $order->shipmentAddress->toArray();
-        $data['shipment'] = $order->shipment->toArray();
-        $data['order_items'] = $order->orderItems->toArray();
-        $data['order'] = $order->toArray();
-        $data['order']['prininword'] = ucwords($this->numToWordsRec($data['order']['total_amount']));
-        
-        $imagePath = 'https://skyraa-ecommerce.skyraan.net/storage/setting/eB7sQkTnA7rdrXOxAAiPKYGt82C0QUABpeJc2yaB.svg';
-        $imageData = base64_encode(file_get_contents($imagePath));
-        $data['logo_base64'] = 'data:image/png;base64,' . $imageData;
-        $pdf = Pdf::loadView('ecommerce.order.invoice', $data);
-        return response()->streamDownload(function() use ($pdf) {
-            echo $pdf->output();
-        }, $order->invoice_number.'.pdf');
+        return $this->generateinvoice($order_id, 'download');
     }
     
     function numToWordsRec($number) {
