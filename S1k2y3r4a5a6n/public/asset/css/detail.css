@@ -230,6 +230,140 @@
 .detail-card .PrdRow .qty-container{
     width: 120px;
 }
+
+.location-selection{
+    .input-container {
+        border: 1px solid var(--items-list-border-color);
+        border-radius: 0.25rem;
+        padding: 0.375rem 0.75rem;
+        background-color: none;
+      }
+      
+      .location-icon {
+        color: var(--next-prev-arrow-color);
+        font-size: 1.2rem;
+      }
+      
+      .input-container input {
+        flex-grow: 1;
+        outline: none;
+        background-color: none;
+        color: #343a40;
+      }
+      
+      .input-container button {
+        white-space: nowrap;
+        color: #6c757d;
+      }
+      .input-container button:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: transparent;
+      }
+      
+      .input-container input:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: transparent;
+      }
+      
+      .vertical-line {
+        width: 1px;
+        height: 24px;
+        background-color: var(--items-list-border-color);
+        margin: 0 0.75rem;
+      }
+      
+      .address-card {
+        border: 1px solid var(--items-list-border-color);
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .address-card:hover {
+        border-color: #007bff;
+      }
+      .custom-radio {
+        margin: 0;
+      }
+      
+      .pincode-section {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+      }
+      .pincode-section .form-control {
+        flex: 1;
+      }
+      .pincode-section .check-button {
+        margin-left: 10px;
+      }
+      
+      .separator {
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .separator::before,
+      .separator::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .separator:not(:empty)::before {
+        margin-right: 0.25em;
+      }
+      
+      .separator:not(:empty)::after {
+        margin-left: 0.25em;
+      }
+      .card-body {
+        position: relative;
+        padding-top: 20px; /* Adjust padding to make space for the tooltip */
+      }
+        
+    .tooltip-arrow {
+        width: 0;
+        height: 0;
+        border-left: 16px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 16px solid #fff;
+        position: absolute;
+        top: -9px;
+        left: 92%;
+        transform: translateX(-50%);
+    }
+      .selectAddress {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+      .selectAddress.selected {
+        background-color: #f9fcf6;
+        border-color: var(--next-prev-arrow-color);
+      }
+      .form-check-input:checked{
+        background-color: var(--next-prev-arrow-color);
+      }
+      .form-check-input:focus {
+        border-color: var(--next-prev-arrow-color);
+        outline: 0;
+        box-shadow: 0 0 10px var(--items-list-border-color) !important;
+    }
+    .card{
+        display: none;
+        position: absolute;
+        z-index: 1;
+    }
+    .btnss{
+        background-color: var(--next-prev-arrow-color);
+    }
+}
+
 @media only screen and (max-width: 346px){
 
     .details .tab-head h6{

@@ -131,3 +131,26 @@ $('.detail-img .demo-trigger').hover(function() {
 }, function() {
   $('.zoom-in').removeClass('hovered').css('height', '0%'); 
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const radioButtons = document.querySelectorAll('.form-check-input');
+
+  radioButtons.forEach(function(radio) {
+      radio.addEventListener('change', function() {
+          document.querySelectorAll('.selectAddress').forEach(function(div) {
+              div.classList.remove('selected');
+          });
+
+          if (radio.checked) {
+              radio.closest('.selectAddress').classList.add('selected');
+          }
+      });
+  });
+});
+
+$(document).ready(function(){
+  $(".hover-btn").click(function(){
+      $(".location-card").toggle();
+  });
+});

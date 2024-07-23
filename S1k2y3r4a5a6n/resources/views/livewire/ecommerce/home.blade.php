@@ -132,7 +132,7 @@
                                             @endif
                                         </div> 
                                     </a>
-                                    <div class="container-fluid position-absolute add-div">
+                                    <div class="container-fluid ps-1 position-absolute add-div">
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">

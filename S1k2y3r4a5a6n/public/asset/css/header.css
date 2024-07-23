@@ -7,6 +7,11 @@ center, dl, dt, dd,  fieldset, form, label, legend, table, caption, tbody, tfoot
 	border:0;
 	outline:none;
 }
+
+:root {
+    color-scheme:light!important;
+}
+
 *{
 	line-height:1.5;
     font-weight:normal;
@@ -225,7 +230,7 @@ fieldset, legend {
     border-bottom: 11px solid transparent;
   }
 .card .add-to-cart {
-    visibility: hidden;
+    visibility: visible;
     bottom:0;
 }
 .card .add-to-cart .p-1{
