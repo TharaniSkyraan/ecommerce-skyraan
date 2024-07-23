@@ -173,7 +173,7 @@
         height:105px;
     }
 } 
-.card_and_carousal  .card1{
+.card_and_carousal .card1{
     background: transparent radial-gradient(closest-side at 50% 95%, #D4F2FF 0%, #03A9F4 100%) 0% 0% no-repeat padding-box;
     height:400px;
 }
@@ -375,6 +375,11 @@
         }
     }
 }
+@media (min-width: 600px) and (max-width: 767px){
+    .card_and_carousal .card1{
+        display: none!important;
+    }
+}
 @media (min-width: 600px) and (max-width: 1024px){
     .with-horizontal-line::before, .with-horizontal-line::after {
         width: 12%;
@@ -396,6 +401,9 @@
     }
     .hghg{
         font-size: 16px;
+    }
+    .card_and_carousal  .card1 img{
+        width: 75%!important;
     }
 }
 @media (min-width: 1374px) and (max-width: 1700px){

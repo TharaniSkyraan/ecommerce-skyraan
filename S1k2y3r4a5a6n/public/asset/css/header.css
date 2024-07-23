@@ -665,7 +665,7 @@ padding-top: 155px!important;
   .menu-large {
     position: static !important;
   }
-  .dropdown .dropdown-menu {
+  /* .dropdown .dropdown-menu {
     display: none;
     background-color: #fff;
     opacity: 0;
@@ -674,7 +674,7 @@ padding-top: 155px!important;
     display: block;
     opacity: 1;
     transform: translateY(0);
-  } 
+  }  */
    
   .megamenu {
     width: fit-content;
@@ -1132,7 +1132,7 @@ padding-top: 155px!important;
 @media only screen and (max-width:767px){
     .mbls-view {
         display: block!important;
-     }  
+    }  
 }
 @media only screen and (max-width:600px){
     h4{
