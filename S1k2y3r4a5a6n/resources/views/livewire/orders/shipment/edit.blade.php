@@ -22,7 +22,9 @@
                     </div>
                     <div class="product-det">
                         <div class="title">Order Date :</div>
-                        <div class="font-bold">{{ \Carbon\Carbon::parse($shipment->order->created_at)->format('d M y h:i A')}}</div>
+                        @php $created_at = $shipment->order->created_at->copy()->timezone('Asia/Kolkata'); @endphp
+
+                        <div class="font-bold">{{ \Carbon\Carbon::parse($created_at)->format('d M y h:i A')}}</div>
                     </div> 
                     <div class="product-det">
                         <div class="title">Order Status :</div>
@@ -33,8 +35,9 @@
                         <div class="font-bold"><a href="javascript:void(0);">#{{ $shipment->tracking_id }}</a></div>
                     </div> 
                     <div class="product-det">
-                        <div class="title">Last Update At :</div>
-                        <div class="font-bold">{{ \Carbon\Carbon::parse($shipment->updated_at)->format('d M y h:i A')}}</div>
+                        <div class="title">Last Update At :</div>                        
+                        @php $updated_at = $shipment->updated_at->copy()->timezone('Asia/Kolkata'); @endphp
+                        <div class="font-bold">{{ \Carbon\Carbon::parse($updated_at)->format('d M y h:i A')}}</div>
                     </div>   
                     <div class="product-det">
                         <div class="title">Shipping Status:</div>
@@ -64,7 +67,8 @@
                         @foreach($trackings as $key => $tracking)
                         <div class="row {{ $key % 2 == 0 ? '' : 'odd' }}" >
                             <div class="col-6 description">{{ $tracking->shipping_status->name ?? ucwords(str_replace('_',' ',$tracking->action)) }}</div>
-                            <div class="col-6 description text-center">{{ \Carbon\Carbon::parse($tracking->created_at)->format('d M Y h:i A') }}</div>
+                            @php $created_at = $tracking->created_at->copy()->timezone('Asia/Kolkata'); @endphp
+                            <div class="col-6 description text-center">{{ \Carbon\Carbon::parse($created_at)->format('d M Y h:i A') }}</div>
                         </div>
                         @if($key!=(count($trackings)-1)) <hr> @endif
                         @endforeach

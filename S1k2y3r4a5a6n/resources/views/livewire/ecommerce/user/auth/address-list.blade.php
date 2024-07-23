@@ -34,12 +34,14 @@
                                 </div>
                             @endforeach
                         </div>
+                        @if(count($addresses) < 5)
                         <div class="p-3 card1 rounded-1 cursor">
                             <div class="d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit()">
                                 <img src="{{asset('asset/home/plus.svg')}}" alt="add" class="plus-icon">
                                 <h6 class="text-white">Add Address</h6>
                             </div> 
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

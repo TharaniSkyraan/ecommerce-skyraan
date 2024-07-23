@@ -163,6 +163,7 @@
             }
             .col-foo{
                 width:250px;
+                padding-top:40px !important
             }
             .pt-0{
                 padding-top:0px!important;
@@ -225,7 +226,7 @@
             .b-none{
                 border:none!important;
             }
-
+            
         </style>
     </head>
     <body>
@@ -304,7 +305,7 @@
                 </table>
                 <div class="row class-headers py-4 px-3">
                     <span class=" text-start fw-bold" >AMOUNT IN WORDS</span>
-                    <span class=" text-end   fw-bold" style="padding-left:60px;">FIVE HUNDRED AND SIXTEEN RUPES AND SIXTY SIX PAISE</span>
+                    <span class=" text-end   fw-bold" style="padding-left:60px;">{{ $order['prininword'] }}</span>
                 </div>
             </div>
         </div>
@@ -312,7 +313,7 @@
             <table class="b-none">
                 <thead class="b-none">
                     <tr class="b-none">
-                        <th class="col b-none "><h6 class="fw-bold ewhjd text-start ">SOLD BY SKYRAA ORGANICS</h6></th>
+                        <th class="col text-center b-none"><h6 class="fw-bold ewhjd text-start ">SOLD BY SKYRAA ORGANICS</h6></th>
                     </tr>
                 </thead>
                 <tbody>

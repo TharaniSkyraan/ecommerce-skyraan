@@ -28,6 +28,9 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
         Route::get('label/fetchData','LabelController@fetchData')->name('fetch.label.data');
         Route::resource('label','LabelController');
 
+        Route::get('cancel_reasons/fetchData','CancelReasonController@fetchData')->name('fetch.cancel_reasons.data');
+        Route::resource('cancel_reasons','CancelReasonController');
+
         Route::get('collection/fetchData','CollectionController@fetchData')->name('fetch.collection.data');
         Route::resource('collection','CollectionController');
 

@@ -1,8 +1,9 @@
 
 <nav class="navbar">
     <div class="logo_item">
-    <i class="bx bx-menu" id="sidebarOpen"></i>
-    <img src="{{ asset('admin/images/logo.png') }}" alt=""></i>Skyraan
+        <i class="bx bx-menu" id="sidebarOpen"></i>
+        <img src="{{ asset('admin/images/logo.png') }}" alt="">
+        {{$siteSetting->site_name}}
     </div>
 
     <!-- <div class="search_bar">
