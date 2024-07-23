@@ -86,6 +86,8 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
         Route::get('sales-report/fetchData','ManageStockController@fetchData')->name('fetch.sales-report.data');
         Route::resource('sales-report','ManageStockController');
 
+	    Route::post('/logout', [AdminController::class, 'destroy'])->name('logout');
+
     });
 
 });

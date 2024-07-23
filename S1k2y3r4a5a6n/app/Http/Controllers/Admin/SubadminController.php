@@ -77,7 +77,7 @@ class SubadminController extends Controller
     public function fetchData(Request $request)
     {
         
-        $subadmins = Admin::select('*');
+        $subadmins = Admin::select('*')->whereRole('subadmin');
         
         return Datatables::of($subadmins)
                         ->filter(function ($query) use ($request) {

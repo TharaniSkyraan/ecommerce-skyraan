@@ -67,7 +67,10 @@ class Admin extends Authenticatable
         if($this->role != 'admin'){
             $privileges = explode(',',$this->privileges);
             $module_parent_ids = Module::whereIn('id',$privileges)->pluck('parent_id')->toArray();
-            $menus = Module::where('parent_id',0)->whereIn('id',$module_parent_ids)->orderBy('sort','asc')->get();
+            $module_parent_ids1 = Module::whereIn('id',$privileges)->whereParentId(0)->pluck('id')->toArray();
+            $parent_ids = array_merge($module_parent_ids,$module_parent_ids1);
+
+            $menus = Module::where('parent_id',0)->whereIn('id',$parent_ids)->orderBy('sort','asc')->get();
         }else{
             $menus = Module::where('parent_id',0)->orderBy('sort','asc')->get();
         }
