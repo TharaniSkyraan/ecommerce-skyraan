@@ -25,7 +25,7 @@
                               </td>
                               <td>
                                     <select name="status" id="status">
-                                        <option value="all" selected="selected">Is active?</option>
+                                        <option value="all" selected="selected">All Orders?</option>
                                         <option value="new_request">New Request</option>
                                         <option value="order_confirmed">Order Confirmed</option>
                                         <option value="out_for_delivery">Out for delivery</option>

@@ -15,6 +15,7 @@ use App\Models\Attribute;
 use App\Models\Brand;
 use App\Models\Label;
 use App\Models\Tax;
+use App\Models\Setting;
 use App\Models\Collection;
 use Carbon\Carbon;
 
@@ -522,6 +523,8 @@ class Create extends Component
             $this->selected_cross_selling_products = Product::Find($this->cross_selling_product_ids);
             $this->selected_products = Product::Find($this->product_ids);
           
+        }else{
+            $this->tax_ids = Setting::pluck('default_tax')->first();
         }
 
         $this->auth_id = \Auth::guard('admin')->id();
