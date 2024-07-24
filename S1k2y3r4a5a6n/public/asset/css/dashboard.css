@@ -740,7 +740,7 @@
    .userdashboard .select_list {
       display: none;    
    }
-   .userdashboard .select_lists .col-lg-9 {
+   .userdashboard .select_lists .collg9 {
       width: 100%!important;
    }  
 }
@@ -836,6 +836,10 @@
    border-right: unset;
    border-bottom-right-radius: unset;
    border-top-right-radius: unset;
+   color: #707070;
+}
+#Editaddress .form-select{
+   color:#707070!important;
 }
 #Editaddress #loader {
    border: 8px solid #c7c7c7;
