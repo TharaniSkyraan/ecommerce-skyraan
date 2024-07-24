@@ -382,7 +382,6 @@
         <section class="card_and_carousal pb-4">
             <div class="container">
                 <div class="row">
-
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 sys-view">
                         <a href="javascript:void(0);" class="position-relative d-block">
                             <div class="card card1 border-0 rounded-3 d-flex justify-content-center cursor">
@@ -399,7 +398,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 px-0">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 px-0">
                         <div class="row ps-3">
                             <h5 class="fw-bold hghg">HEROES OF THE WEEK</h5>
                         </div>

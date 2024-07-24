@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="order-placed">
             <div class="text-center py-4">
-                <img src="{{asset('asset/home/order-placed.png')}}" alt="order-placed" class="orderpacedpng">
+                <img src="{{asset('asset/home/order_placed_successfully_icon.svg')}}" alt="order-placed" class="orderpacedpng">
                 <h5 class="buy-color py-3">Order Placed Successfully!</h5>
                 <h5 class=" opacity-75">Order ID #{{$order->code}}</h5>
                 <div class="row justify-content-center pt-5">

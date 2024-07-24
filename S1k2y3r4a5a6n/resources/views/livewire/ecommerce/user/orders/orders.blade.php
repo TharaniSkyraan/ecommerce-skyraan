@@ -15,12 +15,12 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 pe-0 ">
+                                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 px-0 ">
                                                 <div class="jkefjnjfqjwqd">
                                                     <span class="h-sms fw-bold">Order ID</span>
                                                     <h6 class="h-sms fw-bold">#{{$order['code']}}</h6>
                                                 </div>
-                                                <div class="d-md-flex d-sm-flex d-lg-none d-xl-none d-none">
+                                                <div class="d-md-flex d-sm-flex d-lg-none d-xl-none d-none align-items-center">
                                                     <span class="h-sms fw-bold">Order ID</span>
                                                     <h6 class="h-sms fw-bold">#{{$order['code']}}</h6>
                                                 </div>
