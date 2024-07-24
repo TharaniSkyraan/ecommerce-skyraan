@@ -35,7 +35,7 @@
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 text-start text-xl-end text-lg-end text-xxl-end">
+                                            <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 text-start text-xl-end text-lg-end text-xxl-end px-xl-1 px-lg-1 px-md-0 px-sm-0 px-0">
                                                 <span class="h-sms">Order Placed</span>
                                                 <span class="h-sms">{{ \Carbon\Carbon::parse($order['created_at'])->format('d M y')}}</span>
                                             </div>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-xl-2 col-lg-2 col-sm-6 col-md-2 col-12 text-start border-end-0 border-sm-end  sys-view">
                                 <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-sm-6 col-md-12 col-12">
+                                    <div class="col-xl-12 col-lg-12 col-sm-6 col-md-12 col-12 px-xl-3 px-lg-3 px-md-3 px-sm-1 px-0">
                                         <span class="h-sms">Total</span>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-sm-6 col-md-12 col-12 text-md-start text-start text-sm-end fwedw">
@@ -70,29 +70,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-3 col-sm-6 col-md-4 col-12 text-center  sys-view">
+                            <div class="col-xl-3 col-lg-3 col-sm-6 col-md-4 col-12 text-end  sys-view">
                                <a href="{{ route('ecommerce.order-detail') }}?ordId={{$order['code']}}&ordRef={{ \Carbon\Carbon::parse($order['created_at'])->timestamp}}"><span class="buy-color h-sms">view order details</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container-fluid">
-                        <div class="row pb-5 ">
-                            <div class="col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12 px-0">
+                    <div class="container-fluid px-0">
+                        <div class="row pb-xl-4 pb-lg-4 pb-md-4 pb-sm-4 pb-4">
+                            <div class="col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12 ">
                                 <div class="d-flex align-items-center gap-1">
-                                    <h6>Cancelled on 29 May2024</h6>
+                                    <h6 class="h-sms">Cancelled on 29 May2024</h6>
                                 </div>
                             </div>
                         </div>
                         @foreach($items as $key => $item)
                         <div class="row PrdRow" data-id="{{ $item['product_id'] }}" data-variant-id="{{ $item['variant']['id']??'' }}" data-quantity="{{ $item['quantity'] }}">
-                            <div class="col-3 ps-0">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-4 px-0">
                                 <div class="card border-0 align-items-center">
                                     <img src="{{$item['product_image']}}" alt="{{$item['product_name']}}" class="product-img ">
                                 </div>
                             </div>
-                            <div class="col-9 align-self-center pe-0">
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 align-self-center pe-0">
                                 <div class="d-flex gap-2 align-items-center">
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}" target="_blank">
                                         <h5 class="fw-bold pb-1 buy-color">{{ $item['product_name'] }}</h5>
@@ -108,7 +108,7 @@
                             @if((count($items)-1) != $key) 
                                 <div class="col-12"> <hr> </div> 
                             @else 
-                                <div class="col-12 text-danger pt-4 px-xl-5 px-lg-5 px-md-1 px-sm-1 px-0"><h6>{{ $order['order_status'] }}</h6> </div> 
+                                <div class="col-12 text-danger pt-3 px-xl-4 px-lg-4 px-md-2 px-sm-2 px-2"><h6 class="h-sms">{{ $order['order_status'] }}</h6> </div> 
                             @endif
                         </div>
                         @endforeach

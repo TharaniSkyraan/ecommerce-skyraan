@@ -1257,6 +1257,12 @@ padding-top: 155px!important;
     .contact-us-banner {
         height: 113px!important;
     }
+    .tltprice{
+       font-size: 14px;
+    }
+    .Quick-shop-img{
+        width: 15px!important;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1549,7 +1555,7 @@ padding-top: 155px!important;
 }
 .Quick-shop-img{
     filter: brightness(0) invert(1) grayscale(1);
-    width: 19px!important;
+    width: 19px;
 }
 #flush-collapseOne .sub-list {
     display: none;

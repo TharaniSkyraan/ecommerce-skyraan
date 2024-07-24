@@ -241,6 +241,18 @@ hr{
     #availableCoupon span{
         font-size: 14px;
     }
+    #Editaddress .form-control{
+       font-size: 14px;
+       color: #707070;
+    }
+    #Editaddress .form-select{
+        font-size: 14px;
+        color: #707070;
+     }
+     #Editaddress .dial-code{
+        font-size: 14px;
+        color: #707070;
+     }
 }
 @media (min-width: 600px) and (max-width: 1024px){
     /* .nsc img {
@@ -279,7 +291,11 @@ hr{
     border-right: unset;
     border-bottom-right-radius: unset;
     border-top-right-radius: unset;
-}      
+    color: #707070;
+}  
+#Editaddress .form-select{
+    color:#707070!important;
+}    
 #Editaddress #loader {
     border: 8px solid #c7c7c7;
     border-top: 8px solid #4070f4;
