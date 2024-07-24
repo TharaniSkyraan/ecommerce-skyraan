@@ -32,9 +32,9 @@
                                         <div class="col-6 d-flex justify-content-end align-self-center">
                                             <div class="rounded-circle bg-white">
                                                 @if(in_array($product['id'], $wishlist)) 
-                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')"   class="like_img">
+                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
                                                 @else
-                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img">
+                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif >
                                                 @endif
                                             </div>
                                         </div>
@@ -210,9 +210,9 @@
                                         <div class="col-6 d-flex justify-content-end align-self-center">
                                             <div class="rounded-circle bg-white">
                                                 @if(in_array($product['id'], $wishlist)) 
-                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')"   class="like_img">
+                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
                                                 @else
-                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img">
+                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif>
                                                 @endif
                                             </div>
                                         </div>
@@ -389,9 +389,9 @@
                                         <div class="col-6 d-flex justify-content-end align-self-center">
                                             <div class="rounded-circle bg-white">
                                                 @if(in_array($product['id'], $wishlist)) 
-                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')"   class="like_img">
+                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
                                                 @else
-                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img">
+                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif>
                                                 @endif
                                             </div>
                                         </div>
@@ -567,9 +567,9 @@
                                     <div class="col-6 d-flex justify-content-end align-self-center">
                                         <div class="rounded-circle bg-white">
                                             @if(in_array($product['id'], $wishlist)) 
-                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')"   class="like_img">
+                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
                                             @else
-                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img">
+                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif>
                                             @endif
                                         </div>
                                     </div>

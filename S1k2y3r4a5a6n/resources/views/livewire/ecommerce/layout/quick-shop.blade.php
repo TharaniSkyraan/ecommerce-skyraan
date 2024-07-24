@@ -131,6 +131,7 @@
                 </div>
             </div>
         </div>
+        <div class="nointernet text-danger text-center"></div>
     </div>
 </div>
 

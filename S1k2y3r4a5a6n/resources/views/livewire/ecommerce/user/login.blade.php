@@ -5,7 +5,7 @@
             <h4 class="fw-bold text-dark text-center text-white">SKYRAAN</h4>
         </div>
         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 py-xl-5 py-lg-5 py-sm-5 py-md-5 py-2 sign-in-bg jhhrf">
-            <div class="px-xl-3 px-lg-3 px-sm-3 px-md-3 px-2 text-center">
+            <div class="px-xl-3 px-lg-3 px-sm-3 px-md-3 px-2">
                 <form autocomplete="off">
                     <h5 class="fw-bold heading text-start">Sign in</h5>
                     <div class="pt-3 d-flex username" wire:ignore>
@@ -19,8 +19,9 @@
                         </div>                     
                         @error('password') <span class="error">{{$message}}</span> @endif
                         @if($errorMessage) <span class="error">Invalid Password</span> @endif
+                        <br><span class="error nointernet" wire:ignore></span>
                     </div>
-                    <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100" wire:click.prevent="signin">
+                    <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 submitbutton" wire:click.prevent="signin">
                         <h5>sign in</h5>
                     </button>
                     <div class="pt-2 d-flex align-items-center gap-1 justify-content-between">
