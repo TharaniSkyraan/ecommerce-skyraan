@@ -29,3 +29,12 @@ $('#username').on('input', function() {
         }
     }
 });
+
+$(document).on('click','.submitbutton', function()
+{
+    if (navigator.onLine) {
+        $('.nointernet').html('');
+    }else{
+        $('.nointernet').html('You are offline. Please check your internet connection.');
+    }
+});

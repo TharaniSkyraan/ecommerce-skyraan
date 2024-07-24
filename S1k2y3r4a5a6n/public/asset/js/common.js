@@ -126,38 +126,46 @@ window.addEventListener('scroll', function() {
 
 $(document).on('click','.AddCart', function()
 {
-    var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
-    var product_id = $(this).closest('.PrdRow').data('id');
-    var qty = $(this).closest('.PrdRow').find('.input-qty').html();
-    
-    if($(this).closest('.PrdRow').find('.input-qty').html()==undefined){
-        var qty = $(this).closest('.PrdRow').data('quantity');
-    }
-    if($(this).closest('.PrdRow').find('.variant_id').html()!=undefined){
-        var product_variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
-        $('.close-btn').trigger('click');
-    }else{
-        var product_variant_id = $(this).closest('.PrdRow').data('variant-id');
-    }
-    var index = product_id+'-'+product_variant_id;
-    if (productsArray.hasOwnProperty(index)) {
-        productsArray[index].quantity = (parseInt(productsArray[index].quantity) + parseInt(qty));
-    }else{
-        productsArray[index] = {product_id: product_id, product_variant_id: product_variant_id, quantity: parseInt(qty)};
-    }
-    var newProductsArray = {};
-    newProductsArray[index] = productsArray[index];
-    for (var key in productsArray) {
-        if (key !== index) {
-            newProductsArray[key] = productsArray[key];
+    if (navigator.onLine) {
+        $('.nointernet').html('');
+        $('.dffe, #offcanvasRight').removeClass('d-none');
+        var productsArray = JSON.parse(localStorage.getItem('cart'))??{};    
+        var product_id = $(this).closest('.PrdRow').attr('data-id');
+        var qty = $(this).closest('.PrdRow').find('.input-qty').html();
+        
+        if($(this).closest('.PrdRow').find('.input-qty').html()==undefined){
+            var qty = $(this).closest('.PrdRow').data('quantity');
         }
-    }
-    localStorage.setItem('cart',JSON.stringify(newProductsArray));
-    Livewire.emit('MyCart',newProductsArray);
-    updateRelatedCaurosel();
-    cartProductQuantity();
-    
+        if($(this).closest('.PrdRow').find('.variant_id').html()!=undefined){
+            var product_variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
+            $('.close-btn').trigger('click');
+        }else{
+            var product_variant_id = $(this).closest('.PrdRow').data('variant-id');
+        }
+        var index = product_id+'-'+product_variant_id;
+        if (productsArray.hasOwnProperty(index)) {
+            productsArray[index].quantity = (parseInt(productsArray[index].quantity) + parseInt(qty));
+        }else{
+            productsArray[index] = {product_id: product_id, product_variant_id: product_variant_id, quantity: parseInt(qty)};
+        }
+        var newProductsArray = {};
+        newProductsArray[index] = productsArray[index];
+        for (var key in productsArray) {
+            if (key !== index) {
+                newProductsArray[key] = productsArray[key];
+            }
+        }
+        localStorage.setItem('cart',JSON.stringify(newProductsArray));
+        Livewire.emit('MyCart',newProductsArray);
+        updateRelatedCaurosel();
+        cartProductQuantity();
 
+    } else {
+        $('.dffe, #offcanvasRight').addClass('d-none');
+        $('#offcanvasRight').find('.btn-close').trigger('click');
+        $('.nointernet').html('You are offline. Please check your internet connection.');
+        return false;
+    }
 });
     
 $(document).on('click','.deleteCart', function()
@@ -206,10 +214,17 @@ function cartProductQuantity(){
 
 $(document).on('click','.QuickShop', function()
 {
-    if($(this).closest('.PrdRow').data('id')!=product_id)
-    {
-        product_id = $(this).closest('.PrdRow').data('id');
-        Livewire.emit('quickShop',$(this).closest('.PrdRow').data('id'));
+    if (navigator.onLine) {
+        $('.nointernet').html('');
+        $('.dffe').removeClass('d-none');
+        if($(this).closest('.PrdRow').data('id')!=product_id)
+        {
+            product_id = $(this).closest('.PrdRow').data('id');
+            Livewire.emit('quickShop',$(this).closest('.PrdRow').data('id'));
+        }
+    } else {
+        $('.dffe').addClass('d-none');
+        $('.nointernet').html('You are offline. Please check your internet connection.');
     }
 
 });
@@ -471,4 +486,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+});
+
+$(document).on('click','.addwishlist', function()
+{
+    if (navigator.onLine) {
+        // $('.nointernet').html('');
+    }else{
+        alert('You are offline. Please check your internet connection.');
+    }
 });
