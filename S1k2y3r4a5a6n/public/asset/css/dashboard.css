@@ -681,13 +681,16 @@
       color: #707070;
    }
    #Editaddress .form-select{
-       font-size: 14px;
-       color: #707070;
-    }
-    #Editaddress .dial-code{
-       font-size: 14px;
-       color: #707070;
-    }
+      font-size: 14px;
+      color: #707070;
+   }
+   #Editaddress .dial-code{
+      font-size: 14px;
+      color: #707070;
+   }
+   .billing .form-control{
+       font-size: 13px;
+   }
 }
 @media only screen and (max-width:767px){
    .tabs_nd_mbl{

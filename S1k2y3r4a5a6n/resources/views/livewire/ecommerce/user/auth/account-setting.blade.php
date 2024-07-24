@@ -52,8 +52,8 @@
                                 </div>
                             </div>
                             <div class="text-start pt-3">
-                                <button class="btn text-white px-5 edit-info {{ ($is_edit)?'d-none':'' }}" wire:click.prevent="EditEnable">Edit info</button>
-                                <button class="btn text-white px-5 save-info {{ ($is_edit)?'':'d-none' }}" wire:click.prevent="AccountUpdate">save</button>
+                                <button class="btn text-white px-5 h-sms edit-info {{ ($is_edit)?'d-none':'' }}" wire:click.prevent="EditEnable">Edit info</button>
+                                <button class="btn text-white px-5 h-sms save-info {{ ($is_edit)?'':'d-none' }}" wire:click.prevent="AccountUpdate">save</button>
                             </div> 
                         </div>
                     </div>

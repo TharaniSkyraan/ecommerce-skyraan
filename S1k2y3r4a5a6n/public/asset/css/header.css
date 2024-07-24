@@ -1263,6 +1263,9 @@ padding-top: 155px!important;
     .Quick-shop-img{
         width: 15px!important;
     }
+    #flush-collapseTwo img{
+        width: 15px!important;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
