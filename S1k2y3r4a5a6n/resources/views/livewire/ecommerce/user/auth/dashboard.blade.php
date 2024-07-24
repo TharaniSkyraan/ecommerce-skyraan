@@ -38,7 +38,7 @@
                                                         <div class="row pt-1  position-absolute w-100 ">
                                                             <div class="col-12 d-flex justify-content-end pe-0 align-self-center reviews-div">
                                                                 <!-- <div class=" rounded-circle bg-white ">
-                                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" class="like_img" >
+                                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" class="like_img addwishlist" >
                                                                 </div> -->
                                                             </div>
                                                         </div>

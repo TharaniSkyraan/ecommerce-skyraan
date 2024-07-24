@@ -82,9 +82,10 @@
                             </div> 
                         </div>
                     </div>
-                    @error('password') <span class="error"> {{$message}}</span> @endif                    
+                    @error('password') <span class="error"> {{$message}}</span> @endif   
+                    <br><span class="error nointernet" wire:ignore></span>             
                 </div>    
-                <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100" wire:click.prevent="signup">
+                <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 submitbutton" wire:click.prevent="signup">
                     <h5 class="fw-normal">Submit</h5>
                 </button>
                 <div class="pt-3 gap-1 d-flex align-items-center justify-content-center">

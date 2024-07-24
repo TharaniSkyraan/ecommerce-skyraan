@@ -12,8 +12,9 @@
                 <div class="pb-3">
                     <input type="email" class="form-control rounded-1" placeholder="Email" wire:model="email">
                     @error('email') <span class="error"> {{$message}}</span> @endif
+                    <br><span class="error nointernet" wire:ignore></span>
                 </div>
-                <a href="javascript:void();" class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 rounded-1" wire:click.prevent="sendResetLink">
+                <a href="javascript:void();" class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 rounded-1 submitbutton" wire:click.prevent="sendResetLink">
                     <h6 class="fw-normal">Submit</h6>
                 </a>
                 <div class="pt-3 gap-1 d-flex align-items-center justify-content-end">
