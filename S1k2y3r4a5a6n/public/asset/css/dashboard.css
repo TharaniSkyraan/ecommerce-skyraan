@@ -676,6 +676,18 @@
    .order-track #tracking .order-tracking {
       margin-bottom: 20px;
    }
+   #Editaddress .form-control{
+      font-size: 14px;
+      color: #707070;
+   }
+   #Editaddress .form-select{
+       font-size: 14px;
+       color: #707070;
+    }
+    #Editaddress .dial-code{
+       font-size: 14px;
+       color: #707070;
+    }
 }
 @media only screen and (max-width:767px){
    .tabs_nd_mbl{
