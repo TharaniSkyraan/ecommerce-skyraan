@@ -15,12 +15,24 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 pe-0 ">
-                                                <div class="d-flex justify-content-between">
-                                                    <span class="h-sms fw-bold">Order ID #{{$order['code']}}</span>
-                                                    <div class="mbl-view">
-                                                        <img src="{{asset('asset/home/forward-icon.png')}}" alt="">
-                                                    </div>
+                                            <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 px-0 ">
+                                                <div class="jkefjnjfqjwqd">
+                                                    <span class="h-sms fw-bold">Order ID</span>
+                                                    <h6 class="h-sms fw-bold pt-xl-1 pt-lg-1 pt-md-0 pt-sm-0 pt-0">#{{$order['code']}}</h6>
+                                                </div>
+                                                <div class="d-md-flex d-sm-flex d-lg-none d-xl-none d-none align-items-center">
+                                                    <span class="h-sms fw-bold">Order ID</span>
+                                                    <h6 class="h-sms fw-bold pt-xl-1 pt-lg-1 pt-md-0 pt-sm-0 pt-0">#{{$order['code']}}</h6>
+                                                </div>
+                                                <div class="mbl-view">
+                                                    <a href="{{ route('ecommerce.order-detail') }}?ordId={{$order['code']}}&ordRef={{ \Carbon\Carbon::parse($order['created_at'])->timestamp}}">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span class="h-sms fw-bold ">Order ID #{{$order['code']}}</span><br>
+                                                            <div class="">
+                                                            <img src="{{asset('asset/home/forward-icon.png')}}" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 text-start text-xl-end text-lg-end text-xxl-end">
@@ -38,7 +50,13 @@
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-sm-6 col-md-12 col-12 text-md-start text-start text-sm-end">
                                         <span class="h-sms" data-position="bottom">{{ ucwords($shipment_address['name']) }}</span>
-                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                        <div class="tooltip-container1">
+                                            <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" id="down-tooltip">
+                                            <div class="tooltip-text" id="tooltip">
+                                                <span class="fw-bold h-sms text-start">{{ ucwords($shipment_address['name']) }}</span>
+                                                <span class="h-sm text-start">{{ ucwords($shipment_address['address']) }}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +108,7 @@
                             @if((count($items)-1) != $key) 
                                 <div class="col-12"> <hr> </div> 
                             @else 
-                                <div class="col-12 text-danger pt-4 px-5"><h6>{{ $order['order_status'] }}</h6> </div> 
+                                <div class="col-12 text-danger pt-4 px-xl-5 px-lg-5 px-md-1 px-sm-1 px-0"><h6>{{ $order['order_status'] }}</h6> </div> 
                             @endif
                         </div>
                         @endforeach

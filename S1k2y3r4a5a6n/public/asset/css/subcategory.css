@@ -62,21 +62,17 @@ input[type="range"]::-moz-range-thumb {
 .filter-grid .input-group-text {
     padding: 0.375rem 0.2rem;
 }
-
 .filter-grid .grid-view-align .grid-img img{
-     width: 25px;
-     height: 25px;
+    width: 25px;
+    height: 25px;
 }
-
 .grid-img .card {
     border: 2px solid transparent;
     cursor: pointer;
 }
-
 .grid-img .active svg path {
     fill: var(--next-prev-arrow-color);
 }
-
 .hidden {
     display: none;
 }
