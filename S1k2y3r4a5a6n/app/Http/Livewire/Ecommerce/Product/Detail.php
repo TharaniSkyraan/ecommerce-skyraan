@@ -27,6 +27,7 @@ class Detail extends Component
     public $parent_available_variant_ids = [];
     public $attributes = [];
     public $selected_attributes_set_ids = [];
+    public $postal_code;
     
     public $images,$stock_status,$price,$sale_price,$discount,$variant,$prdRef;
     
@@ -296,6 +297,10 @@ class Detail extends Component
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
+
+        
+        $zones = \Session::get('zone_config');
+        $this->postal_code = $zones['postal_code'];
     }
 
     public function productList($type,$product_ids)
@@ -417,15 +422,16 @@ class Detail extends Component
             }
         }
     }
+    
     public function checkpincode()
     {
-        $ipLocationData = array(
+        $data = array(
             'city' => '',
             'latitude' => '',
             'longitude' => '',
-            'postal_code' => $postal_code??''
+            'postal_code' => $this->postal_code??''
         );  
-        $this->configzone($ipLocationData); 
+        $this->configzone($data); 
     }
     
     public function checkout()

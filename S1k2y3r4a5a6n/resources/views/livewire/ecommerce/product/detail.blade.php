@@ -170,7 +170,7 @@
                                     <span class="location-icon">
                                         <i class="bi bi-geo-alt-fill"></i>
                                     </span>
-                                    <input type="text" class="form-control border-0 h-sms" value="641004"  style="background-color: white" />
+                                    <input type="text" class="form-control border-0 h-sms" value="" wire:model="postal_code" style="background-color: white" />
                                     <div class="vertical-line"></div>
                                     <button class="btn fw-bold h-sms hover-btn">Change <i class="bi bi-chevron-down"></i></button>
                                 </div>

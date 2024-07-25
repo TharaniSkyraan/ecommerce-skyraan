@@ -44,9 +44,9 @@ class Locale
                 
                 $ip = $request->ip();    
 
-                $ipLocationData = $this->getCity($ip??'183.82.250.192');    
+                $ipLocationData = $this->getCity('183.82.250.192');    
                 if($ipLocationData == null || empty($ipLocationData['postal_code'])){
-                    $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".$ip??'183.82.250.192'));  
+                    $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));  
                     if($ipLocationData && $ipLocationData!=null)
                     {
                         $ipLocationData = array(
@@ -72,9 +72,9 @@ class Locale
         {
             $ip = $request->ip();   
        
-            $ipData = $this->getCity($ip??'183.82.250.192');   
+            $ipData = $this->getCity('183.82.250.192');   
             if($ipData == null || empty($ipData['country_code'])){  
-                $ipData = @json_decode(file_get_contents("https://ipinfo.io/".$ip??'183.82.250.192'));    
+                $ipData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));    
                 if($ipData && $ipData!=null)
                 {
                     $ipData = array('country_code' => $ipData->geoplugin_countryCode??''); 
