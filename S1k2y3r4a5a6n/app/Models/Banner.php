@@ -12,14 +12,15 @@ class Banner extends Model
     protected $fillable = ['name','product_ids','image','slug','status', 'description','product_type','promotion_banner','special_product'];
 
     protected $appends = ['product_slug','product_created'];
-    
 
     public function getProductSlugAttribute()
     {
+
         if($this->product_type=='single'){
             $product_id = array_values(array_filter(explode(',',$this->product_ids)));
             $product_slug = Product::whereIn('id',$product_id)->pluck('slug')->first();
         }
+        
         return $product_slug??'';
     }
 
