@@ -676,6 +676,21 @@
    .order-track #tracking .order-tracking {
       margin-bottom: 20px;
    }
+   #Editaddress .form-control{
+      font-size: 14px;
+      color: #707070;
+   }
+   #Editaddress .form-select{
+      font-size: 14px;
+      color: #707070;
+   }
+   #Editaddress .dial-code{
+      font-size: 14px;
+      color: #707070;
+   }
+   .billing .form-control{
+       font-size: 13px;
+   }
 }
 @media only screen and (max-width:767px){
    .tabs_nd_mbl{
@@ -740,7 +755,7 @@
    .userdashboard .select_list {
       display: none;    
    }
-   .userdashboard .select_lists .col-lg-9 {
+   .userdashboard .select_lists .collg9 {
       width: 100%!important;
    }  
 }
@@ -836,6 +851,10 @@
    border-right: unset;
    border-bottom-right-radius: unset;
    border-top-right-radius: unset;
+   color: #707070;
+}
+#Editaddress .form-select{
+   color:#707070!important;
 }
 #Editaddress #loader {
    border: 8px solid #c7c7c7;

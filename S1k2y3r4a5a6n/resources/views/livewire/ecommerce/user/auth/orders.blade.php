@@ -5,7 +5,7 @@
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 select-li select_list ps-xl-3 ps-lg-3 ps-md-2 ps-sm-0 ps-0 pe-xl-3 pe-lg-3 pe-md-2 pe-sm-0 pe-0 pb-3" wire:ignore>
                     @include('ecommerce.user.auth.sidebar')
                 </div>
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 order-li pb-3 my-order">
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 order-li pb-3 my-order collg9">
                     <div class="row">
                         <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-4 d-flex gap-3 align-items-center">
                             <div class="row w-100">
