@@ -9,21 +9,25 @@ trait ZoneConfig
 
     public function ipzone()
     {
-        if((isset(Auth::user()->address) || isset(Auth::user()->usercart)))
+        if((isset(Auth::user()->address) || isset(Auth::user()->usercart->address)))
         {
-            $address = Auth::user()->usercart??Auth::user()->address;
+            $address = Auth::user()->usercart->address??Auth::user()->address;
 
             $ipLocationData = array(
+                'address_id' => $address->id??'',
                 'city' => $address->city??'',
                 'latitude' => '',
                 'longitude' => '',
-                'postal_code' => $address->postal_code??($address->postal_code??'')
+                'postal_code' => $address->postal_code??''
             );  
             if($ipLocationData && $ipLocationData!=null)
             {
-                $this->configzone($ipLocationData); 
+                $result = $this->configzone($ipLocationData); 
+                session(['zone_config' => $result]);
+                view()->share('zone_data',\Session::get('zone_config'));                
             }
         }else{
+            
             $ip = $request->ip();    
 
             $ipLocationData = $this->getCity('183.82.250.192');    
@@ -32,6 +36,7 @@ trait ZoneConfig
                 if($ipLocationData && $ipLocationData!=null)
                 {
                     $ipLocationData = array(
+                        'address_id' => '',
                         'city' => $ipLocationData->city??'',
                         'latitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[0]:'',
                         'longitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[1]:'',
@@ -42,7 +47,9 @@ trait ZoneConfig
             
             if($ipLocationData && $ipLocationData!=null)
             {
-                $this->configzone($ipLocationData); 
+                $result = $this->configzone($ipLocationData); 
+                session(['zone_config' => $result]);
+                view()->share('zone_data',\Session::get('zone_config'));
             }
 
         }
@@ -122,9 +129,8 @@ trait ZoneConfig
 
         $data['zone_id'] = $zone_id;
         $data['warehouse_ids'] = $warehouse_ids;
-        session(['zone_config' => $data]);
-        view()->share('zone_data',\Session::get('zone_config'));
-    
+
+        return $data;
     }
 
 }

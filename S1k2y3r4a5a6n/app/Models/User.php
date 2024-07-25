@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(SavedAddress::class, 'user_id', 'id')->orderByRaw("is_default = 'yes' DESC");
     }
+        
+    public function addresses()
+    {
+        return $this->hasMany(SavedAddress::class, 'user_id', 'id')->orderByRaw("is_default = 'yes' DESC");
+    }
 }
