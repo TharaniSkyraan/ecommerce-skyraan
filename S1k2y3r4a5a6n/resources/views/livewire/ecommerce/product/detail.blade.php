@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div class="container-fluid px-0">
-                    <div class=" ps-3 row align-items-center add-to-cart py-3 w-75 adadas">
+                    <div class=" row align-items-center add-to-cart py-3 w-75 adadas">
                         @if($stock_status=='out_of_stock')
                             <a href="javascript:void(0)" class="col-6 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                 <div class="card card2 border-0 p-3">
@@ -164,7 +164,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 ps-0">
                             <div class="location-selection position-relative">
                                 <div class="d-flex align-items-center input-container">
                                     <span class="location-icon">
