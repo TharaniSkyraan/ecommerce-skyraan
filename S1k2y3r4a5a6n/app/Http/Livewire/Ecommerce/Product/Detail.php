@@ -16,10 +16,12 @@ use App\Models\BuyingOption;
 use App\Models\OrderItem;
 use App\Models\Tax;
 use Carbon\Carbon;
+use App\Traits\ZoneConfig;
 
 class Detail extends Component
 {
-    
+    use ZoneConfig;
+
     public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant;
     public $parent_attribute = [];
     public $parent_available_variant_ids = [];
@@ -414,6 +416,16 @@ class Detail extends Component
                 );
             }
         }
+    }
+    public function checkpincode()
+    {
+        $ipLocationData = array(
+            'city' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'postal_code' => $postal_code??''
+        );  
+        $this->configzone($ipLocationData); 
     }
     
     public function checkout()

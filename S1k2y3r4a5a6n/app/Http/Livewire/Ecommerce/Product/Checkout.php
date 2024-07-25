@@ -59,7 +59,7 @@ class Checkout extends Component
     {
         $address = SavedAddress::find($this->address_id);
         $validateData['user_address_id'] = $this->address_id;
-        $validateData['postal_code'] = $address->zip_code;
+        $validateData['postal_code'] = $address->postal_code;
         UserCart::updateOrCreate(
             ['user_id' => auth()->user()->id],
             $validateData
@@ -570,12 +570,12 @@ class Checkout extends Component
     
     public function pointInPolygon($address_id) 
     {
-        $zipcode = SavedAddress::where('id',$address_id)->pluck('zip_code')->first();
+        $postal_code = SavedAddress::where('id',$address_id)->pluck('postal_code')->first();
         if($address_id){
             
             $this->zone = null;
             
-            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$zipcode."&sensor=false&key=".config('shipping.google_map_api_key');
+            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$postal_code."&sensor=false&key=".config('shipping.google_map_api_key');
             $details=file_get_contents($url);
             $result = json_decode($details,true);
         
