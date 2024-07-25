@@ -7,11 +7,12 @@
                 <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
             </div>
         @endforeach
+        
     </div>
-    <div class="dropdown-menu megamenu py-0" role="menu">
+    <div class="dropdown-menu py-0" role="menu">
         <div class="container-fluid">
-            <div class="width_menu">
-                <div class="row">
+            <div class="width_menu ">
+                <div class="row position-absolute bg-white">
                     <p>jewfjnjf</p>  
                     <p>jewfjnjf</p>                              
                     <p>jewfjnjf</p>                              
@@ -23,7 +24,6 @@
         </div>
     </div>
 </div>
-
 </section>
 
 @push('scripts')

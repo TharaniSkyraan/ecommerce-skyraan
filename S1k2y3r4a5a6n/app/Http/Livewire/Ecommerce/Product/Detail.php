@@ -302,8 +302,8 @@ class Detail extends Component
         $this->wishlist = $wishlist;
         
         $zones = \Session::get('zone_config');
-        $this->postal_code = $zones['postal_code'];
-        $this->address_id = $zones['address_id'];
+        $this->postal_code = $zones['postal_code']??'';
+        $this->address_id = $zones['address_id']??0;
 
     }
 
