@@ -47,8 +47,8 @@
             @error('city') <span class="error">{{$message}}</span> @endif
         </div>
         <div class="py-1 pb-3">
-            <input type="text" class="form-control" placeholder="Pincode" wire:model="zip_code">                    
-            @error('zip_code') <span class="error">{{$message}}</span> @endif
+            <input type="text" class="form-control" placeholder="Pincode" wire:model="postal_code">                    
+            @error('postal_code') <span class="error">{{$message}}</span> @endif
         </div>
         <div class="text-center">
             <div class=" btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75" wire:click="store"><h6>Save Address</h6></div>

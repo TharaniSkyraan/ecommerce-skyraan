@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('state',100);
             $table->string('address',255);
             $table->string('landmark',255)->nullable(); 
-            $table->string('zip_code',20);
+            $table->string('postal_code',20);
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

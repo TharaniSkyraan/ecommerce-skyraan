@@ -37,7 +37,7 @@
                                                     <span class="fw-bold h-sms"> {{ $cartaddress->name }} </span>
                                                 </div>
                                                 <div class="pt-1">
-                                                    <span class="fw-normal h-sms"> {{ ucwords($cartaddress->address) }}, {{ $cartaddress->city }}, {{ $cartaddress->state }}, {{ $cartaddress->zip_code }}. </span>
+                                                    <span class="fw-normal h-sms"> {{ ucwords($cartaddress->address) }}, {{ $cartaddress->city }}, {{ $cartaddress->state }}, {{ $cartaddress->postal_code }}. </span>
                                                     <h6 class="h-sms py-2"> {{ $cartaddress->phone }}, {{ $cartaddress->alternative_phone }}. </h6>
                                                 </div>
                                             </div>
@@ -72,7 +72,7 @@
                                                             <input id="address{{$address['id']}}" class="cursor form-check-input mt-0 addressId" type="radio" name="address_id" value="{{$address['id']}}" wire:model="address_id" aria-label="Radio button for following text input">
                                                             <div>
                                                                 <h6 class="fw-bold">{{ ucwords($address['name']) }}</h6>
-                                                                <h6 class="h-sms">{{ ucwords($address['address']) }}, {{ $address['city'] }} - {{ $address['zip_code'] }}.</h6>
+                                                                <h6 class="h-sms">{{ ucwords($address['address']) }}, {{ $address['city'] }} - {{ $address['postal_code'] }}.</h6>
                                                                 <h6 class="h-sms py-2">{{ $address['phone'] }}, {{ $address['alternative_phone'] }}.</h6>
                                                             </div>
                                                         </label>

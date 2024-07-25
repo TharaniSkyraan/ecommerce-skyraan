@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Traits\ZoneConfig;
 
 class Signup extends Component
 {
+    use ZoneConfig;
+
     public $email,$password,$phone,$name,$password_strength,$verified_status,$verified_phone_number;
     public $phone_validate;
     
@@ -124,6 +127,7 @@ class Signup extends Component
     
             if (auth()->attempt($credentials)) {             
                 // return redirect()->to($this->redirect_url);
+                $this->ipzone();
                 $this->emit('SignupComplete', '');
             }
         }

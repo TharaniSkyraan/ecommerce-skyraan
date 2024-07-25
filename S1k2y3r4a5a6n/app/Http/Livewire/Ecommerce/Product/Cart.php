@@ -161,11 +161,11 @@ class Cart extends Component
         if(!empty($this->coupon_code)){
             $validateData['coupon_code'] = $this->coupon_code;
         }
-        if(isset(auth()->user()->usercart->address) && auth()->user()->usercart->address->zip_code==$this->postal_code){
+        if(isset(auth()->user()->usercart->address) && auth()->user()->usercart->address->postal_code==$this->postal_code){
             $validateData['user_address_id'] = auth()->user()->usercart->address->id;
         }else{                
             $address_id = SavedAddress::whereUserId(auth()->user()->id)
-                                        ->whereZipCode($this->postal_code)
+                                        ->wherePostalCode($this->postal_code)
                                         ->where(function($q){
                                             $q->whereIn('is_default', ['yes', 'no']);
                                         })
