@@ -288,6 +288,11 @@ hr{
     border:1px solid var(--next-prev-arrow-color) ;
     color: var(--next-prev-arrow-color)!important;
 }
+.btns:focus{
+    border:1px solid var(--next-prev-arrow-color) ;
+    color: var(--next-prev-arrow-color)!important;
+}
+
 .btnss{
     background-color:var(--next-prev-arrow-color) ;
     color: #ffff!important;

@@ -3,7 +3,7 @@ $(document).ready(function ($) {
       loop: false,
       dots: false,
       nav: true,
-      items: 5
+      items: 4
     });
     var owl = $("#detail-card-carousel");
     owl.owlCarousel();
