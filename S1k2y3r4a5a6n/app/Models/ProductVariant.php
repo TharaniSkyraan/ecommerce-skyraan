@@ -12,7 +12,7 @@ class ProductVariant extends Model
     protected $fillable = ['sku','product_id','created_by','price','sale_price','cost_per_item','search_price',
                            'available_quantity','shipping_wide','shipping_length','shipping_height',
                            'shipping_weight','discount_expired','discount_start_date','discount_end_date',
-                           'discount_duration','images','stock_status','is_default'];
+                           'discount_duration','images','stock_status','is_default','cart_limit'];
 
     public function product()
     {
@@ -41,5 +41,11 @@ class ProductVariant extends Model
 
         return (implode('| ', $attributeSets));
     }
+
+    public function product_stock()
+    {
+        return $this->hasMany(ProductStock::class, 'product_variant_id', 'id');
+    }    
+
     
 }

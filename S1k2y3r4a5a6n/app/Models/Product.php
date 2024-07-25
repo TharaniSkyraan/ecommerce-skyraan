@@ -20,5 +20,9 @@ class Product extends Model
     {
         return $this->belongsTo(Tax::class, 'tax_ids', 'id')->where('status','active');
     }
-
+    
+    public function product_stock()
+    {
+        return $this->hasMany(ProductStock::class, 'product_id', 'id');
+    }    
 }
