@@ -195,6 +195,13 @@
 hr{
     border-top: #afb8a4 solid 1px !important;
 }
+.sub_banner {
+    background-image: url(../home/abt-header.svg);
+    background-position: bottom;
+    position: relative;
+    height: 26%;
+    background-size: cover;
+}
 @media only screen and (max-width: 333px){
     /* .nsc img {
         width: 20px!important;
@@ -215,7 +222,7 @@ hr{
         height: 203px!important;
     }
     .product-list .price-list .cart-li-img {
-        height: 96px;
+        height: 130px;
     }
     .tick_img {
         width: 17px !important;
@@ -228,6 +235,9 @@ hr{
     }
     .nsc .form-control {
         height: 37px;
+    }
+    .nsc .text-areaa{
+        height: 97px;
     }
     .coupens .card  {
         height: 45px;

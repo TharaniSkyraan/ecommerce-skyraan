@@ -62,7 +62,7 @@
 }
 
 .detail-card .price-detail .price .card {
-    background-color: var(--items-list-bg-color)!important;
+    background-color: var(--items-list-bg-color);
 }
 .detail-card .qty-container .input-qty,.detail-card .qty-container .qty-btn-minus,.detail-card .qty-container .qty-btn-plus {
     width: 39px;

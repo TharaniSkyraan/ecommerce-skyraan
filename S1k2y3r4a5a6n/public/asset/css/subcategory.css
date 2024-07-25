@@ -229,7 +229,8 @@ input[type="range"]::-moz-range-thumb {
     }
 }
 .sub_banner {
-    background-repeat: round;
+    background-image: url('../home/abt-header.svg');
+    background-position: bottom;           
     position: relative;
     height:26%;
     background-size: cover;

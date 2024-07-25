@@ -331,7 +331,8 @@
                                         <div class="row">
                                             <div class="col-3 ps-0">
                                                 <div class="d-flex justify-content-center border-0 align-self-center">
-                                                    <img src="{{asset('asset/home/Group 32126.png')}}" alt="" class="product-img-history">
+                                                    <!-- <img src="{{asset('asset/home/Group 32126.png')}}" alt="" class="product-img-history"> -->
+                                                    <img src="{{$item->product_image}}" alt="{{$item->product_name}}" class="product-img-history">
                                                 </div>
                                             </div>
                                             <div class="col-9 align-self-center">

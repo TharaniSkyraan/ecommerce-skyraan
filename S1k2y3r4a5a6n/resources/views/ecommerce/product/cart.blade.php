@@ -1,12 +1,6 @@
 <x-ecommerce.app-layout>   
     <style>
-        .sub_banner {
-            background-image: url('../home/abt-header.svg');
-            background-position: bottom;           
-            position: relative;
-            height:26%;
-            background-size: cover;
-        }
+
     </style>
     <x-slot name="customstyle">
         <link href="{{asset('asset/css/cart.css')}}" rel="stylesheet" type="text/css" />

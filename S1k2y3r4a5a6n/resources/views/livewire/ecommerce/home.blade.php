@@ -635,7 +635,7 @@
             </div>
         </section>
         @endif
-        <section class="marquee_content ">
+        <section class="marquee_content">
             <div class="marquee py-2">
                 <div class="marquee__group">
                     @foreach($collections as $collection)

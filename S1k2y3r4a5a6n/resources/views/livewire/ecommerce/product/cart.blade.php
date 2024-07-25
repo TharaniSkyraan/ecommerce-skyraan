@@ -20,7 +20,7 @@
                         <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
                             <div class="row">
-                                <div class="col-4 card p-2">
+                                <div class="col-4 p-2">
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp }}" target="_blank">
                                         <img src="{{ $cart_product['image'] }}" alt="list_items" class="w-100 cart-li-img">
                                     </a>
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-xl-7 col-lg-7 col-md-5 col-sm-5 col-12">
                         <h6 class="text-start pb-2 ">Order special instructions</h6>
-                        <textarea class="form-control fw-normal " placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
+                        <textarea class="form-control fw-normal text-areaa" placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
                         @error('notes')<span class="error">{{$message}}</span> @endif
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-2 pt-2 pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0">

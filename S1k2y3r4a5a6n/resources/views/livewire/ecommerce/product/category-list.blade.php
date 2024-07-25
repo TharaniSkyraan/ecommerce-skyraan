@@ -1,12 +1,31 @@
 <section  class="product">
-    <div class="container-fluid px-xl-5 px-lg-5 px-sm-5 px-md-5 px-3 ">
-        <div id="product" class="owl-carousel px-3">
-            @foreach($categories as $category)
-                <div class="item text-center h-sms "><a class="" href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}">{{$category->name}}</a></div>
-            @endforeach
+<div class="container-fluid px-xl-5 px-lg-5 px-sm-5 px-md-5 px-3 position-relative category_list_nav">
+    <div id="product" class="owl-carousel px-3">
+        @foreach($categories as $category)
+            <div class="d-flex item text-center h-sms dropdown position-relative align-items-center gap-2 justify-content-center" id="dropdown">
+                <a class="">{{$category->name}}</a>
+                <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+            </div>
+        @endforeach
+    </div>
+    <div class="dropdown-menu megamenu py-0" role="menu">
+        <div class="container-fluid">
+            <div class="width_menu">
+                <div class="row">
+                    <p>jewfjnjf</p>  
+                    <p>jewfjnjf</p>                              
+                    <p>jewfjnjf</p>                              
+                    <p>jewfjnjf</p>                              
+                    <p>jewfjnjf</p>                              
+                    <p>jewfjnjf</p>                              
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
 </section>
+
 @push('scripts')
 <script>
 $(document).ready(function(){
