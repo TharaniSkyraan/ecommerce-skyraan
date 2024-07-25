@@ -12,14 +12,14 @@
         <div class="py-1">
             <div class="d-flex" wire:ignore>
                 <span class="dial_code">+91</span>
-                <input type="text" class="form-control phonenumber_dial_code" placeholder="Phone number" wire:model="phone">
+                <input type="number" oninput="isNumberKey(event)" class="form-control phonenumber_dial_code" placeholder="Phone number" wire:model="phone">
             </div>                 
             @error('phone') <span class="error">{{$message}}</span> @endif
         </div>
         <div class="py-1">
             <div class="d-flex" wire:ignore>
                 <span class="dial_code">+91</span>
-                <input type="text" class="form-control phonenumber_dial_code" placeholder="Alternative Phone number" wire:model="alternative_phone">
+                <input type="number" oninput="isNumberKey(event)" class="form-control phonenumber_dial_code" placeholder="Alternative Phone number" wire:model="alternative_phone">
             </div>                 
             @error('alternative_phone') <span class="error">{{$message}}</span> @endif
         </div>
@@ -47,7 +47,7 @@
             @error('city') <span class="error">{{$message}}</span> @endif
         </div>
         <div class="py-1 pb-3">
-            <input type="text" class="form-control" placeholder="Pincode" wire:model="postal_code">                    
+            <input type="number" class="form-control" placeholder="Pincode" wire:model="postal_code" oninput="isNumberKey(event)">                    
             @error('postal_code') <span class="error">{{$message}}</span> @endif
         </div>
         <div class="text-center">
@@ -104,5 +104,19 @@
             $('.close-btn').trigger('click');
         });
     });
+function isNumberKey(event) {
+  const input = event.target;
+  const value = input.value;
+
+  // Allow empty input
+  if (value === '') return;
+
+  // Allow valid number input
+  const validNumber = /^[0-9]*\.?[0-9]*$/.test(value);
+  if (!validNumber) {
+      input.value = value.slice(0, -1);
+      return;
+  }
+}
 </script>
 @endpush

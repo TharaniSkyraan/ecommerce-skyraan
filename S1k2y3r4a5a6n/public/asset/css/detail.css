@@ -338,6 +338,7 @@
     }
     .location-selection .form-check-input:checked{
     background-color: var(--next-prev-arrow-color);
+    border-color: var(--next-prev-arrow-color);
     }
     .location-selection .form-check-input:focus {
     border-color: var(--next-prev-arrow-color);

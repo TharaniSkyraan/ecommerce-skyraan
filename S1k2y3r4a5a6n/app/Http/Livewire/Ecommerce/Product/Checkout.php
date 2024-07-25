@@ -64,7 +64,18 @@ class Checkout extends Component
             ['user_id' => auth()->user()->id],
             $validateData
         );
-        $this->pointInPolygon($this->address_id);
+        $data = array(
+            'address_id' => $this->address_id,
+            'city' => $address->city??'', 
+            'latitude' => '', 
+            'longitude' => '', 
+            'postal_code' => $address->postal_code??''
+        );  
+
+        $result = $this->configzone($data); 
+        session(['zone_config' => $result]);
+        view()->share('zone_data',\Session::get('zone_config'));
+        
         $this->calculateShippingCharges();
     }
 
@@ -76,8 +87,26 @@ class Checkout extends Component
     public function addressList()
     {
         $this->addresses = SavedAddress::whereUserId(auth()->user()->id)->get()->toArray();
-        $this->pointInPolygon($this->address_id);
+        $zones = \Session::get('zone_config');
+        if(!empty($zones['address_id'])){
+            $this->address_id = $zones['address_id'];
+        }else{
+            $this->address_id = (auth()->user()->usercart->address->id??(auth()->user()->address->id??0));
+            $address = SavedAddress::find($this->address_id);
+            $data = array(
+                'address_id' => $this->address_id,
+                'city' => $address->city??'', 
+                'latitude' => '', 
+                'longitude' => '', 
+                'postal_code' => $address->postal_code??''
+            );      
+            $result = $this->configzone($data); 
+            session(['zone_config' => $result]);
+            view()->share('zone_data',\Session::get('zone_config'));
+        }
+
         $this->calculateShippingCharges();
+        
     }
     
     public function cartList()
@@ -243,8 +272,8 @@ class Checkout extends Component
     public function completeOrder(){
 
         $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) {
-            if (! $this->pointInPolygon($value)) {
-                    $fail('Shipment not available here.');
+                if(! $this->pointInPolygon($value)) {
+                    $fail('Delivery is not available here.');
                 }
             }]
         ]);
@@ -545,7 +574,7 @@ class Checkout extends Component
     {      
         $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) {
             if (! $this->pointInPolygon($value)) {
-                    $fail('Shipment not available here.');
+                    $fail('Delivery is not available here..');
                 }
             }]
         ]);
@@ -693,7 +722,6 @@ class Checkout extends Component
     public function mount($from='')
     {
         $this->from = $from;
-        $this->address_id = auth()->user()->usercart->address->id??(auth()->user()->address->id??0);
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
         $this->cartList();
         $this->addressList();
@@ -701,7 +729,6 @@ class Checkout extends Component
 
     public function render()
     {
-        $this->address_id = auth()->user()->usercart->address->id??(auth()->user()->address->id??0);
         return view('livewire.ecommerce.product.checkout');
     }
 

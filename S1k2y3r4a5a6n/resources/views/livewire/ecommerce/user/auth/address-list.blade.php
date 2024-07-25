@@ -17,7 +17,8 @@
                                                     <h6 class="fw-bold">{{ ucwords($address['name']) }}</h6>
                                                     @if($address['is_default']=='yes') <h6 class="red h-sms">Default</h6> @endif<br>
                                                 </div>
-                                                <h6 class="h-sms">{{ucwords($address['address'])}}, {{$address['city']}}, {{$address['postal_code']}}. </h6> <h6 class="h-sms py-2"> {{$address['phone']}}, {{$address['alternative_phone']}}.</h6>
+                                                <h6 class="h-sms">{{ucwords($address['address'])}}, {{$address['city']}}, {{$address['postal_code']}}. </h6> 
+                                                <h6 class="h-sms py-2"> {{$address['phone']}}, {{$address['alternative_phone']}}.</h6>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">                    
                                                 <div class="dropdown text-end">

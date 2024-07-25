@@ -26,30 +26,34 @@ class Locale
         if(Session::has('zone_config')==false || empty(Session::get('zone_config')['postal_code']))
         {  
 
-            if(Auth::check() && (isset(Auth::user()->address) || isset(Auth::user()->usercart)))
+            if(Auth::check() && (isset(Auth::user()->address) || isset(Auth::user()->usercart->address)))
             {
-                $address = Auth::user()->usercart??Auth::user()->address;
+                $address = Auth::user()->usercart->address??Auth::user()->address;
 
                 $ipLocationData = array(
+                    'address_id' => $address->id??'',
                     'city' => $address->city??'',
                     'latitude' => '',
                     'longitude' => '',
-                    'postal_code' => $address->postal_code??($address->postal_code??'')
+                    'postal_code' => $address->postal_code??''
                 );  
                 if($ipLocationData && $ipLocationData!=null)
                 {
-                    $this->configzone($ipLocationData); 
+                    $result = $this->configzone($ipLocationData); 
+                    session(['zone_config' => $result]);
+                    view()->share('zone_data',\Session::get('zone_config'));
                 }
             }else{
                 
                 $ip = $request->ip();    
 
-                $ipLocationData = $this->getCity($ip??'183.82.250.192');    
+                $ipLocationData = $this->getCity('183.82.250.192');    
                 if($ipLocationData == null || empty($ipLocationData['postal_code'])){
-                    $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".$ip??'183.82.250.192'));  
+                    $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));  
                     if($ipLocationData && $ipLocationData!=null)
                     {
                         $ipLocationData = array(
+                            'address_id' => '',
                             'city' => $ipLocationData->city??'',
                             'latitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[0]:'',
                             'longitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[1]:'',
@@ -60,7 +64,9 @@ class Locale
                 
                 if($ipLocationData && $ipLocationData!=null)
                 {
-                    $this->configzone($ipLocationData); 
+                    $result = $this->configzone($ipLocationData); 
+                    session(['zone_config' => $result]);
+                    view()->share('zone_data',\Session::get('zone_config'));
                 }
             }
 
@@ -72,9 +78,9 @@ class Locale
         {
             $ip = $request->ip();   
        
-            $ipData = $this->getCity($ip??'183.82.250.192');   
+            $ipData = $this->getCity('183.82.250.192');   
             if($ipData == null || empty($ipData['country_code'])){  
-                $ipData = @json_decode(file_get_contents("https://ipinfo.io/".$ip??'183.82.250.192'));    
+                $ipData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));    
                 if($ipData && $ipData!=null)
                 {
                     $ipData = array('country_code' => $ipData->geoplugin_countryCode??''); 

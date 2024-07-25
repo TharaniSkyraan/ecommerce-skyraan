@@ -7,9 +7,12 @@ use App\Models\SavedAddress;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
+use App\Traits\ZoneConfig;
 
 class SavedAddresses extends Component
 {
+    use ZoneConfig;
+
     public $address_id,$address,$country,$city,$state,$landmark,$postal_code,$name,$phone,$alternative_phone;
 
     public $isProcessing = false;
@@ -52,7 +55,12 @@ class SavedAddresses extends Component
             'city' => 'required|string|min:3|max:100',
             'landmark' => 'nullable|string|min:3|max:100',
             'address' => 'required|string|min:3|max:255',
-            'postal_code' => 'required|postal_code:'.$ipData->code,
+            'postal_code' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
+                    $fail('Delivery is not available here.');
+                }
+            }]
         ], [
             'phone.required' => 'Phone number is required',
             'phone.numeric'=> 'Please enter valid Phone Number',
