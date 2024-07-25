@@ -67,10 +67,10 @@
         </div>
     
         <div class="col-6 ps-xl-2 ps-lg-1 ps-0 align-self-center">
-            <div class="collapse navbar-collapse" id="navbarScroll">
-                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll menu_icons">
+            <div class="collapse navbar-collapse " id="navbarScroll">
+                <ul class="navbar-nav  my-2 my-lg-0 navbar-nav-scroll menu_icons">
                     <a class="nav-link d-flex align-items-center px-3 gap-1" aria-current="page" href="{{ route('ecommerce.home') }}" ><img src="{{asset('asset/home/home.svg')}}" alt="home" class=""><h6 class="text-dark h-sms">Home</h6></a>
-                    <li class="nav-item dropdown menu-large px-3 py-3 d-flex align-items-center">
+                    <!-- <li class="nav-item dropdown menu-large px-3 py-3 d-flex align-items-center">
                         <a href="javascript:void(0)" class="dropdown-toggle" id="services" data-toggle="dropdown"><h6 class="h-sms ">All Categories</h6><span class="caret"></span></a>
                         <div class="dropdown-menu megamenu py-0" role="menu">
                             <div class="container-fluid">
@@ -88,7 +88,6 @@
                                             @endif
                                                 @php $i++; @endphp
                                             @if($i==$count) @php  $i=0; $j++; @endphp</div>@endif
-                                            <!-- subcategory -->
                                             @foreach($category->sub_categories as $sub_category)
                                                 @if($sub_category->status=='active')
                                                     @if($i==0) <div class="border_dcz col-md-{{$class_name}} asd {{ ($j % 2 == 0) ? 'bg-grey' : 'bg-white' }}"> @endif
@@ -102,13 +101,14 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
+                    
                     <a class="nav-link d-flex align-items-center px-3 gap-1" href="{{ route('ecommerce.product.list', ['type' => 'special','slug' => '']) }}"><img src="{{asset('asset/home/skyraa_spl.svg')}}" alt="home"><h6 class="w-100 text-dark h-sms text-nowrap">Skyraa Specials</h6></a>
                     @if(!Auth::check())
                     <div class="nav-link d-flex align-items-center px-3 gap-1" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">Login</h6></div>
                     @else
                     <div>
-                        <div class="nav-link align-items-center after-login px-3 mt-2"><a href="javascript:void(0);" class="d-flex gap-1 align-items-center"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">{{auth()->user()->name}}</h6><img src="{{asset('asset/home/down-ar.svg')}}" alt="" class="down-ar-nav"></a></div>
+                        <div class="nav-link align-items-center after-login px-3 mt-0"><a href="javascript:void(0);" class="d-flex gap-1 align-items-center"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">{{auth()->user()->name}}</h6><img src="{{asset('asset/home/down-ar.svg')}}" alt="" class="down-ar-nav"></a></div>
                         <div class="box arrow-top position-absolute">
                             <div class=" cursor">
                                 <a class="d-flex gap-2 align-items-center" href="{{ route('ecommerce.orders') }}">
@@ -148,10 +148,10 @@
                     @endif
                     @if(Auth::check())
                         <a href="{{route('ecommerce.wish-lists')}}" class="d-flex align-items-center px-3 nav-cart gap-2" type="button">
-                            <img src="{{asset('asset/home/like-nav.svg')}}" alt="home" class="like_nav">
+                            <img src="{{asset('asset/home/btm-like.svg')}}" alt="home" class="like_nav">
                         </a>
                     @endif
-                    <div wire:ignore class="pt-2">
+                    <div wire:ignore class="pt-0">
                         @if((Route::currentRouteName() != 'ecommerce.cart') && (Route::currentRouteName() != 'ecommerce.checkout'))
                             <div class="btn d-flex align-items-center px-3 nav-cart gap-2 cartGo" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 <span class="badge cartCount p-1">{{ $cart_quantity }}</span>
