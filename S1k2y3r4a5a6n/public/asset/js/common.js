@@ -503,7 +503,7 @@ $(document).ready(function(){
             $(".dropdown-menu").show();
         },
         function() {
-            $(".dropdown-menu").show();
+            $(".dropdown-menu").hide();
         }
     );
 });
