@@ -12,9 +12,12 @@ use App\Models\SavedAddress;
 use App\Models\ProductVariant;
 use App\Models\Tax;
 use Carbon\Carbon;
+use App\Traits\ZoneConfig;
 
 class Cart extends Component
 {
+    use ZoneConfig;
+
     public $cart_products = [];
     
     public $total_price = 0;
@@ -148,10 +151,22 @@ class Cart extends Component
     public function Checkout()
     {
         $ipData = \Session::get('ip_config');
+        $data = array(
+            'address_id' => '',
+            'city' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'postal_code' => $this->postal_code1??''
+        );  
         $this->resetValidation();
         $validateData = $this->validate([
             'notes' => 'nullable|max:10|max:180',
-            'postal_code' => 'required|postal_code:'.$ipData->code
+            'postal_code' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
+                    $fail('Delivery is not available here.');
+                }
+            }]
         ], [
             'postal_code.required' => 'Postal code is required',
             'notes.min' => 'Notes must be at least 10 characters',
@@ -161,11 +176,11 @@ class Cart extends Component
         if(!empty($this->coupon_code)){
             $validateData['coupon_code'] = $this->coupon_code;
         }
-        if(isset(auth()->user()->usercart->address) && auth()->user()->usercart->address->zip_code==$this->postal_code){
+        if(isset(auth()->user()->usercart->address) && auth()->user()->usercart->address->postal_code==$this->postal_code){
             $validateData['user_address_id'] = auth()->user()->usercart->address->id;
         }else{                
             $address_id = SavedAddress::whereUserId(auth()->user()->id)
-                                        ->whereZipCode($this->postal_code)
+                                        ->wherePostalCode($this->postal_code)
                                         ->where(function($q){
                                             $q->whereIn('is_default', ['yes', 'no']);
                                         })
@@ -179,6 +194,15 @@ class Cart extends Component
             ['user_id' => auth()->user()->id],
             $validateData
         );
+        
+        $data = array(
+            'address_id' => ($validateData['user_address_id']!=0)?$validateData['user_address_id']:'',
+            'city' => '', 'latitude' => '', 'longitude' => '', 'postal_code' => $this->postal_code??''
+        );  
+
+        $result = $this->configzone($data); 
+        session(['zone_config' => $result]);
+        view()->share('zone_data',\Session::get('zone_config'));
         
         return redirect()->to('/checkout');
 

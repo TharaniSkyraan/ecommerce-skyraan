@@ -17,15 +17,16 @@
                                                     <h6 class="fw-bold">{{ ucwords($address['name']) }}</h6>
                                                     @if($address['is_default']=='yes') <h6 class="red h-sms">Default</h6> @endif<br>
                                                 </div>
-                                                <h6 class="h-sms">{{ucwords($address['address'])}}, {{$address['city']}}, {{$address['zip_code']}}. </h6> <h6 class="h-sms py-2"> {{$address['phone']}}, {{$address['alternative_phone']}}.</h6>
+                                                <h6 class="h-sms">{{ucwords($address['address'])}}, {{$address['city']}}, {{$address['postal_code']}}. </h6> 
+                                                <h6 class="h-sms py-2"> {{$address['phone']}}, {{$address['alternative_phone']}}.</h6>
                                             </div>
                                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">                    
                                                 <div class="dropdown text-end">
-                                                    <img class="dropdown-toggle icons-menu cursor" src="{{ asset('asset/home/icons-menu.svg') }}" alt="menu" data-bs-toggle="dropdown">
-                                                    <ul class="dropdown-menu p-2 drop-hover" aria-labelledby="navbarDropdownMenuLink">
-                                                        <li class="h-sms cursor" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit({{$address['id']}});">Edit</li>
-                                                        <li class="h-sms RemoveAddress cursor" data-id="{{$address['id']}}">Remove</li>
-                                                        @if($address['is_default']=='no') <li class="h-sms MakeDefaultAddress cursor" data-id="{{$address['id']}}">Set as default</li> @endif
+                                                    <img class="dropdown-toggle icons-menu cursor " src="{{ asset('asset/home/icons-menu.svg') }}" alt="menu" data-bs-toggle="dropdown">
+                                                    <ul class="dropdown-menu drop-hover py-1" aria-labelledby="navbarDropdownMenuLink">
+                                                        <li class="h-sms cursor p-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit({{$address['id']}});">Edit</li>
+                                                        <li class="h-sms RemoveAddress cursor p-2" data-id="{{$address['id']}}">Remove</li>
+                                                        @if($address['is_default']=='no') <li class="h-sms MakeDefaultAddress cursor p-2" data-id="{{$address['id']}}">Set as default</li> @endif
                                                     </ul>
                                                 </div>
                                             </div>

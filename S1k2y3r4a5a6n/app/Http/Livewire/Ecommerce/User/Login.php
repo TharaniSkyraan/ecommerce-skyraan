@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Ecommerce\User;
 
 use Livewire\Component;
+use App\Traits\ZoneConfig;
 use Auth;
 
 class Login extends Component
 {
+
+    use ZoneConfig;
     
     public $username,$password,$errorMessage,$success;
 
@@ -46,6 +49,7 @@ class Login extends Component
 
         if (auth()->attempt($credentials)) {             
             // return redirect()->to($this->redirect_url);
+            $this->ipzone();
             $this->emit('updateCart', '');
         }else{
             $this->errorMessage = 'Invalid password.';

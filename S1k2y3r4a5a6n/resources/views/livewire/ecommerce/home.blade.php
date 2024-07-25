@@ -87,22 +87,22 @@
                     <h5 class="text-center fw-bold with-horizontal-line hghg">OUR TOP SELLING</h5>
                 </div>
                 <div class="row pb-xl-5 pb-lg-5 pb-md-3 pb-sm-3 pb-0">
-                    @forelse($top_selling_products as $product)
+                    @forelse($top_selling_products as $tproduct)
                         <div class="col-xl-3 col-lg-3 col-sm-4 col-md-4 col-6 pb-4 ">
                             <div class="div px-2 ">
-                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $tproduct['id'] }}" data-variant-id="{{ $tproduct['variant_id'] }}">
                                     <div class="container-fluid">
                                     <div class="row pt-1 position-absolute w-100 reviews-div">
                                         <div class="col-6 px-0">
-                                            @if($product['stock_status']=='out_of_stock')
+                                            @if($tproduct['stock_status']=='out_of_stock')
                                                 <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">sold out</h6></div></div>
-                                            @elseif(!empty($product['label']))
+                                            @elseif(!empty($tproduct['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
                                                     <g clip-path="url(#clip0_296_5)">
-                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$product['label_color_code']}}"/>
-                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$product['label_color_code']}}"/>
-                                                        <text x="10" y="28" fill="white" font-size="20">{{$product['label']}}</text>
+                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$tproduct['label_color_code']}}"/>
+                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$tproduct['label_color_code']}}"/>
+                                                        <text x="10" y="28" fill="white" font-size="20">{{$tproduct['label']}}</text>
                                                     </g>
                                                     <defs>
                                                     <clipPath id="clip0_296_5">
@@ -115,20 +115,20 @@
                                         </div>
                                         <div class="col-6 d-flex justify-content-end pe-0 align-self-center">
                                             <div class=" rounded-circle bg-white">
-                                                @if(in_array($product['id'], $wishlist)) 
-                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
+                                                @if(in_array($tproduct['id'], $wishlist)) 
+                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $tproduct['id'] }}')" class="like_img addwishlist">
                                                 @else
-                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else  data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif >
+                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $tproduct['id'] }}')" class="like_img addwishlist" @else  data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif >
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                     </div>
-                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $tproduct['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp}}">
                                         <div class="text-center position-relative">
-                                            <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                            @if(!empty($product['image2']))
-                                            <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image pt-3">
+                                            <img src="{{ $tproduct['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                            @if(!empty($tproduct['image2']))
+                                            <img src="{{ $tproduct['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image pt-3">
                                             @endif
                                         </div> 
                                     </a>
@@ -137,12 +137,12 @@
                                             <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                         </button>
-                                        <!-- @if($product['product_type'] > 1)
+                                        <!-- @if($tproduct['product_type'] > 1)
                                             <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                 <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop </h6>
                                                 <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                             </button>
-                                        @elseif($product['stock_status']=='out_of_stock')
+                                        @elseif($tproduct['stock_status']=='out_of_stock')
                                             <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                 <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                             </button>                                       
@@ -166,40 +166,40 @@
                                     </div>
                                 </div>
                                 <div class="price_info py-2">
-                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $tproduct['name']}}</h6>
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-6 px-0">
                                                 
-                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['price']}}</del>
                                             </div>
                                             <div class="col-6 px-0">
-                                                @if($product['discount']!=0)
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                                @if($tproduct['discount']!=0)
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['sale_price']}}</h6>
                                                 @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['price']}}</h6>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
                                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
-                                            @if($product['review']==0)
+                                            @if($tproduct['review']==0)
                                                 <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                                @elseif($product['review']==1)
+                                                @elseif($tproduct['review']==1)
                                                 <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                                @elseif($product['review']==2)
+                                                @elseif($tproduct['review']==2)
                                                 <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                                @elseif($product['review']==3)
+                                                @elseif($tproduct['review']==3)
                                                 <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                                @elseif($product['review']==4)
+                                                @elseif($tproduct['review']==4)
                                                 <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                                @elseif($product['review']==5)
+                                                @elseif($tproduct['review']==5)
                                                 <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                             @endif
                                         </div>
                                         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
-                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms ">{{$product['review_count']}} reviews</h6>
+                                            <h6 class="text-secondary text-opacity-50 text-nowrap h-sms ">{{$tproduct['review_count']}} reviews</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -635,7 +635,7 @@
             </div>
         </section>
         @endif
-        <section class="marquee_content ">
+        <section class="marquee_content">
             <div class="marquee py-2">
                 <div class="marquee__group">
                     @foreach($collections as $collection)

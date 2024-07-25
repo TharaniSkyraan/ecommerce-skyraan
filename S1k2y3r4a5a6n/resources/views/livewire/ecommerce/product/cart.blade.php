@@ -3,24 +3,24 @@
         <input type="hidden" id="total_price" value="{{$total_price}}">
         <section class="product-list cartpage">
             <div class="container">
-                <div class="row pt-4 ">
+                <div class="row pt-xl-4 pt-lg-4 pt-md-4 pt-sm-4 pt-0">
                     <div class="col-5">
-                        <h6 class="">Product info</h6>
+                        <h6 class="sys-view">Product info</h6>
                     </div>
                     <div class="col-4">
-                        <h6 class="">Quantity</h6>
+                        <h6 class="sys-view">Quantity</h6>
                     </div>
                     <div class="col-3">
-                        <h6 class="total">Total</h6>
+                        <h6 class="sys-view total">Total</h6>
                     </div>
                 </div>
-                <hr>
+                <hr class="sys-view">
                 @foreach($cart_products as $cart_product)
                     <div class="row py-2 cartList price-list PrdRow ps-2" data-id="{{ $cart_product['id'] }}" data-cid="{{ $cart_product['cart_id'] }}">
                         <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
                             <div class="row">
-                                <div class="col-4 card p-2">
+                                <div class="col-4 p-2">
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp }}" target="_blank">
                                         <img src="{{ $cart_product['image'] }}" alt="list_items" class="w-100 cart-li-img">
                                     </a>
@@ -77,7 +77,7 @@
                 <div class="row">
                     <div class="col-xl-7 col-lg-7 col-md-5 col-sm-5 col-12">
                         <h6 class="text-start pb-2 ">Order special instructions</h6>
-                        <textarea class="form-control fw-normal " placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
+                        <textarea class="form-control fw-normal text-areaa" placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
                         @error('notes')<span class="error">{{$message}}</span> @endif
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-2 pt-2 pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0">

@@ -3,7 +3,7 @@
         <div class="row ">
             <div class="col-4 d-none d-lg-block">
                 <div class="d-flex gap-2 align-items-center">
-                    <h6 class="text-white h-sms">Need help ?</h6><h6 class="text-dark h-sms">+91 {{$siteSetting->phone}}</h6>
+                    <h6 class="text-white h-sms">Need help ?</h6><h6 class="text-dark h-sms">+91 {{$siteSetting->phone}} </h6>
                 </div>
             </div>
             <div class="col-sm-12 col-lg-4 col-xl-4 col-xxl-4 col-12">
@@ -16,6 +16,7 @@
             </div>
             <div class="col-4 d-none d-lg-block">
                 <div class="d-flex gap-4 justify-content-end align-items-center">
+                    <h6 class="text-white h-sms"> <i class='bi bi-geo-alt'></i> Delivering to {{ $zone_data['city']}} {{ $zone_data['postal_code']}} {{ $zone_data['warehouse_ids']}}</h6>
                     <a href="{{url('/aboutus')}}"><h6 class="text-white h-sms">About Us</h6></a>
                     <a href="{{url('/contactus')}}"><h6 class="text-white h-sms">Contact Us</h6></a>
                 </div>
@@ -284,33 +285,32 @@
         <div class="row">
             <div class="card d-flex flex-row py-3 border-0 rounded-0">
                 <div class="col text-center">
-                    <a href="{{ route('ecommerce.cart') }}"><img src="{{asset('asset/home/cart.svg')}}" alt=""></a>
+                    <a href="{{ route('ecommerce.cart') }}"><img src="{{asset('asset/home/btm-cart.svg')}}" alt="" class="like_navs"></a>
                 </div>
                 @if(Auth::check())
                     <div class="vr"></div>
                     <div class="col text-center">
-                        <a href="{{ route('ecommerce.wish-lists') }}"><img src="{{asset('asset/home/like-nav.svg')}}" alt="wishlist" class="like_nav"></a>
+                        <a href="{{ route('ecommerce.wish-lists') }}"><img src="{{asset('asset/home/btm-like.svg')}}" alt="wishlist" class="like_nav"></a>
                     </div>
                 @endif
                 <div class="vr"></div>
                 <div class="col text-center">
-                    <a href="{{ route('ecommerce.home') }}"><img src="{{asset('asset/home/home.svg')}}" alt=""></a>
+                    <a href="{{ route('ecommerce.home') }}"><img src="{{asset('asset/home/btm-home.svg')}}" alt=""></a>
                 </div>
                 <div class="vr"></div>
                 @if(!Auth::check())
                 <div class="col text-center">
-                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/login.svg')}}" alt="" class="login_nav"></a>
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/btm-login.svg')}}" alt="" class="login_nav"></a>
                 </div>
                 @else                
                 <div class="col text-center">
-                    <a href="{{ route('ecommerce.account') }}"><img src="{{asset('asset/home/login.svg')}}" alt="login"  class="login_nav"></a>
+                    <a href="{{ route('ecommerce.account') }}"><img src="{{asset('asset/home/btm-login.svg')}}" alt="login"  class="login_nav"></a>
                 </div>
                 @endif
                 <div class="vr"></div>
                 <div class="col text-center">
                     <a href="javascript:void(0);" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
-                        <!-- <img src="{{asset('asset/home/icons8-search-26.png')}}" alt=""> -->
-                        <i class="bi bi-search"></i>
+                        <img src="{{asset('asset/home/btm-search.svg')}}" alt="">
                     </a>
                 </div>
             </div>

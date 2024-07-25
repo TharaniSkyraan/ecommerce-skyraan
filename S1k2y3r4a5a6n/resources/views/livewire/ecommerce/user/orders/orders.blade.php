@@ -281,7 +281,7 @@
             <div class="modal-content">
                 <div class="modal-bodys p-5">
                     <div class="col-12 text-center pt-2">
-                        <img src="" alt="">
+                        <img src="{{asset('asset/home/cancel-order.svg')}}" alt="cancel order" class="pb-3">
                         <h6 class="fw-bold">Your request for cancellation has been submitted successfully</h6>
                         <div class="pt-4">
                         <button class="btn text-white" data-bs-dismiss="modal" aria-label="Close" >Ok</button>

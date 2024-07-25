@@ -7,10 +7,13 @@ use App\Models\SavedAddress;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
+use App\Traits\ZoneConfig;
 
 class SavedAddresses extends Component
 {
-    public $address_id,$address,$country,$city,$state,$landmark,$zip_code,$name,$phone,$alternative_phone;
+    use ZoneConfig;
+
+    public $address_id,$address,$country,$city,$state,$landmark,$postal_code,$name,$phone,$alternative_phone;
 
     public $isProcessing = false;
 
@@ -35,7 +38,7 @@ class SavedAddresses extends Component
             $this->phone = $address->phone;
             $this->alternative_phone = $address->alternative_phone;
             $this->landmark = $address->landmark;
-            $this->zip_code = $address->zip_code;
+            $this->postal_code = $address->postal_code;
             $this->name = $address->name;
         }
     }
@@ -52,7 +55,12 @@ class SavedAddresses extends Component
             'city' => 'required|string|min:3|max:100',
             'landmark' => 'nullable|string|min:3|max:100',
             'address' => 'required|string|min:3|max:255',
-            'zip_code' => 'required|postal_code:'.$ipData->code,
+            'postal_code' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
+                    $fail('Delivery is not available here.');
+                }
+            }]
         ], [
             'phone.required' => 'Phone number is required',
             'phone.numeric'=> 'Please enter valid Phone Number',
@@ -72,8 +80,8 @@ class SavedAddresses extends Component
             'name.required' => 'Name is required',
             'name.min' => 'Name must be at least 3 characters',
             'name.max' => 'Name must be less than 30 characters.',
-            'zip_code.required' => 'Zip code is required',
-            'zip_code.postal_code' => 'Please enter valid zip code'
+            'postal_code.required' => 'Postal code is required',
+            'postal_code.postal_code' => 'Please enter valid postal code'
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
@@ -127,7 +135,7 @@ class SavedAddresses extends Component
                 }elseif (in_array('neighborhood', $types)) {
                     $this->landmark = $longName;
                 } elseif (in_array('postal_code', $types)) {
-                    $this->zip_code = $longName;
+                    $this->postal_code = $longName;
                 }
             }
 
@@ -144,7 +152,7 @@ class SavedAddresses extends Component
     }
 
     private function resetInputvalues(){      
-        $this->reset(['address_id','name', 'phone', 'alternative_phone', 'city', 'state', 'address', 'landmark', 'zip_code']);  
+        $this->reset(['address_id','name', 'phone', 'alternative_phone', 'city', 'state', 'address', 'landmark', 'postal_code']);  
     } 
 
     public function mount(){

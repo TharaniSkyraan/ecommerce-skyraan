@@ -58,9 +58,9 @@ Route::name('ecommerce.')->group(function () {
             Route::get('/cart', function () { return view('ecommerce/product/cart'); })->name('cart');
 
             Route::get('/checkout', function () {
-                // if(count(auth()->user()->cart)==0){
-                //     return redirect('/');
-                // }
+                if(count(auth()->user()->cart)==0){
+                    return redirect('/');
+                }
                 return view('ecommerce/product/checkout'); 
             })->name('checkout');
      

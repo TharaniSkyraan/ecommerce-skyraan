@@ -260,9 +260,9 @@
    opacity: 1;
 }
 .drop-hover li:hover{
-   background-color:var(--items-list-bg-color) !important ;
+   background-color:var(--next-prev-arrow-color) !important ;
    padding: 5px;
-   /* color: var(--next-prev-arrow-color) !important; */
+   color: #fff !important;
 }
 
 /* Tooltip arrow */

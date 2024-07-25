@@ -14,17 +14,23 @@ use App\Models\User;
 use App\Models\WishList;
 use App\Models\BuyingOption;
 use App\Models\OrderItem;
+use App\Models\SavedAddress;
+use App\Models\UserCart;
 use App\Models\Tax;
 use Carbon\Carbon;
+use App\Traits\ZoneConfig;
 
 class Detail extends Component
 {
-    
+    use ZoneConfig;
+
     public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant;
     public $parent_attribute = [];
     public $parent_available_variant_ids = [];
     public $attributes = [];
     public $selected_attributes_set_ids = [];
+    public $postal_code, $postal_code1;
+    public $isenabletoggle = false;
     
     public $images,$stock_status,$price,$sale_price,$discount,$variant,$prdRef;
     
@@ -294,6 +300,11 @@ class Detail extends Component
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
+        
+        $zones = \Session::get('zone_config');
+        $this->postal_code = $zones['postal_code'];
+        $this->address_id = $zones['address_id'];
+
     }
 
     public function productList($type,$product_ids)
@@ -414,6 +425,76 @@ class Detail extends Component
                 );
             }
         }
+    }
+
+    public function enablechangepincode(){
+        $this->isenabletoggle = ($this->isenabletoggle)?false:true;
+    }
+    
+    public function checkpincode()
+    {
+
+        $this->resetValidation();
+        $ipData = \Session::get('ip_config');
+        $data = array(
+            'address_id' => '',
+            'city' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'postal_code' => $this->postal_code1??''
+        );  
+        $this->validate([
+            'postal_code1' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
+                    $fail('Delivery is not available here.');
+                }
+            }]
+        ], [
+            'postal_code1.required' => 'Postal code is required',
+            'postal_code1.postal_code' => 'Please enter valid postal code'
+        ]);
+
+        $result = $this->configzone($data); 
+        if(!empty($result['zone_id'])){
+
+            $this->postal_code = $this->postal_code1;
+            session(['zone_config' => $result]);
+            view()->share('zone_data',\Session::get('zone_config'));
+            $this->enablechangepincode();
+        }else{
+
+        }
+
+    }
+
+    public function changepincode($address_id)
+    {
+        $this->resetValidation();
+        $this->reset(['postal_code1']);
+        $address = SavedAddress::find($address_id);
+
+        $data = array(
+            'address_id' => $address->id??'',
+            'city' => $address->city??'',
+            'latitude' => '',
+            'longitude' => '',
+            'postal_code' => $address->postal_code??''
+        );  
+        $this->postal_code = $address->postal_code;
+        $this->address_id = $address->id;
+        $validateData['user_address_id'] = $address->id;
+        $validateData['postal_code'] = $address->postal_code;
+
+        UserCart::updateOrCreate(
+            ['user_id' => auth()->user()->id],
+            $validateData
+        );
+        
+        $result = $this->configzone($data); 
+        session(['zone_config' => $result]);
+        view()->share('zone_data',\Session::get('zone_config'));
+        $this->enablechangepincode();
     }
     
     public function checkout()

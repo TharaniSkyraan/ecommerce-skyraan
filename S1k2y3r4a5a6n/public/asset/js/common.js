@@ -496,3 +496,14 @@ $(document).on('click','.addwishlist', function()
         alert('You are offline. Please check your internet connection.');
     }
 });
+
+$(document).ready(function(){
+    $("#dropdown").click(function(){
+        $(".dropdown-menu").toggle();
+    });
+});
+$(document).ready(function(){
+    $(".filter-select").click(function(){
+        $(".filter-dropdown").toggle();
+    });
+  });

@@ -22,7 +22,9 @@ trait GeoIPService
             return [
                 'latitude' => $record->location->latitude??'',
                 'longitude' => $record->location->longitude??'',
-                'country_code' => $record->country->isoCode??'IN'
+                'city' => $record->city->name??'',
+                'country_code' => $record->country->isoCode??'',
+                'postal_code' => $record->postal->code??''
             ];
 
         } catch (AddressNotFoundException $e) {

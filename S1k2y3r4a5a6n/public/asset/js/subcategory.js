@@ -71,6 +71,7 @@ $(document).ready(function(){
 });
 
 function toggleVisibility(id) {
-    $('[id^="grid-"]').addClass('hidden');
-    $('#' + id).removeClass('hidden');
+  $('[id^="grid-"]').addClass('hidden');
+  $('#' + id).removeClass('hidden');
 }
+

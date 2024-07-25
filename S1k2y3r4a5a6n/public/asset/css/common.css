@@ -7547,14 +7547,17 @@ textarea.form-control-lg {
     right: 0;
     left: 0;
     z-index: 99;
-    background-color: #F9FCF6;
-    -webkit-animation-name: fadeInDown!important;
-    animation-name: fadeInDown!important;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    transition: 0.8s;
+    background-color: var(--items-list-bg-color);
+    animation: slideDown 0.8s ease-out forwards;
 }
-
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
 .fixed-bottom {
     position: fixed;
     right: 0;

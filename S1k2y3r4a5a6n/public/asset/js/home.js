@@ -28,7 +28,6 @@ $(document).ready(function() {
         }
     });
 
-
     var owl = $('#home_first_carousel');
     owl.owlCarousel({
         loop: false,
@@ -40,9 +39,13 @@ $(document).ready(function() {
                 items: 1,
                 stagePadding: 0 
             },
+            355:{
+                items: 1,
+                stagePadding: 30 
+            },
             400:{
                 items: 1,
-                stagePadding: 40 
+                stagePadding: 50 
             },
             500:{
                 items: 1,

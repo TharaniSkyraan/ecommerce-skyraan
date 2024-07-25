@@ -3,14 +3,15 @@
 namespace App\Http\Middleware;
 
 use App\Traits\GeoIPService;
-use Closure, Session, View, App\Models\Zone;
+use App\Traits\ZoneConfig;
+use Closure, Session, View, App\Models\SavedAddress;
 use Auth;
 use Cookie;
 
 class Locale
 {
 
-    use GeoIPService;
+    use GeoIPService, ZoneConfig;
     /**
      * Handle an incoming request.
      *
@@ -22,66 +23,51 @@ class Locale
     public function handle($request, Closure $next, $guard = null)
     {
 
-        if(Session::has('zone_config')==false)
+        if(Session::has('zone_config')==false || empty(Session::get('zone_config')['postal_code']))
         {  
-            $ip = $request->ip();   
 
-            $ipLocationData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".'183.82.250.192'));    
-         
-            if($ipLocationData == null){
-                $ipLocationData = $this->getCity('183.82.250.192');   
-            }else{            
-                $ipLocationData = array(
-                    'country_code' => $ipLocationData->geoplugin_countryCode??'',
-                    'latitude' => $ipLocationData->geoplugin_latitude??'',
-                    'longitude' => $ipLocationData->geoplugin_longitude??''
-                );        
-            }
-            
-            if($ipLocationData && $ipLocationData!=null)
+            if(Auth::check() && (isset(Auth::user()->address) || isset(Auth::user()->usercart->address)))
             {
+                $address = Auth::user()->usercart->address??Auth::user()->address;
 
-                $country = \App\Models\Country::where('code',$ipLocationData['country_code']??'IN')->first();
-               
-                $zone_id = null;
-                $warehouse_ids = '';
-
-                $x = $ipLocationData['latitude'];
-                $y = $ipLocationData['longitude'];
-                $inside = false;
-
-                $zones = Zone::whereStatus('active')->get();
-
-                foreach($zones as $zone){
-
-                    $polygon = json_decode($zone->zone_coordinates);
-                    $vertices = count($polygon);
-                    if(!$inside){
-                        for ($i = 0, $j = $vertices - 1; $i < $vertices; $j = $i++) {
-                            
-                            $xi = $polygon[$i]->lat;
-                            $yi = $polygon[$i]->lng;
-                            $xj = $polygon[$j]->lat;
-                            $yj = $polygon[$j]->lng;
-                    
-                            $intersect = (($yi > $y) != ($yj > $y)) && ($x < ($xj - $xi) * ($y - $yi) / ($yj - $yi) + $xi);
-                        
-                            if ($intersect) $inside = !$inside;
-                        }
-                        if ($inside) {
-                            $zone_id = $zone->id;
-                            $warehouse_ids = $zone->warehouse_ids;
-                            break; // Stop looping once inside is true
-                        }
-                    }
-                    
+                $ipLocationData = array(
+                    'address_id' => $address->id??'',
+                    'city' => $address->city??'',
+                    'latitude' => '',
+                    'longitude' => '',
+                    'postal_code' => $address->postal_code??''
+                );  
+                if($ipLocationData && $ipLocationData!=null)
+                {
+                    $result = $this->configzone($ipLocationData); 
+                    session(['zone_config' => $result]);
+                    view()->share('zone_data',\Session::get('zone_config'));
                 }
+            }else{
+                
+                $ip = $request->ip();    
 
-                $country->zone_id = $zone_id;
-                $country->warehouse_ids = $warehouse_ids;
-
-                session(['zone_config' => $country]);
-                view()->share('zone_data',Session::get('zone_config'));
+                $ipLocationData = $this->getCity('183.82.250.192');    
+                if($ipLocationData == null || empty($ipLocationData['postal_code'])){
+                    $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));  
+                    if($ipLocationData && $ipLocationData!=null)
+                    {
+                        $ipLocationData = array(
+                            'address_id' => '',
+                            'city' => $ipLocationData->city??'',
+                            'latitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[0]:'',
+                            'longitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[1]:'',
+                            'postal_code' => $ipLocationData->postal??''
+                        );  
+                    }   
+                }
+                
+                if($ipLocationData && $ipLocationData!=null)
+                {
+                    $result = $this->configzone($ipLocationData); 
+                    session(['zone_config' => $result]);
+                    view()->share('zone_data',\Session::get('zone_config'));
+                }
             }
 
         }else{
@@ -92,15 +78,13 @@ class Locale
         {
             $ip = $request->ip();   
        
-            $ipData = @json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".'183.82.250.192'));    
-            if($ipData == null){
-                $ipData = $this->getCity('183.82.250.192');   
-            }else{            
-                $ipData = array(
-                    'country_code' => $ipData->geoplugin_countryCode??'',
-                    'latitude' => $ipData->geoplugin_latitude??'',
-                    'longitude' => $ipData->geoplugin_longitude??''
-                );        
+            $ipData = $this->getCity('183.82.250.192');   
+            if($ipData == null || empty($ipData['country_code'])){  
+                $ipData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));    
+                if($ipData && $ipData!=null)
+                {
+                    $ipData = array('country_code' => $ipData->geoplugin_countryCode??''); 
+                }
             }
             
             if($ipData && $ipData!=null)

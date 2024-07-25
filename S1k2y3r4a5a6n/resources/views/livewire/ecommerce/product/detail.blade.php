@@ -164,43 +164,45 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12">
                             <div class="location-selection position-relative">
                                 <div class="d-flex align-items-center input-container">
                                     <span class="location-icon">
                                         <i class="bi bi-geo-alt-fill"></i>
                                     </span>
-                                    <input type="text" class="form-control border-0 h-sms" value="641004"  style="background-color: white" />
+                                    <span class="form-control border-0 h-sms" style="background-color: white"> {{ $postal_code }} </span>
                                     <div class="vertical-line"></div>
-                                    <button class="btn fw-bold h-sms hover-btn">Change <i class="bi bi-chevron-down"></i></button>
+                                    <button class="btn fw-bold h-sms hover-btn" wire:click="enablechangepincode">Change <i class="bi bi-chevron-down"></i></button>
                                 </div>
                                 <br />
-                                <div class="card location-card border-0 shadow-lg  mb-5 bg-white rounded">
+                                <div class="card location-card border-0 shadow-lg  mb-5 bg-white rounded" @if($isenabletoggle) style="display:block;" @else style="display:none;" @endif>
                                     <div class="card-body">
                                         <div class="tooltip-arrow"></div>
-                                        <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
-                                        <div class="text-center py-2">
+                                        @if(\Auth::check())
+                                            <h6 class="h-sms py-2  text-secondary">Select From Saved Addresses</h6>
+                                            @php $addresses = \Auth::user()->addresses; @endphp
+                                            @foreach($addresses as $address)       
+                                            <div class="d-flex justify-content-between selectAddress gap-4 mb-3 align-items-center {{ ($address_id==$address->id)?'selected':'' }}" wire:click="changepincode({{$address->id}})">
+                                                <div class="h-sms" for="address{{$address->id}}"><strong>{{ $address->name }}</strong>, {{ucwords($address->address)}}, {{$address->city}}, {{$address->postal_code}}. {{$address->phone}}, {{$address->alternative_phone}}.</div>
+                                                <div class="form-check ">
+                                                    <input type="radio" name="address" id="address{{$address->id}}" class="form-check-input" @if($address_id==$address->id) checked @endif/>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            <div class="separator mt-2">or</div>                                        
+                                        @else
+                                            <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
+                                            <div class="text-center py-2">
                                                 <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
-                                        </div>
-                                        <h6 class="h-sms py-2  text-secondary">Select From Saved Addresses</h6>
-                                        <div class="d-flex justify-content-between selectAddress gap-4 align-items-center">
-                                            <div class="h-sms"><strong>Arunkumar A</strong>, No. 37, Santhome High Road, Chennai, 600004. +91 99445 58867</div>
-                                            <div class="form-check ">
-                                                <input type="radio" id="address1" name="address" class="form-check-input" />
                                             </div>
-                                        </div>
-                                        <div class="d-flex justify-content-between selectAddress gap-4 mt-3 align-items-center ">
-                                            <div class="h-sms"><strong>Arunkumar A</strong>, No. 37, Santhome High Road, Chennai, 600004. +91 99445 58867</div>
-                                            <div class="form-check ">
-                                                <input type="radio" id="address2" name="address" class="form-check-input" />
-                                            </div>
-                                        </div>
-                                        <div class="separator mt-2">or</div>
+                                            <div class="separator mt-2">or</div>
+                                        @endif
                                         <div class="d-flex align-items-center input-container mt-3">
-                                            <input type="text" class="form-control border-0 h-sms" value="" placeholder="Enter Pincode" style="background-color: white" />
+                                            <input type="number" oninput="isNumberKey(event)" class="form-control border-0 h-sms" value="" wire:model="postal_code1" placeholder="Enter Pincode" style="background-color: white" />
                                             <div class="vertical-line"></div>
-                                            <button class="btn fw-bold h-sms">Check</button>
+                                            <button class="btn fw-bold h-sms" wire:click="checkpincode">Check</button>
                                         </div>
+                                        @error('postal_code1') <span class="error">{{$message}}</span> @endif
                                     </div>
                                 </div>
                             </div>

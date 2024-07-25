@@ -10,5 +10,5 @@ class SavedAddress extends Model
 {
     use HasFactory,SoftDeletes;
     
-    protected $fillable = ['name','phone','alternative_phone','state','city','country','address','landmark','zip_code','is_default','user_id'];
+    protected $fillable = ['name','phone','alternative_phone','state','city','country','address','landmark','postal_code','is_default','user_id'];
 }
