@@ -170,7 +170,7 @@
     </div>
 </nav>
 
-<div class="tab-views mbl-view search_menu_nav" id="top-menu-res">
+<div class="tab-views mbl-view search_menu_nav mobile-navbar" id="top-menu-res">
     <div class="ps-md-2 ps-sm-2 ps-0 pe-md-3 pe-sm-3 pe-3 py-2 d-flex justify-content-between align-items-center">
         <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuopen" aria-controls="offcanvasExample" id="menuIcon">
             <img src="{{asset('asset/home/responsive-menu.svg')}}" alt="menu" >

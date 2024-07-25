@@ -208,18 +208,18 @@
     position: absolute;
     top: 36%;
     transform: translateY(-50%);
-    width: 38px;
-    height: 38px;
-    background-color: var(--next-prev-arrow-color) !important;
-    color: #fff !important;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #474747!important;
+    color: #000 !important;
     cursor: pointer;
     border-radius: 50%;
 }
 .carousel-wrap .owl-carousel .owl-prev {
-    left: -21px;
+    left: -8px;
 }
 .carousel-wrap .owl-carousel .owl-next{
-    right: -21px;
+    right: -8px;
 }
 .detail-card .PrdRow .qty-container{
     width: 120px;
@@ -377,7 +377,7 @@
         height: 40px!important;
     }
     .carousel-wrap .owl-carousel
-    .owl-prev, .owl-next {
+    .owl-prev,.carousel-wrap .owl-carousel .owl-next {
         display: none;
     }
     .carousel-wrap .owl-stage{

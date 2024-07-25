@@ -502,3 +502,8 @@ $(document).ready(function(){
         $(".dropdown-menu").toggle();
     });
 });
+$(document).ready(function(){
+    $(".filter-select").click(function(){
+        $(".filter-dropdown").toggle();
+    });
+  });

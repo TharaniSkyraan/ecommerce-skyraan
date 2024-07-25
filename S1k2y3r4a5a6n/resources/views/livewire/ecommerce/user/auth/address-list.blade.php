@@ -21,11 +21,11 @@
                                             </div>
                                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">                    
                                                 <div class="dropdown text-end">
-                                                    <img class="dropdown-toggle icons-menu cursor" src="{{ asset('asset/home/icons-menu.svg') }}" alt="menu" data-bs-toggle="dropdown">
-                                                    <ul class="dropdown-menu p-2 drop-hover" aria-labelledby="navbarDropdownMenuLink">
-                                                        <li class="h-sms cursor" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit({{$address['id']}});">Edit</li>
-                                                        <li class="h-sms RemoveAddress cursor" data-id="{{$address['id']}}">Remove</li>
-                                                        @if($address['is_default']=='no') <li class="h-sms MakeDefaultAddress cursor" data-id="{{$address['id']}}">Set as default</li> @endif
+                                                    <img class="dropdown-toggle icons-menu cursor " src="{{ asset('asset/home/icons-menu.svg') }}" alt="menu" data-bs-toggle="dropdown">
+                                                    <ul class="dropdown-menu drop-hover py-1" aria-labelledby="navbarDropdownMenuLink">
+                                                        <li class="h-sms cursor p-2" data-bs-toggle="modal" data-bs-target="#Editaddress" wire:click="edit({{$address['id']}});">Edit</li>
+                                                        <li class="h-sms RemoveAddress cursor p-2" data-id="{{$address['id']}}">Remove</li>
+                                                        @if($address['is_default']=='no') <li class="h-sms MakeDefaultAddress cursor p-2" data-id="{{$address['id']}}">Set as default</li> @endif
                                                     </ul>
                                                 </div>
                                             </div>

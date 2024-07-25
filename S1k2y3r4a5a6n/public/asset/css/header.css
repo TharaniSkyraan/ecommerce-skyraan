@@ -353,19 +353,27 @@ fieldset, legend {
     position: relative;
 }
 .nav-cart .badge {
-    width: 18px;
-    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px; /* Remove padding to maintain circle shape */
     font-size: 10px;
+    width: auto; /* Auto width to fit content */
+    height: auto; /* Auto height to fit content */
+    min-width: 21px; /* Minimum width to handle single digit */
+    min-height: 21px; /* Minimum height to handle single digit */
     box-shadow: 1px 1px 3px #0000004d;
     background-color: var(--items-red-color);
     color: white;
     text-align: center;
     border-radius: 50%;
     position: absolute;
-    top: 2px;
-    right: 8px;
+    top: -5px;
+    right: 3px;
     z-index: 1;
+    line-height: 1; /* Ensure the line-height is normal */
 }
+
 .nav-cart img {
     z-index: 0;
 }
@@ -522,7 +530,24 @@ fieldset, legend {
     border: none;
     box-shadow: none;
 }
-
+/* .mobile-navbar{
+    position:fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    background-color: var(--items-list-bg-color);
+    animation: slideDown 0.8s ease-out forwards;
+    height: 60px; 
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+} */
 /*detail*/
 .price{
     color: var(--price-content-color);
@@ -1268,6 +1293,9 @@ padding-top: 155px!important;
     }
     .like_navs{
         width: 24px!important;
+    }
+    #product .owl-stage{
+        height: 49px;
     }
 }
 @media (min-width: 768px) and (max-width: 900px){
