@@ -10,6 +10,7 @@ use App\Models\Review;
 use App\Models\SpecialProduct;
 use App\Models\Collection;
 use App\Models\Banner;
+use App\Models\ProductStock;
 use App\Models\WishList;
 use App\Models\Label;
 use Carbon\Carbon;
@@ -169,7 +170,11 @@ class ProductList extends Component
         $products = array_map(function ($product) {
 
             $default = ProductVariant::select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
-                                            ->whereIsDefault('yes')                                     
+                                            // ->whereIsDefault('yes')      
+                                            ->where(function($q){
+                                                $q->whereIn('is_default', ['yes', 'no']);
+                                            })
+                                            ->orderByRaw("is_default = 'yes' DESC")                               
                                             ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
 
@@ -179,6 +184,13 @@ class ProductList extends Component
 
             if(isset($default))
             {
+                $product_stock = ProductStock::select('id', 'available_quantity')
+                                            ->whereIn('warehouse_id',$this->warehouse_ids)
+                                            ->whereProductVariantId($default->id)
+                                            ->groupBy('id', 'available_quantity')
+                                            ->orderBy('available_quantity','desc')
+                                            ->first();
+
                 $stock_status = ProductVariant::whereStockStatus('in_stock')->whereProductId($product['id'])->count();
 
                 $price = $default->price;
@@ -222,7 +234,6 @@ class ProductList extends Component
             $images = json_decode($product['images'], true);
             $product['image1'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
             $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
-            $product['stock_status'] = (!isset($stock_status))?'out_of_stock':'in_stock';
             $product['slug'] = $product['slug'];
             $product['price'] = $price;
             $product['slug'] = $product['slug'];
@@ -234,6 +245,9 @@ class ProductList extends Component
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
             $product['review_count'] = $rating_count;
             $product['product_type'] = ProductVariant::whereProductId($product['id'])->count();
+            $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+            $product['available_quantity'] = $product_stock->available_quantity??0;
+            $product['product_stock_id'] = $product_stock->id??0;
             return $product;
 
         }, $Products->toArray()['data']);
