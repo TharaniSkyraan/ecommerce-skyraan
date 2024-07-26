@@ -651,15 +651,7 @@ padding-top: 155px!important;
 #dropdown img {
     width: 7px;
 }
-.dropdown-menu {
-    display: none;
-    background-color: #fff;
-    left: 0;
-    top: 100%; /* Aligns the top of the dropdown to the bottom of the category item */
-    transform: translateY(0); /* Remove the initial upward shift */
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-    z-index: 99;
-}
+
 .megamenu {
     width: fit-content;
     z-index: 9999;
@@ -696,19 +688,6 @@ padding-top: 155px!important;
 }
 .category_list_nav li a:focus {
     color: #0D0D0D !important;
-}
-.category_list_nav .dropdown-menu {
-    position: absolute;
-    right: 0px;
-    top: 59px;
-    left: 0px;
-    margin: 0 auto;
-    border-radius: 0px;
-    border: #f8f8f80f;
-    box-shadow: 0px 3px 25px #00000040;
-}
-#dropdown {
-    position: relative; /* Ensure the dropdown menu is positioned relative to this container */
 }
 
 .mbl-view .cartGo img{
@@ -1615,4 +1594,36 @@ padding-top: 155px!important;
 .tab-head:focus {
     outline: none;
     background-color: transparent; /* To ensure no background color is applied on focus */
+}
+
+/* subcategory select */
+
+.category_list_nav .dropdown-menu {
+    position: absolute;
+    right: 0px;
+    top: 59px;
+    left: 0px;
+    margin: 0 auto;
+    border-radius: 0px;
+    border: #f8f8f80f;
+    box-shadow: 0px 3px 25px #00000040;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
