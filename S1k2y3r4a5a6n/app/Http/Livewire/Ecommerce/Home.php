@@ -90,7 +90,6 @@ class Home extends Component
                                             })->whereHas('product_stock', function($q1){
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                             })
-                                            ->whereIsDefault('yes')
                                             ->orderBy('created_at','desc')
                                             ->limit(4)
                                             ->pluck('id')->toArray();
@@ -196,8 +195,14 @@ class Home extends Component
             $this->$type = array_map(function ($product) 
             {
 
-                $default = ProductVariant::select('id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                        ->whereIsDefault('yes')                                     
+                $default = ProductVariant::whereHas('product_stock', function($q){
+                                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        })->select('id','price','sale_price','is_default','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
+                                        // ->whereIsDefault('yes')    
+                                        ->where(function($q){
+                                            $q->whereIn('is_default', ['yes', 'no']);
+                                        })
+                                        ->orderByRaw("is_default = 'yes' DESC")                                 
                                         ->whereProductId($product['id'])->first();
                                         
 
@@ -279,12 +284,14 @@ class Home extends Component
             
             $ids=json_decode($ids);
 
-            $Products = ProductVariant::select('id as variant_id','product_id as id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                            ->whereIn('id',$ids)  
-                                            ->get()
-                                            ->sortBy(function ($product) use ($ids) {
-                                                return array_search($product->variant_id, $ids);
-                                            })->toArray();
+            $Products = ProductVariant::whereHas('product_stock', function($q){
+                                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        })->select('id as variant_id','product_id as id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
+                                        ->whereIn('id',$ids)  
+                                        ->get()
+                                        ->sortBy(function ($product) use ($ids) {
+                                            return array_search($product->variant_id, $ids);
+                                        })->toArray();
                                             
             $this->$type = array_map(function ($default) 
             {

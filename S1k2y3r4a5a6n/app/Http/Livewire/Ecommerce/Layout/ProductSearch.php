@@ -14,9 +14,12 @@ class ProductSearch extends Component
     public $show_result = false;
     public $query;
     public $products = [];
+    public $warehouse_ids = [];
     protected $listeners = ['productsuggestion', 'unsetproductsuggestion'];
 
     public function mount(){
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
         $this->productList();
     }
     public function updatedQuery(){
@@ -31,16 +34,24 @@ class ProductSearch extends Component
 
     public function productList(){
         
-        $Products = Product::select('id','slug','name','images','tax_ids','created_at')
+        $Products = Product::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->select('id','slug','name','images','tax_ids','created_at')
                             ->where('name', 'like', "%{$this->query}%")
                             ->whereStatus('active')->limit(5)->get()->toArray();
 
         $this->products = array_map(function ($product) 
         {
 
-            $default = ProductVariant::select('price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                            ->whereIsDefault('yes')                                     
-                                            ->whereProductId($product['id'])->first();
+            $default = ProductVariant::whereHas('product_stock', function($q){
+                                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                    })->select('price','sale_price','discount_expired','is_default','discount_start_date','discount_end_date','discount_duration')
+                                    // ->whereIsDefault('yes')   
+                                    ->where(function($q){
+                                        $q->whereIn('is_default', ['yes', 'no']);
+                                    })
+                                    ->orderByRaw("is_default = 'yes' DESC")                                     
+                                    ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
 
             $rating_count = Review::whereProductId($product['id'])->count();
