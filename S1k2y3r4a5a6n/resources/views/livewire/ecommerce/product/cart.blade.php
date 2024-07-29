@@ -98,12 +98,14 @@
                         <textarea class="form-control fw-normal text-areaa" placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
                         @error('notes')<span class="error">{{$message}}</span> @endif
                     </div>
-                    <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-2 pt-2 pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0">
-                        <div class="pb-3">
-                            <label for="postalCode" class="form-label h-sms">Postal Code</label>
-                            <input type="number" class="form-control " id="postalCode" wire:model="postal_code" oninput="isNumberKey(event)" aria-describedby="postalCode" placeholder="Postal code">
-                            @error('postal_code') <span class="error">{{$message}}</span> @endif
-                        </div> 
+                    <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
+                        <div class="d-flex justify-content-between py-2">
+                            <h6 class="">Subtotal</h6>
+                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
+                        </div>
+                        <div>
+                            <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
+                        </div>
                     </div>
                 </div>
                 <div class="row" id="shipping">
@@ -134,13 +136,6 @@
                         @endif      
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
-                        <div class="d-flex justify-content-between py-2">
-                            <h6 class="">Subtotal</h6>
-                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
-                        </div>
-                        <div>
-                            <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
-                        </div>
                         <div class="text-center pb-2">
                             <a href="javascript:void(0);" wire:click.prevent="Checkout" class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-3"><h6 class="fw-normal">Proceed to checkout</h6></a>
                         </div>

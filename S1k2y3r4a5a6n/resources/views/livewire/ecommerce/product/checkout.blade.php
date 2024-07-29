@@ -20,11 +20,11 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-3 ">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 py-3">
                     <div class="stickyclass">
                         <div>
                             <h6 class="fw-bold py-3">Shipping Address</h6>
-                            @error('address_id') <span class="error">{{ $message }}</span> @endif
+                            @error('address_id') <span class="error"> {{ $message }} </span> @endif
                         </div>
                         @if(count($addresses)!=0)
                             <div>

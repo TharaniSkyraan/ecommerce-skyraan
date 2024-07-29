@@ -19,6 +19,7 @@ use App\Models\OrderPayment;
 use App\Models\Zone;
 use App\Models\Setting;
 use App\Models\Tax;
+use App\Models\ProductStock;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
 
@@ -28,6 +29,7 @@ class Checkout extends Component
     public $payment_method = 'cash';
     public $summary_show = false;
     public $addresslist = false;
+    public $warehouse_ids = [];
     
     public $total_price = 0;
     public $coupon_discount = 0;
@@ -88,6 +90,7 @@ class Checkout extends Component
     {
         $this->addresses = SavedAddress::whereUserId(auth()->user()->id)->get()->toArray();
         $zones = \Session::get('zone_config');
+        
         if(!empty($zones['address_id'])){
             $this->address_id = $zones['address_id'];
         }else{
@@ -104,9 +107,10 @@ class Checkout extends Component
             session(['zone_config' => $result]);
             view()->share('zone_data',\Session::get('zone_config'));
         }
+        $zones = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']??''));
 
         $this->calculateShippingCharges();
-        
     }
     
     public function cartList()
@@ -121,12 +125,19 @@ class Checkout extends Component
             if(Product::where('id',$data['product_id'])->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
                 
                 $product = Product::where('id',$data['product_id'])->select('id','slug','name','images','tax_ids')->first()->toArray();
-                $default = ProductVariant::where('id',$data['product_variant_id'])->select('price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','shipping_weight as weight')->first();
+                $default = ProductVariant::where('id',$data['product_variant_id'])->select('price','cart_limit','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','shipping_weight as weight')->first();
 
                 $discount = $price = $sale_price = 0;
                 
                 if(isset($default))
                 {
+
+                    $product_stock = ProductStock::select('id', 'available_quantity')
+                                                ->whereIn('warehouse_id',$this->warehouse_ids)
+                                                ->whereProductVariantId($data['product_variant_id'])
+                                                ->groupBy('id', 'available_quantity')
+                                                ->orderBy('available_quantity','desc')
+                                                ->first();
 
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
@@ -166,27 +177,32 @@ class Checkout extends Component
                             }  
                         }
                     }
-
-                    $images = json_decode($product['images'], true);
-                    $product['cart_id'] =  $data['id'];
-                    $product['image'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-                    $product['variant_id'] = $data['product_variant_id'];
-                    $product['slug'] = $product['slug'];
                     $product['price'] = $price;
-                    $product['weight'] = $default->weight*$data['quantity'];
-                    $product['shipping_gross_amount'] = 0;
-                    $product['shipping_tax'] = 0;
-                    $product['sale_price'] = $sale_price;
-                    $product['discount'] = ($discount!=0)?(round($discount)):0;
-                    $product['quantity'] = $data['quantity'];
-                    $product['attributes'] = implode(', ',$attribute_set_name);
-                    $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
-                    $total_price += $product['total_price'];
-                    $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
-                
-                    $cart_products[$data['id']] = $product;
+                    $total_price += $product['total_price']??0;
                             
                 }
+                
+                $images = json_decode($product['images'], true);
+                $product['cart_id'] =  $data['id'];
+                $product['image'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                $product['variant_id'] = $data['product_variant_id'];
+                $product['slug'] = $product['slug'];
+                $product['price'] = $price;
+                $product['weight'] = ($default->weight??0)*$data['quantity'];
+                $product['shipping_gross_amount'] = 0;
+                $product['shipping_tax'] = 0;
+                $product['sale_price'] = $sale_price;
+                $product['discount'] = ($discount!=0)?(round($discount)):0;
+                $product['quantity'] = $data['quantity'];
+                $product['attributes'] = implode(', ',$attribute_set_name);
+                $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
+                $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
+                $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                $product['available_quantity'] = $product_stock->available_quantity??0;
+                $product['product_stock_id'] = $product_stock->id??0;
+                $product['cart_limit'] = $default->cart_limit??0;
+
+                $cart_products[$data['id']] = $product;
 
             }else{
                 CartItem::where('id',$data['id'])->delete(); 
@@ -721,6 +737,10 @@ class Checkout extends Component
 
     public function mount($from='')
     {
+        
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $this->from = $from;
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
         $this->cartList();
