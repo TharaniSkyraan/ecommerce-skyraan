@@ -52,27 +52,30 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-7 align-self-center pt-2 ps-0">
-                            <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
+                            <!-- <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
                                 <div class="col text-center px-1"><span class="input-qty h-sms">{{ $cart_product['quantity'] }}</span></div>
                                 <div class="vr"></div>
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
-                            </div>
-                            <div class="qty-dropdown w-25 position-relative">
-                                <div class="card rounded-0 p-1 toggle-arrow">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <p class="h-sms selected-qty">1 kg</p>
-                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                            </div> -->
+                            
+                            @if(1)
+                                @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
+                                <div class="qty-dropdown w-25 position-relative">
+                                    <div class="card rounded-0 p-1 toggle-arrow">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <p class="h-sms input-qty">1</p>
+                                            <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                                        </div>
+                                    </div>
+                                    <div class="card-bodys" style="display:none;">
+                                        @for ($i = 1; $i < $limit; $i++) 
+                                        <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                        @endfor
                                     </div>
                                 </div>
-                                <div class="card-bodys" style="display:none;">
-                                    <p class="h-sms p-1 qty-option" data-qty="5 kg">5 kg</p>
-                                    <p class="h-sms p-1 qty-option" data-qty="7 kg">7 kg</p>
-                                    <p class="h-sms p-1 qty-option" data-qty="10 kg">10 kg</p>
-                                    <p class="h-sms p-1 qty-option" data-qty="22 kg">22 kg</p>
-                                </div>
-                            </div>
+                            @endif
                         </div>
 
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
