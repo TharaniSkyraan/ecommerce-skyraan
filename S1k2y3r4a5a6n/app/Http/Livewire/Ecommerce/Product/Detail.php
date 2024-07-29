@@ -571,7 +571,7 @@ class Detail extends Component
     {
         return redirect()->to('checkout');
     }
-
+    
     public function render()
     {
         return view('livewire.ecommerce.product.detail');

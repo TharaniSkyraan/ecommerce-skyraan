@@ -120,7 +120,7 @@
                 <div class="quantity PY-2">
                     <div class="d-flex gap-4 align-items-center">
                         <h6 class="text-dark fw-bold">Quantity :</h6>
-                        <div class="d-flex gap-3 align-items-center pt-1">
+                        <!-- <div class="d-flex gap-3 align-items-center pt-1">
                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center px-2  qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
@@ -128,7 +128,24 @@
                                 <div class="vr"></div>
                                 <div class="col text-center px-2  qty-btn-plus"><span>+</span></div>
                             </div>
+                        </div> -->
+                            
+                        @if($cart_limit!=0)
+                        @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                        <div class="qty-dropdown position-relative">
+                            <div class="card rounded-0 p-1 toggle-arrow">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="h-sms input-qty">1</p>
+                                    <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                                </div>
+                            </div>
+                            <div class="card-bodys" style="display:none;">
+                                @for ($i = 1; $i < $limit; $i++) 
+                                <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                @endfor
+                            </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="container-fluid px-0">

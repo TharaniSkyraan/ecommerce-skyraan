@@ -9,6 +9,7 @@ use App\Models\AttributeSet;
 use App\Models\ProductAttributeSet;
 use App\Models\Tax;
 use App\Models\UserCart;
+use App\Models\ProductStock;
 use App\Models\Cart;
 use Carbon\Carbon;
 
@@ -19,9 +20,17 @@ class ViewCanvasCart extends Component
 
     public $related_products = [];
 
+    public $warehouse_ids = [];
+
     public $total_price = 0;
 
     protected $listeners = ['MyCart','updatePrice','RemoveProductFromCart'];
+
+    public function mount(){
+        
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+    }
 
     public function MyCart($datas)
     {
@@ -30,7 +39,6 @@ class ViewCanvasCart extends Component
         $related_product_ids = [];
 
         $total_price = 0;
-        // dd($datas);
 
         foreach($datas as $key => $data)
         {
@@ -40,13 +48,20 @@ class ViewCanvasCart extends Component
             if(Product::where('id',$data['product_id'])->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
          
                 $product = Product::where('id',$data['product_id'])->select('id','slug','name','images','related_product_ids','tax_ids','created_at')->first()->toArray();
-                $default = ProductVariant::where('id',$data['product_variant_id'])->select('price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')->first();
+                $default = ProductVariant::where('id',$data['product_variant_id'])->select('price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')->first();
 
                 $discount = $price = $sale_price = 0;
                 
                 if(isset($default))
                 {
                     
+                    $product_stock = ProductStock::select('id', 'available_quantity')
+                                                ->whereIn('warehouse_id',$this->warehouse_ids)
+                                                ->whereProductVariantId($data['product_variant_id'])
+                                                ->groupBy('id', 'available_quantity')
+                                                ->orderBy('available_quantity','desc')
+                                                ->first();
+
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
 
@@ -95,11 +110,14 @@ class ViewCanvasCart extends Component
                     $product['sale_price'] = $sale_price;
                     $product['discount'] = ($discount!=0)?(round($discount)):0;
                     $product['quantity'] = $data['quantity'];
+                    $product['cart_limit'] = $default->cart_limit;
                     $product['attributes'] = implode('-',$attribute_set_name);
                     $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
                     $total_price += $product['total_price'];
                     $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
-                
+                    $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                    $product['available_quantity'] = $product_stock->available_quantity??0;
+                    $product['product_stock_id'] = $product_stock->id??0;
                     $cart_products[] = $product;
                 
                     $related_product_ids = array_unique(array_merge($related_product_ids, array_filter(explode(',',$product['related_product_ids']))));
@@ -114,7 +132,9 @@ class ViewCanvasCart extends Component
         $this->total_price = $total_price;
         $this->cart_products = $cart_products;
 
-        $this->related_products = Product::limit(10)->find($related_product_ids)->toArray();
+        $this->related_products = Product::whereHas('product_stock', function($q1){
+                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                         })->limit(10)->find($related_product_ids)->toArray();
 
     }
     
