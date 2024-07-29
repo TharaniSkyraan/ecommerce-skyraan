@@ -11,6 +11,9 @@
 .filter-dropdown p:hover{
     background-color: var(--items-list-bg-color);
 }
+.filter-dropdown p.selected{
+    background-color: var(--items-list-bg-color);
+}
 .div{
     border: 1px solid var(--items-list-bg-color);
 }

@@ -123,12 +123,16 @@
                         </a>
                     </div>
                 @endif
+                @if($cart_product)
                 <div class="py-2">
+                    <a href="{{  route('ecommerce.product.detail', ['slug' => $cart_product->slug??'']) }}?prdRef={{ \Carbon\Carbon::parse($cart_product->created_at??'')->timestamp}}">
+
                     <div class="d-flex justify-content-start align-items-center gap-1 cursor">
                         <h6>View details</h6>
                         <img src="{{asset('asset/home/right-arrow.png')}}" alt="arrow">
-                    </div>
+                    </div></a>
                 </div>
+                @endif
             </div>
         </div>
         <div class="nointernet text-danger text-center"></div>

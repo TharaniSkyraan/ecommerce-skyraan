@@ -28,6 +28,7 @@ class ProductList extends Component
     public $wishlist = [];
     public $page = 1;
     public $products = [];
+    public $warehouse_ids = [];
 
 
     protected $queryString = ['category','availablestock','rating','min_price','max_price','sort_by'];
@@ -92,6 +93,9 @@ class ProductList extends Component
 
     public function mount($type,$slug)
     {
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
@@ -103,7 +107,10 @@ class ProductList extends Component
 
     public function filterProduct()
     {
-        $Products = Product::select('id','slug','label_id','name','images','rating','stock_status','tax_ids','created_at')->whereStatus('active');
+        $Products = Product::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->select('id','slug','label_id','name','images','rating','stock_status','tax_ids','created_at')
+                            ->whereStatus('active');
         
         if($this->type=='search'){            
             $Products->where('name', 'like', "%{$this->slug}%");
@@ -156,7 +163,16 @@ class ProductList extends Component
             }
             
             if($orderby[0]=='price'){
-                $Products->orderBy(ProductVariant::select('search_price')->whereColumn('product_id', 'products.id')->where('is_default','yes')->orderBy('search_price')->limit(1), $orderby[1]);
+                $Products->orderBy(
+                    ProductVariant::whereHas('product_stock', function($q){
+                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                    })->select('search_price')
+                    ->whereColumn('product_id', 'products.id')
+                    ->whereIn('is_default', ['yes', 'no'])
+                    ->orderByRaw("is_default = 'yes' DESC")
+                    ->orderBy('search_price')
+                    ->limit(1),  $orderby[1]
+                );
             }else{
                 $Products->orderBy($orderby[0],$orderby[1]);
             }
@@ -169,13 +185,12 @@ class ProductList extends Component
 
         $products = array_map(function ($product) {
 
-            $default = ProductVariant::select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
-                                            // ->whereIsDefault('yes')      
-                                            ->where(function($q){
-                                                $q->whereIn('is_default', ['yes', 'no']);
-                                            })
-                                            ->orderByRaw("is_default = 'yes' DESC")                               
-                                            ->whereProductId($product['id'])->first();
+            $default = ProductVariant::whereHas('product_stock', function($q){
+                                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                    })->select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+                                    ->whereIn('is_default', ['yes', 'no'])
+                                    ->orderByRaw("is_default = 'yes' DESC")                               
+                                    ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
 
             $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
@@ -190,8 +205,6 @@ class ProductList extends Component
                                             ->groupBy('id', 'available_quantity')
                                             ->orderBy('available_quantity','desc')
                                             ->first();
-
-                $stock_status = ProductVariant::whereStockStatus('in_stock')->whereProductId($product['id'])->count();
 
                 $price = $default->price;
 

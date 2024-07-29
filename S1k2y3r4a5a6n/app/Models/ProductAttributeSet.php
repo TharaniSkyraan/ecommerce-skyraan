@@ -15,4 +15,9 @@ class ProductAttributeSet extends Model
     {
         return $this->belongsTo(AttributeSet::class, 'attribute_set_id', 'id');
     }
+    public function product_variant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id', 'id');
+    }
+
 }

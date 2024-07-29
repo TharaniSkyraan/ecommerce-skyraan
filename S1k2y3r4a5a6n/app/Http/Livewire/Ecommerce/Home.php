@@ -199,9 +199,7 @@ class Home extends Component
                                                 $q->whereIn('warehouse_id', $this->warehouse_ids);
                                         })->select('id','price','sale_price','is_default','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
                                         // ->whereIsDefault('yes')    
-                                        ->where(function($q){
-                                            $q->whereIn('is_default', ['yes', 'no']);
-                                        })
+                                        ->whereIn('is_default', ['yes', 'no'])
                                         ->orderByRaw("is_default = 'yes' DESC")                                 
                                         ->whereProductId($product['id'])->first();
                                         
