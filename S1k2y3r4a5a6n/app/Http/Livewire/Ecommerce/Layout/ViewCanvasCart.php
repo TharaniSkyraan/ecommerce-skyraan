@@ -26,8 +26,7 @@ class ViewCanvasCart extends Component
 
     protected $listeners = ['MyCart','updatePrice','RemoveProductFromCart'];
 
-    public function mount(){
-        
+    public function mount(){        
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
     }
