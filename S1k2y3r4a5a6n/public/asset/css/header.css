@@ -1678,3 +1678,20 @@ padding-top: 155px!important;
     border-style: solid;
     border-color: transparent transparent #fff transparent; /* Triangle color */
 }
+.dropdown-content-more .color-filled{
+    background-color: #FCFCFC;
+}
+.qty-dropdown .card-bodys {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 23px -5px;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+}
+
+.qty-dropdown .card-bodys p:hover {
+    background-color: var(--items-list-bg-color);
+    cursor: pointer;
+}

@@ -61,7 +61,7 @@
                     <p class="py-1">Item 2</p>
                     <p class="py-1">Item 3</p>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 color-filled">
                     <p class="py-1">Item 1</p>
                     <p class="py-1">Item 2</p>
                     <p class="py-1">Item 3</p>
@@ -71,7 +71,7 @@
                     <p class="py-1">Item 2</p>
                     <p class="py-1">Item 3</p>
                     </div>
-                    <div class="col-3">
+                    <div class="col-3 color-filled">
                     <p class="py-1">Item 1</p>
                     <p class="py-1">Item 2</p>
                     <p class="py-1">Item 3</p>

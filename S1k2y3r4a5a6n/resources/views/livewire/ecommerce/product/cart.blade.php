@@ -59,7 +59,22 @@
                                 <div class="vr"></div>
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
                             </div>
+                            <div class="qty-dropdown w-25 position-relative">
+                                <div class="card rounded-0 p-1">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="h-sms">1 kg</p>
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                    </div>
+                                </div>
+                                <div class="card-bodys" style="display:none;">
+                                    <p class="h-sms p-1">5 kg</p>
+                                    <p class="h-sms p-1">7 kg</p>
+                                    <p class="h-sms p-1">10 kg</p>
+                                    <p class="h-sms p-1">22 kg</p>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
                                 <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
