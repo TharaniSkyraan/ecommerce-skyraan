@@ -131,20 +131,20 @@
                         </div> -->
                             
                         @if($cart_limit!=0)
-                        @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
-                        <div class="qty-dropdown position-relative">
-                            <div class="card rounded-0 p-1 toggle-arrow">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="h-sms input-qty">1</p>
-                                    <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                            @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                            <div class="qty-dropdown position-relative">
+                                <div class="card rounded-0 p-1 toggle-arrow">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="h-sms input-qty">1</p>
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                                    </div>
+                                </div>
+                                <div class="card-bodys" style="display:none;">
+                                    @for ($i = 1; $i < $limit; $i++) 
+                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                    @endfor
                                 </div>
                             </div>
-                            <div class="card-bodys" style="display:none;">
-                                @for ($i = 1; $i < $limit; $i++) 
-                                <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
-                                @endfor
-                            </div>
-                        </div>
                         @endif
                     </div>
                 </div>
