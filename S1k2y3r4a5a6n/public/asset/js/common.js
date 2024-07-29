@@ -511,7 +511,21 @@ $(document).ready(function(){
     });
 });
 
-// document.getElementById('showMoreBtn').addEventListener('click', function () {
-//     this.classList.toggle('collapsed');
-//     this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
-// });
+$(document).ready(function(){
+    $(".qty-dropdown .card-bodys").hide();
+    $(".qty-dropdown .card").click(function(){
+        $(".qty-dropdown .card-bodys").toggle();
+    });
+});
+
+document.getElementById('showMoreBtn').addEventListener('click', function () {
+    this.classList.toggle('collapsed');
+    this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
+});
+
+$(document).ready(function(){
+    $(".qty-dropdown .card-bodys").hide();
+    $(".qty-dropdown .card").click(function(){
+        $(".qty-dropdown .card-bodys").toggle();
+    });
+});
