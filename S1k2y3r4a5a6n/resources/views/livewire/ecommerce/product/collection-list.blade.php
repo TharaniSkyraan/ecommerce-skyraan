@@ -1,6 +1,15 @@
+@php
+$baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
+@endphp
+<style>
+
+.marquee__group {
+                    animation: scroll {{$duration}}s linear infinite;
+                }
+</style>
 <section class="marquee_content marquee_content2">
-    <div class="marquee py-4">
-        <div class="marquee__group ">
+    <div class="marquee py-4" >
+        <div class="marquee__group">
             @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
                     <a href="{{ route('ecommerce.product.list', ['type' => 'collection', 'slug' => $collection['slug']]) }}">

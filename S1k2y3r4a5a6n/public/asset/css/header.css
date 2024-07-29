@@ -262,7 +262,7 @@ fieldset, legend {
     background-color: #795548;
 }
 .marquee_content .marquee {
-    --duration: 14s;
+    /* --duration: 14s; */
     display: flex;
     overflow: hidden;
     gap: var(--gap);
@@ -273,13 +273,13 @@ fieldset, legend {
     align-items: center;
     justify-content: space-around;
     min-width: 100%;
-    animation: scroll var(--duration) linear infinite;
+    /* animation: scroll var(--duration) linear infinite; */
     padding-left: 30px;
 }
 .marquee_content .marquee h5{
    color: #fff;
 }
-@keyframes scroll {
+/* @keyframes scroll {
     0% {
         transform: translateX(0);
     }
@@ -287,7 +287,7 @@ fieldset, legend {
     100% {
         transform: translateX(calc(-100% ));
     }
-}
+} */
 .marquee_content .marquee img{
    width: 25px;
 }
@@ -305,7 +305,7 @@ fieldset, legend {
     display: flex;
     align-items: center;
     gap: 2rem;
-    animation: scroll var(--duration) linear infinite;
+    /* animation: scroll var(--duration) linear infinite; */
 }
 .marquee_content2 .marquee h5{
    color: #fff;

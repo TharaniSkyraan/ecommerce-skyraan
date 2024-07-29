@@ -138,7 +138,6 @@ class Home extends Component
                                 })
                                 ->get()
                                 ->toArray();
-
         $count = count($collections);
         $duplicationCount = 10 - $count;
         
