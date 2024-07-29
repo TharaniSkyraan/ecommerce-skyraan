@@ -9,7 +9,7 @@
                             @if(empty($banner['product_slug']))
                             <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $banner['slug']]) }}">
                             @else
-                            <a href="{{ route('ecommerce.product.detail', ['slug' => $banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($banner['product_created'])->timestamp}}">
+                            <a href="{{ route('ecommerce.product.detail', ['slug' => $banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($banner['product_created'])->timestamp}}&product_variant={{ $banner['variant_id'] }}">
                             @endif
                             <img src="{{ asset('storage') }}/{{$banner['image']}}" alt="image" class="bnr-img">
                                 <button class="owl--text d-flex py-xl-1  py-lg-1 py-md-1 py-sm-1 py-0 py-0 px-xl-3 px-lg-3 px-md-3 px-sm-3 px-1 align-items-center ">
@@ -68,7 +68,7 @@
                             @if(empty($promotion_banner['product_slug']))
                                 <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $promotion_banner['slug']]) }}">
                             @else
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $promotion_banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($promotion_banner['product_created'])->timestamp}}">
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $promotion_banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($promotion_banner['product_created'])->timestamp}}&product_variant={{ $promotion_banner['variant_id'] }}">
                             @endif
                                 <div class="card card1 border-0 round-2">
                                     <img src="{{ asset('storage') }}/{{$promotion_banner['image']}}" alt="image">
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $tproduct['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp}}">
+                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $tproduct['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp}}&product_variant={{ $tproduct['variant_id'] }}">
                                         <div class="text-center position-relative">
                                             <img src="{{ $tproduct['image1'] }}" alt="list_items" class="w-100 default-img item-image">
                                             @if(!empty($tproduct['image2']))
@@ -234,7 +234,7 @@
                                         @if(empty($special_product['product_slug']))
                                             <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $special_product['slug']]) }}" class="but_this d-flex align-items-center">
                                         @else
-                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}"  class="but_this d-flex align-items-center">
+                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}&product_variant={{ $special_product['variant_id'] }}"  class="but_this d-flex align-items-center">
                                         @endif
                                             <h6 class="">Buy this item</h6>
                                         </a> 
@@ -292,7 +292,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                        <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                             <div class="text-center position-relative">
                                                 <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
                                                 @if(!empty($product['image2']))
@@ -389,7 +389,7 @@
                                     <img src="{{ $top_selling_products[0]['image1'] }}" alt="top_selling" class="w-50">
                                 </div>
                                 <div class="position-absolute bottom-0 start-50 translate-middle-x">
-                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $top_selling_products[0]['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($top_selling_products[0]['created_at'])->timestamp}}">
+                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $top_selling_products[0]['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($top_selling_products[0]['created_at'])->timestamp}}&product_variant={{ $top_selling_products[0]['variant_id'] }}">
                                         <div class="d-flex py-1 px-3 bg-clr buy-now flex-row align-items-center justify-content-center">
                                             <h6 class="text-white text-nowrap">Buy now</h6>
                                         </div> 
@@ -441,7 +441,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                                 <div class="text-center position-relative">
                                                     <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
                                                     @if(!empty($product['image2']))
