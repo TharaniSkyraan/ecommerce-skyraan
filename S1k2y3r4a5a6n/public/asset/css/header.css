@@ -1695,3 +1695,6 @@ padding-top: 155px!important;
     background-color: var(--items-list-bg-color);
     cursor: pointer;
 }
+.qty-option.selected {
+    background-color: var(--items-list-bg-color);
+}

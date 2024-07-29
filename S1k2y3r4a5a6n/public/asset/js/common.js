@@ -511,21 +511,41 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
-    $(".qty-dropdown .card-bodys").hide();
-    $(".qty-dropdown .card").click(function(){
-        $(".qty-dropdown .card-bodys").toggle();
+$(document).ready(function() {
+    // Toggle the dropdown menu and highlight the selected option
+    $('.toggle-arrow').on('click', function() {
+        $('.card-bodys').toggle();
+        highlightSelected();
     });
-});
 
-document.getElementById('showMoreBtn').addEventListener('click', function () {
-    this.classList.toggle('collapsed');
-    this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
-});
+    // Update selected quantity and highlight the selected option
+    $('.qty-option').on('click', function() {
+        var selectedQty = $(this).data('qty');
+        $('.selected-qty').text(selectedQty);
+        $('.qty-option').removeClass('selected');
+        $(this).addClass('selected');
+        $('.card-bodys').hide();
+    });
 
-$(document).ready(function(){
-    $(".qty-dropdown .card-bodys").hide();
-    $(".qty-dropdown .card").click(function(){
-        $(".qty-dropdown .card-bodys").toggle();
+    // Highlight the selected option
+    function highlightSelected() {
+        var selectedQty = $('.selected-qty').text();
+        $('.qty-option').each(function() {
+            if ($(this).data('qty') === selectedQty) {
+                $(this).addClass('selected');
+            } 
+        });
+    }
+
+    // Close the dropdown when clicking outside
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.qty-dropdown').length) {
+            $('.card-bodys').hide();
+        }
+    });
+
+    // Prevent closing the dropdown when clicking inside
+    $('.qty-dropdown').on('click', function(event) {
+        event.stopPropagation();
     });
 });
