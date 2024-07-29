@@ -23,7 +23,6 @@ class Home extends Component
     public $wishlist = [];
     public $warehouse_ids = [];
 
-
     public function mount()
     {
         $zone = \Session::get('zone_config');
@@ -38,7 +37,16 @@ class Home extends Component
                                                                           ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                           ->pluck('id')->first();
 
-                                    $items->append(['product_slug','product_created']);
+                                    if($items->product_type=='single'){
+                                        $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                            $q->where('status','active');
+                                                                        })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                    }
+                                    $items['product_slug'] = $product_variant->product->slug??'';
+                                    $items['variant_id'] = $product_variant->id??'';
+                                    $items['product_created'] = $product_variant->product->created_at??'';
+                                    // $items->append(['product_slug','product_created']);
+                                    return $items;
                                 })->toArray();
         $this->banners = array_filter($banners, function($banner) {
                                 return $banner['product_stock'] !== null;
@@ -52,7 +60,16 @@ class Home extends Component
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                                   ->pluck('id')->first();
-                                            $items->append(['product_slug','product_created']);
+                                            if($items->product_type=='single'){
+                                                $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                                    $q->where('status','active');
+                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                            }
+                                            $items['product_slug'] = $product_variant->product->slug??'';
+                                            $items['variant_id'] = $product_variant->id??'';
+                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            return $items;
+
                                         })->toArray();
         $this->promotion_banners = array_filter($promotion_banners, function($banner) {
                                         return $banner['product_stock'] !== null;
@@ -65,7 +82,15 @@ class Home extends Component
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                                   ->pluck('id')->first();
-                                            $items->append(['product_slug','product_created']);
+                                            if($items->product_type=='single'){
+                                                $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                                    $q->where('status','active');
+                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                            }
+                                            $items['product_slug'] = $product_variant->product->slug??'';
+                                            $items['variant_id'] = $product_variant->id??'';
+                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            return $items;
                                         })->toArray();
         $this->special_products = array_filter($special_products, function($banner) {
                                         return $banner['product_stock'] !== null;
@@ -179,7 +204,8 @@ class Home extends Component
         }
         
     }
-    public function productList($type,$ids){
+    public function productList($type,$ids)
+    {
         
         if($type !='new_products')
         {
@@ -201,7 +227,6 @@ class Home extends Component
                                         ->whereIn('is_default', ['yes', 'no'])
                                         ->orderByRaw("is_default = 'yes' DESC")                                 
                                         ->whereProductId($product['id'])->first();
-                                        
 
                 $discount = $price = $sale_price = 0;
 
@@ -314,7 +339,6 @@ class Home extends Component
                     
                     if($default['discount_duration']=='yes'){
                         
-
                         $currentDate = Carbon::now()->format('d-m-Y H:i');
 
                         // Start and end date from user input or database

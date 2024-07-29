@@ -133,7 +133,6 @@ $(document).on('click','.AddCart', function()
         var productsArray = JSON.parse(localStorage.getItem('cart'))??{};    
         var product_id = $(this).closest('.PrdRow').attr('data-id');
         var qty = $(this).closest('.PrdRow').find('.input-qty').html();
-        
         if($(this).closest('.PrdRow').find('.input-qty').html()==undefined){
             var qty = $(this).closest('.PrdRow').data('quantity');
         }
@@ -145,7 +144,8 @@ $(document).on('click','.AddCart', function()
         }
         var index = product_id+'-'+variant_id;
         if (productsArray.hasOwnProperty(index)) {
-            productsArray[index].quantity = (parseInt(productsArray[index].quantity) + parseInt(qty));
+            // productsArray[index].quantity = (parseInt(productsArray[index].quantity) + parseInt(qty));
+            productsArray[index].quantity = parseInt(qty);
         }else{
             productsArray[index] = {product_id: product_id, product_variant_id: variant_id, quantity: parseInt(qty)};
         }
@@ -521,7 +521,7 @@ $(document).ready(function() {
     // Update selected quantity and highlight the selected option
     $('.qty-option').on('click', function() {
         var selectedQty = $(this).data('qty');
-        $('.selected-qty').text(selectedQty);
+        $('.input-qty').text(selectedQty);
         $('.qty-option').removeClass('selected');
         $(this).addClass('selected');
         $('.card-bodys').hide();
@@ -529,7 +529,7 @@ $(document).ready(function() {
 
     // Highlight the selected option
     function highlightSelected() {
-        var selectedQty = $('.selected-qty').text();
+        var selectedQty = $('.input-qty').text();
         $('.qty-option').each(function() {
             if ($(this).data('qty') === selectedQty) {
                 $(this).addClass('selected');
