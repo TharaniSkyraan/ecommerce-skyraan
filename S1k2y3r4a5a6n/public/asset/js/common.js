@@ -511,7 +511,7 @@ $(document).ready(function(){
     });
 });
 
-document.getElementById('showMoreBtn').addEventListener('click', function () {
-    this.classList.toggle('collapsed');
-    this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
-});
+// document.getElementById('showMoreBtn').addEventListener('click', function () {
+//     this.classList.toggle('collapsed');
+//     this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
+// });
