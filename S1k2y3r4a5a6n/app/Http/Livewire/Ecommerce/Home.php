@@ -192,7 +192,7 @@ class Home extends Component
                                 ->sortBy(function ($product) use ($ids) {
                                     return array_search($product->id, $ids);
                                 })->toArray();
-            $this->$type = array_map(function ($product) 
+            $products = array_map(function ($product) 
             {
 
                 $default = ProductVariant::whereHas('product_stock', function($q){
@@ -202,7 +202,6 @@ class Home extends Component
                                         ->whereIn('is_default', ['yes', 'no'])
                                         ->orderByRaw("is_default = 'yes' DESC")                                 
                                         ->whereProductId($product['id'])->first();
-                                        
 
                 $discount = $price = $sale_price = 0;
 
@@ -278,6 +277,9 @@ class Home extends Component
 
             }, $Products);
 
+            $this->$type = array_filter($products, function($product) {
+                return $product['product_stock_id'] !== 0;
+            });
         }else{
             
             $ids=json_decode($ids);
@@ -291,7 +293,7 @@ class Home extends Component
                                             return array_search($product->variant_id, $ids);
                                         })->toArray();
                                             
-            $this->$type = array_map(function ($default) 
+            $products = array_map(function ($default) 
             {
                 
                 $product_stock = ProductStock::select('id', 'available_quantity')
@@ -315,7 +317,6 @@ class Home extends Component
                     
                     if($default['discount_duration']=='yes'){
                         
-
                         $currentDate = Carbon::now()->format('d-m-Y H:i');
 
                         // Start and end date from user input or database
@@ -367,6 +368,10 @@ class Home extends Component
 
             }, $Products);
         }
+        
+        $this->$type = array_filter($products, function($product) {
+            return $product['product_stock_id'] !== 0;
+        });
 
     }   
 

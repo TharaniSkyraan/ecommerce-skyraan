@@ -17,7 +17,9 @@ use App\Models\ProductStock;
 class QuickShop extends Component
 {
     public $cart_product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$product_variant_id,$product_previous_variant_id,$quickshop_type;
-    public $cart_limit,$product_stock_id,$available_quantity;
+    public $product_stock_id;
+    public $cart_limit =0;
+    public $available_quantity = 0;   
     public $parent_attribute = [];
     public $parent_available_variant_ids = [];
     public $attributes = [];

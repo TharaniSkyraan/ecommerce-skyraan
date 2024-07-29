@@ -19,15 +19,19 @@ use App\Models\UserCart;
 use App\Models\Tax;
 use Carbon\Carbon;
 use App\Traits\ZoneConfig;
+use App\Models\ProductStock;
 
 class Detail extends Component
 {
     use ZoneConfig;
 
-    public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant;
+    public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant,$product_stock_id;
     public $parent_attribute = [];
     public $parent_available_variant_ids = [];
+    public $cart_limit =0;
+    public $available_quantity = 0;    
     public $attributes = [];
+    public $warehouse_ids = [];
     public $selected_attributes_set_ids = [];
     public $postal_code, $postal_code1;
     public $isenabletoggle = false;
@@ -46,7 +50,7 @@ class Detail extends Component
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY))));
 
-        $default = ProductVariant::select('id','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+        $default = ProductVariant::select('id','cart_limit','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                  ->where(function($q) use($selected_attributes_set_ids) {
                                     foreach($selected_attributes_set_ids as $set_id){
                                         $q->whereHas('product_attribute_set', function($q1) use($set_id){
@@ -54,8 +58,16 @@ class Detail extends Component
                                         });
                                     }
                                  })->whereProductId($this->product_id)->first();
-        if(isset($default)){
 
+        if(isset($default))
+        {
+
+            $product_stock = ProductStock::select('id', 'available_quantity')
+                                        ->whereIn('warehouse_id',$this->warehouse_ids)
+                                        ->whereProductVariantId($default->id)
+                                        ->groupBy('id', 'available_quantity')
+                                        ->orderBy('available_quantity','desc')
+                                        ->first();
             $price = $default->price;
             $discount = 0;
     
@@ -101,17 +113,24 @@ class Detail extends Component
             $this->variant = $default->id;
             // $this->product_variant = encrypt($this->variant, 'aes-256-cbc', 'SkyRaan213', 0, 'SkyRaan213');
             $this->product_variant = $this->variant;
-            $this->stock_status = $default->stock_status;
             $this->price = $price;
             $this->sale_price = $sale_price;
-            $this->discount = ($discount!=0)?(round($discount)):0;    
+            $this->discount = ($discount!=0)?(round($discount)):0;  
+            $this->cart_limit = $default->cart_limit;
+            $this->stock_status = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+            $this->available_quantity = $product_stock->available_quantity??0;
+            $this->product_stock_id = $product_stock->id??0;   
         
         }
         
     }
     
     public function updatedParentAttributeSetId(){
-        $this->parent_available_variant_ids = ProductAttributeSet::whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
+        $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                        $q->whereHas('product_stock', function($q1){
+                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                        });
+                                                                    })->whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
         $selected_attributes_set_ids = array_keys(array_filter(array_filter($this->selected_attributes_set_ids, function($key) {
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY)));
@@ -151,6 +170,9 @@ class Detail extends Component
 
     public function mount($slug)
     {
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $createdDate = Carbon::parse($this->prdRef);
         // $this->variant = !empty($this->product_variant)?decrypt($this->product_variant, 'aes-256-cbc', 'SkyRaan213', 0, 'SkyRaan213'):'';
         $this->variant = $this->product_variant??'';
@@ -170,18 +192,30 @@ class Detail extends Component
         $this->product_id = $id = $product['id'];
         // dd($this->product_id);
         if(!empty($this->variant)){
-            $default = ProductVariant::select('id as variant_id','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+            $default = ProductVariant::select('id as variant_id','cart_limit','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                     ->where('id',$this->variant)
                                     ->first()->toArray();
         }else{            
-            $default = ProductVariant::select('id as variant_id','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
-                                    ->whereIsDefault('yes')                                     
+            $default = ProductVariant::select('id as variant_id','cart_limit','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+                                    ->whereHas('product_stock', function($q1){
+                                        $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                    })
+                                    ->whereIn('is_default', ['yes', 'no'])
+                                    ->orderByRaw("is_default = 'yes' DESC")                                      
                                     ->whereProductId($product['id'])
                                     ->first()->toArray();
             $this->variant = $default['variant_id'];
             // $this->product_variant = encrypt($this->variant, 'aes-256-cbc', 'SkyRaan213', 0, 'SkyRaan213');
             $this->product_variant = $this->variant;
         }
+        
+        $product_stock = ProductStock::select('id', 'available_quantity')
+                                        ->whereIn('warehouse_id',$this->warehouse_ids)
+                                        ->whereProductVariantId($this->variant)
+                                        ->groupBy('id', 'available_quantity')
+                                        ->orderBy('available_quantity','desc')
+                                        ->first();
+                                            
 
         $discount = $price = $sale_price = 0;
       
@@ -232,10 +266,13 @@ class Detail extends Component
 
         $images = json_decode($default['images'], true);
         $this->images = (count($images)!=0)?$images:json_decode($product['images'], true);
-        $this->stock_status = $default['stock_status'];
         $this->price = $price;
         $this->sale_price = $sale_price;
-        $this->discount = ($discount!=0)?(round($discount)):0;
+        $this->discount = ($discount!=0)?(round($discount)):0;        
+        $this->cart_limit = $default['cart_limit'];
+        $this->stock_status = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+        $this->available_quantity = $product_stock->available_quantity??0;
+        $this->product_stock_id = $product_stock->id??0;
         
         $product['label'] = (isset($label->name))?$label->name:'';
         $product['label_color_code'] = (isset($label->color))?$label->color:'';
@@ -249,27 +286,49 @@ class Detail extends Component
         $attribute_id = $attribute_id??[];
 
         $this->parent_attribute_set_id = ProductAttributeSet::whereProductVariantId($default['variant_id'])->whereAttributeId($this->parent_attribute_id)->pluck('attribute_set_id')->first();
-        $this->parent_available_variant_ids = ProductAttributeSet::whereProductId($product['id'])->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
+        $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                    $q->whereHas('product_stock', function($q1){
+                                                                        $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                    });
+                                                                })->whereProductId($product['id'])
+                                                                ->whereAttributeSetId($this->parent_attribute_set_id)
+                                                                ->pluck('product_variant_id')->toArray();
         $this->parent_attribute = Attribute::find($this->parent_attribute_id)
                                             ->each(function ($attribute, $key) use($id) {  
-                                                $product_attribute_set_ids = ProductAttributeSet::whereProductId($id)
+                                                $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                                                $q->whereHas('product_stock', function($q1){
+                                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                });
+                                                                                            })->whereProductId($id)
                                                                                             ->whereAttributeId($attribute->id)
                                                                                             ->pluck('attribute_set_id')->toArray();
                                                 $attribute['sets'] = AttributeSet::find($product_attribute_set_ids)
                                                 ->each(function ($product_attribute_set, $key) use($id) {  
-                                                    $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereProductId($id)
+                                                    $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                                                            $q->whereHas('product_stock', function($q1){
+                                                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                            });
+                                                                                                        })->whereProductId($id)
                                                                                                         ->whereAttributeSetId($product_attribute_set->id)
                                                                                                         ->pluck('product_variant_id')->toArray();
                                                 });
                                             })->toArray();
         $this->attributes = Attribute::find($attribute_id)
                                         ->each(function ($attribute, $key) use($id) {  
-                                            $product_attribute_set_ids = ProductAttributeSet::whereProductId($id)
+                                            $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                                            $q->whereHas('product_stock', function($q1){
+                                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                            });
+                                                                                        })->whereProductId($id)
                                                                                         ->whereAttributeId($attribute->id)
                                                                                         ->pluck('attribute_set_id')->toArray();
                                             $attribute['sets'] = AttributeSet::find($product_attribute_set_ids)
                                             ->each(function ($product_attribute_set, $key) use($id) {  
-                                                $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereProductId($id)
+                                                $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                                                        $q->whereHas('product_stock', function($q1){
+                                                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                        });
+                                                                                                    })->whereProductId($id)
                                                                                                     ->whereAttributeSetId($product_attribute_set->id)
                                                                                                     ->pluck('product_variant_id')->toArray();
                                             });
@@ -311,7 +370,9 @@ class Detail extends Component
     {        
 
         $ids = explode(',',$product_ids);
-        $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
+        $Products = Product::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->select('id','slug','name','images','label_id','tax_ids','created_at')
                             ->whereIn('id',$ids)
                             ->get()
                             ->sortBy(function ($product) use ($ids) {
@@ -320,9 +381,11 @@ class Detail extends Component
         $this->$type = array_map(function ($product) 
         {
 
-            $default = ProductVariant::select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                            ->whereIsDefault('yes')                                     
-                                            ->whereProductId($product['id'])->first();
+            $default = ProductVariant::select('id','price','sale_price','is_default','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
+                                    // ->whereIsDefault('yes')    
+                                    ->whereIn('is_default', ['yes', 'no'])
+                                    ->orderByRaw("is_default = 'yes' DESC")                                  
+                                    ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
     
             $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
@@ -331,8 +394,12 @@ class Detail extends Component
 
             if(isset($default))
             {
-                $stock_status = ProductVariant::whereStockStatus('in_stock')->whereProductId($product['id'])->count();
-
+                $product_stock = ProductStock::select('id', 'available_quantity')
+                                            ->whereIn('warehouse_id',$this->warehouse_ids)
+                                            ->whereProductVariantId($default->id)
+                                            ->groupBy('id', 'available_quantity')
+                                            ->orderBy('available_quantity','desc')
+                                            ->first();
                 $price = $default->price;
                 
                 if($default->sale_price!=0 && $default->discount_expired!='yes')
@@ -376,7 +443,6 @@ class Detail extends Component
             $images = json_decode($product['images'], true);
             $product['image1'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
             $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
-            $product['stock_status'] = (!isset($stock_status))?'out_of_stock':'in_stock';
             $product['price'] = $price;
             $product['slug'] = $product['slug'];
             $product['variant_id'] = $default->id??0;
@@ -388,7 +454,11 @@ class Detail extends Component
             $product['review_count'] = $rating_count;
             $product['is_purchased'] = isset($order_item)?'yes':'no';
             $product['is_reviewed'] = isset($order_item->review)?'yes':'no';
-            $product['product_type'] = ProductVariant::whereProductId($product['id'])->count();
+            $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+            $product['available_quantity'] = $product_stock->available_quantity??0;
+            $product['product_stock_id'] = $product_stock->id??0;
+            $product['cart_limit'] = $default->cart_limit??0;
+            $product['product_type'] = '';
             return $product;
 
         }, $Products);

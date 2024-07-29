@@ -59,7 +59,7 @@
                                 <div class="vr"></div>
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
                             </div>
-                            <div class="qty-dropdown w-25 position-relative">
+                            <div class="qty-dropdown position-relative">
                                 <div class="card rounded-0 p-1">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="h-sms">1 kg</p>
