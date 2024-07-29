@@ -506,19 +506,12 @@ $(document).on('click','.addwishlist', function()
 });
 
 $(document).ready(function(){
-    $("#dropdown").hover(
-        function() {
-            $(".dropdown-menu").show();
-        },
-        function() {
-            $(".dropdown-menu").hide();
-        }
-    );
-});
-
-
-$(document).ready(function(){
     $(".filter-select").click(function(){
         $(".filter-dropdown").toggle();
     });
+});
+
+document.getElementById('showMoreBtn').addEventListener('click', function () {
+    this.classList.toggle('collapsed');
+    this.innerText = this.classList.contains('collapsed') ? 'Show More' : 'Show Less';
 });
