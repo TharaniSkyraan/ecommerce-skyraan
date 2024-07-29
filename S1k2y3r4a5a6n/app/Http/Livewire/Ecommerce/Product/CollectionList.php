@@ -23,7 +23,6 @@ class CollectionList extends Component
                                 ->whereIn('warehouse_id', $this->warehouse_ids)
                                 ->pluck('id')
                                 ->first();
-                    
                         })
                         ->toArray();
         $collections = array_filter($collections, function($collection) {

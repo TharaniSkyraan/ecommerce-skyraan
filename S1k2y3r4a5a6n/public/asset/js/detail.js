@@ -170,3 +170,44 @@ function isNumberKey(event) {
       return;
   }
 }
+
+
+$(document).ready(function() {
+  // Toggle the dropdown menu and highlight the selected option
+  $('.toggle-arrow').on('click', function() {
+      $('.card-bodys').toggle();
+      highlightSelected();
+  });
+
+  // Update selected quantity and highlight the selected option
+  $('.qty-option').on('click', function() {
+      var selectedQty = $(this).data('qty');
+      $('.input-qty').text(selectedQty);
+      $('.qty-option').removeClass('selected');
+      $(this).addClass('selected');
+      $('.card-bodys').hide();
+  });
+
+  // Highlight the selected option
+  function highlightSelected() {
+      var selectedQty = $('.input-qty').text();
+      $('.qty-option').each(function() {
+          if ($(this).data('qty') === selectedQty) {
+              $(this).addClass('selected');
+          } 
+      });
+  }
+
+  // Close the dropdown when clicking outside
+  $(document).on('click', function(event) {
+      if (!$(event.target).closest('.qty-dropdown').length) {
+          $('.card-bodys').hide();
+      }
+  });
+
+  // Prevent closing the dropdown when clicking inside
+  $('.qty-dropdown').on('click', function(event) {
+      event.stopPropagation();
+  });
+  
+});
