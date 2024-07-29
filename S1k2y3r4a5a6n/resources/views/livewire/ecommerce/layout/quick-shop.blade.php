@@ -94,7 +94,7 @@
                                 <div class="col text-center qty-btn-plus"><span>+</span></div>
                             </div>
                         </div> -->
-                        @if($cart_limit!=0)
+                        @if(1)
                             @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
                             <div class="qty-dropdown w-25 position-relative">
                                 <div class="card rounded-0 p-1 toggle-arrow">
