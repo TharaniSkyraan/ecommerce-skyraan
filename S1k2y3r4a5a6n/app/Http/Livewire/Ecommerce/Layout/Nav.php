@@ -93,9 +93,7 @@ class Nav extends Component
                                             $q->whereIn('warehouse_id', $this->warehouse_ids);
                                     })->select('price','sale_price','discount_expired','is_default','discount_start_date','discount_end_date','discount_duration')
                                     // ->whereIsDefault('yes')  
-                                    ->where(function($q){
-                                        $q->whereIn('is_default', ['yes', 'no']);
-                                    })
+                                    ->whereIn('is_default', ['yes', 'no'])
                                     ->orderByRaw("is_default = 'yes' DESC")                                    
                                     ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;

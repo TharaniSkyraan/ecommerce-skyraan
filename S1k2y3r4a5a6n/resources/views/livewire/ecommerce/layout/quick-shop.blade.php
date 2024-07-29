@@ -85,6 +85,7 @@
                 <div class="quantity py-1">
                     <div class="d-flex gap-2 align-items-center">
                         <small class="text-dark fw-bold">Quantity :</small>
+
                         <div class="d-flex gap-3 align-items-center pt-1">
                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center qty-btn-minus"><span>-</span></div>
@@ -94,6 +95,7 @@
                                 <div class="col text-center qty-btn-plus"><span>+</span></div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 @if(isset($stock_status) && $stock_status=='in_stock')
@@ -123,12 +125,16 @@
                         </a>
                     </div>
                 @endif
+                @if($cart_product)
                 <div class="py-2">
+                    <a href="{{  route('ecommerce.product.detail', ['slug' => $cart_product->slug??'']) }}?prdRef={{ \Carbon\Carbon::parse($cart_product->created_at??'')->timestamp}}">
+
                     <div class="d-flex justify-content-start align-items-center gap-1 cursor">
                         <h6>View details</h6>
                         <img src="{{asset('asset/home/right-arrow.png')}}" alt="arrow">
-                    </div>
+                    </div></a>
                 </div>
+                @endif
             </div>
         </div>
         <div class="nointernet text-danger text-center"></div>
