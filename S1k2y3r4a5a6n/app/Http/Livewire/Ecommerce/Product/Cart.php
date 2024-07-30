@@ -134,7 +134,6 @@ class Cart extends Component
         }
         $this->total_price = $total_price;
         $this->cart_products = $cart_products;
-
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
 
         if(!empty($this->coupon_code)){
@@ -185,6 +184,9 @@ class Cart extends Component
 
     public function mount()
     {
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $this->cartList();
 
         $usercart = UserCart::whereUserId(auth()->user()->id)->first();

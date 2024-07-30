@@ -1,5 +1,7 @@
 @foreach($cart_products as $cart_product)
-<div class="row py-2">
+@php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
+<div class="row py-2 PrdRow" data-id="{{ $cart_product['id'] }}">
+    <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 pe-0">
         <div class="container-fluid">
             <div class="row">
@@ -15,6 +17,9 @@
                             <div class="card border-0 jhjhj">
                                 <small class="card border-0 text-center text-white">{{ $cart_product['discount'] }}% Off</small>
                             </div>
+                        @endif
+                        @if($cart_product['quantity']>$limit)
+                            <span class="text-danger h-sms px-2">{{ ($cart_product['available_quantity']==0)?'Out of stock':'Only '.$limit.' quantity is allowed.' }} </span> <span class="h-sms"> | <text class="cursor mx-2 deleteCart" wire:click=""> Remove </text> </span>
                         @endif
                     </div>
                 </div>

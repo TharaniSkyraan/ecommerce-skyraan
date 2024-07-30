@@ -85,45 +85,22 @@
                 <div class="quantity py-1">
                     <div class="d-flex gap-2 align-items-center">
                         <small class="text-dark fw-bold">Quantity :</small>
-                        <!-- <div class="d-flex gap-3 align-items-center pt-1">
-                            <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                <div class="col text-center qty-btn-minus"><span>-</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center"><span class="input-qty h-sms">1</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center qty-btn-plus"><span>+</span></div>
-                            </div>
-                        </div> -->
-                        <!-- @if(1)
-                            @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                        @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                        @if($limit !=0)
                             <div class="qty-dropdown w-25 position-relative">
-                                <div class="card rounded-0 p-1 toggle-arrow">
+                                <div class="card rounded-0 p-1">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="h-sms input-qty">1</p>
-                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
                                     </div>
                                 </div>
                                 <div class="card-bodys" style="display:none;">
-                                    @for ($i = 1; $i < $limit; $i++) 
+                                    @for ($i = 1; $i <= $limit; $i++) 
                                     <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
                                     @endfor
                                 </div>
                             </div>
-                        @endif -->
-                        <div class="qty-dropdown-qs w-25 position-relative">
-                            <div class="card rounded-0 p-1">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="h-sms input-qty">1 kg</p>
-                                    <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
-                                </div>
-                            </div>
-                            <div class="card-bodys-qs" style="display:none;">
-                                <p class="h-sms p-1 qty-option-qs" data-qty="5 kg">5 kg</p>
-                                <p class="h-sms p-1 qty-option-qs" data-qty="7 kg">7 kg</p>
-                                <p class="h-sms p-1 qty-option-qs" data-qty="10 kg">10 kg</p>
-                                <p class="h-sms p-1 qty-option-qs" data-qty="22 kg">22 kg</p>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 @if(isset($stock_status) && $stock_status=='in_stock')

@@ -170,28 +170,3 @@ function isNumberKey(event) {
       return;
   }
 }
-
-$(document).ready(function() {
-  $(".qty-dropdown-dtl .card-bodys-dtl").hide();
-
-  $(document).on('click','.qty-dropdown-dtl .card', function(){
-      $(".qty-dropdown-dtl .card-bodys-dtl").toggle();
-  });
-  $(document).on('click','.qty-dropdown-dtl .qty-option-dtl', function(){
-      var selectedQty = $(this).data("qty");
-      $(".qty-dropdown-dtl .input-qty").text(selectedQty);
-      $(".qty-dropdown-dtl .qty-option-dtl").removeClass("selected");
-      $(this).addClass("selected");
-      $(".qty-dropdown-dtl .card-bodys-dtl").hide();
-  });
-  $(document).on('click','.qty-dropdown-dtl .card', function(){
-      var currentSelected = $(".qty-dropdown-dtl .input-qty").text();
-      $(".qty-dropdown-dtl .qty-option-dtl").each(function() {
-          if (currentSelected.includes($(this).data("qty"))) {
-              $(this).addClass("selected");
-          } else {
-              $(this).removeClass("selected");
-          }
-      });
-  });
-});

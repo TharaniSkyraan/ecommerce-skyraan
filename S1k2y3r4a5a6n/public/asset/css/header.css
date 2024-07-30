@@ -1692,10 +1692,10 @@ padding-top: 155px!important;
     background-color: #fff;
 }
 
-.qty-dropdown .card-bodys p:hover, .qty-dropdown-dtl .card-bodys-dtl p:hover, .qty-dropdown-canva .card-bodys-canva p:hover, .qty-dropdown-qs .card-bodys-qs p:hover{
+.qty-dropdown .card-bodys p:hover{
     background-color: var(--items-list-bg-color);
     cursor: pointer;
 }
-.qty-option .selected, .qty-option-dtl .selected, .qty-option-canva .selected, .qty-option-qs .selected {
+.qty-option.selected{
     background-color: var(--items-list-bg-color);
 }

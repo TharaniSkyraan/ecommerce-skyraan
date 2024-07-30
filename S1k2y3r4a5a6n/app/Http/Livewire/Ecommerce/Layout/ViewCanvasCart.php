@@ -114,7 +114,7 @@ class ViewCanvasCart extends Component
                     $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
                     $total_price += $product['total_price'];
                     $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
-                    $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                    $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity>=$data['quantity'])?'in_stock':'out_of_stock'):'out_of_stock';
                     $product['available_quantity'] = $product_stock->available_quantity??0;
                     $product['product_stock_id'] = $product_stock->id??0;
                     $cart_products[] = $product;
@@ -134,7 +134,6 @@ class ViewCanvasCart extends Component
         $this->related_products = Product::whereHas('product_stock', function($q1){
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                          })->limit(10)->find($related_product_ids)->toArray();
-
     }
     
     public function RemoveProductFromCart($index){

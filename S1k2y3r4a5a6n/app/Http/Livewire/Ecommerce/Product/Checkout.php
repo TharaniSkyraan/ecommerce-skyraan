@@ -29,7 +29,7 @@ use App\Traits\ZoneConfig;
 class Checkout extends Component
 {
     use ZoneConfig;
-    public $address_id,$coupon_code,$coupon_error,$apply_for,$payment_id,$place_order,$zone,$lat,$lng;
+    public $address_id,$action,$coupon_code,$coupon_error,$apply_for,$payment_id,$place_order,$zone,$lat,$lng;
     public $payment_method = 'cash';
     public $summary_show = false;
     public $addresslist = false;
@@ -39,7 +39,7 @@ class Checkout extends Component
     public $coupon_discount = 0;
     public $shipping_charges = 0;
 
-    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied'];
+    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied','cartList'];
 
     protected $queryString = ['payment_id'];
 
@@ -118,13 +118,13 @@ class Checkout extends Component
     
     public function cartList()
     {
-        
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
         $this->lat = $zone['latitude'];
         $this->lng = $zone['longitude'];
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
+        // dd($datas);
 
         $cart_products = [];
         $total_price = 0;
@@ -153,16 +153,15 @@ class Checkout extends Component
                                                     ->orderBy('distance', 'asc')
                                                     ->first();
                                                     
-
                     $product_stock = ProductStock::select('id', 'available_quantity')
-                                                ->where('warehouse_id',$available_warehouse->id)
+                                                ->where('warehouse_id',$available_warehouse->id??0)
                                                 ->whereProductVariantId($data['product_variant_id'])
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
+
                     $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance/1000, 2):0;
                                                 
-
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
                     
@@ -201,8 +200,6 @@ class Checkout extends Component
                             }  
                         }
                     }
-                    $product['price'] = $price;
-                    $total_price += $product['total_price']??0;
                             
                 }
                 
@@ -221,12 +218,15 @@ class Checkout extends Component
                 $product['attributes'] = implode(', ',$attribute_set_name);
                 $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
                 $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
-                $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity>=$data['quantity'])?'in_stock':'out_of_stock'):'out_of_stock';
                 $product['available_quantity'] = $product_stock->available_quantity??0;
                 $product['product_stock_id'] = $product_stock->id??0;
                 $product['distance'] = $distance??0;
                 $product['cart_limit'] = $default->cart_limit??0;
+                $limit = ($product['available_quantity'] <= $product['cart_limit'])? $product['available_quantity'] : $product['cart_limit'];
+                $this->action = ($data['quantity']>$limit)?'disabled':'';
 
+                $total_price += $product['total_price']??0;
                 $cart_products[$data['id']] = $product;
 
             }else{
@@ -249,26 +249,12 @@ class Checkout extends Component
         $minimum_km = $setting->minimum_km;
         $cost_per_km = $setting->cost_per_km;
         $cost_minimum_km = $setting->cost_minimum_km;
-
         
         $shipping_charges = 0;
         foreach($cart_products as $key => $cart_product)
         {
-            // if($zone = Zone::find($this->zone))
-            // {
-            //     $latitudeFrom = $zone->lat;
-            //     $longitudeFrom = $zone->lng;
-            //     $latitudeTo = $this->lat;
-            //     $longitudeTo = $this->lng;
-            //     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$latitudeFrom,$longitudeFrom&destinations=$latitudeTo,$longitudeTo&key=".config('shipping.google_map_api_key');
-            //     $details=file_get_contents($url);
-            //     $result = json_decode($details,true);
-
-            //     $distance = $result['rows'][0]['elements'][0]['distance']['value']??0;
-            //     $distance = round($distance/1000, 2);
-            // }
-
             $weight = $cart_product['weight'];
+            $distance = $cart_product['distance'];
             $shipping_charge = 0;
             if(!empty($this->zone) && ($setting->is_enabled_shipping_charges=='yes'))
             {
@@ -446,6 +432,11 @@ class Checkout extends Component
                 $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
 
                 OrderItem::create($orderitem);
+                $product_stock_id = $cart['product_stock_id'];
+                $product_stock = ProductStock::find($product_stock_id);
+                $product_stock->available_quantity -= $cart['quantity'];
+                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                $product_stock->save();
             }
     
             SavedAddress::query()
@@ -586,6 +577,12 @@ class Checkout extends Component
                 $orderitem["order_id"] = $order_id;
 
                 OrderItem::create($orderitem);
+                
+                $product_stock_id = $cart['product_stock_id'];
+                $product_stock = ProductStock::find($product_stock_id);
+                $product_stock->available_quantity -= $cart['quantity'];
+                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                $product_stock->save();
 
                 $orderShipment['order_id'] = $order_id;
                 $orderShipment['user_id'] = auth()->user()->id;
