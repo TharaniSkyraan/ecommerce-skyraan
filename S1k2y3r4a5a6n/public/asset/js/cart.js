@@ -66,3 +66,28 @@ function isNumberKey(event) {
         return;
     }
 }
+
+$(document).ready(function() {
+    $(".qty-dropdown .card-bodys").hide();
+
+    $(document).on('click','.qty-dropdown .card', function(){
+        $(".qty-dropdown .card-bodys").toggle();
+    });
+    $(document).on('click','.qty-dropdown .qty-option', function(){
+        var selectedQty = $(this).data("qty");
+        $(".qty-dropdown .input-qty").text(selectedQty);
+        $(".qty-dropdown .qty-option").removeClass("selected");
+        $(this).addClass("selected");
+        $(".qty-dropdown .card-bodys").hide();
+    });
+    $(document).on('click','.qty-dropdown .card', function(){
+        var currentSelected = $(".qty-dropdown .input-qty").text();
+        $(".qty-dropdown .qty-option").each(function() {
+            if (currentSelected.includes($(this).data("qty"))) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
+        });
+    });
+});

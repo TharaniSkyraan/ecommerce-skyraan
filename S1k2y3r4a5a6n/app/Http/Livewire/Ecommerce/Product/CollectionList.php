@@ -16,17 +16,27 @@ class CollectionList extends Component
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
         $collections = Collection::whereStatus('active')
-                                ->get()->each(function ($items) {
-                                    $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
-                                                                            ->whereIn('warehouse_id', $this->warehouse_ids)
-                                                                            ->pluck('id')->first();
-
-                                    $items->append(['product_slug','product_created']);
-                                })->toArray();
-
-        $this->collections = array_filter($collections, function($collection) {
+                        ->get()
+                        ->each(function ($items) {
+                            $productIds = array_values(array_filter(explode(',', $items->product_ids)));
+                            $items['product_stock'] = ProductStock::whereIn('product_id', $productIds)
+                                ->whereIn('warehouse_id', $this->warehouse_ids)
+                                ->pluck('id')
+                                ->first();
+                        })
+                        ->toArray();
+        $collections = array_filter($collections, function($collection) {
             return $collection['product_stock'] !== null;
         });
+        // Check if collections are less than 5, if so, duplicate the items to make a continuous loop
+        if (count($collections) < 5) {
+            $collections = array_merge($collections, $collections, $collections); // Duplicate to fill space
+        } elseif (count($collections) == 1) {
+            $collections = array_fill(1, 6, $collections[1]); // Duplicate single image to fill space
+        }
+
+        // dd($collections);
+        $this->collections = $collections;
         return view('livewire.ecommerce.product.collection-list');
     }
 }

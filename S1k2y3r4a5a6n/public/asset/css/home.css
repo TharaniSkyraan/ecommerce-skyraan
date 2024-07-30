@@ -225,7 +225,7 @@
     background-color: #795548;
 }
 .marquee_content .marquee {
-    --duration: 14s;
+    /* --duration: 14s; */
     display: flex;
     overflow: hidden;
     gap: var(--gap);
@@ -236,7 +236,7 @@
     align-items: center;
     justify-content: space-around;
     min-width: 100%;
-    animation: scroll var(--duration) linear infinite;
+    /* animation: scroll var(--duration) linear infinite; */
     padding-left: 30px;
 }
 .marquee_content .marquee h5{

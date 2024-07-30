@@ -94,7 +94,7 @@
                                 <div class="col text-center qty-btn-plus"><span>+</span></div>
                             </div>
                         </div> -->
-                        @if(1)
+                        <!-- @if(1)
                             @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
                             <div class="qty-dropdown w-25 position-relative">
                                 <div class="card rounded-0 p-1 toggle-arrow">
@@ -109,7 +109,21 @@
                                     @endfor
                                 </div>
                             </div>
-                        @endif
+                        @endif -->
+                        <div class="qty-dropdown-qs w-25 position-relative">
+                            <div class="card rounded-0 p-1">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <p class="h-sms input-qty">1 kg</p>
+                                    <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                </div>
+                            </div>
+                            <div class="card-bodys-qs" style="display:none;">
+                                <p class="h-sms p-1 qty-option-qs" data-qty="5 kg">5 kg</p>
+                                <p class="h-sms p-1 qty-option-qs" data-qty="7 kg">7 kg</p>
+                                <p class="h-sms p-1 qty-option-qs" data-qty="10 kg">10 kg</p>
+                                <p class="h-sms p-1 qty-option-qs" data-qty="22 kg">22 kg</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @if(isset($stock_status) && $stock_status=='in_stock')

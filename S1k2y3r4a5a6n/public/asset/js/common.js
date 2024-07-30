@@ -511,41 +511,55 @@ $(document).ready(function(){
     });
 });
 
+
 $(document).ready(function() {
-    // Toggle the dropdown menu and highlight the selected option
-    $('.toggle-arrow').on('click', function() {
-        $('.card-bodys').toggle();
-        highlightSelected();
-    });
+    $(".qty-dropdown-canva .card-bodys-canva").hide();
 
-    // Update selected quantity and highlight the selected option
-    $('.qty-option').on('click', function() {
-        var selectedQty = $(this).data('qty');
-        $('.input-qty').text(selectedQty);
-        $('.qty-option').removeClass('selected');
-        $(this).addClass('selected');
-        $('.card-bodys').hide();
+    $(document).on('click','.qty-dropdown-canva .card', function(){
+        $(".qty-dropdown-canva .card-bodys-canva").toggle();
     });
-
-    // Highlight the selected option
-    function highlightSelected() {
-        var selectedQty = $('.input-qty').text();
-        $('.qty-option').each(function() {
-            if ($(this).data('qty') === selectedQty) {
-                $(this).addClass('selected');
-            } 
+    $(document).on('click','.qty-dropdown-canva .qty-option-canva', function(){
+        var selectedQty = $(this).data("qty");
+        $(".qty-dropdown-canva .input-qty").text(selectedQty);
+        $(".qty-dropdown-canva .qty-option-canva").removeClass("selected");
+        $(this).addClass("selected");
+        $(".qty-dropdown-canva .card-bodys-canva").hide();
+    });
+    $(document).on('click','.qty-dropdown-canva .card', function(){
+        var currentSelected = $(".qty-dropdown-canva .input-qty").text();
+        $(".qty-dropdown-canva .qty-option-canva").each(function() {
+            if (currentSelected.includes($(this).data("qty"))) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
         });
-    }
-
-    // Close the dropdown when clicking outside
-    $(document).on('click', function(event) {
-        if (!$(event.target).closest('.qty-dropdown').length) {
-            $('.card-bodys').hide();
-        }
-    });
-
-    // Prevent closing the dropdown when clicking inside
-    $('.qty-dropdown').on('click', function(event) {
-        event.stopPropagation();
     });
 });
+  
+  
+$(document).ready(function() {
+    $(".qty-dropdown-qs .card-bodys-qs").hide();
+
+    $(document).on('click','.qty-dropdown-qs .card', function(){
+        $(".qty-dropdown-qs .card-bodys-qs").toggle();
+    });
+    $(document).on('click','.qty-dropdown-qs .qty-option-qs', function(){
+        var selectedQty = $(this).data("qty");
+        $(".qty-dropdown-qs .input-qty").text(selectedQty);
+        $(".qty-dropdown-qs .qty-option-qs").removeClass("selected");
+        $(this).addClass("selected");
+        $(".qty-dropdown-qs .card-bodys-qs").hide();
+    });
+    $(document).on('click','.qty-dropdown-qs .card', function(){
+        var currentSelected = $(".qty-dropdown-qs .input-qty").text();
+        $(".qty-dropdown-qs .qty-option-qs").each(function() {
+            if (currentSelected.includes($(this).data("qty"))) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
+        });
+    });
+});
+  
