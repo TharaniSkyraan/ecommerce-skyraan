@@ -25,7 +25,7 @@ class Cart extends Component
     
     public $total_price = 0;
 
-    public $postal_code,$coupon_code,$notes;
+    public $coupon_code,$notes;
 
     protected $listeners = ['ReplaceItem','cartList','CouponApplied'];
 
@@ -162,42 +162,16 @@ class Cart extends Component
     }
     public function Checkout()
     {
-        $ipData = \Session::get('ip_config');
-        $data = array(
-            'address_id' => '',
-            'city' => '',
-            'latitude' => '',
-            'longitude' => '',
-            'postal_code' => $this->postal_code1??''
-        );  
+
         $this->resetValidation();
         $validateData = $this->validate([
             'notes' => 'nullable|max:10|max:180',
-            'postal_code' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
-                $result = $this->configzone($data); 
-                if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available here.');
-                }
-            }]
         ], [
-            'postal_code.required' => 'Postal code is required',
             'notes.min' => 'Notes must be at least 10 characters',
             'notes.max' => 'Notes must be less than 180 characters.',
-            'postal_code.postal_code' => 'Please enter valid postal code'
         ]);
         if(!empty($this->coupon_code)){
             $validateData['coupon_code'] = $this->coupon_code;
-        }
-        if(isset(auth()->user()->usercart->address) && auth()->user()->usercart->address->postal_code==$this->postal_code){
-            $validateData['user_address_id'] = auth()->user()->usercart->address->id;
-        }else{                
-            $address_id = SavedAddress::whereUserId(auth()->user()->id)
-                                        ->wherePostalCode($this->postal_code)
-                                        ->whereIn('is_default', ['yes', 'no'])
-                                        ->orderByRaw("is_default = 'yes' DESC")
-                                        ->pluck('id')->first();
-
-            $validateData['user_address_id'] = $address_id??0;
         }
 
         UserCart::updateOrCreate(
@@ -205,31 +179,17 @@ class Cart extends Component
             $validateData
         );
         
-        $data = array(
-            'address_id' => ($validateData['user_address_id']!=0)?$validateData['user_address_id']:'',
-            'city' => '', 'latitude' => '', 'longitude' => '', 'postal_code' => $this->postal_code??''
-        );  
-
-        $result = $this->configzone($data); 
-        session(['zone_config' => $result]);
-        view()->share('zone_data',\Session::get('zone_config'));
-        
         return redirect()->to('/checkout');
 
     }
 
     public function mount()
     {
-        
-        $zone = \Session::get('zone_config');
-        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
-
         $this->cartList();
 
         $usercart = UserCart::whereUserId(auth()->user()->id)->first();
 
         if(isset($usercart)){
-            $this->postal_code = $usercart->postal_code;
             $this->coupon_code = $usercart->coupon_code;
             $this->notes = $usercart->notes;
             $this->coupon_error = (!empty($usercart->coupon_code))?'valid_coupon':'';

@@ -4,13 +4,33 @@ namespace App\Http\Livewire\Ecommerce\User\Auth;
 
 use Livewire\Component;
 use App\Models\SavedAddress;
+use App\Traits\ZoneConfig;
 
 class AddressList extends Component
 {
+    use ZoneConfig;
     protected $listeners = ['addressList','remove','setdefaultAddress'];
     public function addressList()
     {
         $this->addresses = SavedAddress::whereUserId(auth()->user()->id)->get()->toArray();
+
+        $zone = \Session::get('zone_config');
+        $address_id = (auth()->user()->usercart->address->id??(auth()->user()->address->id??0));
+        
+        if(empty($zone['address_id']) || ($zone['address_id'] != $address_id)){
+            $address = SavedAddress::find($address_id);
+            $data = array(
+                'address_id' => $address->id,
+                'city' => $address->city??'', 
+                'latitude' => '', 
+                'longitude' => '', 
+                'postal_code' => $address->postal_code??''
+            );      
+            $result = $this->configzone($data); 
+            session(['zone_config' => $result]);
+            view()->share('zone_data',\Session::get('zone_config'));
+        }
+
     }
 
     public function edit($id=''){
