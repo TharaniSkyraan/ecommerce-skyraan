@@ -279,7 +279,7 @@ fieldset, legend {
 .marquee_content .marquee h5{
    color: #fff;
 }
-/* @keyframes scroll {
+@keyframes scroll {
     0% {
         transform: translateX(0);
     }
@@ -287,7 +287,7 @@ fieldset, legend {
     100% {
         transform: translateX(calc(-100% ));
     }
-} */
+}
 .marquee_content .marquee img{
    width: 25px;
 }
@@ -1681,10 +1681,8 @@ padding-top: 155px!important;
 .dropdown-content-more .color-filled{
     background-color: #FCFCFC;
 }
-.qty-dropdown{
-    width: 10%;
-}
-.qty-dropdown .card-bodys {
+
+.qty-dropdown .card-bodys, .qty-dropdown-dtl .card-bodys-dtl, .qty-dropdown-canva .card-bodys-canva, .qty-dropdown-qs .card-bodys-qs{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 23px -5px;
     z-index: 1;
     position: absolute;
@@ -1694,10 +1692,10 @@ padding-top: 155px!important;
     background-color: #fff;
 }
 
-.qty-dropdown .card-bodys p:hover {
+.qty-dropdown .card-bodys p:hover, .qty-dropdown-dtl .card-bodys-dtl p:hover, .qty-dropdown-canva .card-bodys-canva p:hover, .qty-dropdown-qs .card-bodys-qs p:hover{
     background-color: var(--items-list-bg-color);
     cursor: pointer;
 }
-.qty-option.selected {
+.qty-option .selected, .qty-option-dtl .selected, .qty-option-canva .selected, .qty-option-qs .selected {
     background-color: var(--items-list-bg-color);
 }

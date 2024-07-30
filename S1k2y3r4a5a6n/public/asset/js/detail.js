@@ -171,43 +171,27 @@ function isNumberKey(event) {
   }
 }
 
-
 $(document).ready(function() {
-  // Toggle the dropdown menu and highlight the selected option
-  $('.toggle-arrow').on('click', function() {
-      $('.card-bodys').toggle();
-      highlightSelected();
-  });
+  $(".qty-dropdown-dtl .card-bodys-dtl").hide();
 
-  // Update selected quantity and highlight the selected option
-  $('.qty-option').on('click', function() {
-      var selectedQty = $(this).data('qty');
-      $('.input-qty').text(selectedQty);
-      $('.qty-option').removeClass('selected');
-      $(this).addClass('selected');
-      $('.card-bodys').hide();
+  $(document).on('click','.qty-dropdown-dtl .card', function(){
+      $(".qty-dropdown-dtl .card-bodys-dtl").toggle();
   });
-
-  // Highlight the selected option
-  function highlightSelected() {
-      var selectedQty = $('.input-qty').text();
-      $('.qty-option').each(function() {
-          if ($(this).data('qty') === selectedQty) {
-              $(this).addClass('selected');
-          } 
+  $(document).on('click','.qty-dropdown-dtl .qty-option-dtl', function(){
+      var selectedQty = $(this).data("qty");
+      $(".qty-dropdown-dtl .input-qty").text(selectedQty);
+      $(".qty-dropdown-dtl .qty-option-dtl").removeClass("selected");
+      $(this).addClass("selected");
+      $(".qty-dropdown-dtl .card-bodys-dtl").hide();
+  });
+  $(document).on('click','.qty-dropdown-dtl .card', function(){
+      var currentSelected = $(".qty-dropdown-dtl .input-qty").text();
+      $(".qty-dropdown-dtl .qty-option-dtl").each(function() {
+          if (currentSelected.includes($(this).data("qty"))) {
+              $(this).addClass("selected");
+          } else {
+              $(this).removeClass("selected");
+          }
       });
-  }
-
-  // Close the dropdown when clicking outside
-  $(document).on('click', function(event) {
-      if (!$(event.target).closest('.qty-dropdown').length) {
-          $('.card-bodys').hide();
-      }
   });
-
-  // Prevent closing the dropdown when clicking inside
-  $('.qty-dropdown').on('click', function(event) {
-      event.stopPropagation();
-  });
-  
 });

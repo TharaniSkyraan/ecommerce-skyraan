@@ -29,7 +29,22 @@
                                                 <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
                                             @endif
                                         </h6>
-                                        <div class="d-flex gap-xl-3 gap-lg-3 gap-md-3 gap-sm-3 gap-2 align-items-center pt-1">
+                                        <div class="d-flex justify-content-between align-items-center pt-1">
+                                                <div class="qty-dropdown-canva w-50 position-relative">
+                                                    <div class="card rounded-0 p-1">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <p class="h-sms input-qty">1 kg</p>
+                                                            <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-bodys-canva" style="display:none;">
+                                                        <p class="h-sms p-1 qty-option-canva" data-qty="5 kg">5 kg</p>
+                                                        <p class="h-sms p-1 qty-option-canva" data-qty="7 kg">7 kg</p>
+                                                        <p class="h-sms p-1 qty-option-canva" data-qty="10 kg">10 kg</p>
+                                                        <p class="h-sms p-1 qty-option-canva" data-qty="22 kg">22 kg</p>
+                                                    </div>
+                                                </div>
+
                                             <!-- <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                                 <div class="col text-center qty-btn-minus"><span>-</span></div>
                                                 <div class="vr"></div>
@@ -38,8 +53,8 @@
                                                 <div class="col text-center qty-btn-plus"><span>+</span></div>
                                             </div> -->
                                             @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
-                                            @if($cart_product['cart_limit']!=0 && ($cart_product['quantity']<$limit))
-                                                <div class="qty-dropdown w-25 position-relative">
+                                            <!-- @if($cart_product['cart_limit']!=0 && ($cart_product['quantity']<$limit)) -->
+                                                <!-- <div class="qty-dropdown w-25 position-relative">
                                                     <div class="card rounded-0 p-1 toggle-arrow">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <p class="h-sms input-qty">{{$cart_product['quantity']}}</p>
@@ -51,10 +66,11 @@
                                                         <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
                                                         @endfor
                                                     </div>
-                                                </div>
-                                            @else
+                                                </div> -->
+
+                                            <!-- @else
                                                 <span class="error"> Out of stock </span>
-                                            @endif
+                                            @endif -->
 
                                             @if($cart_product['product_type']>1)
                                             <div>

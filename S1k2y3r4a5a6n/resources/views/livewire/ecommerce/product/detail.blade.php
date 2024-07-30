@@ -130,22 +130,37 @@
                             </div>
                         </div> -->
                             
-                        @if(1)
+                        <!-- @if(1)
                             @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
-                            <div class="qty-dropdown position-relative">
-                                <div class="card rounded-0 p-1 toggle-arrow">
+                            <div class="qty-dropdown-ddl position-relative">
+                                <div class="card rounded-0 p-1 toggle-arrow-ddl">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="h-sms input-qty">1</p>
                                         <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow" class="">
                                     </div>
                                 </div>
-                                <div class="card-bodys" style="display:none;">
+                                <div class="card-bodys-ddl" style="display:none;">
                                     @for ($i = 1; $i < $limit; $i++) 
-                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                    <p class="h-sms p-1 qty-option-ddl" data-qty="{{ $i }}">{{$i}}</p>
                                     @endfor
                                 </div>
                             </div>
-                        @endif
+                        @endif -->
+                            <div class="qty-dropdown-dtl w-25 position-relative">
+                                <div class="card rounded-0 p-1">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="h-sms input-qty">1 kg</p>
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                    </div>
+                                </div>
+                                <div class="card-bodys-dtl" style="display:none;">
+                                    <p class="h-sms p-1 qty-option-dtl" data-qty="5 kg">5 kg</p>
+                                    <p class="h-sms p-1 qty-option-dtl" data-qty="7 kg">7 kg</p>
+                                    <p class="h-sms p-1 qty-option-dtl" data-qty="10 kg">10 kg</p>
+                                    <p class="h-sms p-1 qty-option-dtl" data-qty="22 kg">22 kg</p>
+                                </div>
+                            </div>
+                        
                     </div>
                 </div>
                 <div class="container-fluid px-0">

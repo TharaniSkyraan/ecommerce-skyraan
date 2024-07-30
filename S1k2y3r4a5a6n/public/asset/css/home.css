@@ -225,7 +225,7 @@
     background-color: #795548;
 }
 .marquee_content .marquee {
-    --duration: 14s;
+    /* --duration: 14s; */
     display: flex;
     overflow: hidden;
     gap: var(--gap);

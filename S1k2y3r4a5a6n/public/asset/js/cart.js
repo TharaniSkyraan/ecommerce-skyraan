@@ -68,40 +68,26 @@ function isNumberKey(event) {
 }
 
 $(document).ready(function() {
-    // Toggle the dropdown menu and highlight the selected option
-    $('.toggle-arrow').on('click', function() {
-        $('.card-bodys').toggle();
-        highlightSelected();
-    });
+    $(".qty-dropdown .card-bodys").hide();
 
-    // Update selected quantity and highlight the selected option
-    $('.qty-option').on('click', function() {
-        var selectedQty = $(this).data('qty');
-        $('.input-qty').text(selectedQty);
-        $('.qty-option').removeClass('selected');
-        $(this).addClass('selected');
-        $('.card-bodys').hide();
+    $(document).on('click','.qty-dropdown .card', function(){
+        $(".qty-dropdown .card-bodys").toggle();
     });
-
-    // Highlight the selected option
-    function highlightSelected() {
-        var selectedQty = $('.input-qty').text();
-        $('.qty-option').each(function() {
-            if ($(this).data('qty') === selectedQty) {
-                $(this).addClass('selected');
-            } 
+    $(document).on('click','.qty-dropdown .qty-option', function(){
+        var selectedQty = $(this).data("qty");
+        $(".qty-dropdown .input-qty").text(selectedQty);
+        $(".qty-dropdown .qty-option").removeClass("selected");
+        $(this).addClass("selected");
+        $(".qty-dropdown .card-bodys").hide();
+    });
+    $(document).on('click','.qty-dropdown .card', function(){
+        var currentSelected = $(".qty-dropdown .input-qty").text();
+        $(".qty-dropdown .qty-option").each(function() {
+            if (currentSelected.includes($(this).data("qty"))) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
         });
-    }
-
-    // Close the dropdown when clicking outside
-    $(document).on('click', function(event) {
-        if (!$(event.target).closest('.qty-dropdown').length) {
-            $('.card-bodys').hide();
-        }
-    });
-
-    // Prevent closing the dropdown when clicking inside
-    $('.qty-dropdown').on('click', function(event) {
-        event.stopPropagation();
     });
 });
