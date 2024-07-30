@@ -1,6 +1,6 @@
 <div>
-    <!-- @if(count($cart_products)!=0) -->
-    <section class="check_out_li">          
+    @if(count($cart_products)!=0)
+    <section class="checkoutpage check_out_li">          
         <div class="content mbl-view">
             <div class="mbl-top">
                 <div class="d-flex justify-content-between align-items-center gap-2 py-3" id="order-list">
@@ -114,9 +114,9 @@
                         @endif
                         <div class="text-center py-4">
                             @if($payment_method=='cash')
-                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75" wire:click="completeOrder"><h6> Place Order </h6></a>
+                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" @if(empty($action)) wire:click="completeOrder" @endif><h6> Place Order </h6></a>
                             @else
-                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75" wire:click="initiatePayment"><h6> Pay Now  </h6></a>
+                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" @if(empty($action)) wire:click="initiatePayment" @endif><h6> Pay Now  </h6></a>
                                 <div id="razorpay-container"></div>
                             @endif
                         </div>
@@ -174,7 +174,7 @@
             </div>
         </div>
     </div>  
-    <!-- @else
+    @else
         <section class="product-list">
             <div class="container">
                 <div class="row py-5">
@@ -186,12 +186,39 @@
                 </div>
             </div>
         </section>
-    @endif -->
+    @endif
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 @push('scripts')
 <script>
+
+    $(document).on('click','.outof-stock', function()
+    {
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        toastr['error']('Selected product is out of stock remove and proceed', {
+            closeButton: true,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            newestOnTop: true
+        });
+    });
 
     $(document).on('click','#availableCoupon', function(){
         Livewire.emit('availableCoupon',{{$total_price}});

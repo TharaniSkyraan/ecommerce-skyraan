@@ -19,13 +19,17 @@ use App\Models\OrderPayment;
 use App\Models\Zone;
 use App\Models\Setting;
 use App\Models\Tax;
+use App\Models\Warehouse;
 use App\Models\ProductStock;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
+use DB;
+use App\Traits\ZoneConfig;
 
 class Checkout extends Component
 {
-    public $address_id,$coupon_code,$coupon_error,$apply_for,$payment_id,$place_order,$zone,$lat,$lng;
+    use ZoneConfig;
+    public $address_id,$action,$coupon_code,$coupon_error,$apply_for,$payment_id,$place_order,$zone,$lat,$lng;
     public $payment_method = 'cash';
     public $summary_show = false;
     public $addresslist = false;
@@ -35,7 +39,7 @@ class Checkout extends Component
     public $coupon_discount = 0;
     public $shipping_charges = 0;
 
-    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied'];
+    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied','cartList'];
 
     protected $queryString = ['payment_id'];
 
@@ -78,7 +82,7 @@ class Checkout extends Component
         session(['zone_config' => $result]);
         view()->share('zone_data',\Session::get('zone_config'));
 
-        
+        $this->cartList();
         $this->calculateShippingCharges();
     }
 
@@ -108,17 +112,19 @@ class Checkout extends Component
             session(['zone_config' => $result]);
             view()->share('zone_data',\Session::get('zone_config'));
         }
-
+        $this->cartList();
         $this->calculateShippingCharges();
     }
     
     public function cartList()
     {
-        
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+        $this->lat = $zone['latitude'];
+        $this->lng = $zone['longitude'];
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
+        // dd($datas);
 
         $cart_products = [];
         $total_price = 0;
@@ -135,13 +141,27 @@ class Checkout extends Component
                 if(isset($default))
                 {
 
+                    $variant_id = $data['product_variant_id'];
+                    $quantity = $data['quantity'];
+                    $available_warehouse = Warehouse::whereHas('productstock', function($q) use($quantity,$variant_id){
+                                                        $q->where('available_quantity','>=',$quantity)
+                                                            ->where('product_variant_id',$variant_id);
+                                                    })->select("*", DB::raw("6371 * acos(cos(radians(" . $this->lat . "))
+                                                    * cos(radians(lat)) * cos(radians(lng) - radians(" . $this->lng . "))
+                                                    + sin(radians(" .$this->lat. ")) * sin(radians(lat))) AS distance"))
+                                                    ->whereIn('id',$this->warehouse_ids)
+                                                    ->orderBy('distance', 'asc')
+                                                    ->first();
+                                                    
                     $product_stock = ProductStock::select('id', 'available_quantity')
-                                                ->whereIn('warehouse_id',$this->warehouse_ids)
+                                                ->where('warehouse_id',$available_warehouse->id??0)
                                                 ->whereProductVariantId($data['product_variant_id'])
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
 
+                    $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance/1000, 2):0;
+                                                
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
                     
@@ -180,8 +200,6 @@ class Checkout extends Component
                             }  
                         }
                     }
-                    $product['price'] = $price;
-                    $total_price += $product['total_price']??0;
                             
                 }
                 
@@ -200,11 +218,15 @@ class Checkout extends Component
                 $product['attributes'] = implode(', ',$attribute_set_name);
                 $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
                 $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();
-                $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity>=$data['quantity'])?'in_stock':'out_of_stock'):'out_of_stock';
                 $product['available_quantity'] = $product_stock->available_quantity??0;
                 $product['product_stock_id'] = $product_stock->id??0;
+                $product['distance'] = $distance??0;
                 $product['cart_limit'] = $default->cart_limit??0;
+                $limit = ($product['available_quantity'] <= $product['cart_limit'])? $product['available_quantity'] : $product['cart_limit'];
+                $this->action = ($data['quantity']>$limit)?'disabled':'';
 
+                $total_price += $product['total_price']??0;
                 $cart_products[$data['id']] = $product;
 
             }else{
@@ -218,9 +240,6 @@ class Checkout extends Component
 
     public function calculateShippingCharges()
     {
-        $zone = \Session::get('zone_config');
-        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
-
         $cart_products = $this->cart_products; 
         
         $setting = Setting::first();
@@ -230,36 +249,12 @@ class Checkout extends Component
         $minimum_km = $setting->minimum_km;
         $cost_per_km = $setting->cost_per_km;
         $cost_minimum_km = $setting->cost_minimum_km;
-
         
         $shipping_charges = 0;
         foreach($cart_products as $key => $cart_product)
         {
-            // $available_drivers = Driver::select("*", DB::raw("6371 * acos(cos(radians(" . $lat . "))
-            // * cos(radians(lat)) * cos(radians(lng) - radians(" . $lng . "))
-            // + sin(radians(" .$lat. ")) * sin(radians(lat))) AS distance"))
-            // ->having('distance', '<', $min_distance)
-            // ->whereNull('current_trip_id')
-            // ->whereIsAvailable(1)
-            // ->whereIsOnline(1)
-            // ->orderBy('distance', 'asc')
-            // ->get();
-    
-            // if($zone = Zone::find($this->zone))
-            // {
-            //     $latitudeFrom = $zone->lat;
-            //     $longitudeFrom = $zone->lng;
-            //     $latitudeTo = $this->lat;
-            //     $longitudeTo = $this->lng;
-            //     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$latitudeFrom,$longitudeFrom&destinations=$latitudeTo,$longitudeTo&key=".config('shipping.google_map_api_key');
-            //     $details=file_get_contents($url);
-            //     $result = json_decode($details,true);
-
-            //     $distance = $result['rows'][0]['elements'][0]['distance']['value']??0;
-            //     $distance = round($distance/1000, 2);
-            // }
-
             $weight = $cart_product['weight'];
+            $distance = $cart_product['distance'];
             $shipping_charge = 0;
             if(!empty($this->zone) && ($setting->is_enabled_shipping_charges=='yes'))
             {
@@ -304,9 +299,20 @@ class Checkout extends Component
     }
 
     public function completeOrder(){
+       
+        $address = SavedAddress::where('id',$this->address_id)->first();
 
-        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) {
-                if(! $this->pointInPolygon($value)) {
+        $data = array(
+            'address_id' => $this->address_id,
+            'city' => $address->city??'', 
+            'latitude' => '', 
+            'longitude' => '', 
+            'postal_code' => $address->postal_code??''
+        );  
+
+        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
                     $fail('Delivery is not available here.');
                 }
             }]
@@ -426,6 +432,11 @@ class Checkout extends Component
                 $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
 
                 OrderItem::create($orderitem);
+                $product_stock_id = $cart['product_stock_id'];
+                $product_stock = ProductStock::find($product_stock_id);
+                $product_stock->available_quantity -= $cart['quantity'];
+                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                $product_stock->save();
             }
     
             SavedAddress::query()
@@ -566,6 +577,12 @@ class Checkout extends Component
                 $orderitem["order_id"] = $order_id;
 
                 OrderItem::create($orderitem);
+                
+                $product_stock_id = $cart['product_stock_id'];
+                $product_stock = ProductStock::find($product_stock_id);
+                $product_stock->available_quantity -= $cart['quantity'];
+                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                $product_stock->save();
 
                 $orderShipment['order_id'] = $order_id;
                 $orderShipment['user_id'] = auth()->user()->id;
@@ -606,12 +623,25 @@ class Checkout extends Component
     
     public function initiatePayment()
     {      
-        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) {
-            if (! $this->pointInPolygon($value)) {
-                    $fail('Delivery is not available here..');
+          
+        $address = SavedAddress::where('id',$this->address_id)->first();
+
+        $data = array(
+            'address_id' => $this->address_id,
+            'city' => $address->city??'', 
+            'latitude' => '', 
+            'longitude' => '', 
+            'postal_code' => $address->postal_code??''
+        );  
+
+        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
+                $result = $this->configzone($data); 
+                if(empty($result['zone_id'])) {
+                    $fail('Delivery is not available here.');
                 }
             }]
         ]);
+
         if(config('shipping.payment_platform')=='razorpay')
         {
             $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
@@ -629,53 +659,6 @@ class Checkout extends Component
             $this->emit('initiateRazorpay',$address);
         }
     
-    }
-    
-    public function pointInPolygon($address_id) 
-    {
-        $postal_code = SavedAddress::where('id',$address_id)->pluck('postal_code')->first();
-        if($address_id){
-            
-            $this->zone = null;
-            
-            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$postal_code."&sensor=false&key=".config('shipping.google_map_api_key');
-            $details=file_get_contents($url);
-            $result = json_decode($details,true);
-        
-            $this->lat = $result['results'][0]['geometry']['location']['lat']??0;
-            $this->lng = $result['results'][0]['geometry']['location']['lng']??0;
-
-            $x = $this->lat;
-            $y = $this->lng;
-            $inside = false;
-
-            $zones = Zone::whereStatus('active')->get();
-
-            foreach($zones as $zone){
-
-                $polygon = json_decode($zone->zone_coordinates);
-                $vertices = count($polygon);
-                if(!$inside){
-                    for ($i = 0, $j = $vertices - 1; $i < $vertices; $j = $i++) {
-                        
-                        $xi = $polygon[$i]->lat;
-                        $yi = $polygon[$i]->lng;
-                        $xj = $polygon[$j]->lat;
-                        $yj = $polygon[$j]->lng;
-                
-                        $intersect = (($yi > $y) != ($yj > $y)) && ($x < ($xj - $xi) * ($y - $yi) / ($yj - $yi) + $xi);
-                    
-                        if ($intersect) $inside = !$inside;
-                    }
-                    if ($inside) {
-                        $this->zone = $zone->id;
-                        break; // Stop looping once inside is true
-                    }
-                }
-                
-            }
-            return $inside;
-        }
     }
     
     public function CouponApplied($emit='false'){
@@ -757,7 +740,6 @@ class Checkout extends Component
     {
         $this->from = $from;
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
-        $this->cartList();
         $this->addressList();
     }
 

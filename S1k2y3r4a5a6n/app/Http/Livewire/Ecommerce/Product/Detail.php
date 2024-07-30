@@ -518,9 +518,9 @@ class Detail extends Component
             'longitude' => '',
             'postal_code' => $this->postal_code1??''
         );  
+        $result = $this->configzone($data); 
         $this->validate([
-            'postal_code1' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
-                $result = $this->configzone($data); 
+            'postal_code1' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($result) {
                 if(empty($result['zone_id'])) {
                     $fail('Delivery is not available here.');
                 }
@@ -530,16 +530,10 @@ class Detail extends Component
             'postal_code1.postal_code' => 'Please enter valid postal code'
         ]);
 
-        $result = $this->configzone($data); 
-        if(!empty($result['zone_id'])){
-
-            $this->postal_code = $this->postal_code1;
-            session(['zone_config' => $result]);
-            view()->share('zone_data',\Session::get('zone_config'));
-            $this->enablechangepincode();
-        }else{
-
-        }
+        $this->postal_code = $this->postal_code1;
+        session(['zone_config' => $result]);
+        view()->share('zone_data',\Session::get('zone_config'));
+        $this->enablechangepincode();
 
     }
 
