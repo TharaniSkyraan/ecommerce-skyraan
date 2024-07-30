@@ -77,6 +77,7 @@ class Checkout extends Component
         $result = $this->configzone($data); 
         session(['zone_config' => $result]);
         view()->share('zone_data',\Session::get('zone_config'));
+
         
         $this->calculateShippingCharges();
     }
@@ -89,10 +90,10 @@ class Checkout extends Component
     public function addressList()
     {
         $this->addresses = SavedAddress::whereUserId(auth()->user()->id)->get()->toArray();
-        $zones = \Session::get('zone_config');
+        $zone = \Session::get('zone_config');
         
-        if(!empty($zones['address_id'])){
-            $this->address_id = $zones['address_id'];
+        if(!empty($zone['address_id'])){
+            $this->address_id = $zone['address_id'];
         }else{
             $this->address_id = (auth()->user()->usercart->address->id??(auth()->user()->address->id??0));
             $address = SavedAddress::find($this->address_id);
@@ -107,14 +108,16 @@ class Checkout extends Component
             session(['zone_config' => $result]);
             view()->share('zone_data',\Session::get('zone_config'));
         }
-        $zones = \Session::get('zone_config');
-        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']??''));
 
         $this->calculateShippingCharges();
     }
     
     public function cartList()
     {
+        
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
 
         $cart_products = [];
@@ -215,6 +218,9 @@ class Checkout extends Component
 
     public function calculateShippingCharges()
     {
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $cart_products = $this->cart_products; 
         
         $setting = Setting::first();
@@ -225,22 +231,34 @@ class Checkout extends Component
         $cost_per_km = $setting->cost_per_km;
         $cost_minimum_km = $setting->cost_minimum_km;
 
-        if($zone = Zone::find($this->zone))
-        {
-            $latitudeFrom = $zone->lat;
-            $longitudeFrom = $zone->lng;
-            $latitudeTo = $this->lat;
-            $longitudeTo = $this->lng;
-            $url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$latitudeFrom,$longitudeFrom&destinations=$latitudeTo,$longitudeTo&key=".config('shipping.google_map_api_key');
-            $details=file_get_contents($url);
-            $result = json_decode($details,true);
-
-            $distance = $result['rows'][0]['elements'][0]['distance']['value']??0;
-            $distance = round($distance/1000, 2);
-        }
+        
         $shipping_charges = 0;
         foreach($cart_products as $key => $cart_product)
         {
+            // $available_drivers = Driver::select("*", DB::raw("6371 * acos(cos(radians(" . $lat . "))
+            // * cos(radians(lat)) * cos(radians(lng) - radians(" . $lng . "))
+            // + sin(radians(" .$lat. ")) * sin(radians(lat))) AS distance"))
+            // ->having('distance', '<', $min_distance)
+            // ->whereNull('current_trip_id')
+            // ->whereIsAvailable(1)
+            // ->whereIsOnline(1)
+            // ->orderBy('distance', 'asc')
+            // ->get();
+    
+            // if($zone = Zone::find($this->zone))
+            // {
+            //     $latitudeFrom = $zone->lat;
+            //     $longitudeFrom = $zone->lng;
+            //     $latitudeTo = $this->lat;
+            //     $longitudeTo = $this->lng;
+            //     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=$latitudeFrom,$longitudeFrom&destinations=$latitudeTo,$longitudeTo&key=".config('shipping.google_map_api_key');
+            //     $details=file_get_contents($url);
+            //     $result = json_decode($details,true);
+
+            //     $distance = $result['rows'][0]['elements'][0]['distance']['value']??0;
+            //     $distance = round($distance/1000, 2);
+            // }
+
             $weight = $cart_product['weight'];
             $shipping_charge = 0;
             if(!empty($this->zone) && ($setting->is_enabled_shipping_charges=='yes'))
@@ -737,10 +755,6 @@ class Checkout extends Component
 
     public function mount($from='')
     {
-        
-        $zone = \Session::get('zone_config');
-        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
-
         $this->from = $from;
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
         $this->cartList();

@@ -343,7 +343,9 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}&product_variant={{ $product['variant_id'] }}">
+                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                </a>
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-6 px-0">
@@ -470,7 +472,9 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}&product_variant={{ $product['variant_id'] }}">
+                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                </a>
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-6 px-0">

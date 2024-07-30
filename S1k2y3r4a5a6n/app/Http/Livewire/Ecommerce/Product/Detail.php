@@ -360,9 +360,9 @@ class Detail extends Component
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
         
-        $zones = \Session::get('zone_config');
-        $this->postal_code = $zones['postal_code']??'';
-        $this->address_id = $zones['address_id']??0;
+        $zone = \Session::get('zone_config');
+        $this->postal_code = $zone['postal_code']??'';
+        $this->address_id = $zone['address_id']??0;
 
     }
 
