@@ -354,8 +354,13 @@ class Detail extends Component
                                 
         $this->productList('frequently_bought_products',implode(',',$frequently));
 
-        $this->buying_options = BuyingOption::whereStatus('active')->get()->toArray();
-   
+        $this->buying_options  = BuyingOption::whereStatus('active')
+                                ->where(function ($query) {
+                                    $query->where('feature_type', '=', 'buying');
+                                })
+                                ->get()
+                                ->toArray();  
+
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;

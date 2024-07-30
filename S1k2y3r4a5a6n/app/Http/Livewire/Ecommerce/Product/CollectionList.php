@@ -29,10 +29,10 @@ class CollectionList extends Component
             return $collection['product_stock'] !== null;
         });
         // Check if collections are less than 5, if so, duplicate the items to make a continuous loop
-        if (count($collections) < 5) {
+        if (count($collections) < 4) {
             $collections = array_merge($collections, $collections, $collections); // Duplicate to fill space
         } elseif (count($collections) == 1) {
-            $collections = array_fill(1, 6, $collections[1]); // Duplicate single image to fill space
+            $collections = array_fill(1, 5, $collections[1]); // Duplicate single image to fill space
         }
 
         // dd($collections);

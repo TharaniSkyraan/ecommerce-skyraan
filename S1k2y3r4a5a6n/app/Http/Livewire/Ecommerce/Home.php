@@ -157,12 +157,21 @@ class Home extends Component
         $reviews = Review::where('rating', 5)->with('user')->get();
         $this->reviews = $reviews;
 
-        $this->collections = BuyingOption::where('status', 'active')
+        $collections = BuyingOption::where('status', 'active')
                                 ->where(function ($query) {
                                     $query->where('feature_type', '!=', 'buying');
                                 })
                                 ->get()
-                                ->toArray();        
+                                ->toArray();  
+
+        // Check if collections are less than 5, if so, duplicate the items to make a continuous loop
+        if (count($collections) < 5) {
+            $collections = array_merge($collections, $collections, $collections); // Duplicate to fill space
+        } elseif (count($collections) == 1) {
+            $collections = array_fill(1, 6, $collections[1]); // Duplicate single image to fill space
+        }
+
+        $this->collections = $collections;      
         
     }
     public function productList($type,$ids)
