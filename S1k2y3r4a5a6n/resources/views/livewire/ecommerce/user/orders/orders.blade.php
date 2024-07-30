@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 align-self-center pe-0">
                                 <div class="d-flex gap-2 align-items-center">
-                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}" target="_blank">
+                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id']}}" target="_blank">
                                         <h5 class="fw-bold pb-1 buy-color">{{ $item['product_name'] }}</h5>
                                     </a>
                                 </div>
@@ -140,7 +140,7 @@
                                             </div>
                                             @if(!isset($item['review']))
                                             <div class="col-xl-4 col-lg-4 col-md-6 cl-sm-6 col-7 py-2 px-0 text-center">
-                                                <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&tab=review" target="_blank" class="border border-secondary h-sms py-2 px-2 rounded-0 text-secondary">Write  Review</a>
+                                                <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id']}}&tab=review" target="_blank" class="border border-secondary h-sms py-2 px-2 rounded-0 text-secondary">Write  Review</a>
                                             </div>
                                             @endif
                                         @endif

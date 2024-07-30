@@ -38,8 +38,11 @@ class OrderItem extends Model
 
     public function getVariantAttribute()
     {
+        $zone = \Session::get('zone_config');
+        $warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+
         $attribute_ids = array_filter(explode(',',$this->attribute_set_ids));
-        $default = ProductVariant::select('id','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+        $default = ProductVariant::select('id','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')
                     ->where(function($q) use($attribute_ids) {
                         foreach($attribute_ids as $set_id){
                             $q->whereHas('product_attribute_set', function($q1) use($set_id){
@@ -47,6 +50,15 @@ class OrderItem extends Model
                             });
                         }
                     })->whereProductId($this->product_id)->first();
+                    
+        $product_stock = ProductStock::select('id', 'available_quantity')
+                                    ->whereIn('warehouse_id',$warehouse_ids)
+                                    ->whereProductVariantId($default->id??'')
+                                    ->groupBy('id', 'available_quantity')
+                                    ->orderBy('available_quantity','desc')
+                                    ->first();
+
+        $default->stock_status = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
 
         return $default;
 
