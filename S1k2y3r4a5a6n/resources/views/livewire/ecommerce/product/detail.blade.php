@@ -172,7 +172,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 ps-0">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 ps-0">
                             <div class="location-selection position-relative">
                                 <div class="d-flex align-items-center input-container">
                                     <span class="location-icon">

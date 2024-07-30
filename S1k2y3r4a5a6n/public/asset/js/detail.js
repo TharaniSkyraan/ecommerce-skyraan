@@ -149,12 +149,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-$(document).ready(function(){
-  $(".hover-btn").click(function(){
+  $(document).on('click','.hover-btn', function(){
       $(".location-card").toggle();
   });
-});
-
 
 function isNumberKey(event) {
   const input = event.target;
