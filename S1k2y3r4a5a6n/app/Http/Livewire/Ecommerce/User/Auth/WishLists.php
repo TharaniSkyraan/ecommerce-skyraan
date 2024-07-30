@@ -8,19 +8,25 @@ use App\Models\ProductVariant;
 use App\Models\Review;
 use App\Models\Label;
 use App\Models\Product;
+use App\Models\ProductStock;
 use App\Models\Tax;
 use Carbon\Carbon;
 
 class WishLists extends Component
 {
     public $wishlist,$products;
+    public $warehouse_ids = [];
     
     public function addremoveWish($product_id)
     {
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+        
         if(\Auth::check()){
             $wishlistadded = Wishlist::whereUserId(auth()->user()->id)->where('product_ids', 'REGEXP', $product_id)->first();
            
-            if(!isset($wishlistadded)){ 
+            if(!isset($wishlistadded))
+            { 
                 $product_ids = array_filter(array_values($this->wishlist));
                 array_push($product_ids, $product_id);
                 $this->wishlist = $product_ids;
@@ -31,8 +37,8 @@ class WishLists extends Component
                     ['user_id' => auth()->user()->id],
                     $wishlist
                 );
-            }else{
-                
+            }else
+            {
                 $product_ids = array_filter(array_values($this->wishlist));
                 $product_ids = array_diff($product_ids, [$product_id]);
                 $this->wishlist = $product_ids;
@@ -65,7 +71,8 @@ class WishLists extends Component
         {
 
             $default = ProductVariant::select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                    ->whereIsDefault('yes')                                     
+                                    ->whereIn('is_default', ['yes', 'no'])
+                                    ->orderByRaw("is_default = 'yes' DESC")                                    
                                     ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
 
@@ -75,7 +82,13 @@ class WishLists extends Component
 
             if(isset($default))
             {
-                $stock_status = ProductVariant::whereStockStatus('in_stock')->whereProductId($product['id'])->count();
+
+                $product_stock = ProductStock::select('id', 'available_quantity')
+                                                ->whereIn('warehouse_id',$this->warehouse_ids)
+                                                ->whereProductVariantId($default->id)
+                                                ->groupBy('id', 'available_quantity')
+                                                ->orderBy('available_quantity','desc')
+                                                ->first();
 
                 $price = $default->price;
 
@@ -116,7 +129,6 @@ class WishLists extends Component
             $images = json_decode($product['images'], true);
             $product['image1'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
             $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
-            $product['stock_status'] = (!isset($stock_status))?'out_of_stock':'in_stock';
             $product['price'] = $price;
             $product['slug'] = $product['slug'];
             $product['variant_id'] = $default->id??0;
@@ -126,6 +138,8 @@ class WishLists extends Component
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
             $product['review_count'] = $rating_count;
             $product['product_type'] = ProductVariant::whereProductId($product['id'])->count();
+            $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
+                
             return $product;
 
         }, $Products);
