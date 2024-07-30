@@ -117,11 +117,11 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="quantity PY-2">
-                    <div class="d-flex gap-4 align-items-center">
-                        <h6 class="text-dark fw-bold">Quantity :</h6>
-                        @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
-                        @if($limit !=0)
+                @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                @if($limit !=0)
+                    <div class="quantity PY-2">
+                        <div class="d-flex gap-4 align-items-center">
+                            <h6 class="text-dark fw-bold">Quantity :</h6>
                             <div class="qty-dropdown w-25 position-relative">
                                 <div class="card rounded-0 p-1">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -134,11 +134,10 @@
                                     <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
                                     @endfor
                                 </div>
-                            </div>
-                        @endif
-                        
+                            </div>                        
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="container-fluid px-0">
                     <div class=" row align-items-center add-to-cart py-3 w-75 adadas">
                         @if($stock_status=='out_of_stock')
