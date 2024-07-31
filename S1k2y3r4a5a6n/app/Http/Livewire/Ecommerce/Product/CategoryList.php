@@ -14,15 +14,15 @@ class CategoryList extends Component
         $this->categories1 = Category::whereStatus('active')
                                     ->whereNull('parent_id')
                                     ->orderBy('sort','asc')
-                                    ->limit(7)->get();
+                                    ->limit(6)->get();
         $this->categories = Category::whereStatus('active')
                                     ->whereNull('parent_id')
                                     ->orderBy('sort','asc')
-                                    ->skip(7)->take(PHP_INT_MAX)->get();
+                                    ->skip(6)->take(PHP_INT_MAX)->get();
         $category_ids = Category::whereStatus('active')
                                     ->whereNull('parent_id')
                                     ->orderBy('sort','asc')
-                                    ->skip(7)->take(PHP_INT_MAX)
+                                    ->skip(6)->take(PHP_INT_MAX)
                                     ->pluck('id')->toArray();
         $count = Category::where(function($query) use ($category_ids) {
                                 $query->whereIn('id', $category_ids)
