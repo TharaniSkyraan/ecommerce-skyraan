@@ -42,19 +42,15 @@ class ProductList extends Component
     }
     public function GetFilters($filters)
     {   
-        
         $this->ResetAllFilters();
-
         foreach($filters as $key =>$filter){
             $this->$key = (is_array($filter))?implode(',',$filter):$filter;
         }
         $this->filterProduct();
-        
     }
 
     public function InitiateFilters($type='')
     {   
-
         if($this->initiate){
             
             $filters = [];
