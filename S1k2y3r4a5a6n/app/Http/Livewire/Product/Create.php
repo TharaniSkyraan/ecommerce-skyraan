@@ -23,7 +23,7 @@ class Create extends Component
 {
     use WithFileUploads;
     public $product_id, $description, $content, $name, $status, $slug, $brand, $tax_ids, $query, $crosssellingquery, $label_id, $product_variant_type;
-    public $variant_id, $sku, $price, $sale_price, $cost_per_item, $shipping_wide, $shipping_length, $shipping_height, $shipping_weight, $images, $is_default, $discount_duration, $discount_start_date, $discount_end_date;
+    public $variant_id, $sku, $price, $cart_limit, $sale_price, $cost_per_item, $shipping_wide, $shipping_length, $shipping_height, $shipping_weight, $images, $is_default, $discount_duration, $discount_start_date, $discount_end_date;
     public $category_ids = [];
     public $collection_ids = [];
     public $imageList = [];
@@ -124,6 +124,7 @@ class Create extends Component
         $rules = [
             'sku' => 'required|max:180|unique:product_variants,sku,'.($this->variant_id??'null').',id,deleted_at,NULL',
             'price' => 'required|min:1|numeric', 
+            'cart_limit' => 'required|min:1|numeric', 
             'shipping_length' => 'required|min:1|numeric',
             'shipping_wide' => 'required|min:1|numeric',
             'shipping_height' => 'required|min:1|numeric',
@@ -150,6 +151,7 @@ class Create extends Component
         $productVariantList['sku'] = $this->sku;
         $productVariantList['price'] = $this->price; 
         $productVariantList['sale_price'] = $this->sale_price; 
+        $productVariantList['cart_limit'] = $this->cart_limit; 
         $productVariantList['discount_start_date'] = ($this->discount_duration=='yes')?Carbon::parse($this->discount_start_date)->format('Y-m-d H:i'):null;
         $productVariantList['discount_end_date'] = ($this->discount_duration=='yes')?Carbon::parse($this->discount_end_date)->format('Y-m-d H:i'):null;
         $productVariantList['discount_duration'] = ($this->discount_duration=='yes')?'yes':'no'; 
@@ -189,6 +191,7 @@ class Create extends Component
         $this->discount_end_date = ($productVariantList['discount_duration']=='yes')?Carbon::parse($productVariantList['discount_end_date'])->format('d-m-Y H:i'):'';
         $this->discount_duration = ($productVariantList['discount_duration']=='yes')?'yes':'';
         $this->sale_price = $productVariantList['sale_price']; 
+        $this->cart_limit = $productVariantList['cart_limit']; 
         $this->cost_per_item = $productVariantList['cost_per_item']; 
         $this->shipping_wide = $productVariantList['shipping_wide']; 
         $this->shipping_height = $productVariantList['shipping_height']; 
@@ -207,7 +210,7 @@ class Create extends Component
     }
     
     private function resetproductVariants(){
-        $this->reset(['variant_id','sku','price','sale_price','discount_start_date','discount_end_date','discount_duration','cost_per_item','productAttributeList',
+        $this->reset(['variant_id','sku','price','sale_price','cart_limit','discount_start_date','discount_end_date','discount_duration','cost_per_item','productAttributeList',
                        'shipping_wide','shipping_height','shipping_weight','shipping_length','variantImageList','iseditproductVariant']); 
 
     }
@@ -378,6 +381,7 @@ class Create extends Component
             $productVariant->sku = $variant['sku'];
             $productVariant->price = $variant['price'];
             $productVariant->sale_price = (!empty($variant['sale_price']))?$variant['sale_price']:0;
+            $productVariant->cart_limit = $variant['cart_limit'];
             $productVariant->search_price = $product_price;
             $productVariant->discount_duration = $variant['discount_duration'];
             $productVariant->discount_start_date = $variant['discount_start_date']??null;
