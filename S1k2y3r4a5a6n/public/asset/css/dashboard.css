@@ -440,6 +440,12 @@
    --bs-btn-close-bg: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e)!important;
    z-index: 1;
 }
+#cancel-order .form-control::placeholder{
+   font-size: 13px;
+}
+#cancel-order .form-control{
+   font-size: 13px;
+}
 #submit-cancel-order .modal-content {
    border-radius: 2px !important;
 }
@@ -691,6 +697,9 @@
    .billing .form-control{
        font-size: 13px;
    }
+   #cancel-order .hding{
+      font-size: 16px!important;
+   } 
 }
 @media only screen and (max-width:767px){
    .tabs_nd_mbl{
@@ -757,7 +766,10 @@
    }
    .userdashboard .select_lists .collg9 {
       width: 100%!important;
-   }  
+   } 
+   #cancel-order .hding{
+      font-size: 16px!important;
+   } 
 }
 @media (min-width: 600px) and (max-width: 991px){
    .userdashboard .select-li {

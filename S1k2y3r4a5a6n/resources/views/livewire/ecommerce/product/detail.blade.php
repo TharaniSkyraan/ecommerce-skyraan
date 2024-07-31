@@ -258,7 +258,7 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="related-images">
                     @foreach($related_products as $product)
-                        <div class="item px-2">
+                        <div class="item p-2">
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">

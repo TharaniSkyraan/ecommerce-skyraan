@@ -142,7 +142,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
                                             @endif
                                         </div> 
                                     </a>
-                                    <div class="container-fluid ps-1 position-absolute add-div">
+                                    <div class="container-fluid ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0 position-absolute add-div">
                                         @if($tproduct['stock_status']=='out_of_stock')
                                             <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                 <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
@@ -290,7 +290,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
                                                 @endif
                                             </div> 
                                         </a>
-                                        <div class="container-fluid position-absolute add-div">
+                                        <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                             @if($product['stock_status']=='out_of_stock')
                                                 <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                     <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
@@ -419,7 +419,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
                                                     @endif
                                                 </div> 
                                             </a>                                
-                                            <div class="container-fluid position-absolute add-div">  
+                                            <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">  
                                                 @if($product['stock_status']=='out_of_stock')
                                                     <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                         <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>

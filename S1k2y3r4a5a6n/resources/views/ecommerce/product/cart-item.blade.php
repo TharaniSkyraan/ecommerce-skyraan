@@ -18,9 +18,6 @@
                                 <small class="card border-0 text-center text-white">{{ $cart_product['discount'] }}% Off</small>
                             </div>
                         @endif
-                        @if($cart_product['quantity']>$limit)
-                            <span class="text-danger h-sms px-2">{{ ($cart_product['available_quantity']==0)?'Out of stock':'Only '.$limit.' quantity is allowed.' }} </span> <span class="h-sms"> | <text class="cursor mx-2 deleteCart" wire:click=""> Remove </text> </span>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -34,6 +31,10 @@
             <h6 class="price_clr text-end">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['price'] }}</h6>
         @endif
     </div>
+    @if($cart_product['quantity']>$limit)
+        <div class="px-2 pt-2"><span class="text-danger h-sms px-2">{{ ($cart_product['available_quantity']==0)?'Out of stock':'Only '.$limit.' quantity is allowed.' }} </span> <span class="h-sms"> | <text class="cursor mx-2 deleteCart" wire:click=""> Remove </text> </span></div>
+    @endif
+
 </div>
 <hr>
 @endforeach

@@ -547,6 +547,14 @@ fieldset, legend {
     }
 } */
 /*detail*/
+.detail-dot {
+    display: inline-block;
+    max-width: 27ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
 .price{
     color: var(--price-content-color);
 }
@@ -1719,4 +1727,27 @@ padding-top: 155px!important;
 }
 .qty-option.selected{
     background-color: var(--items-list-bg-color);
+}
+
+/* filter dropdown */
+
+.filter-dropdown .bg-white{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    z-index: 11;
+}
+.filter-select img{
+    width:10px;
+}
+.filter-select{
+   border: 1px solid var(--items-list-bg-color);
+}
+.filter-dropdown p:hover{
+    background-color: var(--items-list-bg-color);
+}
+.filter-dropdown p.selected{
+    background-color: var(--items-list-bg-color);
+}
+
+.jewfjjkdszx{
+    /* width: 8%; */
 }
