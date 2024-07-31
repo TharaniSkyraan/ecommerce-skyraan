@@ -16,6 +16,7 @@
                 </div>
                 <hr class="sys-view">
                 @foreach($cart_products as $cart_product)
+                    @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
                     <div class="row py-2 cartList price-list PrdRow ps-2" data-id="{{ $cart_product['id'] }}" data-cid="{{ $cart_product['cart_id'] }}">
                         <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
                         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
@@ -37,7 +38,7 @@
                                     </div>
                                     <h6 class="pb-1">{{ $cart_product['attributes'] }}</h6>
                                     <div class="d-flex">
-                                        @if($cart_product['product_type']>1)
+                                        @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
                                             <div>
                                                 <button class="bg-unset border-0 px-0 me-3 EditQuickShop" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                     <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="w-75">
@@ -52,14 +53,32 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-7 align-self-center pt-2 ps-0">
-                            <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
+                            <!-- <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
                                 <div class="col text-center px-1"><span class="input-qty h-sms">{{ $cart_product['quantity'] }}</span></div>
                                 <div class="vr"></div>
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
-                            </div>
+                            </div> -->
+                            @if($cart_product['quantity']<=$limit)
+                                <div class="qty-dropdown w-25 position-relative">
+                                    <div class="card rounded-0 p-1">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
+                                            <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                        </div>
+                                    </div>
+                                    <div class="card-bodys" style="display:none;">
+                                        @for ($i = 1; $i <= $limit; $i++) 
+                                        <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                        @endfor
+                                    </div>
+                                </div>
+                            @else
+                                <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                            @endif
                         </div>
+
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
                             @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
                                 <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
@@ -80,12 +99,14 @@
                         <textarea class="form-control fw-normal text-areaa" placeholder="Order special instructions" id="order_notes" wire:model="notes"></textarea>
                         @error('notes')<span class="error">{{$message}}</span> @endif
                     </div>
-                    <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-2 pt-2 pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0">
-                        <div class="pb-3">
-                            <label for="postalCode" class="form-label h-sms">Postal Code</label>
-                            <input type="number" class="form-control " id="postalCode" wire:model="postal_code" oninput="isNumberKey(event)" aria-describedby="postalCode" placeholder="Postal code">
-                            @error('postal_code') <span class="error">{{$message}}</span> @endif
-                        </div> 
+                    <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
+                        <div class="d-flex justify-content-between py-2">
+                            <h6 class="">Subtotal</h6>
+                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
+                        </div>
+                        <div>
+                            <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
+                        </div>
                     </div>
                 </div>
                 <div class="row" id="shipping">
@@ -116,13 +137,6 @@
                         @endif      
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
-                        <div class="d-flex justify-content-between py-2">
-                            <h6 class="">Subtotal</h6>
-                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
-                        </div>
-                        <div>
-                            <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
-                        </div>
                         <div class="text-center pb-2">
                             <a href="javascript:void(0);" wire:click.prevent="Checkout" class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-3"><h6 class="fw-normal">Proceed to checkout</h6></a>
                         </div>

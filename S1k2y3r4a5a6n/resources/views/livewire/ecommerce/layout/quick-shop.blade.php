@@ -85,15 +85,22 @@
                 <div class="quantity py-1">
                     <div class="d-flex gap-2 align-items-center">
                         <small class="text-dark fw-bold">Quantity :</small>
-                        <div class="d-flex gap-3 align-items-center pt-1">
-                            <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                <div class="col text-center qty-btn-minus"><span>-</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center"><span class="input-qty h-sms">1</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center qty-btn-plus"><span>+</span></div>
+                        @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                        @if($limit !=0)
+                            <div class="qty-dropdown w-25 position-relative">
+                                <div class="card rounded-0 p-1">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="h-sms input-qty">1</p>
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                    </div>
+                                </div>
+                                <div class="card-bodys" style="display:none;">
+                                    @for ($i = 1; $i <= $limit; $i++) 
+                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                    @endfor
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 @if(isset($stock_status) && $stock_status=='in_stock')
@@ -123,12 +130,16 @@
                         </a>
                     </div>
                 @endif
+                @if($cart_product)
                 <div class="py-2">
+                    <a href="{{  route('ecommerce.product.detail', ['slug' => $cart_product->slug??'']) }}?prdRef={{ \Carbon\Carbon::parse($cart_product->created_at??'')->timestamp}}">
+
                     <div class="d-flex justify-content-start align-items-center gap-1 cursor">
                         <h6>View details</h6>
                         <img src="{{asset('asset/home/right-arrow.png')}}" alt="arrow">
-                    </div>
+                    </div></a>
                 </div>
+                @endif
             </div>
         </div>
         <div class="nointernet text-danger text-center"></div>

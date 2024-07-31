@@ -10,7 +10,7 @@
                                 <div class="row">
                                     <div class="col-5">
                                         <div class="card card1 position-relative border-0 p-2 cursor">
-                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp}}">
+                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp}}&product_variant={{$cart_product['variant_id']}}">
                                             <!-- <div class="position-absolute like-img">
                                                 <img src="{{asset('asset/home/Group 32139.png')}}" alt="like" class="w-75">
                                             </div> -->
@@ -29,15 +29,25 @@
                                                 <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
                                             @endif
                                         </h6>
-                                        <div class="d-flex gap-xl-3 gap-lg-3 gap-md-3 gap-sm-3 gap-2 align-items-center pt-1">
-                                            <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                                <div class="col text-center qty-btn-minus"><span>-</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center"><span class="input-qty h-sms px-1">{{ $cart_product['quantity'] }}</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center qty-btn-plus"><span>+</span></div>
-                                            </div>
-                                            @if($cart_product['product_type']>1)
+                                        <div class="d-flex justify-content-between align-items-center pt-1">
+                                            @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit'];  @endphp
+                                            @if($cart_product['quantity']<=$limit)
+                                                <div class="qty-dropdown w-50 position-relative">
+                                                    <div class="card rounded-0 p-1">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
+                                                            <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-bodys" style="display:none;">
+                                                        @for ($i = 1; $i <= $limit; $i++) 
+                                                        <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                                        @endfor
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
                                             <div>
                                                 <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                     <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="w-75">
@@ -48,6 +58,9 @@
                                                 <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
                                             </div>
                                         </div>
+                                        @if($cart_product['quantity']>$limit)
+                                            <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </a>

@@ -121,14 +121,7 @@
     border: 2px solid black;
     box-sizing: border-box; 
 } */
-.detail-dot {
-    display: inline-block;
-    max-width: 27ch;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    vertical-align: bottom;
-}
+
 
 .details .tab-head{
     color: var(--detailprice-content-color);
@@ -170,7 +163,7 @@
     position: absolute;
     width: 40%;
     float: left;
-    z-index: 1;
+    z-index: 9;
 }
 .hovered {
     background-color:#fff;
@@ -346,6 +339,7 @@
     box-shadow: 0 0 10px var(--items-list-border-color) !important;
 }
 .location-selection .card{
+    margin-top: -13px;
     display: none;
     position: absolute;
     z-index: 1;

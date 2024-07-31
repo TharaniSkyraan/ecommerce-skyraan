@@ -26,17 +26,17 @@ $(document).ready(function ($) {
         $(".next-btn").removeClass("disabled");
       }
     });
-    
-    $(document).on('click','.likedislike', function()
-    {
-        if($(this).attr('data-id')=='unlike'){
-            $(this).attr('src', '../../asset/home/like.svg');
-            $(this).attr('data-id','like');
-        }else{
-            $(this).attr('src', '../../asset/home/like-filled.svg');
-            $(this).attr('data-id','unlike');
-        }
-    });
+});
+
+$(document).on('click','.likedislike', function()
+{
+    if($(this).attr('data-id')=='unlike'){
+        $(this).attr('src', '../../asset/home/like.svg');
+        $(this).attr('data-id','like');
+    }else{
+        $(this).attr('src', '../../asset/home/like-filled.svg');
+        $(this).attr('data-id','unlike');
+    }
 });
 
 $(document).ready(function() {
@@ -149,12 +149,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-$(document).ready(function(){
-  $(".hover-btn").click(function(){
+  $(document).on('click','.hover-btn', function(){
       $(".location-card").toggle();
   });
-});
-
 
 function isNumberKey(event) {
   const input = event.target;

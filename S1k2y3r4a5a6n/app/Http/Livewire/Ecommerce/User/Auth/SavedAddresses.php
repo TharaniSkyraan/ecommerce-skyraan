@@ -45,8 +45,14 @@ class SavedAddresses extends Component
 
     public function store()
     {
-
-        $ipData = \Session::get('ip_config');
+        $ipData = \Session::get('ip_config'); 
+        $data = array(
+            'address_id' => '',
+            'city' => '',
+            'latitude' => '',
+            'longitude' => '',
+            'postal_code' => $this->postal_code??''
+        );  
         $validatedData = $this->validate([
             'phone' => 'required|numeric|phone:'.$ipData->code,
             'alternative_phone' => 'nullable|numeric|phone:'.$ipData->code,

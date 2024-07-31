@@ -117,20 +117,27 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="quantity PY-2">
-                    <div class="d-flex gap-4 align-items-center">
-                        <h6 class="text-dark fw-bold">Quantity :</h6>
-                        <div class="d-flex gap-3 align-items-center pt-1">
-                            <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
-                                <div class="col text-center px-2  qty-btn-minus"><span>-</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center px-2 "><span class="input-qty h-sms">1</span></div>
-                                <div class="vr"></div>
-                                <div class="col text-center px-2  qty-btn-plus"><span>+</span></div>
-                            </div>
+                @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
+                @if($limit !=0)
+                    <div class="quantity PY-2">
+                        <div class="d-flex gap-4 align-items-center">
+                            <h6 class="text-dark fw-bold">Quantity :</h6>
+                            <div class="qty-dropdown w-25 position-relative">
+                                <div class="card rounded-0 p-1">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="h-sms input-qty">1</p>
+                                        <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                    </div>
+                                </div>
+                                <div class="card-bodys" style="display:none;">
+                                    @for ($i = 1; $i <= $limit; $i++) 
+                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                    @endfor
+                                </div>
+                            </div>                        
                         </div>
                     </div>
-                </div>
+                @endif
                 <div class="container-fluid px-0">
                     <div class=" row align-items-center add-to-cart py-3 w-75 adadas">
                         @if($stock_status=='out_of_stock')
@@ -164,7 +171,7 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 ps-0">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12 ps-0">
                             <div class="location-selection position-relative">
                                 <div class="d-flex align-items-center input-container">
                                     <span class="location-icon">
@@ -251,8 +258,8 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="related-images">
                     @foreach($related_products as $product)
-                        <div class="item px-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                        <div class="item p-2 prdDet cursor">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
@@ -284,45 +291,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
-                                    <div class="text-center position-relative">
-                                        <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                        @if(!empty($product['image2']))
-                                        <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
-                                        @endif
-                                    </div> 
-                                </a>
+                                <div class="text-center position-relative">
+                                    <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                    @if(!empty($product['image2']))
+                                    <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
+                                    @endif
+                                </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                        <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
-                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
-                                    </button>
-                                    <!-- @if($product['product_type'] > 1)
+                                    @if($product['stock_status']=='out_of_stock')
+                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
+                                            <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
+                                        </button>   
+                                    @else
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                         </button>
-                                    @elseif($product['stock_status']=='out_of_stock')
-                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
-                                            <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
-                                        </button>                                    
-                                    @else
-                                        <div class=" row align-items-center add-to-cart">
-                                            <div class=" col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center bg-clr p-1 rounded-1 text-white">
-                                                <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center px-1"><span class="input-qty h-sms">1</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
-                                            </div>
-                                            <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
-                                                <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
-                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
-                                                </a>
-                                            </div>
-                                        </div> 
-                                    @endif -->
+                                    @endif
                                 </div>
                             </div>
                             <div class="price_info py-3">
@@ -348,7 +333,7 @@
                                             @elseif($product['review']==1)
                                             <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==2)
-                                            <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
+                                        <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==3)
                                             <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==4)
@@ -378,8 +363,8 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="frequent-images">                    
                     @foreach($frequently_bought_products as $product)
-                        <div class="item px-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                        <div class="item px-2 prdDet cursor">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
@@ -411,45 +396,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
-                                    <div class="text-center position-relative">
-                                        <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                        @if(!empty($product['image2']))
-                                        <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
-                                        @endif
-                                    </div> 
-                                </a>
+                                <div class="text-center position-relative">
+                                    <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                    @if(!empty($product['image2']))
+                                    <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
+                                    @endif
+                                </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                        <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
-                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
-                                    </button>
-                                    <!-- @if($product['product_type'] > 1)
+                                    @if($product['stock_status']=='out_of_stock')
+                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
+                                            <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
+                                        </button>       
+                                    @else
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
                                         </button>
-                                    @elseif($product['stock_status']=='out_of_stock')
-                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
-                                            <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
-                                        </button>                                    
-                                    @else
-                                        <div class=" row align-items-center add-to-cart">
-                                            <div class=" col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center bg-clr p-1 rounded-1 text-white">
-                                                <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center px-1"><span class="input-qty h-sms">1</span></div>
-                                                <div class="vr"></div>
-                                                <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
-                                            </div>
-                                            <div class="col-xl-8 col-lg-8 col-sm-8 col-md-8 col-7 pe-0 ps-1 hover-pading">
-                                                <a href="javascript:void(0);" class="card d-flex py-1 px-lg-2 px-xl-3 px-md-3 px-sm-3 px-0 bg-clr rounded-1 border-0  flex-row align-self-center justify-content-center AddCart"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                                    <h6 class="text-white text-center py-1 px-xl-2 px-lg-2 px-md-0 px-sm-0 px-0 h-sm text-nowrap sys-view">Add to cart</h6>
-                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="cart" class="mbl-view mbl-cart-img">
-                                                </a>
-                                            </div>
-                                        </div> 
-                                    @endif -->
+                                    @endif
                                 </div>
                             </div>
                             <div class="price_info py-3">

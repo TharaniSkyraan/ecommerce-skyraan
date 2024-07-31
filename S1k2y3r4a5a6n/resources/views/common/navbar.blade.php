@@ -1,12 +1,12 @@
 <section class="top-nav py-2">
     <div class="container">
         <div class="row ">
-            <div class="col-4 d-none d-lg-block">
+            <div class="col-3 d-none d-lg-block">
                 <div class="d-flex gap-2 align-items-center">
                     <h6 class="text-white h-sms">Need help ?</h6><h6 class="text-dark h-sms">+91 {{$siteSetting->phone}} </h6>
                 </div>
             </div>
-            <div class="col-sm-12 col-lg-4 col-xl-4 col-xxl-4 col-12">
+            <div class="col-sm-12 col-lg-3 col-xl-3 col-xxl-3 col-12">
                 <!-- <div class="d-flex justify-content-center align-items-center ">
                     <div id="top_nav_carousel" class="owl-carousel">
                         <div class="item"><h6 class="text-white text-center fw-normal h-sms">deal of the day ! : Nature beauty collection</h6></div>
@@ -14,9 +14,9 @@
                     </div>
                 </div> -->
             </div>
-            <div class="col-4 d-none d-lg-block">
+            <div class="col-6 d-none d-lg-block">
                 <div class="d-flex gap-4 justify-content-end align-items-center">
-                    <h6 class="text-white h-sms"> <i class='bi bi-geo-alt'></i> Delivering to {{ $zone_data['city']}} {{ $zone_data['postal_code']}} {{ $zone_data['warehouse_ids']}}</h6>
+                    <h6 class="text-white h-sms"> <i class='bi bi-geo-alt'></i> Delivering to - {{ $zone_data['city']}} {{ $zone_data['postal_code']}} </h6>
                     <a href="{{url('/aboutus')}}"><h6 class="text-white h-sms">About Us</h6></a>
                     <a href="{{url('/contactus')}}"><h6 class="text-white h-sms">Contact Us</h6></a>
                 </div>

@@ -18,7 +18,7 @@ $(document).ready(function(){
 $(document).on('click','.EditQuickShop', function()
 {
     cart_id = $(this).closest('.PrdRow').data('cid');
-    Livewire.emit('quickShop',cart_id,'replace');
+    Livewire.emit('quickShop',cart_id,'','replace');
 
 });
 $(document).on('click','.ReplaceCart', function()
@@ -32,11 +32,11 @@ $(document).on('click','.ReplaceCart', function()
 
     //replace
     var qty = $(this).closest('.PrdRow').find('.input-qty').html();
-    var product_variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
-    var index = product_id+'-'+product_variant_id;
-    productsArray[index] = {product_id: product_id, product_variant_id: product_variant_id, quantity: parseInt(qty)};
+    var variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
+    var index = product_id+'-'+variant_id;
+    productsArray[index] = {product_id: product_id, product_variant_id: variant_id, quantity: parseInt(qty)};
     localStorage.setItem('cart',JSON.stringify(productsArray));
-    Livewire.emit('ReplaceItem',cart_id,product_variant_id,qty);
+    Livewire.emit('ReplaceItem',cart_id,variant_id,qty);
     $('.close-btn').trigger('click');
 });
 

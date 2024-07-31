@@ -74,4 +74,3 @@ function toggleVisibility(id) {
   $('[id^="grid-"]').addClass('hidden');
   $('#' + id).removeClass('hidden');
 }
-

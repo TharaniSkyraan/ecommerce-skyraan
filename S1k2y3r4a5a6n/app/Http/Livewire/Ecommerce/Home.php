@@ -23,7 +23,6 @@ class Home extends Component
     public $wishlist = [];
     public $warehouse_ids = [];
 
-
     public function mount()
     {
         $zone = \Session::get('zone_config');
@@ -38,7 +37,16 @@ class Home extends Component
                                                                           ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                           ->pluck('id')->first();
 
-                                    $items->append(['product_slug','product_created']);
+                                    if($items->product_type=='single'){
+                                        $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                            $q->where('status','active');
+                                                                        })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                    }
+                                    $items['product_slug'] = $product_variant->product->slug??'';
+                                    $items['variant_id'] = $product_variant->id??'';
+                                    $items['product_created'] = $product_variant->product->created_at??'';
+                                    // $items->append(['product_slug','product_created']);
+                                    return $items;
                                 })->toArray();
         $this->banners = array_filter($banners, function($banner) {
                                 return $banner['product_stock'] !== null;
@@ -52,7 +60,16 @@ class Home extends Component
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                                   ->pluck('id')->first();
-                                            $items->append(['product_slug','product_created']);
+                                            if($items->product_type=='single'){
+                                                $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                                    $q->where('status','active');
+                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                            }
+                                            $items['product_slug'] = $product_variant->product->slug??'';
+                                            $items['variant_id'] = $product_variant->id??'';
+                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            return $items;
+
                                         })->toArray();
         $this->promotion_banners = array_filter($promotion_banners, function($banner) {
                                         return $banner['product_stock'] !== null;
@@ -65,7 +82,15 @@ class Home extends Component
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                                   ->pluck('id')->first();
-                                            $items->append(['product_slug','product_created']);
+                                            if($items->product_type=='single'){
+                                                $product_variant = ProductVariant::whereHas('product', function($q){
+                                                                                    $q->where('status','active');
+                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                            }
+                                            $items['product_slug'] = $product_variant->product->slug??'';
+                                            $items['variant_id'] = $product_variant->id??'';
+                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            return $items;
                                         })->toArray();
         $this->special_products = array_filter($special_products, function($banner) {
                                         return $banner['product_stock'] !== null;
@@ -90,7 +115,6 @@ class Home extends Component
                                             })->whereHas('product_stock', function($q1){
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                             })
-                                            ->whereIsDefault('yes')
                                             ->orderBy('created_at','desc')
                                             ->limit(4)
                                             ->pluck('id')->toArray();
@@ -138,50 +162,20 @@ class Home extends Component
                                     $query->where('feature_type', '!=', 'buying');
                                 })
                                 ->get()
-                                ->toArray();
+                                ->toArray();  
 
-        $count = count($collections);
-        $duplicationCount = 10 - $count;
-        
-        $data = $collections;
-        for ($i = 0; $i < $duplicationCount; $i++) {
-            $data = array_merge($data, $collections);
+        // Check if collections are less than 5, if so, duplicate the items to make a continuous loop
+        if (count($collections) < 5) {
+            $collections = array_merge($collections, $collections, $collections); // Duplicate to fill space
+        } elseif (count($collections) == 1) {
+            $collections = array_fill(1, 6, $collections[1]); // Duplicate single image to fill space
         }
-        
-        // Split the array into chunks
-        $result = array_chunk($data, 5);
-        
-        // Ensure the result is not empty before proceeding
-        if (!empty($result)) {
-            // Check the count of the last chunk
-            $lastChunkIndex = count($result) - 1;
-            $lastChunkCount = count($result[$lastChunkIndex]);
-        
-            // If the last chunk has fewer than 5 elements, merge it with the first chunk
-            if ($lastChunkCount < 5) {
-                if (isset($result[0])) {
-                    $result[$lastChunkIndex] = array_slice(array_merge($result[0], $result[$lastChunkIndex]), 0, 5);
-                    unset($result[0]); // Unset the first chunk after merging
-                }
-            }
-        
-            // Ensure collections are not empty before assigning
-            if (!empty($result)) {
-                $this->collections = $result[0];
-                unset($result[0]);
-            } else {
-                $this->collections = [];
-            }
-            
-            $this->collections_data = $result;
-        } else {
-            // Handle the case where result is empty
-            $this->collections = [];
-            $this->collections_data = [];
-        }
+
+        $this->collections = $collections;      
         
     }
-    public function productList($type,$ids){
+    public function productList($type,$ids)
+    {
         
         if($type !='new_products')
         {
@@ -196,10 +190,13 @@ class Home extends Component
             $this->$type = array_map(function ($product) 
             {
 
-                $default = ProductVariant::select('id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                        ->whereIsDefault('yes')                                     
+                $default = ProductVariant::whereHas('product_stock', function($q){
+                                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        })->select('id','price','sale_price','is_default','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
+                                        // ->whereIsDefault('yes')    
+                                        ->whereIn('is_default', ['yes', 'no'])
+                                        ->orderByRaw("is_default = 'yes' DESC")                                 
                                         ->whereProductId($product['id'])->first();
-                                        
 
                 $discount = $price = $sale_price = 0;
 
@@ -279,12 +276,14 @@ class Home extends Component
             
             $ids=json_decode($ids);
 
-            $Products = ProductVariant::select('id as variant_id','product_id as id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                            ->whereIn('id',$ids)  
-                                            ->get()
-                                            ->sortBy(function ($product) use ($ids) {
-                                                return array_search($product->variant_id, $ids);
-                                            })->toArray();
+            $Products = ProductVariant::whereHas('product_stock', function($q){
+                                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        })->select('id as variant_id','product_id as id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
+                                        ->whereIn('id',$ids)  
+                                        ->get()
+                                        ->sortBy(function ($product) use ($ids) {
+                                            return array_search($product->variant_id, $ids);
+                                        })->toArray();
                                             
             $this->$type = array_map(function ($default) 
             {
@@ -310,7 +309,6 @@ class Home extends Component
                     
                     if($default['discount_duration']=='yes'){
                         
-
                         $currentDate = Carbon::now()->format('d-m-Y H:i');
 
                         // Start and end date from user input or database

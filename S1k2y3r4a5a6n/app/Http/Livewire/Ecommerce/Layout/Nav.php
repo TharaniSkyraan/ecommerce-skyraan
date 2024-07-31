@@ -18,6 +18,7 @@ class Nav extends Component
     public $show_result = false;
     public $query, $cart_product;
     public $products = [];
+    public $warehouse_ids = [];
     public $cart_quantity;
     protected $listeners = ['suggestion', 'unsetsuggestion', 'cartQuantityUpdate','Getwishlist','addCartinUserCart'];
 
@@ -28,22 +29,12 @@ class Nav extends Component
 
     public function mount()
     {
-        // $this->categories = Category::whereNULL('parent_id')->whereHas('sub_categories', function ($query) {
-        //     $query->where('status', 'active');
-        // }, '>', 0)->orderBy('sort','asc')->whereStatus('active')->get();
+
+        $zone = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
 
         $this->categories = Category::whereNULL('parent_id')->whereStatus('active')->orderBy('sort','asc')->get();
         
-        
-        $this->all_categories = Category::whereStatus('active')->where(function($q){
-            $q->whereNotNull('parent_id')
-                ->Orwhere(function($q1){
-                    $q1->whereHas('sub_categories', function ($query) {
-                        $query->where('status', 'active');
-                    }, '=', 0);
-                });
-        })->get();
-
         if(count($this->categories)==0){
             $this->categories = Category::whereStatus('active')->orderBy('sort','asc')->get();
         }
@@ -60,7 +51,6 @@ class Nav extends Component
             $class_name = 4;
             $divide = 3;
         }
-
 
         $column = round($count/12, 0);
         
@@ -80,16 +70,22 @@ class Nav extends Component
 
     public function productList(){
         
-        $Products = Product::select('id','slug','name','images','tax_ids','created_at')
+        $Products = Product::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->select('id','slug','name','images','tax_ids','created_at')
                             ->where('name', 'like', "%{$this->query}%")
                             ->whereStatus('active')->limit(5)->get()->toArray();
 
         $this->products = array_map(function ($product) 
         {
 
-            $default = ProductVariant::select('price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                            ->whereIsDefault('yes')                                     
-                                            ->whereProductId($product['id'])->first();
+            $default = ProductVariant::whereHas('product_stock', function($q){
+                                            $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                    })->select('price','sale_price','discount_expired','is_default','discount_start_date','discount_end_date','discount_duration')
+                                    // ->whereIsDefault('yes')  
+                                    ->whereIn('is_default', ['yes', 'no'])
+                                    ->orderByRaw("is_default = 'yes' DESC")                                    
+                                    ->whereProductId($product['id'])->first();
             $discount = $price = $sale_price = 0;
 
             $rating_count = Review::whereProductId($product['id'])->count();

@@ -1,16 +1,4 @@
-.filter-dropdown .bg-white{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    z-index: 11;
-}
-.filter-select img{
-    width:10px;
-}
-.filter-select{
-   border: 1px solid var(--items-list-bg-color);
-}
-.filter-dropdown p:hover{
-    background-color: var(--items-list-bg-color);
-}
+
 .div{
     border: 1px solid var(--items-list-bg-color);
 }

@@ -42,6 +42,29 @@
         </div>
     </div>
     @endif
+
+    <div class="pt-3">
+        <div class="card px-4 py-2 border-0">
+            <h6 class="fw-bold pb-2">Categories</h6>
+            <div>
+               <div class="d-flex gap-2 cat-div cursor">
+                    <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                    <p class="h-sms fw-bold opacity-75">Spices & Dals</p>
+                </div>
+                <div class="d-flex gap-2 cat-div">
+                    <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                    <p class="h-sms fw-bold">Spices & Dals</p>
+                </div>
+                <div class="ps-3 pt-2 show-div">
+                    <p class="h-sms cursor">hjdejfh</p>
+                    <p class="h-sms cursor">hjdejfh</p>
+                    <p class="h-sms cursor">hjdejfh</p>
+                    <p class="h-sms cursor">hjdejfh</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
             <div class="d-flex justify-content-between">
@@ -170,5 +193,12 @@ const rangeInput = document.querySelectorAll(".range-input input"),
         rangeInput[0].value = minPrice;
         range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
     }
+
+    $(document).ready(function(){
+        $(".show-div").hide();
+        $(".cat-div").click(function(){
+            $(".show-div").toggle();
+        });
+    });
     
 </script>
