@@ -225,7 +225,7 @@ fieldset, legend {
     border-bottom: 11px solid transparent;
 }
 .card .add-to-cart {
-    visibility: visible;
+    visibility: hidden;
     bottom:0;
 }
 .card .add-to-cart .p-1{
@@ -990,9 +990,12 @@ padding-top: 155px!important;
 }
 .contact-us .contact-us-body .form-control{
     border:1px solid var(--next-prev-arrow-color);
+    font-size: 14px;
+
 }
 .contact-us .contact-us-body .form-control::placeholder{
     color: var(--alterprice-content-color);
+    font-size: 14px;
 }
 .contact-us .contact-us-body .col6{
     margin-top: -40px;

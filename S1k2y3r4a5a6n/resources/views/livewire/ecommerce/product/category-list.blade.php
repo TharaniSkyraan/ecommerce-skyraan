@@ -1,17 +1,17 @@
 <section  class="product">
 <div class="container position-relative">
-    <div class="d-flex align-items-center top-carousel-category">
+    <div class="d-flex align-items-center top-carousel-category justify-content-xl-center justify-content-lg-center justify-content-md-center justify-content-sm-between justify-content-center">
         <div class="navbar d-flex gap-2 top-nav-scroll">
             @foreach($categories1 as $category)
                 <div class="dropdown px-xl-4 px-lg-4 px-sm-2 px-md-2 px-2">
                     @if(count($category->active_sub_categories())==0)
                     <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
-                        <span class="h-sms category-top-dot">{{ $category->name }}</span>
+                        <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                     </a>
                     @else
-                        <span class="h-sms category-top-dot">{{ $category->name }}</span>
-                        <img class="dropdown-icon" src="{{asset('asset/home/down-ar.svg')}}" alt="">
-                        <div class="dropdown-content px-2 mt-1">
+                        <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
+                        <img class="dropdown-icon cursor" src="{{asset('asset/home/down-ar.svg')}}" alt="">
+                        <div class="dropdown-content px-3 mt-1">
                             <div class="row">
                                 @php $sub_categories = $category->active_sub_categories()->toArray();
                                      $count = count($category->active_sub_categories());
@@ -34,7 +34,7 @@
                                 @endphp
 
                                 @foreach($sub_categories as $sub_category)
-                                   <div class="col-{{$class_name}} {{ ($j % 2 == 0) ? 'color-filled' : '' }}">
+                                   <div class="col-{{$class_name}} {{ ($j % 2 == 0) ? 'color-filled' : '' }} py-2">
                                         @foreach($sub_category as $subcategory)
                                             <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $subcategory['slug']]) }}" class="fw-light">
                                                 <p class="py-1 h-sms">{{ $subcategory['name'] }}</p>
@@ -50,12 +50,12 @@
             @endforeach
         </div>
         <div class="dropdown ms-3 px-2 more">
-            <span class="h-sms" >MORE</a>
-            <div class="dropdown-content-more px-2 mt-2">
+            <span class="h-sms cursor" >MORE</a>
+            <div class="dropdown-content-more px-3 mt-2">
                 <div class="row">
                     @php $k=0; $l=1; @endphp
                     @foreach($categories as $key => $category)
-                        @if($k==0) <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }}"> @endif
+                        @if($k==0) <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2"> @endif
                         @if(count($category->sub_categories)==0) 
                         <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
                             <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
