@@ -258,39 +258,13 @@ fieldset, legend {
 /* subcategory */
 
 /* marquee */
-.marquee_content .marquee {
-    /* --duration: 14s; */
-    display: flex;
-    overflow: hidden;
-    gap: var(--gap);
+.marquee_content2{
+    background-color: #FFFFFF !important;
 }
-.marquee_content .marquee__group {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    min-width: 100%;
-    /* animation: scroll var(--duration) linear infinite; */
-    padding-left: 30px;
-}
-.marquee_content .marquee h5{
-   color: #fff;
-}
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(calc(-100% ));
-    }
-}
-
 .marquee_content2 .marquee {
-    /* --duration: 14s; */
     display: flex;
     overflow: hidden;
-    gap: var(--gap);
+    position: relative;
 }
 .marquee_content2 .marquee__group1 {
     flex-shrink: 0;
@@ -298,12 +272,15 @@ fieldset, legend {
     align-items: center;
     justify-content: space-around;
     min-width: 100%;
-    /* animation: scroll var(--duration) linear infinite; */
-    padding-left: 30px;
+    gap: 20px;
+    padding-left: 20px;
 }
-.marquee_content2 .marquee h5{
-   color: #fff;
+.marquee_content2 .marquee__group1 img{ 
+    width: 270px !important;
+    height: 310px !important;
+    flex-shrink: 0;
 }
+
 @keyframes scroll1 {
     0% {
         transform: translateX(0);
@@ -313,35 +290,11 @@ fieldset, legend {
         transform: translateX(calc(-100% ));
     }
 }
-.marquee_content .marquee img{
-   width: 25px;
-}
-.marquee_content2{
-    background-color: #FFFFFF !important;
-}
-.marquee_content2 .marquee {
-    --duration: 14s;
-    display: flex;
-    overflow: hidden;
-    gap: 2rem;
-}
-.marquee_content2 .marquee__group1 {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    /* animation: scroll var(--duration) linear infinite; */
-}
-.marquee_content2 .marquee h5{
-   color: #fff;
-}
-.marquee_content2 .marquee__group1 img{ 
-    width: 270px !important;
-    height: 310px !important;
-}
+
 .marquee_content2 .marquee:hover .marquee__group1 {
     animation-play-state: paused;
 }
+
 .hover-pading .py-1{
     padding-top: 0.3rem !important;
     padding-bottom: 0.3rem !important;
@@ -1778,8 +1731,4 @@ padding-top: 155px!important;
 }
 .filter-dropdown p.selected{
     background-color: var(--items-list-bg-color);
-}
-
-.jewfjjkdszx{
-    /* width: 8%; */
 }
