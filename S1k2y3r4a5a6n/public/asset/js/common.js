@@ -187,7 +187,6 @@ function cartProductQuantity(){
 
 $(document).on('click','.QuickShop', function()
 {
-    
     if (navigator.onLine) {
         $('.nointernet').html('');
         $('.dffe').removeClass('d-none');
@@ -418,20 +417,28 @@ $(document).ready(function(){
     });
 });
   
-  
-// $(document).on( 'click', '.prdDet', function(e) {
+$(document).on( 'click', '.prdDet', function(e) {
  
-//     var pid = $(this).data('id');
-//     var pvid = $(this).data('variant-id');
-//     var pref = $(this).data('prdRef');
-//     if(jobid != '' ){
-//         url = baseurl + 'detail?'+ jobid;
-//         openInNewTabWithNoopener(url)
-//     }
-// });
+    var slug = $(this).find('.PrdRow').data('slug');
+    var pid = $(this).find('.PrdRow').data('id');
+    var pvid = $(this).find('.PrdRow').data('variant-id');
+    var pref = $(this).find('.PrdRow').data('prdref');    
+    if(slug != ''&&pref != ''){
+        url = '/product/'+ slug +'?product_variant='+ pvid +"&prdRef="+ pref;
+        openInNewTabWithNoopener(url)
+    }
+});
 
-// $(document).on('click','.like_img', function()
-// {
-//     e.stopPropagation();
-// });
+function openInNewTabWithNoopener(val) {
+    const aTag = document.createElement('a');
+    aTag.rel = 'noopener';
+    // aTag.target = "_blank";
+    aTag.href = val;
+    aTag.click();
+}
+
+$(document).on('click','.like_img, .add-to-cart', function()
+{
+    e.stopPropagation();
+});
   
