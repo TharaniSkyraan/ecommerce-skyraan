@@ -258,8 +258,8 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="related-images">
                     @foreach($related_products as $product)
-                        <div class="item p-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                        <div class="item p-2 prdDet">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
@@ -291,14 +291,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}&product_variant={{ $product['variant_id'] }}">
-                                    <div class="text-center position-relative">
-                                        <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                        @if(!empty($product['image2']))
-                                        <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
-                                        @endif
-                                    </div> 
-                                </a>
+                                <div class="text-center position-relative">
+                                    <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                    @if(!empty($product['image2']))
+                                    <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
+                                    @endif
+                                </div> 
                                 <div class="container-fluid position-absolute add-div">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
@@ -313,9 +311,7 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}&product_variant={{ $product['variant_id'] }}">
-                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
-                                </a>
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-6 px-0">
@@ -367,8 +363,8 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="frequent-images">                    
                     @foreach($frequently_bought_products as $product)
-                        <div class="item px-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor prdDet" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-prdRef="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
+                        <div class="item px-2 prdDet">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
