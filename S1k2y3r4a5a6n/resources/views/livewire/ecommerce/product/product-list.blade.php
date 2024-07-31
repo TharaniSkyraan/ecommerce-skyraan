@@ -48,7 +48,7 @@
                                         @endif
                                     </div>
                                 </a>
-                                <div class="container-fluid position-absolute add-div">
+                                <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
@@ -206,7 +206,7 @@
                                         @endif
                                     </div> 
                                 </a>
-                                <div class="container-fluid position-absolute add-div">
+                                <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
@@ -365,7 +365,7 @@
                                     </div> 
                                 </a>
 
-                                <div class="container-fluid position-absolute add-div">
+                                <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>

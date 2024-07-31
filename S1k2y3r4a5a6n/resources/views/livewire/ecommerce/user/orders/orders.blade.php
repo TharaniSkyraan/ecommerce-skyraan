@@ -234,12 +234,12 @@
             <div class="modal-content">
                 <div class="modal-bodys p-3">
                     <div class="text-center head">
-                        <h4 class="">Cancel order</h4>
+                        <h4 class="hding">Cancel order</h4>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-start ">
-                        <div class="">
-                                <small>Order ID &nbsp;: &nbsp;</small>
+                        <div >
+                                <small class="fw-bold">Order ID &nbsp;: &nbsp;</small>
                         </div>
                         <div >
                             <small class="fw-bold"> {{ $order_code }}</small>
@@ -266,7 +266,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center pt-2">
-                        <button class="btn text-white" wire:click.prevent="cancelOrder">Submit Request</button>
+                        <button class="btn text-white h-sms" wire:click.prevent="cancelOrder">Submit Request</button>
                     </div>
                 </div>   
             </div>   

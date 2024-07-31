@@ -9,7 +9,7 @@
                 <nav class="breadcrumb-nav" aria-label="breadcrumb">
                     <ol class="breadcrumb d-flex align-items-center mt-2">
                         <li class="breadcrumb-item text-dark h-sms"><a href="{{url('/')}}" class="text-dark">Home</a></li>
-                        <li class="breadcrumb-item text-dark active h-sms" aria-current="page">{{ ucwords(str_replace('-',' ',$slug)) }}</li>
+                        <li class="breadcrumb-item text-dark active h-sms detail-dot" aria-current="page">{{ ucwords(str_replace('-',' ',$slug)) }}</li>
                     </ol>
                 </nav>
             </div>

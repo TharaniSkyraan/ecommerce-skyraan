@@ -30,20 +30,22 @@
                                     <option value="created_at-ascending cursor" class="h-sm">Last 3 Months</option>
                                     <option value="created_at-descending cursor" class="h-sm">2023</option>
                                 </select> -->
-                                    <div class="card rounded-1 py-2 px-3 filter-select position-relative cursor" >
-                                        <div class=" d-flex justify-content-between">
-                                            <p class="h-sms">Last Month</p>
+                                <div>
+                                    <div class="card rounded-1 py-1 px-2 filter-select position-relative cursor" >
+                                        <div class=" d-flex justify-content-between gap-2">
+                                            <p class="h-sm">Last 3 Months</p>
                                             <img src="{{asset('/asset/home/down-ar.svg')}}" alt="" >
                                         </div>
                                     </div>
-                                <div class="card filter-dropdown rounded-0 border-0"  style="display:none;" >
-                                    <div class="position-absolute  bg-white py-2">
-                                        <p class="px-2 py-1 h-sms cursor ">Last Month</p>
-                                        <p class="px-2 py-1 h-sms cursor ">Last 3 Months</p>
-                                        <p class="px-2 py-1 h-sms cursor">2023</p>
+                                    <div class="card filter-dropdown rounded-0 border-0 position-absolute jewfjjkdszx"  style="display:none;">
+                                        <div class=" bg-white py-2">
+                                            <p class="px-2 py-1 h-sms cursor ">Last Month</p>
+                                            <p class="px-2 py-1 h-sms cursor ">Last 3 Months</p>
+                                            <p class="px-2 py-1 h-sms cursor">2023</p>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             @endif
                         </div>
                         <div class="tab-mbl-views pt-3">

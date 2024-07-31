@@ -547,6 +547,14 @@ fieldset, legend {
     }
 } */
 /*detail*/
+.detail-dot {
+    display: inline-block;
+    max-width: 27ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
 .price{
     color: var(--price-content-color);
 }
@@ -1738,4 +1746,8 @@ padding-top: 155px!important;
 }
 .filter-dropdown p.selected{
     background-color: var(--items-list-bg-color);
+}
+
+.jewfjjkdszx{
+    /* width: 8%; */
 }
