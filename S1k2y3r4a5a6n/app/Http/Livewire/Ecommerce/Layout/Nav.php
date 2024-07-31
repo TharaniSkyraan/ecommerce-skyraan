@@ -35,15 +35,6 @@ class Nav extends Component
 
         $this->categories = Category::whereNULL('parent_id')->whereStatus('active')->orderBy('sort','asc')->get();
         
-        $this->all_categories = Category::whereStatus('active')->where(function($q){
-            $q->whereNotNull('parent_id')
-                ->Orwhere(function($q1){
-                    $q1->whereHas('sub_categories', function ($query) {
-                        $query->where('status', 'active');
-                    }, '=', 0);
-                });
-        })->get();
-
         if(count($this->categories)==0){
             $this->categories = Category::whereStatus('active')->orderBy('sort','asc')->get();
         }
@@ -60,7 +51,6 @@ class Nav extends Component
             $class_name = 4;
             $divide = 3;
         }
-
 
         $column = round($count/12, 0);
         
