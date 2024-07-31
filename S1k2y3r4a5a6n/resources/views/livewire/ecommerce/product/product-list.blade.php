@@ -5,8 +5,8 @@
             <div class="row">
                 @forelse($products as $product)
                     <div class="col-xl-6 col-lg-6 col-sm-6 col-6 pb-3">
-                        <div class="div px-2 box-shawdow pt-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                        <div class="div px-2 box-shawdow pt-2 prdDet cursor">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
@@ -40,14 +40,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                     <div class="position-relative text-center">
                                         <img src="{{ $product['image1'] }}" alt="list_items" class="product_img default-img">
                                         @if(!empty($product['image2']))
                                         <img src="{{ $product['image2'] }}" alt="list_items_hover" class="product_img hover-img  position-absolute">
                                         @endif
                                     </div>
-                                </a>
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
@@ -162,9 +160,9 @@
         <div id="grid-tre">
             <div class="row">
                 @forelse($products as $product)
-                    <div class="col-xl-4 col-lg-4 col-sm-4 col-6 pb-3">
-                        <div class="div px-2 pt-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                    <div class="col-xl-4 col-lg-4 col-sm-4 col-6 pb-3 ">
+                        <div class="div px-2 pt-2 prdDet cursor">
+                            <div  class="card border-0 round-1 p-1 PrdRow cursor " data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
@@ -198,14 +196,12 @@
                                         </div>
                                     </div>   
                                 </div>                    
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                     <div class="text-center position-relative">
                                         <img src="{{ $product['image1'] }}" alt="list_items" class="product_img default-img">
                                         @if(!empty($product['image2']))
                                             <img src="{{ $product['image2'] }}" alt="list_items_hover" class="product_img hover-img position-absolute">
                                         @endif
                                     </div> 
-                                </a>
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
@@ -321,8 +317,8 @@
             <div class="row">
                 @forelse($products as $product)
                     <div class="col-xl-3 col-lg-3 col-sm-3 col-6 pb-3">
-                        <div class="div px-2 box-shawdow pt-2">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                        <div class="div px-2 box-shawdow pt-2 prdDet cursor">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
@@ -356,14 +352,12 @@
                                         </div>
                                     </div>
                                 </div>        
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                     <div class="text-center position-relative">
                                         <img src="{{ $product['image1'] }}" alt="list_items" class="product_img default-img">
                                         @if(!empty($product['image2']))
                                             <img src="{{ $product['image2'] }}" alt="list_items_hover" class="hover-img position-absolute product_img">
                                         @endif
                                     </div> 
-                                </a>
 
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                     @if($product['stock_status']=='out_of_stock')
@@ -478,9 +472,9 @@
     @elseif($view=='one')
         <div id="grid-one">
             @forelse($products as $product)
-                <div class="row align-items-center py-2 box-shawdow px-3">
-                    <div class="col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-                        <div  class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                <div class="row align-items-center py-2 box-shawdow px-3 prdDet cursor">
+                    <div class="col-xl-3 col-xxl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                        <div  class="card border-0 round-1 p-1 PrdRow cursor " data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                             <div class="container-fluid position-absolute reviews-div">
                                 <div class="row pt-1">
                                     <div class="col-6 px-0">
@@ -514,14 +508,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                 <div class="position-relative text-center">
                                     <img src="{{ $product['image1'] }}" alt="list_items" class="product_img default-img ">
                                     @if(!empty($product['image2']))
                                         <img src="{{ $product['image2'] }}" alt="list_items_hover" class="product_img hover-img position-absolute">
                                     @endif
                                 </div>
-                            </a>
                         </div>   
                     </div>
                     <div class="col-xl-9 col-xxl-9 col-lg-9 col-md-9 col-sm-9 col-12">

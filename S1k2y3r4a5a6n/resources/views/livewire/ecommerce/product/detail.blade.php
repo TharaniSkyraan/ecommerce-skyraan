@@ -258,7 +258,7 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="related-images">
                     @foreach($related_products as $product)
-                        <div class="item p-2 prdDet">
+                        <div class="item p-2 prdDet cursor">
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
@@ -333,7 +333,7 @@
                                             @elseif($product['review']==1)
                                             <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==2)
-                                            <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
+                                        <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==3)
                                             <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==4)
@@ -343,7 +343,7 @@
                                         @endif
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                        <h6phome class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>
@@ -363,7 +363,7 @@
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="frequent-images">                    
                     @foreach($frequently_bought_products as $product)
-                        <div class="item px-2 prdDet">
+                        <div class="item px-2 prdDet cursor">
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 ">
                                     <div class="col-6 tag">
