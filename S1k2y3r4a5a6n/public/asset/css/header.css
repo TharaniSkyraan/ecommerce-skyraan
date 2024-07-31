@@ -258,6 +258,33 @@ fieldset, legend {
 /* subcategory */
 
 /* marquee */
+.marquee_content .marquee {
+    /* --duration: 14s; */
+    display: flex;
+    overflow: hidden;
+    gap: var(--gap);
+}
+.marquee_content .marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100%;
+    /* animation: scroll var(--duration) linear infinite; */
+    padding-left: 30px;
+}
+.marquee_content .marquee h5{
+   color: #fff;
+}
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-100% ));
+    }
+}
 
 .marquee_content2 .marquee {
     /* --duration: 14s; */
@@ -1637,7 +1664,9 @@ padding-top: 155px!important;
     width: 100%;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 99;
+    z-index:11;
+    width: max-content;
+
 }
 
 .dropdown-content-more {
@@ -1711,7 +1740,8 @@ padding-top: 155px!important;
     vertical-align: middle;
 }
 
-.qty-dropdown .card-bodys, .qty-dropdown-dtl .card-bodys-dtl, .qty-dropdown-canva .card-bodys-canva, .qty-dropdown-qs .card-bodys-qs{
+/* ///////////////////// */
+.qty-dropdown .card-bodys{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 23px -5px;
     z-index: 1;
     position: absolute;

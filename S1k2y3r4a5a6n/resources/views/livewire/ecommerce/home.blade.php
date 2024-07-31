@@ -1,11 +1,11 @@
 @php
-$baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
+$baseDuration = 13;
+$duration = (count($collections) / 5) * $baseDuration;
 @endphp
-<style>
 
-.marquee__group
-{
-    animation: scroll {{$duration}}s linear infinite;
+<style>
+.marquee__group {
+    animation: scroll {{ $duration }}s linear infinite;
 }
 </style>
 <div>
@@ -589,18 +589,22 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
             <div class="marquee py-2">
                 <div class="marquee__group">
                     @foreach($collections as $collection)
+                    <div class="px-3">
                         <div class="d-flex gap-2 align-items-center marquee-item">
                             <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="feature_image">
                             <h5 class="fw-normal">{{$collection['name']}}</h5>
                         </div>
+                    </div>
                     @endforeach
                 </div>
                 <div aria-hidden="true" class="marquee__group">
                     @foreach($collections as $collection)
+                    <div class="px-3">
                         <div class="d-flex gap-2 align-items-center marquee-item">
                             <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="feature_image">
                             <h5 class="fw-normal ">{{$collection['name']}}</h5>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>

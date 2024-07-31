@@ -8,7 +8,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
     animation: scroll1 {{$duration}}s linear infinite;
 }
 </style>
-<section class="marquee_content2">
+<section class="marquee_content2 marquee_content">
     <div class="marquee py-4" >
         <div class="marquee__group1">
             @foreach($collections as $collection)
