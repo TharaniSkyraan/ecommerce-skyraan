@@ -187,6 +187,7 @@ function cartProductQuantity(){
 
 $(document).on('click','.QuickShop', function()
 {
+    
     if (navigator.onLine) {
         $('.nointernet').html('');
         $('.dffe').removeClass('d-none');
@@ -416,4 +417,21 @@ $(document).ready(function(){
         $(".filter-dropdown").toggle();
     });
 });
+  
+  
+// $(document).on( 'click', '.prdDet', function(e) {
+ 
+//     var pid = $(this).data('id');
+//     var pvid = $(this).data('variant-id');
+//     var pref = $(this).data('prdRef');
+//     if(jobid != '' ){
+//         url = baseurl + 'detail?'+ jobid;
+//         openInNewTabWithNoopener(url)
+//     }
+// });
+
+// $(document).on('click','.like_img', function()
+// {
+//     e.stopPropagation();
+// });
   

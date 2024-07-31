@@ -40,10 +40,8 @@ class CategoryList extends Component
             $class_name = 4;
             $divide = 3;
         }
-
-        $column = round($count/12, 0);
         
-        $this->morecategoriescount = ($count!=0)?(round($count/$divide, 0)+1):0;
+        $this->morecategoriescount = ($count!=0)?(ceil($count/$divide)):0;
         $this->more_class_name = $class_name;
 
         return view('livewire.ecommerce.product.category-list');

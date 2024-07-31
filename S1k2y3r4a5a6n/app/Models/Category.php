@@ -16,5 +16,9 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent_id', 'id')->orderBy('sort','asc');
     }
+    public function active_sub_categories()
+    {
+        return $this->sub_categories->where('status','active');
+    }
 
 }

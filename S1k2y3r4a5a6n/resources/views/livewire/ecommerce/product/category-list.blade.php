@@ -4,7 +4,7 @@
         <div class="navbar d-flex gap-2 top-nav-scroll">
             @foreach($categories1 as $category)
                 <div class="dropdown px-xl-4 px-lg-4 px-sm-2 px-md-2 px-2">
-                    @if(count($category->sub_categories)==0)
+                    @if(count($category->active_sub_categories())==0)
                     <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
                         <span class="h-sms category-top-dot">{{ $category->name }}</span>
                     </a>
@@ -13,8 +13,9 @@
                         <img class="dropdown-icon" src="{{asset('asset/home/down-ar.svg')}}" alt="">
                         <div class="dropdown-content px-2 mt-1">
                             <div class="row">
-                                @php $count = count($category->sub_categories);
-                                    $sub_categories = $category->sub_categories->toArray();
+                                @php $sub_categories = $category->active_sub_categories()->toArray();
+                                     $count = count($category->active_sub_categories());
+                                    
                                     if($count < 10){  
                                         $class_name = 12;
                                     }elseif($count < 20){
@@ -27,6 +28,7 @@
                                         $count = $count/4; 
                                         $class_name = 3;  
                                     }
+                                    $count = ($count!=0)?(ceil($count)):0; 
                                     $sub_categories = array_chunk($sub_categories,$count);   
                                     $j=1; 
                                 @endphp
@@ -34,7 +36,7 @@
                                 @foreach($sub_categories as $sub_category)
                                    <div class="col-{{$class_name}} {{ ($j % 2 == 0) ? 'color-filled' : '' }}">
                                         @foreach($sub_category as $subcategory)
-                                            <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
+                                            <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $subcategory['slug']]) }}" class="fw-light">
                                                 <p class="py-1 h-sms">{{ $subcategory['name'] }}</p>
                                             </a>
                                         @endforeach
