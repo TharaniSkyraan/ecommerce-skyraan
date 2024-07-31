@@ -221,14 +221,16 @@
 .abt_review svg path{
     fill: var(--next-prev-arrow-color);
 }
+
+/* marqueee */
+
 .marquee_content{
     background-color: #795548;
 }
 .marquee_content .marquee {
-    /* --duration: 14s; */
     display: flex;
     overflow: hidden;
-    gap: var(--gap);
+    position: relative;
 }
 .marquee_content .marquee__group {
     flex-shrink: 0;
@@ -236,8 +238,11 @@
     align-items: center;
     justify-content: space-around;
     min-width: 100%;
-    /* animation: scroll var(--duration) linear infinite; */
-    padding-left: 30px;
+    gap: 20px;
+    padding-left: 20px;
+}
+.marquee_content .marquee img{
+    width: 25px;
 }
 .marquee_content .marquee h5{
    color: #fff;
@@ -251,9 +256,10 @@
         transform: translateX(calc(-100% ));
     }
 }
-.marquee_content .marquee img{
-   width: 25px;
-}
+
+
+/* //////////////////// */
+
 #why-choosnne .card{
    background-color: var(--items-list-bg-color);
 }
