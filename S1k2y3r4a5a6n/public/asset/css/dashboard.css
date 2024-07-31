@@ -544,6 +544,9 @@
    .tab-mbl-views .tab-head{
       overflow-x: scroll;
    }
+   .tab-mbl-views .tab-head::-webkit-scrollbar{
+      display: none;
+   }
    .jewfje{
       font-size: 10px;
    }

@@ -9,7 +9,7 @@
                         <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                     </a>
                     @else
-                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light category-mob-menu d-none">
+                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light category-mob-menu ">
                             <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                         </a>
                         <a href="javascrip:void(0)" class="category-des-menu">
