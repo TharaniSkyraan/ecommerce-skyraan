@@ -46,6 +46,13 @@
                             @error('sale_price') <span class="error"> {{$message}}</span> @endif
                         </div>
                     </div>
+                    <div class="col-3 me-2 my-1">
+                        <div class="form-group">
+                            <label for="cart_limit">User Cart Limit</label>
+                            <input type="text" name="cart_limit" id="cart_limit" placeholder="User Cart Limit" wire:model="cart_limit">
+                            @error('cart_limit') <span class="error"> {{$message}}</span> @endif
+                        </div>
+                    </div>
                     <div class="col-11 me-2 my-1">
                         <div class="d-flex">
                             <input type="checkbox" wire:model="discount_duration" id="discount_duration" value="yes">
