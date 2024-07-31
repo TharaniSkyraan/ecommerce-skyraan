@@ -343,7 +343,7 @@
                                         @endif
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6phome class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>
