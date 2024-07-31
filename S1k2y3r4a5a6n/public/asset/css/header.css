@@ -991,7 +991,6 @@ padding-top: 155px!important;
 .contact-us .contact-us-body .form-control{
     border:1px solid var(--next-prev-arrow-color);
     font-size: 14px;
-
 }
 .contact-us .contact-us-body .form-control::placeholder{
     color: var(--alterprice-content-color);

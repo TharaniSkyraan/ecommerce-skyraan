@@ -99,8 +99,8 @@ $duration = (count($collections) / 5) * $baseDuration;
                 <div class="row pb-xl-5 pb-lg-5 pb-md-3 pb-sm-3 pb-0">
                     @forelse($top_selling_products as $tproduct)
                         <div class="col-xl-3 col-lg-3 col-sm-4 col-md-4 col-6 pb-4 ">
-                            <div class="div px-2 ">
-                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $tproduct['id'] }}" data-variant-id="{{ $tproduct['variant_id'] }}">
+                            <div class="div px-2 prdDet cursor">
+                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $tproduct['id'] }}" data-variant-id="{{ $tproduct['variant_id'] }}"  data-slug="{{ $tproduct['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp }}">
                                     <div class="container-fluid">
                                     <div class="row pt-1 position-absolute w-100 reviews-div">
                                         <div class="col-6 px-0">
@@ -134,14 +134,12 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         </div>
                                     </div>
                                     </div>
-                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $tproduct['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp}}&product_variant={{ $tproduct['variant_id'] }}">
                                         <div class="text-center position-relative">
                                             <img src="{{ $tproduct['image1'] }}" alt="list_items" class="w-100 default-img item-image">
                                             @if(!empty($tproduct['image2']))
                                             <img src="{{ $tproduct['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image pt-3">
                                             @endif
                                         </div> 
-                                    </a>
                                     <div class="container-fluid ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0 position-absolute add-div">
                                         @if($tproduct['stock_status']=='out_of_stock')
                                             <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
@@ -248,8 +246,8 @@ $duration = (count($collections) / 5) * $baseDuration;
                 <div class="row pb-5">
                     @forelse($new_products as $product)
                         <div class="col-xl-3 col-lg-3 col-sm-4 col-md-4 col-6 pb-3">
-                            <div class="div px-2">
-                                <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                            <div class="div px-2 prdDet cursor">
+                                <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                     <div class="container-fluid px-0">
                                         <div class="row pt-1 position-absolute w-100 reviews-div">
                                             <div class="col-6">
@@ -282,14 +280,12 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
-                                            <div class="text-center position-relative">
-                                                <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                                @if(!empty($product['image2']))
-                                                <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute item-image pt-3">
-                                                @endif
-                                            </div> 
-                                        </a>
+                                        <div class="text-center position-relative">
+                                            <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                            @if(!empty($product['image2']))
+                                            <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute item-image pt-3">
+                                            @endif
+                                        </div> 
                                         <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
                                             @if($product['stock_status']=='out_of_stock')
                                                 <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
@@ -376,8 +372,8 @@ $duration = (count($collections) / 5) * $baseDuration;
                             @forelse($top_selling_products as $key => $product)
                                 @if($key!=0)
                                 <div class="px-2">
-                                    <div class="owl-slide px-2">
-                                        <div class="card card2 cursor border-0 round-1 p-1 PrdRow" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}">
+                                    <div class="owl-slide px-2 prdDet cursor">
+                                        <div class="card card2 cursor border-0 round-1 p-1 PrdRow" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                             <div class="container-fluid position-absolute reviews-div">
                                                 <div class="row pt-1">
                                                     <div class="col-6 px-0">
@@ -411,14 +407,12 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{ $product['variant_id'] }}">
                                                 <div class="text-center position-relative">
                                                     <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
                                                     @if(!empty($product['image2']))
                                                     <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img position-absolute item-image ">
                                                     @endif
                                                 </div> 
-                                            </a>                                
                                             <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">  
                                                 @if($product['stock_status']=='out_of_stock')
                                                     <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
