@@ -26,6 +26,11 @@ class CustomConfigServiceProvider extends ServiceProvider
         
         if ($setting = Setting::first()) {
 
+            $this->app['config']['siteSetting'] = [
+                'site_name' => $setting->site_name,
+                
+                'site_logo' => asset('storage/').$setting->site_logo,
+            ];
             
             $this->app['config']['mail'] = [
 

@@ -31,7 +31,7 @@ class ProductList extends Component
     public $warehouse_ids = [];
 
 
-    protected $queryString = ['category','availablestock','rating','min_price','max_price','sort_by'];
+    protected $queryString = ['availablestock','rating','min_price','max_price','sort_by'];
 
     protected $listeners = ['loadMore','GetFilters','InitiateFilters','GetView','GetSortBy'];
 
