@@ -22,7 +22,6 @@ class WelcomeMail extends Mailable
     }
 
 
-
     public function build()
     {
         $name = $this->name;

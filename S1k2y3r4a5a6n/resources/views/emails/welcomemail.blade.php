@@ -181,7 +181,7 @@
     <div class="bottom-classs">
         <p class="title-content">Ready to start shopping?</p>
         <p class="text-left text-center">Use your sign-up bonus for your first purchase. Head over to Skyraa Ecommerce and let the adventure begin. </p>
-        <div class="text-center my-3"><button class="text-center px-3 py-3"><span class="text-white">shop now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
+        <div class="text-center my-3"><button class="text-center px-3 py-3"><a href="{{url('/')}}"><span class="text-white">shop now</span></a><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
         <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">help@skyraaorganics.com</a></p>
     </div>
     <div class="footer-content">
