@@ -1759,3 +1759,20 @@ padding-top: 155px!important;
 .filter-dropdown p.selected{
     background-color: var(--items-list-bg-color);
 }
+.cat-card{
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.cat-card::-webkit-scrollbar {
+    width: 3px;
+}
+
+.cat-card::-webkit-scrollbar-track {
+    background: #FFF;
+}
+
+.cat-card::-webkit-scrollbar-thumb {
+    background:rgb(194, 193, 193);
+    width: 2px;
+}

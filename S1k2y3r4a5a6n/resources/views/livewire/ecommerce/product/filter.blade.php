@@ -22,50 +22,26 @@
             @endforeach
         </div>
     </div>
-    <!-- @if($type=='search')
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
-            <div class="d-flex justify-content-between">
-                <h6 class="fw-bold">Categories</h6>
-                @if(count($category_ids)!=0) <a href="javascript:void(0)" wire:click="resetCategory"><small class="text-dark text-decoration-underline">Reset</small></a> @endif
+            <h6 class="fw-bold pb-2">Categories</h6>
+            <div class="cat-card" >
+                @foreach($categories as $category)
+                    <div class="d-flex gap-2 cat-div cursor category-filter" wire:click.stop="updateCategoryIds('{{$category->id}}')">
+                        <img src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{$category->id}} {{ $category->name }}</p>
+                    </div>
+                    @foreach($category->active_sub_categories() as $sub_category)
+                        @if($sub_category->status =='active')
+                            <div class="ps-3 pt-2 show-div">
+                                <p class="h-sms category-filter {{ (in_array($sub_category->id, array_keys($category_ids))?'fw-bold':'cursor opacity-75') }}" wire:click.stop="updateCategoryIds('{{$sub_category->id}}')">{{$sub_category->id}} {{ $sub_category->name}}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                @endforeach
             </div>
-            <small class="text-secondary opacity-50 py-1">{{count($category_ids)}} selected</small>
-            @foreach($categories as $category)
-                <div class="form-check ">
-                    <input class="form-check-input cursor" type="checkbox" id="category{{$category->id}}" wire:model="category_ids.{{$category->id}}">
-                    <label class="form-check-label h-sms cursor" for="category{{$category->id}}">
-                        {{$category->name}}
-                    </label>
-                </div>
-            @endforeach
         </div>
     </div>
-    @endif -->
-    @if(count($categories)!=0)
-        <div class="pt-3">
-            <div class="card px-4 py-2 border-0">
-                <h6 class="fw-bold pb-2">Categories</h6>
-                <div>
-                    @foreach($categories as $category)
-                        <div class="d-flex gap-2 cat-div cursor">
-                            <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                            <p class="h-sms fw-bold opacity-75">{{ $category->name }}</p>
-                        </div>
-                        <!-- <div class="d-flex gap-2 cat-div">
-                            <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                            <p class="h-sms fw-bold">Spices & Dals</p>
-                        </div> -->
-                        @foreach($category->active_sub_categories() as $sub_category)
-                        <div class="ps-3 pt-2 show-div">
-                            <p class="h-sms cursor">{{$sub_category->name}}</p>
-                        </div>
-                        @endforeach
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    @endif
-
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
             <div class="d-flex justify-content-between">
@@ -199,6 +175,10 @@ const rangeInput = document.querySelectorAll(".range-input input"),
         $(".show-div").hide();
         $(".cat-div").click(function(){
             $(".show-div").toggle();
+        });
+        
+        $(document).on('click', '.category-filter', function () { 
+
         });
     });
     
