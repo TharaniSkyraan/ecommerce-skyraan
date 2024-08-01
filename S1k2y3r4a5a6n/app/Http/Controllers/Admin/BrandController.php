@@ -76,7 +76,10 @@ class BrandController extends Controller
 
     public function fetchData(Request $request)
     {
-        
+        $request->validate([
+            'name' => 'nullable|string|max:100', 
+        ]);
+    
         $brands = Brand::select('*');
         
         return Datatables::of($brands)

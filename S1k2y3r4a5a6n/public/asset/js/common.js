@@ -19,6 +19,7 @@ $(document).ready(function() {
         }
     });
 });
+
 $(document).ready(function(){
     $('#closeIcon').click(function(){
         $('#menuopen').offcanvas('hide');
@@ -30,7 +31,6 @@ $(document).ready(function(){
         $('body').css('padding-right', '0 !important');
     });
 });
-
 
 // navbar sticky
 window.addEventListener('scroll', function() {
@@ -139,7 +139,7 @@ $(document).on('click','.AddCart', function()
 });
     
 $(document).on('click','.deleteCart', function()
-{
+{ 
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     var product_id = $(this).closest('.PrdRow').data('id');
     var variant_id = $(this).closest('.PrdRow').find('.variant_id').html();

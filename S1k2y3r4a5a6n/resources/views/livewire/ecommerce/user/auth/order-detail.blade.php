@@ -96,10 +96,10 @@
                                     <hr>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">Total</p>
+                                            <p class="fw-bold opacity-75 h-sms ">Total</p>
                                         </div>
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
+                                            <p class="fw-bold opacity-75 h-sms ">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -307,10 +307,10 @@
                                     <hr>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">Total</p>
+                                            <p class="fw-bold opacity-75 h-sms kjre">Total</p>
                                         </div>
                                         <div>
-                                            <p class="fw-bold opacity-75 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
+                                            <p class="fw-bold opacity-75 h-sms kjre">{{ $ip_data->currency_symbol??'₹' }} {{ $order->total_amount }}</p>
                                         </div>
                                     </div>
                             </div>

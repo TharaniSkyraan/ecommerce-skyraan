@@ -212,9 +212,9 @@
                                 @foreach($categories as $category)
                                     <li class="main-item">
                                         <div class="d-flex justify-content-between align-items-center py-1">
-                                            <span><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}" class="fw-bold-res">{{ $category->name }}</a></span>
+                                            <span class="detail-dot"><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}" class="fw-bold-res">{{ $category->name }}</a></span>
                                             @if(count($category->sub_categories) > 0)
-                                                <span class="toggle-symbol sybl fw-bold-res">+</span>
+                                                <span class="toggle-symbol sybl fw-bold-res ">+</span>
                                             @endif
                                         </div>
                                         @if(count($category->sub_categories) > 0)

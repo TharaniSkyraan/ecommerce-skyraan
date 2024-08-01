@@ -1285,6 +1285,9 @@ padding-top: 155px!important;
     .category-des-menu{
         display: none!important;
     }
+    .kjre{
+        font-size: 15px;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1396,7 +1399,7 @@ padding-top: 155px!important;
         display: none!important;
     }
     .dropdown:hover .dropdown-content-more {
-        display: none!important;
+        /* display: none!important; */
     }
     .category-mob-menu{
         display: block;
@@ -1667,6 +1670,9 @@ padding-top: 155px!important;
 .navbar {
     display: flex;
     flex-wrap: nowrap;
+}
+.dropdown:hover .category-top-dot {
+   color: var(--next-prev-arrow-color);
 }
 
 .dropdown:hover .dropdown-content-more {

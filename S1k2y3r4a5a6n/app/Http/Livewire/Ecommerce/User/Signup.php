@@ -8,6 +8,7 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ZoneConfig;
+use App\Mail\WelcomeMail;
 
 class Signup extends Component
 {
@@ -119,6 +120,8 @@ class Signup extends Component
             $validatedData['password'] = Hash::make($validatedData['password']);
 
             User::create($validatedData);
+            
+            Mail::to($user->email)->send(new WelcomeMail($user->name, $user->email));
 
             $credentials = [
                 'email' => $this->email,
