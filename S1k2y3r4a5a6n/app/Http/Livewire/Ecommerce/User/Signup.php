@@ -120,9 +120,7 @@ class Signup extends Component
             $validatedData['password'] = Hash::make($validatedData['password']);
 
             User::create($validatedData);
-            
-            Mail::to($user->email)->send(new WelcomeMail($user->name, $user->email));
-
+            Mail::send(new WelcomeMail($name,$email));
             $credentials = [
                 'email' => $this->email,
                 'password' => $this->password,
