@@ -70,6 +70,8 @@ class ProductList extends Component
             $this->emit('PopFilters', $filters); 
             
             $this->initiate = false;
+        }else{
+            $this->emit('UpdateCategory', $this->category);
         }
     }
 
@@ -98,14 +100,14 @@ class ProductList extends Component
 
         $this->type = $type;
         $this->slug = $slug;
-        $this->filterProduct();
+        $this->filterProduct('initiate');
     }
 
-    public function filterProduct()
+    public function filterProduct($init='')
     {
         $Products = Product::whereHas('product_stock', function($q){
                                 $q->whereIn('warehouse_id', $this->warehouse_ids);
-                            })->select('id','slug','label_id','name','images','rating','stock_status','tax_ids','created_at')
+                            })->select('id','slug','label_id','category_ids','name','images','rating','stock_status','tax_ids','created_at')
                             ->whereStatus('active');
         
         if($this->type=='search'){            
@@ -146,6 +148,18 @@ class ProductList extends Component
                 $q->whereBetween('search_price', [$min_price, $max_price]);
             });
         }
+
+        if(!empty($init)){
+            $categories_ids = $Products->pluck('category_ids')->toArray();
+            $categories_ids = array_map(function ($categories_id) {
+                return explode(',', $categories_id);
+            }, $categories_ids);
+
+            $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
+            $this->category = implode(',',$categories_ids);
+            $this->initiate = true;
+        }
+
         if($this->sort_by != 'all' && !empty($this->sort_by)){
             $orderby = explode('-',$this->sort_by);
 
@@ -172,8 +186,8 @@ class ProductList extends Component
             }else{
                 $Products->orderBy($orderby[0],$orderby[1]);
             }
-
         }
+
 
         $Products = $Products->paginate(20, ['*'], 'page', $this->page);
 
@@ -304,7 +318,9 @@ class ProductList extends Component
 
     public function render()
     {
-
+        if($this->initiate){
+            $this->emit('InitiateFilters');
+        }
         return view('livewire.ecommerce.product.product-list');
     }
 

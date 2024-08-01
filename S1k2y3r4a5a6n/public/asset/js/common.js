@@ -360,26 +360,6 @@ $(document).ready(function(){
 $(".explore_loc").on('click', function(){
     window.location.href  = 'https://www.google.com/maps?ll=11.055055,76.995125&z=14&t=m&hl=en&gl=IN&mapclient=embed&cid=7794558616518029306';
 });
-// about-us
-
-$('#about-us').owlCarousel({
-    loop: false,
-    margin: 10,
-    nav: true,
-    autoplay: false,
-    responsive: {
-      0: {
-        items: 1
-      },
-      600: {
-        items: 2
-      },
-      1000: {
-        items: 2
-      }
-    },
-  })
-
   
 // mobile screen category collapse
 

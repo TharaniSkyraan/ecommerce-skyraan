@@ -4,7 +4,6 @@
             <small class="text-secondary {{($filtercount!=0)?'':'opacity-50'}}">{{$filtercount}} filters  <a href="javascript:void(0);" wire:click="ResetAllFilters" class="float-end ResetAllFilters"><small class="text-dark text-decoration-underline"> @if($filtercount!=0) Reset @endif</small></a> </small>
             <div> 
                 @if(count($selectedStocks)!=0)<small class="selectedfilter">Availability ({{count($filters['availablestock'])}}) <a href="javascript:void(0)" wire:click="resetAvailable">×</a></small> @endif
-                @if(count($category_ids)!=0)<small class="selectedfilter">Category ({{count($filters['category'])}}) <a href="javascript:void(0)" wire:click="resetCategory">×</a></small> @endif
                 @if(($max != $max_price)||($min != $min_price))<small class="selectedfilter">Price <a href="javascript:void(0)" class="resetPrice" wire:click="resetPrice">×</a></small>@endif
                 @if(count($rating_ids)!=0)<small class="selectedfilter">Rating ({{count($filters['rating'])}}) <a href="javascript:void(0)" wire:click="resetRating">×</a></small> @endif
             </div>
@@ -23,7 +22,7 @@
             @endforeach
         </div>
     </div>
-    @if($type=='search')
+    <!-- @if($type=='search')
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
             <div class="d-flex justify-content-between">
@@ -41,29 +40,30 @@
             @endforeach
         </div>
     </div>
-    @endif
-
-    <div class="pt-3">
-        <div class="card px-4 py-2 border-0">
-            <h6 class="fw-bold pb-2">Categories</h6>
-            <div>
-               <div class="d-flex gap-2 cat-div cursor">
-                    <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                    <p class="h-sms fw-bold opacity-75">Spices & Dals</p>
-                </div>
-                <div class="d-flex gap-2 cat-div">
-                    <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                    <p class="h-sms fw-bold">Spices & Dals</p>
-                </div>
-                <div class="ps-3 pt-2 show-div">
-                    <p class="h-sms cursor">hjdejfh</p>
-                    <p class="h-sms cursor">hjdejfh</p>
-                    <p class="h-sms cursor">hjdejfh</p>
-                    <p class="h-sms cursor">hjdejfh</p>
+    @endif -->
+    @if($type!='search')
+        <div class="pt-3">
+            <div class="card px-4 py-2 border-0">
+                <h6 class="fw-bold pb-2">Categories</h6>
+                <div>
+                    <div class="d-flex gap-2 cat-div cursor">
+                        <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                        <p class="h-sms fw-bold opacity-75">Spices & Dals</p>
+                    </div>
+                    <div class="d-flex gap-2 cat-div">
+                        <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                        <p class="h-sms fw-bold">Spices & Dals</p>
+                    </div>
+                    <div class="ps-3 pt-2 show-div">
+                        <p class="h-sms cursor">hjdejfh</p>
+                        <p class="h-sms cursor">hjdejfh</p>
+                        <p class="h-sms cursor">hjdejfh</p>
+                        <p class="h-sms cursor">hjdejfh</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
