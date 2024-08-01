@@ -49,7 +49,7 @@ class Login extends Component
 
         if (auth()->attempt($credentials)) {             
             // return redirect()->to($this->redirect_url);
-            $this->ipzone();
+            $this->ipzone($this);
             $this->emit('updateCart', '');
         }else{
             $this->errorMessage = 'Invalid password.';

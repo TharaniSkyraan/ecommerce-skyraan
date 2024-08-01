@@ -2,12 +2,13 @@
 
 namespace App\Traits;
 use App\Models\Zone;
+use Illuminate\Http\Request;
 use Auth;
 
 trait ZoneConfig
 {
 
-    public function ipzone(\Illuminate\Http\Request $request)
+    public function ipzone(Request $request)
     {
         if((isset(Auth::user()->address) || isset(Auth::user()->usercart->address)))
         {
