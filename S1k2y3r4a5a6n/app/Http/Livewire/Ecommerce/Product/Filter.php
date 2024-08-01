@@ -75,7 +75,7 @@ class Filter extends Component
         }
         $this->filters = $filters;
         $this->filtercount = $i;
-        
+        \Log::info($filters);
         $this->emit('GetFilters', $filters);
 
     }
