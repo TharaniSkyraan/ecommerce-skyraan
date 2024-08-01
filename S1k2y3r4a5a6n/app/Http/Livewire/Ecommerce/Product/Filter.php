@@ -65,7 +65,6 @@ class Filter extends Component
         }
         if(count($category)!=0){
             $filters['category'] = $category;
-            $i += 1;
         }else{
             $this->category_ids = [];
         }

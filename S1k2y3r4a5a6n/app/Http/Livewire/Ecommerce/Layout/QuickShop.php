@@ -94,15 +94,15 @@ class QuickShop extends Component
                                     }
                                  })->whereProductId($this->product_id)->first();
                                  
-        $product_stock = ProductStock::select('id', 'available_quantity')
-                                    ->whereIn('warehouse_id',$this->warehouse_ids)
-                                    ->whereProductVariantId($default->id)
-                                    ->groupBy('id', 'available_quantity')
-                                    ->orderBy('available_quantity','desc')
-                                    ->first();
             
         if(isset($default)){
 
+            $product_stock = ProductStock::select('id', 'available_quantity')
+                                        ->whereIn('warehouse_id',$this->warehouse_ids)
+                                        ->whereProductVariantId($default->id)
+                                        ->groupBy('id', 'available_quantity')
+                                        ->orderBy('available_quantity','desc')
+                                        ->first();
             $price = $default->price;
             $discount = 0;
             $product = Product::select('tax_ids')->where('id',$default->product_id)->first();
