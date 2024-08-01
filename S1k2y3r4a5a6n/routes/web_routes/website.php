@@ -1,13 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\ResetPassword;
-use App\Models\User;
-Route::get('/email_template', function () {
-    $user = User::first();
-    \Mail::send(new ResetPassword('pavithra', 'pavithra@skyraan.com'));
-    return 'success';
-});
+
+
 use App\Http\Controllers\PDFController;
 
 Route::get('/privacy-policy', function () {
@@ -19,6 +14,7 @@ Route::get('/terms-and-condition', function () {
 });
 
 Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
+Route::get('/testing_route', [PDFController::class, 'testingfun']);
 
 Route::post('reset-password','App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('password.update');
 
