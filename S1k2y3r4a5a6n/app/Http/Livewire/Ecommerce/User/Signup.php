@@ -118,9 +118,10 @@ class Signup extends Component
         if($this->password_strength!='weak' && $this->verified_status=='verified'){
 
             $validatedData['password'] = Hash::make($validatedData['password']);
+            $user = User::create($validatedData);
 
-            User::create($validatedData);
-           \Mail::send(new WelcomeMail($name,$email));
+            \Mail::send(new WelcomeMail($user->name, $user->email));
+
             $credentials = [
                 'email' => $this->email,
                 'password' => $this->password,
