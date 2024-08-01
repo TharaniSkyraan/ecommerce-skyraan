@@ -27,6 +27,7 @@
                                     <option value="inactive">Inactive</option> </select>
                                 </td>
                                 <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <th class="border-bottom-0">ID</th>
