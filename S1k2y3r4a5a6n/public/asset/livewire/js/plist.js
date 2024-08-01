@@ -6,8 +6,9 @@ window.addEventListener("DOMContentLoaded", function () {
             Livewire.emit("screenWidthUpdated", screenWidth);
         }
         var urlParams = new URLSearchParams(window.location.search);
+        Livewire.emit("InitiateFilters");
         if(urlParams.size!=0){
-            Livewire.emit("InitiateFilters");
+            
         }else{
             
             Livewire.emit('disbaleLoader');

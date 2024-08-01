@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stock_histories', function (Blueprint $table) {
             $table->id();  
-            $table->bigInteger('reference_number')->default(0);
+            $table->text('reference_number')->nullable();
             $table->enum('stock_type', ['upload', 'transfer'])->default('upload');
             $table->unsignedBigInteger('warehouse_from_id'); 
             $table->unsignedBigInteger('warehouse_to_id'); 
