@@ -31,7 +31,7 @@ class ProductList extends Component
     public $warehouse_ids = [];
 
 
-    protected $queryString = ['availablestock','rating','min_price','max_price','sort_by'];
+    protected $queryString = ['category','availablestock','rating','min_price','max_price','sort_by'];
 
     protected $listeners = ['loadMore','GetFilters','InitiateFilters','GetView','GetSortBy'];
 
@@ -70,8 +70,6 @@ class ProductList extends Component
             $this->emit('PopFilters', $filters); 
             
             $this->initiate = false;
-        }else{
-            $this->emit('UpdateCategory', $this->category);
         }
     }
 
@@ -100,7 +98,11 @@ class ProductList extends Component
 
         $this->type = $type;
         $this->slug = $slug;
-        $this->filterProduct('initiate');
+        if(empty($this->category)){
+            $this->filterProduct('initiate');
+        }else{
+            $this->filterProduct();
+        }
     }
 
     public function filterProduct($init='')

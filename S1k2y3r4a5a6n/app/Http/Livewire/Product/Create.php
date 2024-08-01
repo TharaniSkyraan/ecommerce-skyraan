@@ -429,6 +429,9 @@ class Create extends Component
                 }
                 
             }
+            $productVariant = ProductVariant::find($product_variant_id);
+            $productVariant->product_name = $productVariant->product->name.(!empty($productVariant->getSetAttribute())? '/'.$productVariant->getSetAttribute() : '');
+            $productVariant->save();
 
         }
 
