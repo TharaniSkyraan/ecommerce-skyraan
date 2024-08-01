@@ -103,7 +103,7 @@
     <div class="main-div text-center">
         <img src="{{asset('asset/home/reset-password.png')}}" alt="">
         <p class="title-content text-center"><b>No Worries, We Got You!</b></p>
-        <p class="text-left">Hi {{name}}, We have received a request to reset the password for your Skyraa E-Commerce account</p>
+        <p class="text-left">Hi {{$name}}, We have received a request to reset the password for your Skyraa E-Commerce account</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$resetLink}}"><span class="text-white">Reset Password Link</span></a></button></div>
         <p class="text-center text-dark">Link valid only for 10 minutes.</p>
     </div>
