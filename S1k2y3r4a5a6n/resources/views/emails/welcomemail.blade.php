@@ -92,7 +92,6 @@
             .py-3{
                 padding-top: .9rem !important;
                 padding-bottom: .9rem !important;
-
             }
             .clr-grey{
                 background-color: #e0dede;

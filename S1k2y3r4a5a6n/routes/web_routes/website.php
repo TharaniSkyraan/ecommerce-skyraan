@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\WelcomeMail;
+use App\Mail\ResetPassword;
 use App\Models\User;
 Route::get('/email_template', function () {
     $user = User::first();
-    \Mail::send(new WelcomeMail('pavithra', 'pavithra@skyraan.com'));
+    \Mail::send(new ResetPassword('pavithra', 'pavithra@skyraan.com'));
     return 'success';
 });
 use App\Http\Controllers\PDFController;
