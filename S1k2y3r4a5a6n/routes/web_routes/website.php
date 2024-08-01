@@ -5,7 +5,7 @@ use App\Mail\WelcomeMail;
 use App\Models\User;
 Route::get('/email_template', function () {
     $user = User::first();
-    \Mail::send(new WelcomeMail('pavithra', 'tharani@skyraan.com'));
+    \Mail::send(new WelcomeMail('pavithra', 'lpavithra504@gmail.com'));
     return 'success';
 });
 use App\Http\Controllers\PDFController;
