@@ -10,7 +10,7 @@ class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email, $token,$name;
+    public $email, $token, $name;
 
     /**
      * Create a new message instance.
@@ -25,7 +25,7 @@ class ResetPassword extends Mailable
 
     public function build()
     {
-        $email = $this->email ;
+        $email = $this->email;
         $name = User::where('email',$email)->first();
         return $this->to($this->email)
             ->markdown('emails.password-reset')
