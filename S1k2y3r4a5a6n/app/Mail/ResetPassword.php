@@ -4,12 +4,13 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Models\User;
 
 class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $email, $token;
+    public $email, $token,$name;
 
     /**
      * Create a new message instance.
@@ -24,9 +25,10 @@ class ResetPassword extends Mailable
 
     public function build()
     {
+        $name = User::where('email',$email)->first();
         return $this->to($this->email)
-            ->markdown('emails.reset-password')
+            ->markdown('emails.password-reset')
             ->subject('Password Reset Link')
-            ->with(['resetLink'=> route('ecommerce.reset.password', ['token' => $this->token]).'?email='.$this->email]);
+            ->with(['name'=>[$name],'resetLink'=> route('ecommerce.reset.password', ['token' => $this->token]).'?email='.$this->email]);
     }
 }
