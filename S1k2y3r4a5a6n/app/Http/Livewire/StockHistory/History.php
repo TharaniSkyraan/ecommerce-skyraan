@@ -33,6 +33,7 @@ class History extends Component
             $quantity = $product->updated_quantity;
             $previous_available_quantity = $productStock->available_quantity??0;
             $available_quantity = $previous_available_quantity + $quantity;
+            $product_name = $productStock->product_name;
 
             ProductStock::updateOrCreate([
                     'warehouse_id' => $warehouse_id,
@@ -42,6 +43,7 @@ class History extends Component
                     'available_quantity' => $available_quantity,
                     'product_id' => $product->product_id,
                     'stock_status' => 'in_stock',
+                    'product_name' => $product_name
                 ]
             );
 

@@ -178,6 +178,7 @@ class TransferStock extends Component
                         'available_quantity' => $available_quantity,
                         'product_id' => $product['product_id'],
                         'stock_status' => ($available_quantity!=0)?'in_stock':'out_of_stock',
+                        'product_name' => $product['product_name'],
                     ]
                 );
             }
