@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Warehouse extends Model
 {
     use HasFactory;
-    protected $fillable = ['address','admin_ids','lat','lng','status'];
+    protected $fillable = ['address','name','admin_ids','lat','lng','status'];
 
     
     public function productstock()

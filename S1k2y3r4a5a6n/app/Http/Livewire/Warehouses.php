@@ -9,14 +9,15 @@ use App\Models\Warehouse;
 
 class Warehouses extends Component
 {
-    public $warehouse_id,$ware_house_address,$lat,$lng,$admins;
+    public $warehouse_id,$name,$ware_house_address,$lat,$lng,$admins;
     public $admin_ids = [];
     public $status='active';
     public $zone_ids = [];
     public $selected_zone_ids = [];
     
     public function store(){
-        $validateData = $this->validate(['status'=>'required','ware_house_address'=>'required|max:180|min:6']);
+        $validateData = $this->validate(['status'=>'required','name'=>'required','ware_house_address'=>'required|max:180|min:6']);
+        $validateData['name'] = $this->name;
         $validateData['address'] = $this->ware_house_address;
         $validateData['lat'] = $this->lat;
         $validateData['lng'] = $this->lng;
@@ -61,6 +62,7 @@ class Warehouses extends Component
         if(!empty($id)){
             $warehousedata = Warehouse::find($id);
             $this->warehouse_id = $id;
+            $this->name = $warehousedata->name; 
             $this->ware_house_address = $warehousedata->address; 
             $this->admin_ids = explode(',',$warehousedata->admin_ids); 
             $this->status = $warehousedata->status;  
