@@ -74,10 +74,11 @@ class Filter extends Component
             $filters['max_price'] = $this->max_price;
             $i += 1;
         }
-        $this->filters = $filters;
         $this->filtercount = $i;
         
         $this->emit('GetFilters', $filters);
+        unset($filters['category']);
+        $this->filters = $filters;
 
     }
     
