@@ -8,7 +8,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="form-group">
-                    <label for="ware_house_address">Zone Name</label>
+                    <label for="name">Warehouse Name</label>
+                    <input type="text" name="name" id="name" placeholder="Ex:Tamil nadu" wire:model="name">
+                    @error('name') <span class="error"> {{$message}}</span> @endif
+                </div>   
+                <div class="form-group">
+                    <label for="ware_house_address">Address</label>
                     <input type="text" name="ware_house_address" id="ware_house_address" placeholder="Ex:Tamil nadu" wire:model="ware_house_address">
                     @error('ware_house_address') <span class="error"> {{$message}}</span> @endif
                 </div>   

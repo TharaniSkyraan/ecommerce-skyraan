@@ -30,7 +30,8 @@
                             </tr>
                             <tr>
                                 <th class="border-bottom-0">ID</th>
-                                <th class="border-bottom-0">Warehouse Address</th>
+                                <th class="border-bottom-0">Warehouse name</th>
+                                <th class="border-bottom-0">Address</th>
                                 <th class="border-bottom-0">Status</th>
                                 <th class="border-bottom-0">Action</th>
                             </tr>
@@ -60,6 +61,7 @@
                         }
                     }, columns: [
                         {data: 'id', name: 'id'},
+                        {data: 'name', name: 'name'},
                         {data: 'address', name: 'address'},
                         {data: 'status', name: 'status'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
