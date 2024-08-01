@@ -177,31 +177,22 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
     <img class="welcome-img" src="{{asset('asset/home/forget-order.png')}}" alt="welocme-mail">
-    <p class="text-start">Hi Elena, Your cart items displayed here</p>
+    <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
         <table>
+        @foreach($cart_products as $cart)
             <tr>
-                <td class="">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
+                <td>
+                    <img src="{{ $cart->image }}" alt="">
                 </td>
                 <td class="margin-left">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Item weight : <b>1 Kg</b></p>
-                    <p>Quantity : : <b>1 nos</b></p>
-                    <span>₹250.00</span>
+                    <p>{{ $cart->name }}</p>
+                    <p>Item weight: <b>1 Kg</b></p>
+                    <p>Quantity: <b>1 nos</b></p>
+                    <span>₹{{ $cart->price }}</span>
                 </td>
             </tr>
-            <tr>
-            <td class="">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                </td>
-                <td class="margin-left">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Item weight : <b>1 Kg</b></p>
-                    <p>Quantity : : <b>1 nos</b></p>
-                    <span>₹250.00</span>
-                </td>
-            </tr>
+            @endforeach
         </table>
     </div>
     <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
