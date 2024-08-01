@@ -25,6 +25,7 @@ class ResetPassword extends Mailable
 
     public function build()
     {
+        $email = $this->email ;
         $name = User::where('email',$email)->first();
         return $this->to($this->email)
             ->markdown('emails.password-reset')
