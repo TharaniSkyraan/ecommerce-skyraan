@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('carts', function (Blueprint $table) {
-            $table->int('attempt')->default(null);
+            $table->integer('attempt')->default(null);
             $table->dateTime('last_reminder_date')->default(null); 
         });
     }
