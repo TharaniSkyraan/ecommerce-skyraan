@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('carts', function (Blueprint $table) {
             $table->integer('attempt')->default(null);
-            $table->dateTime('last_reminder_date')->default(null); 
+            $table->dateTime('last_reminder_date')->nullable()->change();
         });
     }
 
