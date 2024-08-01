@@ -177,9 +177,4 @@ const rangeInput = document.querySelectorAll(".range-input input"),
             $(".show-div").toggle();
         });
     });
-    document.addEventListener('livewire:load', function () {        
-        Livewire.on('categoryUpdated', message => {
-            location.reload();
-        });
-    });
 </script>
