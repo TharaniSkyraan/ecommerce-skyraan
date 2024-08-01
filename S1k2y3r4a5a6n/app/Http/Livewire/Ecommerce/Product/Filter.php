@@ -137,6 +137,7 @@ class Filter extends Component
         $parent_category_ids = array_merge($parent_category_ids, $parent_category_ids1);
         $this->categories = Category::whereIn('id',$parent_category_ids)->get();
         $this->filterCount();
+        $this->emit('categoryUpdated','');
     }
 
     public function updatedRatingIds()
