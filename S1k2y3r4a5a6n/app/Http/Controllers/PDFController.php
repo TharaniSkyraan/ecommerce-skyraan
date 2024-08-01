@@ -44,7 +44,6 @@ class PDFController extends Controller
             }
         }
     
-        return $carts;
     }
     
     public function generatePDF()
