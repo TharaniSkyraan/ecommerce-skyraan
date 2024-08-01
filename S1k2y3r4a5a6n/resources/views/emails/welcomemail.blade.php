@@ -148,7 +148,7 @@
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
-    <p class="title-content"><b>Welcome {{name}} !</b></p>
+    <p class="title-content"><b>Welcome {{$name}} !</b></p>
     <p class="text-left text-center">We’re so happy to have you here! Thank you for choosing us as your go-to shopping destination.</p>
     <p class="text-left text-center">We hope to meet all your needs and expectations. Skyraa E-Commerce provides products in various categories and helps you stay updated about our new arrivals.  </p>
     <img class="welcome-img" src="{{asset('asset/home/welcome-mail.svg')}}" alt="welocme-mail">
