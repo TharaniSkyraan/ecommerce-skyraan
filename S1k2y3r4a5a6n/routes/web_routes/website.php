@@ -1,14 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\ContactAdminMail;
+use App\Mail\WelcomeMail;
 use App\Models\User;
 Route::get('/email_template', function () {
     $user = User::first();
-    $data['feedback'] = 'fdfdf';
-    $data['email'] = 'fdfdf';
-    $data['name'] = 'fdfdf';
-    return new ContactAdminMail($data);
+    \Mail::send(new WelcomeMail('pavithra', 'pavithra@skyraan.com'));
+    return 'success';
 });
 use App\Http\Controllers\PDFController;
 
