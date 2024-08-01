@@ -2,13 +2,12 @@
 
 namespace App\Traits;
 use App\Models\Zone;
-use Illuminate\Http\Request;
 use Auth;
 
 trait ZoneConfig
 {
 
-    public function ipzone(Request $request)
+    public function ipzone()
     {
         if((isset(Auth::user()->address) || isset(Auth::user()->usercart->address)))
         {
@@ -27,32 +26,6 @@ trait ZoneConfig
                 session(['zone_config' => $result]);
                 view()->share('zone_data',\Session::get('zone_config'));                
             }
-        }else{
-            
-            $ip = $request->ip();    
-
-            $ipLocationData = $this->getCity('183.82.250.192');    
-            if($ipLocationData == null || empty($ipLocationData['postal_code'])){
-                $ipLocationData = @json_decode(file_get_contents("https://ipinfo.io/".'183.82.250.192'));  
-                if($ipLocationData && $ipLocationData!=null)
-                {
-                    $ipLocationData = array(
-                        'address_id' => '',
-                        'city' => $ipLocationData->city??'',
-                        'latitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[0]:'',
-                        'longitude' => (isset($ipLocationData->loc))?explode(',',$ipLocationData->loc)[1]:'',
-                        'postal_code' => $ipLocationData->postal??''
-                    );  
-                }   
-            }
-            
-            if($ipLocationData && $ipLocationData!=null)
-            {
-                $result = $this->configzone($ipLocationData); 
-                session(['zone_config' => $result]);
-                view()->share('zone_data',\Session::get('zone_config'));
-            }
-
         }
     
     }
