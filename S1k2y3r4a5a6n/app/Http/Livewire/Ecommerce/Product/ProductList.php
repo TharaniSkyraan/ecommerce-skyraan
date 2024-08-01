@@ -109,6 +109,9 @@ class ProductList extends Component
     {
         $Products = Product::whereHas('product_stock', function($q){
                                 $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                if (!empty($this->availablestock)) { 
+                                    $q->whereIn('stock_status', explode(',',$this->availablestock));
+                                }  
                             })->select('id','slug','label_id','category_ids','name','images','rating','stock_status','tax_ids','created_at')
                             ->whereStatus('active');
         
@@ -137,9 +140,6 @@ class ProductList extends Component
         }  
         if (!empty($this->rating)) { 
             $Products->whereIn('rating', explode(',',$this->rating));
-        }  
-        if (!empty($this->availablestock)) { 
-            $Products->whereIn('stock_status', explode(',',$this->availablestock));
         }  
         $min_price = ($this->min_price==0)?1:$this->min_price;
         $max_price = $this->max_price;
