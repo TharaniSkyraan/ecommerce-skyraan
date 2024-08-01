@@ -48,8 +48,8 @@ return [
       |
      */
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'mailto:service@codegurru.com'),
-        'name' => env('MAIL_FROM_NAME', 'Docxify'),
+        'address' => env('MAIL_FROM_ADDRESS', 'service@codegurru.com'),
+        'name' => env('MAIL_FROM_NAME', 'Job Portal'),
     ],
     /*
       |--------------------------------------------------------------------------
