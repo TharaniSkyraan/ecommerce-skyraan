@@ -41,25 +41,26 @@
         </div>
     </div>
     @endif -->
-    @if($type!='search')
+    @if(count($categories)!=0)
         <div class="pt-3">
             <div class="card px-4 py-2 border-0">
                 <h6 class="fw-bold pb-2">Categories</h6>
                 <div>
-                    <div class="d-flex gap-2 cat-div cursor">
-                        <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                        <p class="h-sms fw-bold opacity-75">Spices & Dals</p>
-                    </div>
-                    <div class="d-flex gap-2 cat-div">
-                        <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                        <p class="h-sms fw-bold">Spices & Dals</p>
-                    </div>
-                    <div class="ps-3 pt-2 show-div">
-                        <p class="h-sms cursor">hjdejfh</p>
-                        <p class="h-sms cursor">hjdejfh</p>
-                        <p class="h-sms cursor">hjdejfh</p>
-                        <p class="h-sms cursor">hjdejfh</p>
-                    </div>
+                    @foreach($categories as $category)
+                        <div class="d-flex gap-2 cat-div cursor">
+                            <img class="fw-bold opacity-75" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                            <p class="h-sms fw-bold opacity-75">{{ $category->name }}</p>
+                        </div>
+                        <!-- <div class="d-flex gap-2 cat-div">
+                            <img class="fw-bold" src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                            <p class="h-sms fw-bold">Spices & Dals</p>
+                        </div> -->
+                        @foreach($category->active_sub_categories() as $sub_category)
+                        <div class="ps-3 pt-2 show-div">
+                            <p class="h-sms cursor">{{$sub_category->name}}</p>
+                        </div>
+                        @endforeach
+                    @endforeach
                 </div>
             </div>
         </div>

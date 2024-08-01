@@ -27,6 +27,8 @@ class Filter extends Component
 
     public $category_ids = [];
 
+    public $categories = [];
+
     public $filters = [];
 
     public $filtercount = 0;
@@ -75,9 +77,8 @@ class Filter extends Component
         }
         $this->filters = $filters;
         $this->filtercount = $i;
-        \Log::info($filters);
         $this->emit('GetFilters', $filters);
-
+        \Log::info($filters);
     }
     
     public function PopFilters($filters)
@@ -92,6 +93,24 @@ class Filter extends Component
             }
             
             $this->$key = (is_array($filter))?array_fill_keys($filter, true):$filter;
+            
+            if($key == 'category' || $key =='category_ids')
+            {
+                $category_ids = array_keys(array_filter(array_filter($this->category_ids, function($key) {
+                                    return $key !== "";
+                                }, ARRAY_FILTER_USE_KEY)));
+                $parent_category_ids = Category::whereIn('id',$category_ids)
+                                                ->whereStatus('active')
+                                                ->whereNull('parent_id')
+                                                ->pluck('id')->toArray();
+                $parent_category_ids1 = Category::whereIn('parent_id',$category_ids)
+                                                ->whereStatus('active')
+                                                ->whereNotNull('parent_id')
+                                                ->pluck('parent_id')->toArray();
+                $parent_category_ids = array_merge($parent_category_ids, $parent_category_ids1);
+                $this->categories = Category::find($parent_category_ids);
+            }
+
         }
         $this->filterCount();
         $this->emit('disbaleLoader');
@@ -99,7 +118,6 @@ class Filter extends Component
 
     public function updatedselectedStocks()
     {
-
         $this->filterCount();
     }
 
@@ -153,17 +171,6 @@ class Filter extends Component
         $this->type = $type;
         $price = ProductVariant::orderBy('price','desc')->pluck('price')->first();
         $this->max_price = $this->max = round($price,0);
-        
-        $this->categories = Category::whereStatus('active')->where(function($q){
-            $q->whereNotNull('parent_id')
-             ->Orwhere(function($q1){
-                $q1->whereHas('sub_categories', function ($query) {
-                    $query->where('status', 'active');
-                }, '=', 0);
-             });
-        })->get();
-
-        
     }
     
     public function ResetAllFilters(){
