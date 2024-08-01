@@ -159,6 +159,7 @@ class UpdateStock extends Component
                     'available_quantity' => $product['quantity'] + $product['available_stock'],
                     'product_id' => $product['product_id'],
                     'stock_status' => 'in_stock',
+                    'product_name' => $product['product_name'],
                 ]
             );
 
