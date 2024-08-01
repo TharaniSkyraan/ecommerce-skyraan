@@ -65,6 +65,8 @@ class Warehouses extends Component
             $this->name = $warehousedata->name; 
             $this->ware_house_address = $warehousedata->address; 
             $this->admin_ids = explode(',',$warehousedata->admin_ids); 
+            $this->lat = $warehousedata->lat;
+            $this->lng = $warehousedata->lng;
             $this->status = $warehousedata->status;  
             $this->zone_ids = Zone::whereRaw('FIND_IN_SET(?, warehouse_ids)', [$id])->whereStatus('active')->pluck('id')->toArray();
             $this->selected_zone_ids = $this->zone_ids;
