@@ -33,7 +33,7 @@ class Filter extends Component
 
     public $filtercount = 0;
 
-    protected $listeners = ['PopFilters'];
+    protected $listeners = ['PopFilters','updateCategoryIds'];
     
     public function filterCount()
     {
@@ -78,7 +78,6 @@ class Filter extends Component
         $this->filters = $filters;
         $this->filtercount = $i;
         $this->emit('GetFilters', $filters);
-        \Log::info($filters);
     }
     
     public function PopFilters($filters)
@@ -103,26 +102,34 @@ class Filter extends Component
                                                 ->whereStatus('active')
                                                 ->whereNull('parent_id')
                                                 ->pluck('id')->toArray();
-                $parent_category_ids1 = Category::whereIn('parent_id',$category_ids)
+                                                
+                $parent_category_ids1 = Category::whereIn('id',$category_ids)
                                                 ->whereStatus('active')
                                                 ->whereNotNull('parent_id')
                                                 ->pluck('parent_id')->toArray();
+
                 $parent_category_ids = array_merge($parent_category_ids, $parent_category_ids1);
-                $this->categories = Category::find($parent_category_ids);
+                $this->categories = Category::whereIn('id',$parent_category_ids)->get();
             }
 
         }
         $this->filterCount();
         $this->emit('disbaleLoader');
     }
-
-    public function updatedselectedStocks()
+    public function updateCategoryIds($id)
     {
-        $this->filterCount();
-    }
+        
+        $this->category_ids = array_fill_keys([$id], true);
+        $parent_category_ids = Category::where('id',$id)
+                                        ->whereNull('parent_id')
+                                        ->pluck('id')->toArray();
+                                        
+        $parent_category_ids1 = Category::where('id',$id)
+                                        ->whereNotNull('parent_id')
+                                        ->pluck('parent_id')->toArray();
 
-    public function updatedCategoryIds()
-    {
+        $parent_category_ids = array_merge($parent_category_ids, $parent_category_ids1);
+        $this->categories = Category::whereIn('id',$parent_category_ids)->get();
         $this->filterCount();
     }
 
@@ -182,21 +189,9 @@ class Filter extends Component
     
     public function render()
     {
-
-        $category_ids = array_keys(array_filter(array_filter($this->category_ids, function($key) {
-            return $key !== "";
-        }, ARRAY_FILTER_USE_KEY)));
-
-        $stocks = array_keys(array_filter(array_filter($this->selectedStocks, function($key) {
-            return $key !== "";
-        }, ARRAY_FILTER_USE_KEY)));
-
-        $rating = array_keys(array_filter(array_filter($this->rating_ids, function($key) {
-            return $key !== "";
-        }, ARRAY_FILTER_USE_KEY)));
-        
-
-        return view('livewire.ecommerce.product.filter');
+        return view('livewire.ecommerce.product.filter', [
+            'categories' => $this->categories,
+        ]);
     }
 
 }

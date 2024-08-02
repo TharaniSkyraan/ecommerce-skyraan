@@ -98,7 +98,7 @@ class ProductList extends Component
 
         $this->type = $type;
         $this->slug = $slug;
-        if(empty($this->category)){
+        if(empty($this->category) && $this->type!='category'){
             $this->filterProduct('initiate');
         }else{
             $this->filterProduct();
@@ -109,6 +109,9 @@ class ProductList extends Component
     {
         $Products = Product::whereHas('product_stock', function($q){
                                 $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                if (!empty($this->availablestock)) { 
+                                    $q->whereIn('stock_status', explode(',',$this->availablestock));
+                                }  
                             })->select('id','slug','label_id','category_ids','name','images','rating','stock_status','tax_ids','created_at')
                             ->whereStatus('active');
         
@@ -129,17 +132,25 @@ class ProductList extends Component
         }
         if (!empty($this->category) || $this->type=='category') { 
             $categories = !empty($this->category)?explode(',',$this->category):Category::whereSlug($this->slug)->pluck('id')->toArray();
+            $this->category = implode(',',$categories);
             $Products->where(function($query) use ($categories) {
                 foreach ($categories as $category) {
                     $query->orWhere('category_ids', 'like', '%,'.$category.',%');
                 }
             });
+        }else{
+            if(!empty($init)){
+                $categories_ids = $Products->pluck('category_ids')->toArray();
+                $categories_ids = array_map(function ($categories_id) {
+                    return explode(',', $categories_id);
+                }, $categories_ids);
+
+                $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
+                $this->category = implode(',',$categories_ids);
+            }
         }  
         if (!empty($this->rating)) { 
             $Products->whereIn('rating', explode(',',$this->rating));
-        }  
-        if (!empty($this->availablestock)) { 
-            $Products->whereIn('stock_status', explode(',',$this->availablestock));
         }  
         $min_price = ($this->min_price==0)?1:$this->min_price;
         $max_price = $this->max_price;
@@ -149,17 +160,6 @@ class ProductList extends Component
             $Products->whereHas('product_variant',function($q) use($min_price,$max_price){
                 $q->whereBetween('search_price', [$min_price, $max_price]);
             });
-        }
-
-        if(!empty($init)){
-            $categories_ids = $Products->pluck('category_ids')->toArray();
-            $categories_ids = array_map(function ($categories_id) {
-                return explode(',', $categories_id);
-            }, $categories_ids);
-
-            $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
-            $this->category = implode(',',$categories_ids);
-            $this->initiate = true;
         }
 
         if($this->sort_by != 'all' && !empty($this->sort_by)){
