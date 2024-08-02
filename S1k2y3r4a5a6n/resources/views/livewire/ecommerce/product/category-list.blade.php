@@ -55,7 +55,7 @@
             @endforeach
         </div>
         <div class="dropdown ms-3 px-2 more">
-            <span class="h-sms cursor category-top-dot" >MORE</a>
+            <span class="h-sms cursor category-top-dot py-1" >MORE</a>
             <div class="dropdown-content-more px-3 mt-2">
     <div class="row">
         @php $k = 0; $l = 1; @endphp

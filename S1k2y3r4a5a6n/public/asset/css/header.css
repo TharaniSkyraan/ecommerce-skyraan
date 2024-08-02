@@ -1294,6 +1294,10 @@ padding-top: 155px!important;
     .jkef2{
         width: 33% !important;
     }
+    #tracking img{
+        width: 20px;
+        padding-top: 10px !important;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1789,6 +1793,7 @@ padding-top: 155px!important;
     background: var(--price-content-color);
     width: 2px;
 }
+
 .jkef1{
     width: 16% ;
 }
@@ -1809,7 +1814,7 @@ padding-top: 155px!important;
     background: #dfdfdf;
 }
 
-.cat-card::-webkit-scrollbar-thumb {
+.qty-dropdown .card-bodys::-webkit-scrollbar-thumb {
     background:rgb(58, 58, 58);
     width: 2px;
 }
