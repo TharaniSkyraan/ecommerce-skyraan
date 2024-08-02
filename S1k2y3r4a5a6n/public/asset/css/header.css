@@ -1280,7 +1280,7 @@ padding-top: 155px!important;
         display: none!important;
     }
     .category-mob-menu{
-        display: block;
+        display: block !important;
     }
     .category-des-menu{
         display: none!important;
@@ -1402,7 +1402,7 @@ padding-top: 155px!important;
         /* display: none!important; */
     }
     .category-mob-menu{
-        display: block;
+        display: block !important;
     }
     .category-des-menu{
         display: none!important;

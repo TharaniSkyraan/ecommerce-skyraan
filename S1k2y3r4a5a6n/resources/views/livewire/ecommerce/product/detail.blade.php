@@ -3,8 +3,16 @@
     <div class="container py-3">
         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%23000000'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item h-sms"><a href="{{ route('ecommerce.home') }}">Home</a></li>
-                <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
+                @if(isset($category))
+                    @if(isset($category->parent_category))
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
+                    @endif
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->slug}}" class="text-dark">{{ $category->name }}</a></li>
+                    <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
+                @else
+                    <li class="breadcrumb-item text-dark h-sms"><a href="{{url('/')}}" class="text-dark">Home</a></li>
+                    <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
+                @endif
             </ol>
         </nav>
     </div>
@@ -39,7 +47,7 @@
                     @endif
                 </div>
                 @if(count($images)>1)
-                    <div class="detail_page_carousal pt-3">
+                    <div class="detail_page_carousal pt-3" wire:ignore>
                         <div id="detail-card-carousel" class="owl-carousel owl-theme d-flex justify-content-center">
                             @foreach($images as $key => $image)
                                 <div class="item px-1 productItem">

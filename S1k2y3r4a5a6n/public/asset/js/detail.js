@@ -1,33 +1,3 @@
-$(document).ready(function ($) {
-    $("#detail-card-carousel").owlCarousel({
-      loop: false,
-      dots: false,
-      nav: true,
-      items: 4
-    });
-    var owl = $("#detail-card-carousel");
-    owl.owlCarousel();
-    $(".next-btn").click(function () {
-      owl.trigger("next.owl.carousel");
-    });
-    $(".prev-btn").click(function () {
-      owl.trigger("prev.owl.carousel");
-    });
-    $(".prev-btn").addClass("disabled");
-    $(owl).on("translated.owl.carousel", function (event) {
-      if ($(".owl-prev").hasClass("disabled")) {
-        $(".prev-btn").addClass("disabled");
-      } else {
-        $(".prev-btn").removeClass("disabled");
-      }
-      if ($(".owl-next").hasClass("disabled")) {
-        $(".next-btn").addClass("disabled");
-      } else {
-        $(".next-btn").removeClass("disabled");
-      }
-    });
-});
-
 $(document).on('click','.likedislike', function()
 {
     if($(this).attr('data-id')=='unlike'){
@@ -40,6 +10,37 @@ $(document).on('click','.likedislike', function()
 });
 
 $(document).ready(function() {
+
+
+  $("#detail-card-carousel").owlCarousel({
+    loop: false,
+    dots: false,
+    nav: true,
+    items: 4
+  });
+  var owl = $("#detail-card-carousel");
+  owl.owlCarousel();
+  $(".next-btn").click(function () {
+    owl.trigger("next.owl.carousel");
+  });
+  $(".prev-btn").click(function () {
+    owl.trigger("prev.owl.carousel");
+  });
+  $(".prev-btn").addClass("disabled");
+  $(owl).on("translated.owl.carousel", function (event) {
+    if ($(".owl-prev").hasClass("disabled")) {
+      $(".prev-btn").addClass("disabled");
+    } else {
+      $(".prev-btn").removeClass("disabled");
+    }
+    if ($(".owl-next").hasClass("disabled")) {
+      $(".next-btn").addClass("disabled");
+    } else {
+      $(".next-btn").removeClass("disabled");
+    }
+  });
+
+
   $('.star').click(function() {
       var rating = $(this).data('rating');
 
@@ -131,7 +132,40 @@ $('.detail-img .demo-trigger').hover(function() {
 }, function() {
   $('.zoom-in').removeClass('hovered').css('height', '0%'); 
 });
+document.addEventListener('livewire:load', function () {  
+  Livewire.on('updateCarousel', message => {
+    
+      $('#detail-card-carousel').trigger("destroy.owl.carousel");
 
+      $("#detail-card-carousel").owlCarousel({
+        loop: false,
+        dots: false,
+        nav: true,
+        items: 4
+      });
+      var owl = $("#detail-card-carousel");
+      owl.owlCarousel();
+      $(".next-btn").click(function () {
+        owl.trigger("next.owl.carousel");
+      });
+      $(".prev-btn").click(function () {
+        owl.trigger("prev.owl.carousel");
+      });
+      $(".prev-btn").addClass("disabled");
+      $(owl).on("translated.owl.carousel", function (event) {
+        if ($(".owl-prev").hasClass("disabled")) {
+          $(".prev-btn").addClass("disabled");
+        } else {
+          $(".prev-btn").removeClass("disabled");
+        }
+        if ($(".owl-next").hasClass("disabled")) {
+          $(".next-btn").addClass("disabled");
+        } else {
+          $(".next-btn").removeClass("disabled");
+        }
+      });
+  });
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   const radioButtons = document.querySelectorAll('.form-check-input');

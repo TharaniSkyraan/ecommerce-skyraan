@@ -16,6 +16,7 @@ use App\Models\BuyingOption;
 use App\Models\OrderItem;
 use App\Models\SavedAddress;
 use App\Models\UserCart;
+use App\Models\Category;
 use App\Models\Tax;
 use Carbon\Carbon;
 use App\Traits\ZoneConfig;
@@ -25,7 +26,7 @@ class Detail extends Component
 {
     use ZoneConfig;
 
-    public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant,$product_stock_id;
+    public $product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$slug,$product_variant,$product_stock_id,$category;
     public $parent_attribute = [];
     public $parent_available_variant_ids = [];
     public $cart_limit =0;
@@ -122,10 +123,13 @@ class Detail extends Component
             $this->product_stock_id = $product_stock->id??0;   
         
         }
+        $this->emit('updateCarousel','');
         
     }
     
-    public function updatedParentAttributeSetId(){
+    public function updatedParentAttributeSetId()
+    {
+
         $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                         $q->whereHas('product_stock', function($q1){
                                                                             $q1->whereIn('warehouse_id', $this->warehouse_ids);
@@ -180,7 +184,7 @@ class Detail extends Component
         
         $related_product_ids = [];
 
-        $product = Product::select('id','slug','name','description','content','images','label_id','attribute_ids','related_product_ids','tax_ids','created_at')
+        $product = Product::select('id','category_ids','slug','name','description','content','images','label_id','attribute_ids','related_product_ids','tax_ids','created_at')
                           ->whereSlug($this->slug)
                           ->where('created_at',$createdDate)
                           ->first();
@@ -273,6 +277,8 @@ class Detail extends Component
         $this->stock_status = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
         $this->available_quantity = $product_stock->available_quantity??0;
         $this->product_stock_id = $product_stock->id??0;
+        $category_ids = explode(',',$product['category_ids']);
+        $this->category = Category::where('id',$category_ids[1]??'')->whereStatus('active')->first();
         
         $product['label'] = (isset($label->name))?$label->name:'';
         $product['label_color_code'] = (isset($label->color))?$label->color:'';

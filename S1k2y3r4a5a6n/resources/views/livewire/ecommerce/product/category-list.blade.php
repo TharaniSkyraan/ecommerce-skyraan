@@ -9,7 +9,7 @@
                         <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                     </a>
                     @else
-                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light category-mob-menu ">
+                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light category-mob-menu">
                             <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                         </a>
                         <a href="javascrip:void(0)" class="category-des-menu">
@@ -53,8 +53,16 @@
                     @endif
                 </div>
             @endforeach
+            
+            @foreach($categories as $category)
+                <div class="dropdown px-xl-4 px-lg-4 px-sm-2 px-md-2 px-2  d-none category-mob-menu">
+                    <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
+                        <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
+                    </a>
+                </div>
+            @endforeach
         </div>
-        <div class="dropdown ms-3 px-2 more">
+        <div class="dropdown ms-3 px-2 more category-des-menu">
             <span class="h-sms cursor category-top-dot" >MORE</a>
             <div class="dropdown-content-more px-3 mt-2">
     <div class="row">
