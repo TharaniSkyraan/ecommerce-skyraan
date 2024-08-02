@@ -1836,9 +1836,5 @@ padding-top: 155px!important;
     flex-grow: 1;
     height: 100%; /* Set height for the cart section */
 }
-.offcanvas-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Set height for the offcanvas body */
-}
+
 
