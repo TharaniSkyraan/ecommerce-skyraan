@@ -73,25 +73,27 @@ window.addEventListener('scroll', function() {
 
 
 $(document).ready(function() {
-
     cartProductQuantity();
 
-    $(document).on('click','.qty-dropdown .card', function(){
+    $(document).on('click', '.qty-dropdown .card', function(e) {
+        e.stopPropagation(); // Prevent the event from bubbling up
         $(this).closest('.qty-dropdown').find(".card-bodys").toggle();
     });
-    $(document).on('click','.qty-dropdown .qty-option', function(){
+
+    $(document).on('click', '.qty-dropdown .qty-option', function(e) {
+        e.stopPropagation(); // Prevent the event from bubbling up
         var qty = $(this).data("qty");
         $(this).closest('.qty-dropdown').find(".input-qty").text(qty);
         $(this).closest('.qty-dropdown').find(".qty-option").removeClass("selected");
         $(this).addClass("selected");
         $(this).closest('.qty-dropdown').find(".card-bodys").hide();
-        if($(this).closest(".cartList").html()!=undefined){
-            var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
+        
+        if ($(this).closest(".cartList").html() != undefined) {
+            var productsArray = JSON.parse(localStorage.getItem('cart')) ?? {};
             var product_id = $(this).closest('.PrdRow').data('id');
             var variant_id = $(this).closest('.PrdRow').find('.variant_id').html();
-            var index = product_id+'-'+variant_id;
+            var index = product_id + '-' + variant_id;
             productsArray[index].quantity = parseInt(qty);
-            // console.log(productsArray[index]);
             var newProductsArray = {};
             newProductsArray[index] = productsArray[index];
             for (var key in productsArray) {
@@ -99,11 +101,19 @@ $(document).ready(function() {
                     newProductsArray[key] = productsArray[key];
                 }
             }
-            localStorage.setItem('cart',JSON.stringify(newProductsArray));
+            localStorage.setItem('cart', JSON.stringify(newProductsArray));
             cartProductQuantity();
         }
     });
+
+    // Close .card-bodys when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.qty-dropdown').length) {
+            $('.card-bodys').hide();
+        }
+    });
 });
+
 
 $(document).on('click','.AddCart', function()
 {

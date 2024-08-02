@@ -386,10 +386,10 @@ fieldset, legend {
     height: 90px;
     object-fit: contain;
 }
-.cart_add_section .list-items {
+/* .cart_add_section .list-items {
     height: 440px;
     overflow-y: scroll;
-}
+} */
 
 .cart_add_section .list-items::-webkit-scrollbar {
     width: 3px;
@@ -756,6 +756,9 @@ padding-top: 155px!important;
     border-bottom: 1px solid var(--next-prev-arrow-color);
     border-radius: 0;
 }
+.offcanvas-top .input-text:focus{
+    outline: none!important;
+}
 .offcanvas-top .search-btn {
     color: var(--font-color-header);
     font-size: 16px;
@@ -1082,7 +1085,7 @@ padding-top: 155px!important;
         width: 303px;
     } */
     #offcanvasRight{
-        width:300px
+        width:350px
     }
     #footer .container {
         padding:0 25px 0 25px!important;
@@ -1288,6 +1291,13 @@ padding-top: 155px!important;
     .kjre{
         font-size: 15px;
     }
+    .jkef2{
+        width: 33% !important;
+    }
+    #tracking img{
+        width: 20px;
+        padding-top: 10px !important;
+    }
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1380,7 +1390,7 @@ padding-top: 155px!important;
         box-shadow: 0 2px 4px rgb(251 251 251 / 10%);
     }
     .sign-in-bg .heading{
-        font-size: 17px;
+        font-size: 22px;
     }
     .like_navs{
         width: 25px!important;
@@ -1782,4 +1792,53 @@ padding-top: 155px!important;
 .cat-card::-webkit-scrollbar-thumb {
     background: var(--price-content-color);
     width: 2px;
+}
+
+.jkef1{
+    width: 16% ;
+}
+.jkef2{
+    width: 24% ;
+}
+.jkef3{
+    width: 8% ;
+}
+.qty-dropdown .card-bodys{
+    height: 100px;
+    overflow-y: scroll;
+}
+.qty-dropdown .card-bodys::-webkit-scrollbar {
+    width: 3px;
+}
+.qty-dropdown .card-bodys::-webkit-scrollbar-track {
+    background: #dfdfdf;
+}
+
+.qty-dropdown .card-bodys::-webkit-scrollbar-thumb {
+    background:rgb(58, 58, 58);
+    width: 2px;
+}
+
+.cart_add_section {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    position: relative;
+}
+
+.cart_add_section .list-items {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.cardsfww {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Default height for list-items */
+.cart_add_section .list-items {
+    max-height: 440px;
 }

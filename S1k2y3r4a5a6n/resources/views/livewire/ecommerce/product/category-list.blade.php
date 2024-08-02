@@ -65,50 +65,50 @@
         <div class="dropdown ms-3 px-2 more category-des-menu">
             <span class="h-sms cursor category-top-dot" >MORE</a>
             <div class="dropdown-content-more px-3 mt-2">
-    <div class="row">
-        @php $k = 0; $l = 1; @endphp
-        @foreach($categories as $key => $category)
-            @if($k == 0) 
-                <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2">
-            @endif
-            <div>
-                @if(count($category->sub_categories) == 0) 
-                    <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $category['slug']]) }}" class="fw-light">
-                        <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
-                    </a>
-                @else
-                    <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
-                @endif
-            </div>
-            @php $k++; @endphp
-            @if($k == $morecategoriescount) 
-                @php $k = 0; $l++; @endphp
-                </div>
-            @endif
+                <div class="row">
+                    @php $k = 0; $l = 1; @endphp
+                    @foreach($categories as $key => $category)
+                        @if($k == 0) 
+                            <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2">
+                        @endif
+                        <div>
+                            @if(count($category->sub_categories) == 0) 
+                                <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $category['slug']]) }}" class="fw-light">
+                                    <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
+                                </a>
+                            @else
+                                <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
+                            @endif
+                        </div>
+                        @php $k++; @endphp
+                        @if($k == $morecategoriescount) 
+                            @php $k = 0; $l++; @endphp
+                            </div>
+                        @endif
 
-            @foreach($category->sub_categories as $sub_category)
-                @if($sub_category->status == 'active')
-                    @if($k == 0)
-                        <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2">
-                    @endif
-                    <div>
-                        <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $sub_category['slug']]) }}" class="fw-light">
-                            <p class="py-1 h-sms">{{ $sub_category->name }}</p>
-                        </a>
-                    </div>
-                    @php $k++; @endphp
-                    @if($k == $morecategoriescount)
-                        @php $k = 0; $l++; @endphp
+                        @foreach($category->sub_categories as $sub_category)
+                            @if($sub_category->status == 'active')
+                                @if($k == 0)
+                                    <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2">
+                                @endif
+                                <div>
+                                    <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $sub_category['slug']]) }}" class="fw-light">
+                                        <p class="py-1 h-sms">{{ $sub_category->name }}</p>
+                                    </a>
+                                </div>
+                                @php $k++; @endphp
+                                @if($k == $morecategoriescount)
+                                    @php $k = 0; $l++; @endphp
+                                    </div>
+                                @endif
+                            @endif
+                        @endforeach
+                    @endforeach
+                    @if($k != 0)
                         </div>
                     @endif
-                @endif
-            @endforeach
-        @endforeach
-        @if($k != 0)
+                </div>
             </div>
-        @endif
-    </div>
-</div>
         </div>
     </div>
 </div>

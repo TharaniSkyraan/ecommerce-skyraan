@@ -130,10 +130,10 @@
                     <div class="quantity PY-2">
                         <div class="d-flex gap-4 align-items-center">
                             <h6 class="text-dark fw-bold">Quantity :</h6>
-                            <div class="qty-dropdown w-25 position-relative">
-                                <div class="card rounded-0 py-1 px-2">
+                            <div class="qty-dropdown position-relative jkef3">
+                                <div class="card rounded-0 py-1 px-1">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="h-sms input-qty py-1 px-2">1</p>
+                                        <p class="h-sms input-qty">1</p>
                                         <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
                                     </div>
                                 </div>

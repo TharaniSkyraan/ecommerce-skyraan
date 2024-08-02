@@ -87,10 +87,10 @@
                         @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
                         @if($limit !=0)
                             <small class="text-dark fw-bold">Quantity :</small>
-                            <div class="qty-dropdown w-25 position-relative">
-                                <div class="card rounded-0 px-2 py-1">
+                            <div class="qty-dropdown position-relative jkef1">
+                                <div class="card rounded-0 px-2">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="h-sms input-qty px-2 py-1">1</p>
+                                        <p class="h-sms input-qty py-1">1</p>
                                         <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
                                     </div>
                                 </div>
