@@ -229,7 +229,7 @@
     <div class="modal fade {{$isopenmodel}}" id="cancel-order" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="text-end">
-                <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
             </div>
             <div class="modal-content">
                 <div class="modal-bodys p-3">
@@ -276,7 +276,7 @@
     <div class="modal fade" id="submit-cancel-order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="text-end">
-                <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
             </div>
             <div class="modal-content">
                 <div class="modal-bodys p-5">
