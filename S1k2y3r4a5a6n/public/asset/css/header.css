@@ -1223,7 +1223,7 @@ padding-top: 155px!important;
         font-size: 14px;
     }
     .list-items {
-        height: 554px!important;
+        /* height: 554px!important; */
     }
     .offcanvas-top #result{
         box-shadow: 0 2px 4px rgb(251 251 251 / 10%);
@@ -1381,7 +1381,7 @@ padding-top: 155px!important;
         width:89px!important;
     }
     .list-items {
-        height: 554px!important;
+        /* height: 554px!important; */
     }
     .offcanvas-top #result {
         box-shadow: 0 2px 4px rgb(251 251 251 / 10%);
@@ -1845,5 +1845,5 @@ padding-top: 155px!important;
 
 /* Default height for list-items */
 .cart_add_section .list-items {
-    max-height: 440px;
+    height: max-content;
 }
