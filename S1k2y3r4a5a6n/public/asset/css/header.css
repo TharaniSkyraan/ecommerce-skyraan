@@ -386,10 +386,6 @@ fieldset, legend {
     height: 90px;
     object-fit: contain;
 }
-/* .cart_add_section .list-items {
-    height: 440px;
-    overflow-y: scroll;
-} */
 
 .cart_add_section .list-items::-webkit-scrollbar {
     width: 3px;
@@ -1817,18 +1813,6 @@ padding-top: 155px!important;
     width: 2px;
 }
 
-.cart_add_section {
-    display: flex;
-    flex-direction: column;
-    /* height: 100%; */
-    position: relative;
-}
-
-.cart_add_section .list-items {
-    flex-grow: 1;
-    overflow-y: scroll;
-}
-
 .cardsfww {
     position: absolute;
     bottom: 0;
@@ -1836,14 +1820,27 @@ padding-top: 155px!important;
     right: 0;
     width: 100%;
     z-index: 1;
-    background-color: white; /* Set a background color if needed */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for visual separation */
-    padding: 10px 0; /* Optional: Add padding if needed */
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+    padding: 10px 0; 
 }
-
-
-
-/* Default height for list-items */
 .cart_add_section .list-items {
-    height: max-content;
+    overflow-y: auto; /* Add scroll if content overflows */
 }
+.cart_add_section .list-items {
+    flex: 1; /* This makes the list-items section take up the available space */
+    overflow-y: auto; /* Add scroll if content overflows */
+    max-height: 440px; /* Define the maximum height */
+    
+}
+.cart_add_section {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* This allows the section to grow and shrink as needed */
+}
+.offcanvas-body {
+    display: grid;
+    grid-template-rows: 1fr auto; /* Creates two rows: one that takes available space and one for the footer */
+    height: 100vh; /* Ensure the container takes the full viewport height */
+}
+

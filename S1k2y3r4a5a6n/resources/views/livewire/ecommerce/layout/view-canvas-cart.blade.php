@@ -89,7 +89,7 @@
                 @endif 
             </div>
         @else
-            <div class="row pb-2 list-items empty-cart cart_add_section">
+            <div class="row pb-2 list-items empty-cart ">
                 <div class="col-12 pb-3">
                     <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
                     <h6 class="py-4">Your cart is empty.</h6>
