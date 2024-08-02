@@ -412,14 +412,22 @@ $(document).on('click','.addwishlist', function()
     }
 });
 
-$(document).ready(function(){
-    $(".filter-select").click(function(){
+$(document).ready(function() {
+    // Toggle dropdown on click
+    $(".filter-select").click(function(e) {
+        e.stopPropagation(); // Prevent the click event from bubbling up
         $(".filter-dropdown").toggle();
     });
+
+    // Close the dropdown if clicking outside of it
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.filter-select').length && !$(e.target).closest('.filter-dropdown').length) {
+            $(".filter-dropdown").hide();
+        }
+    });
 });
-  
+
 $(document).on( 'click', '.prdDet', function(e) {
- 
     var slug = $(this).find('.PrdRow').data('slug');
     var pid = $(this).find('.PrdRow').data('id');
     var pvid = $(this).find('.PrdRow').data('variant-id');
@@ -443,3 +451,20 @@ $(document).on('click','.like_img, .add-to-cart', function()
     e.stopPropagation();
 });
   
+$(document).ready(function(){
+const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    // Remove list styles for summary elements on iOS
+    if (isiOS) {
+        document.addEventListener('DOMContentLoaded', function () {
+            const summaries = document.querySelectorAll('summary');
+            summaries.forEach(function (summary) {
+                summary.style.listStyle = 'none';
+            });
+        });
+    }
+});
+document.addEventListener('touchmove', function (event) {
+    if (event.scale !== 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
