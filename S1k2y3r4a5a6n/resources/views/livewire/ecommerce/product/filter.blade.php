@@ -3,9 +3,9 @@
         <div class="card px-4 py-2 border-0 ">
             <small class="text-secondary {{($filtercount!=0)?'':'opacity-50'}}">{{$filtercount}} filters  <a href="javascript:void(0);" wire:click="ResetAllFilters" class="float-end ResetAllFilters"><small class="text-dark text-decoration-underline"> @if($filtercount!=0) Reset @endif</small></a> </small>
             <div> 
-                @if(count($selectedStocks)!=0)<small class="selectedfilter">Availability ({{count($filters['availablestock'])}}) <a href="javascript:void(0)" wire:click="resetAvailable">×</a></small> @endif
-                @if(($max != $max_price)||($min != $min_price))<small class="selectedfilter">Price <a href="javascript:void(0)" class="resetPrice" wire:click="resetPrice">×</a></small>@endif
-                @if(count($rating_ids)!=0)<small class="selectedfilter">Rating ({{count($filters['rating'])}}) <a href="javascript:void(0)" wire:click="resetRating">×</a></small> @endif
+                @if(count($selectedStocks)!=0)<small class="selectedfilter h-sms">Availability ({{count($filters['availablestock'])}}) <a href="javascript:void(0)" wire:click="resetAvailable">×</a></small> @endif
+                @if(($max != $max_price)||($min != $min_price))<small class="selectedfilter h-sms">Price <a href="javascript:void(0)" class="resetPrice" wire:click="resetPrice">×</a></small>@endif
+                @if(count($rating_ids)!=0)<small class="selectedfilter h-sms">Rating ({{count($filters['rating'])}}) <a href="javascript:void(0)" wire:click="resetRating">×</a></small> @endif
             </div>
         </div>
     </div>

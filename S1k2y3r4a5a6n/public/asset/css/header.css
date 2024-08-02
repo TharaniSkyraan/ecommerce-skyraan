@@ -750,7 +750,7 @@ padding-top: 155px!important;
     z-index: 9;
 }
 .offcanvas-top .input-text{
-    padding: 5px 30px;
+    padding: 2px 31px 4px 2px;
     width: 100%;
     border: none;
     border-bottom: 1px solid var(--next-prev-arrow-color);
@@ -1722,6 +1722,11 @@ padding-top: 155px!important;
     vertical-align: middle;
 }
 
+.dropdown-content-more p {
+    white-space: normal; 
+    overflow-wrap: break-word; 
+}
+
 /* ///////////////////// */
 .qty-dropdown .card-bodys{
     box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 23px -5px;
@@ -1759,3 +1764,4 @@ padding-top: 155px!important;
 .filter-dropdown p.selected{
     background-color: var(--items-list-bg-color);
 }
+

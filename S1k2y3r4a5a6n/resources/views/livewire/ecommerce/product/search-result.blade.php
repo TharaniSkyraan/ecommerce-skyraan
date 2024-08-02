@@ -43,12 +43,12 @@
                 <div class="col-xl-0 col-lg-0 col-md-4 col-sm-4 col-6 filter_response ">
                     <div class="d-flex align-items-center">
                         <img src="{{asset('asset/home/filter.svg')}}" alt="" >
-                        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-menu" aria-controls="offcanvasExample">
+                        <button class="btn h-sms" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-menu" aria-controls="offcanvasExample">
                             Filter
                         </button>
                     </div>
                     <div class="offcanvas offcanvas-start" tabindex="-1" id="filter-menu" aria-labelledby="offcanvasExampleLabel">
-                        <div class="card p-4 pt-3 rounded-0 border-0 filter_responses">
+                        <div class="card p-4 pt-3 rounded-0 border-0 filter_responses" style="overflow-y: auto; max-height: 100vh;">
                             <div class="d-flex justify-content-between">
                                 <h5 class="fw-bold">Filter</h5>
                                 <img id="closeIcons" src="{{asset('asset/home/close-vector.svg')}}" alt="close_icon" class="cursor">
@@ -60,6 +60,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-4 col-sm-4 col-6 adsas">
                     @livewire('ecommerce.product.grid-filter')
