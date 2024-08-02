@@ -116,12 +116,6 @@ class Filter extends Component
         $this->filterCount();
         $this->emit('disbaleLoader');
     }
-
-    public function updatedselectedStocks()
-    {
-        $this->filterCount();
-    }
-
     public function updateCategoryIds($id)
     {
         
