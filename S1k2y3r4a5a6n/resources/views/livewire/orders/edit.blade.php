@@ -31,7 +31,7 @@
                                         <td class="d-flex p-2">
                                             <img src="{{$item->product_image}}" alt="{{$item->product_name}}">
                                             <p class="px-2">
-                                                <span class="font-bold">{{$item->product_name}}</span>
+                                                <span class="font-bold prdname">{{$item->product_name}}</span>
                                                 @foreach($attributes as $attribute)
                                                 <br><span>{{ $attribute->attribute->name }} : {{ $attribute->name }}</span>
                                                 @endforeach

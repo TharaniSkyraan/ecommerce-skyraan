@@ -20,7 +20,7 @@ use Auth;
 class ProductList extends Component
 {
     
-    public $category,$availablestock,$rating,$min_price,$max_price,$sort_by,$type,$slug;
+    public $category,$availablestock,$rating,$min_price,$max_price,$product_max_price,$sort_by,$type,$slug;
     public $view = 'two';
     public $initiate = true;
     public $pageloading = 'false';
@@ -60,6 +60,7 @@ class ProductList extends Component
             if(!empty($this->max_price)){
                 $filters['max_price'] = $this->max_price;
             }
+            $filters['product_max_price'] = ($this->product_max_price!=0)?$this->product_max_price:100;
             $filters['category'] = explode(',',$this->category);
             $filters['availablestock'] = explode(',',$this->availablestock);
             $filters['rating'] = explode(',',$this->rating);
@@ -138,6 +139,24 @@ class ProductList extends Component
                     $query->orWhere('category_ids', 'like', '%,'.$category.',%');
                 }
             });
+
+            $productidd = $Products->orderBy(
+                            ProductVariant::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->select('search_price')
+                            ->whereColumn('product_id', 'products.id')
+                            ->whereIn('is_default', ['yes', 'no'])
+                            ->orderByRaw("is_default = 'yes' DESC")
+                            ->orderBy('search_price')
+                            ->limit(1),  'desc'
+                        )->pluck('id')->first();
+
+            $this->product_max_price = ProductVariant::whereHas('product_stock', function($q){
+                            $q->whereIn('warehouse_id', $this->warehouse_ids);
+                        })->where('product_id', $productidd)
+                        ->orderBy('search_price','desc')
+                        ->pluck('search_price')->first();
+
         }else{
             if(!empty($init)){
                 $categories_ids = $Products->pluck('category_ids')->toArray();
@@ -147,8 +166,26 @@ class ProductList extends Component
 
                 $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
                 $this->category = implode(',',$categories_ids);
+                
+                $productidd = $Products->orderBy(
+                                ProductVariant::whereHas('product_stock', function($q){
+                                    $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                })->select('search_price')
+                                ->whereColumn('product_id', 'products.id')
+                                ->whereIn('is_default', ['yes', 'no'])
+                                ->orderByRaw("is_default = 'yes' DESC")
+                                ->orderBy('search_price')
+                                ->limit(1),  'desc'
+                            )->pluck('id')->first();
+
+                $this->product_max_price = ProductVariant::whereHas('product_stock', function($q){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            })->where('product_id', $productidd)
+                            ->orderBy('search_price','desc')
+                            ->pluck('search_price')->first();
             }
         }  
+        
         if (!empty($this->rating)) { 
             $Products->whereIn('rating', explode(',',$this->rating));
         }  
@@ -192,7 +229,8 @@ class ProductList extends Component
 
 
         $Products = $Products->paginate(20, ['*'], 'page', $this->page);
-
+        $this->emit('TotalRecord',$Products->total());
+        
         $this->morepage = $Products->hasMorePages();
 
         $products = array_map(function ($product) {

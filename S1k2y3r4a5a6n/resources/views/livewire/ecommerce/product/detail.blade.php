@@ -234,7 +234,7 @@
 </section>
 <section class="details py-5">
     <div class="container">
-        <div class="d-flex gap-xl-5 gap-lg-5 gap-md-5 gap-sm-5 gap-4     justify-content-center pb-4 tab-head">
+        <div class="d-flex gap-xl-5 gap-lg-5 gap-md-5 gap-sm-5 gap-4     justify-content-center pb-4 tab-head"  focus:outline-none>
             <h6 class=" text-secondary opacity-75 fw-bold product-tab {{ ($tab=='description')?'activated':''}}" data-tab="description" >Product Description</h6>
             <h6 class="text-secondary opacity-75 fw-bold product-tab {{ ($tab=='information')?'activated':''}}" data-tab="information">Additional information</h6>
             <h6 class="text-secondary opacity-75 fw-bold product-tab {{ ($tab=='reviews'||$tab=='review')?'activated':''}}" data-tab="reviews">Reviews</h6>

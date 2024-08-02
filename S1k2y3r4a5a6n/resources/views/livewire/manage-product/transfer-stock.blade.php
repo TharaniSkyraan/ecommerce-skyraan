@@ -32,7 +32,7 @@
                                 <label for="tolocationSets" id="towarehouseLabel">To Warehouse</label>
                                 <select name="tolocationSets" id="tolocationSets" wire:model="warehouse_to_id">
                                     <option value="">Select to warehouse</option>
-                                    @foreach($warehouses as $index => $warehouse)
+                                    @foreach($to_warehouses as $index => $warehouse)
                                         <option value="{{ $warehouse->id }}" @if($index == 0) selected @endif>
                                             {{ ucwords($warehouse->address) }}
                                         </option>

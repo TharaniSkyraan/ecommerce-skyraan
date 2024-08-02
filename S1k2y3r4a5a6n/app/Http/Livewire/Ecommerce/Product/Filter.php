@@ -17,9 +17,13 @@ class Filter extends Component
 
     public $min = 0;
     
-    public $max, $max_price, $type;
+    public $max_price = 0; 
+    
+    public $type;
 
     public $min_price = 0;
+
+    public $max = 0;
 
     public $selectedStocks = [];
 
@@ -70,7 +74,8 @@ class Filter extends Component
         }else{
             $this->category_ids = [];
         }
-        if(($this->max != $this->max_price)||($this->min != $this->min_price)){
+        if(($this->max != $this->max_price && $this->max_price !=0)||($this->min != $this->min_price)){
+
             $filters['min_price'] = $this->min_price;
             $filters['max_price'] = $this->max_price;
             $i += 1;
@@ -89,6 +94,8 @@ class Filter extends Component
                 $key = 'selectedStocks';
             }if($key=='rating'){
                 $key = 'rating_ids';
+            }if($key=='product_max_price'){
+                $key = 'max';
             }
             
             $this->$key = (is_array($filter))?array_fill_keys($filter, true):$filter;
@@ -176,8 +183,6 @@ class Filter extends Component
     public function mount($type)
     {
         $this->type = $type;
-        $price = ProductVariant::orderBy('price','desc')->pluck('price')->first();
-        $this->max_price = $this->max = round($price,0);
     }
     
     public function ResetAllFilters(){
@@ -189,6 +194,9 @@ class Filter extends Component
     
     public function render()
     {
+        if($this->max!=0 && $this->max_price==0){
+            $this->max_price = $this->max;
+        }
         return view('livewire.ecommerce.product.filter', [
             'categories' => $this->categories,
         ]);
