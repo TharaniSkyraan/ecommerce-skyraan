@@ -29,10 +29,12 @@ class Orders extends Component
     public $page = 1;
     public $orders = [];
     public $reasons = [];
+    public $dates = [];
     public $total_orders,$reason,$notes,$order_id,$order_code;
     public $isopenmodel;
+    public $sort_by = 'last_30_days';
 
-    protected $queryString = ['tab'];
+    protected $queryString = ['tab','sort_by'];
 
     protected $listeners = ['loadMore'];
 
@@ -137,8 +139,21 @@ class Orders extends Component
 
     public function filterOrders()
     {
+
         if($this->tab=='all'){
-            $orders = Order::where('user_id',auth()->user()->id)->orderBy('created_at','desc');
+            $orders = Order::where('user_id',auth()->user()->id);
+            if($this->sort_by=='last_30_days'){
+                $thirtyDaysAgo = Carbon::now()->subDays(30);
+                $orders->where('created_at', '>=', $thirtyDaysAgo);
+            }elseif($this->sort_by=='past_3_months'){
+                $threeMonthsAgo = Carbon::now()->subMonths(3);
+                $orders->where('created_at', '>=', $threeMonthsAgo);
+            }elseif(!empty($this->sort_by)){
+                $startOfYear = Carbon::create($this->sort_by, 1, 1);
+                $endOfYear = Carbon::create($this->sort_by, 12, 31, 23, 59, 59);                
+                $orders->whereBetween('created_at', [$startOfYear, $endOfYear]);
+            }
+            $orders->orderBy('created_at','desc');
         }if($this->tab=='shipped'){
             $orders = Order::where('user_id',auth()->user()->id)
                             ->whereIn('status',['shipped','out_for_delivery'])
@@ -270,9 +285,15 @@ class Orders extends Component
         }
     }
 
+    public function sortByUpdate($sort_by){
+        $this->sort_by = $sort_by;
+        $this->filterOrders();
+    }
+
     public function mount()
     {
         $this->filterOrders();
+        $this->dates = OrderItem::select(\DB::raw('YEAR(created_at) as year'))->groupBy('year')->orderBy('year','desc')->get()->toArray();   
     }
 
     public function render()

@@ -33,15 +33,17 @@
                                 <div>
                                     <div class="card rounded-1 py-1 px-2 filter-select position-relative cursor" >
                                         <div class=" d-flex justify-content-between gap-2">
-                                            <p class="h-sm">Last 3 Months</p>
+                                            <p class="h-sm">{{ ucwords(str_replace('_',' ',$sort_by)) }}</p>
                                             <img src="{{asset('/asset/home/down-ar.svg')}}" alt="" >
                                         </div>
                                     </div>
                                     <div class="card filter-dropdown rounded-0 border-0 position-absolute jewfjjkdszx"  style="display:none;">
-                                        <div class=" bg-white py-2">
-                                            <p class="px-2 py-1 h-sms cursor ">Last Month</p>
-                                            <p class="px-2 py-1 h-sms cursor ">Last 3 Months</p>
-                                            <p class="px-2 py-1 h-sms cursor">2023</p>
+                                        <div class="bg-white py-2">
+                                            <p class="px-2 py-1 h-sms cursor {{(($sort_by=='last_30_days')?'selected':'')}}" wire:click="sortByUpdate('last_30_days')">Last 30 days</p>
+                                            <p class="px-2 py-1 h-sms cursor {{(($sort_by=='past_3_months')?'selected':'')}}" wire:click="sortByUpdate('past_3_months')">Past 3 months</p>
+                                            @foreach($dates as $date)
+                                            <p class="px-2 py-1 h-sms cursor {{(($sort_by == $date['year'])?'selected':'')}}"  wire:click="sortByUpdate({{$date['year']}})">{{ $date['year'] }}</p>
+                                            @endforeach
                                         </div>
                                     </div>
 
