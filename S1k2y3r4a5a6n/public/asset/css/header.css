@@ -1298,6 +1298,14 @@ padding-top: 155px!important;
         width: 20px;
         padding-top: 10px !important;
     }
+    body {
+        touch-action: none;
+        -ms-touch-action: none;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    
 }
 @media (min-width: 768px) and (max-width: 900px){
     .wrapper:hover .tooltip {
@@ -1417,6 +1425,14 @@ padding-top: 155px!important;
     .category-des-menu{
         display: none!important;
     }
+    body {
+        touch-action: none;
+        -ms-touch-action: none;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    
 }
 @media (min-width: 1025px) and (max-width: 1199px){
     .search_menu_nav .container {

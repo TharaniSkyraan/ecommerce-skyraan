@@ -427,9 +427,7 @@ $(document).ready(function() {
     });
 });
 
-  
 $(document).on( 'click', '.prdDet', function(e) {
- 
     var slug = $(this).find('.PrdRow').data('slug');
     var pid = $(this).find('.PrdRow').data('id');
     var pvid = $(this).find('.PrdRow').data('variant-id');
@@ -465,3 +463,8 @@ const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         });
     }
 });
+document.addEventListener('touchmove', function (event) {
+    if (event.scale !== 1) {
+        event.preventDefault();
+    }
+}, { passive: false });
