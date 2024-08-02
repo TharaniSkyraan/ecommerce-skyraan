@@ -446,11 +446,11 @@ fieldset, legend {
 .cart_add_section .subtotal .card{
     border: 1px solid var(--items-list-border-color);
 }
-.cart_add_section .check-out a{
+.check-out a{
     background-color: var(--next-prev-arrow-color);
     color: #fff;
 }
-.cart_add_section .check-out a:hover{
+.check-out a:hover{
     background-color: var(--next-prev-arrow-color);
     color: #fff;
 }
@@ -1824,23 +1824,21 @@ padding-top: 155px!important;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
     padding: 10px 0; 
 }
+
 .cart_add_section .list-items {
-    overflow-y: auto; /* Add scroll if content overflows */
+    height: 80%;
+    overflow-y: scroll;
 }
-.cart_add_section .list-items {
-    flex: 1; /* This makes the list-items section take up the available space */
-    overflow-y: auto; /* Add scroll if content overflows */
-    max-height: 440px; /* Define the maximum height */
-    
-}
+
 .cart_add_section {
     display: flex;
     flex-direction: column;
-    flex: 1; /* This allows the section to grow and shrink as needed */
+    flex-grow: 1;
+    height: 100%; /* Set height for the cart section */
 }
 .offcanvas-body {
-    display: grid;
-    grid-template-rows: 1fr auto; /* Creates two rows: one that takes available space and one for the footer */
-    height: 100vh; /* Ensure the container takes the full viewport height */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Set height for the offcanvas body */
 }
 

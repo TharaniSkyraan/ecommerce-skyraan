@@ -99,7 +99,7 @@
         @endif
     </div>
     @if(count($cart_products)!=0)
-        <div class="cart_add_section cardsfww">
+        <div class=" cardsfww">
             <div class="py-2 subtotal px-1 bg-white">
                 <div class="card p-2">
                     <div class="d-flex justify-content-between">
