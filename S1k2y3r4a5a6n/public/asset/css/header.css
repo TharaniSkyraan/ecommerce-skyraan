@@ -1010,12 +1010,7 @@ padding-top: 155px!important;
 .mbls-view {
    display: none;
 }
-.cardsfww{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    z-index: 1;
-}
+
 .sub_starssearch{
     width: 80px;
 }
@@ -1835,11 +1830,14 @@ padding-top: 155px!important;
 }
 
 .cardsfww {
-    position: sticky;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 1000; /* Ensure it's above other elements */
+    background-color: white; /* Set a background color to ensure visibility */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for visual separation */
 }
+
 
 /* Default height for list-items */
 .cart_add_section .list-items {
