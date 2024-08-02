@@ -16,6 +16,7 @@ class Login extends Component
     public function signin()
     {
 
+        
         if (preg_match('/^\+?[0-9()-]+$/', $this->username)) {            
             $this->validate([
                 'username' => 'required|string|min:10|max:10|exists:users,phone',

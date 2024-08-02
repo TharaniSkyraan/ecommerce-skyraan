@@ -20,7 +20,7 @@ class AddressList extends Component
         if(empty($zone['address_id']) || ($zone['address_id'] != $address_id)){
             $address = SavedAddress::find($address_id);
             $data = array(
-                'address_id' => $address->id,
+                'address_id' => $address->id??'',
                 'city' => $address->city??'', 
                 'latitude' => '', 
                 'longitude' => '', 

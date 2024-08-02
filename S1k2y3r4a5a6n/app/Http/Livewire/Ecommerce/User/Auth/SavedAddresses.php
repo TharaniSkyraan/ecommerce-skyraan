@@ -96,6 +96,22 @@ class SavedAddresses extends Component
         if(!isset(auth()->user()->address)){
             $validatedData['is_default'] = 'yes';
         }
+        
+        $zone = \Session::get('zone_config');
+
+        if(!empty($this->address_id) && $zone['address_id']==$this->address_id){
+            $data = array(
+                'address_id' => $this->address_id,
+                'city' => $this->city??'', 
+                'latitude' => '', 
+                'longitude' => '', 
+                'postal_code' => $this->postal_code??''
+            );      
+            $result = $this->configzone($data); 
+            session(['zone_config' => $result]);
+            view()->share('zone_data',\Session::get('zone_config'));
+        }
+        
         SavedAddress::updateOrCreate(
             ['id' => $this->address_id],
             $validatedData
