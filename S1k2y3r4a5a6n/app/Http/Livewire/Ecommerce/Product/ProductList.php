@@ -229,7 +229,8 @@ class ProductList extends Component
 
 
         $Products = $Products->paginate(20, ['*'], 'page', $this->page);
-
+        $this->emit('TotalRecord',$Products->total());
+        
         $this->morepage = $Products->hasMorePages();
 
         $products = array_map(function ($product) {

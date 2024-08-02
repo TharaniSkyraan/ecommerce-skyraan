@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 @if($is_mobile=='')
-                <div class="{{($loader)?'d-block':''}}">
+                <div class="{{($loader)?'d-none':''}}">
                     @livewire('ecommerce.product.filter',['type'=>$type])
                 </div>
                 @endif

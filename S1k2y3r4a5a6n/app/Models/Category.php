@@ -12,6 +12,10 @@ class Category extends Model
     protected $fillable = ['name','parent_id','image','logo','slug','status', 'description'];
     
 
+    public function parent_category()
+    {
+        return $this->belongsTo(Category::class, 'parent_id', 'id')->where('status','active');
+    }
     public function sub_categories()
     {
         return $this->hasMany(Category::class, 'parent_id', 'id')->orderBy('sort','asc');

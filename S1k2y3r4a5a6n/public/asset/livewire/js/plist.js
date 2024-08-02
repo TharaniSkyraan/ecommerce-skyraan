@@ -7,16 +7,20 @@ window.addEventListener("DOMContentLoaded", function () {
         }
         var urlParams = new URLSearchParams(window.location.search);
         Livewire.emit("InitiateFilters");
-        if(urlParams.size!=0){
-            
-        }else{
-            Livewire.emit('disbaleLoader');
-        }
+        // if(urlParams.size!=0){
+        //     Livewire.emit("InitiateFilters");
+        // }else{
+        //     Livewire.emit('disbaleLoader');
+        // }
         initiated = false;
     }
     
 });
-
+document.addEventListener('livewire:load', function () {        
+    Livewire.on('TotalRecord', count => {
+        $('.search_result_count').html(count);
+    });
+});
 $(document).ready(function() {
     $(window).scroll(function() {  
         if($('#load-more').html()){

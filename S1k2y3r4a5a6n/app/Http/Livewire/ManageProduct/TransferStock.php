@@ -15,6 +15,7 @@ class TransferStock extends Component
     public $warehouses,$query,$image,$warehouse_id,$warehouse_to_id,$reference_number,$action,$suggestion;
     public $products = [];
     public $selected_products = [];
+    public $to_warehouses = [];
     public $suggesstion = false;
     protected $listeners = ['SelectProduct','suggestion', 'unsetsuggestion', 'resetInputvalues','OpenStockLimit'];
 
@@ -223,7 +224,8 @@ class TransferStock extends Component
         if(\Auth::guard('admin')->user()->role!='admin')
         {
             $admin_id = \Auth::guard('admin')->user()->id;     
-            $this->warehouses = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->get(); 
+            $this->warehouses = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->get();
+            $this->to_warehouses = Warehouse::all(); 
         }
         else{
             $this->warehouses = Warehouse::all();
