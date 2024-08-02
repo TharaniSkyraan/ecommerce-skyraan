@@ -27,14 +27,14 @@
             <h6 class="fw-bold pb-2">Categories</h6>
             <div class="cat-card" >
                 @foreach($categories as $category)
-                    <div class="d-flex gap-2 cat-div cursor category-filter" wire:click.stop="updateCategoryIds('{{$category->id}}')">
+                    <div class="d-flex gap-2 cat-div cursor category-filter" data-id="{{$category->slug}}">
                         <img src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{$category->id}} {{ $category->name }}</p>
+                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{ $category->name }}</p>
                     </div>
                     @foreach($category->active_sub_categories() as $sub_category)
                         @if($sub_category->status =='active')
                             <div class="ps-3 pt-2 show-div">
-                                <p class="h-sms category-filter {{ (in_array($sub_category->id, array_keys($category_ids))?'fw-bold':'cursor opacity-75') }}" wire:click.stop="updateCategoryIds('{{$sub_category->id}}')">{{$sub_category->id}} {{ $sub_category->name}}</p>
+                                <p class="h-sms category-filter {{ (in_array($sub_category->id, array_keys($category_ids))?'fw-bold':'cursor opacity-75') }}" data-id="{{$sub_category->slug}}">{{ $sub_category->name}}</p>
                             </div>
                         @endif
                     @endforeach
@@ -176,5 +176,28 @@ const rangeInput = document.querySelectorAll(".range-input input"),
         $(".cat-div").click(function(){
             $(".show-div").toggle();
         });
+    });
+    
+    $(document).on('click','.category-filter', function()
+    {
+        var slug = $(this).data('id');
+        var url = "{{ url('/') }}/category/"+slug;
+        var queryParams = {};
+        var urlParams = new URLSearchParams(window.location.search);
+        
+        var i = 0;
+        urlParams.forEach(function(value, key) {
+            queryParams[key] = value;
+
+            if(key!='category'){
+               if(i==0){
+                    url = url+'?'+key+'='+value;
+               }else{
+                    url = url+'&'+key+'='+value;
+               }
+               i++;
+            }
+        });
+        window.location.href = url;
     });
 </script>

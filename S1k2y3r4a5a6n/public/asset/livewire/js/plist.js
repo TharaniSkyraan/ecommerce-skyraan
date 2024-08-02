@@ -18,11 +18,6 @@ window.addEventListener("DOMContentLoaded", function () {
     
 });
 
-document.addEventListener('livewire:load', function () {        
-    Livewire.on('categoryUpdated', message => {
-        location.reload();
-    });
-});
 $(document).ready(function() {
     $(window).scroll(function() {  
         if($('#load-more').html()){
