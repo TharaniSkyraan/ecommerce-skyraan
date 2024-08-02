@@ -84,19 +84,19 @@
                 @endisset
                 <div class="quantity py-1">
                     <div class="d-flex gap-2 align-items-center">
-                        <small class="text-dark fw-bold">Quantity :</small>
                         @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
                         @if($limit !=0)
+                            <small class="text-dark fw-bold">Quantity :</small>
                             <div class="qty-dropdown w-25 position-relative">
-                                <div class="card rounded-0 p-1">
+                                <div class="card rounded-0 px-2 py-1">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="h-sms input-qty">1</p>
+                                        <p class="h-sms input-qty px-2 py-1">1</p>
                                         <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
                                     </div>
                                 </div>
                                 <div class="card-bodys" style="display:none;">
                                     @for ($i = 1; $i <= $limit; $i++) 
-                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                    <p class="h-sms px-2 py-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
                                     @endfor
                                 </div>
                             </div>

@@ -62,7 +62,7 @@
                             </div> -->
                             @if($cart_product['quantity']<=$limit)
                                 <div class="qty-dropdown w-25 position-relative">
-                                    <div class="card rounded-0 p-1">
+                                    <div class="card rounded-0 py-1 px-2">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
                                             <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="card-bodys" style="display:none;">
                                         @for ($i = 1; $i <= $limit; $i++) 
-                                        <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                        <p class="h-sms py-1 px-2 qty-option" data-qty="{{ $i }}">{{$i}}</p>
                                         @endfor
                                     </div>
                                 </div>

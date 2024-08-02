@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg  sys-view tab-view ">
+<nav class="navbar navbar-expand-lg  sys-view tab-view " id="mainNavbar">
     <div class="container">
         <div class=" col-6 d-flex align-items-center">
             <a class="navbar-brand " href="{{ route('ecommerce.home') }}" style="color:#4CAF50!important"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="" ></a>
@@ -192,7 +192,7 @@
     </div>
     
     <!-- Menu offcanva right -->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="menuopen" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start bg-white" tabindex="-1" id="menuopen" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header pt-3">
             <h5 class="fw-bold menu-font" id="offcanvasExampleLabel">Menu</h5>
             <img id="closeIcon" src="{{asset('asset/home/close-vector.svg')}}" alt="close_icon" class="cursor">

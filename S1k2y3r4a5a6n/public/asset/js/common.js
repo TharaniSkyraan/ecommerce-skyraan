@@ -55,6 +55,17 @@ window.addEventListener('scroll', function() {
     }
 });
 
+document.getElementById('menuIcon').addEventListener('click', function() {
+    var navbar = document.getElementById('top-menu-res');
+    navbar.classList.remove('fixed-top');
+  });
+
+  // Optionally, re-add the 'fixed-top' class when the offcanvas is closed
+document.getElementById('menuopen').addEventListener('hidden.bs.offcanvas', function () {
+    var navbar = document.getElementById('top-menu-res');
+    navbar.classList.add('fixed-top');
+});
+
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.static-icons');
     navbar.classList.add('fixed-bottom');

@@ -51,7 +51,7 @@
                 </div>
             @empty
             <div class="p-2">
-                <li  class="container-fluid">No product found<li>
+                <li  class="container-fluid no-search">No product found<li>
             </div>
             @endforelse
         </ul>
