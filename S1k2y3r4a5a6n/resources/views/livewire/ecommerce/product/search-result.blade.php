@@ -62,10 +62,10 @@
                     </div>
 
                 </div>
-                <div class="col-xl-8 col-lg-8 col-md-4 col-sm-4 col-6 adsas">
+                <div class="col-xl-9 col-lg-8 col-md-5 col-sm-4 col-6 adsas">
                     @livewire('ecommerce.product.grid-filter')
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 jfw">
+                <div class="col-xl-3 col-lg-4 col-md-3 col-sm-4 col-12 jfw">
                     @livewire('ecommerce.product.sort-by')
                 </div>
             </div>

@@ -100,7 +100,7 @@
     visibility: visible; 
 }
 .check_out_li .mul-address .max-height{
-    height: 300px;
+    max-height: 200px;
     overflow-y: scroll;
 }
 .check_out_li .mul-address .max-height::-webkit-scrollbar {

@@ -1,5 +1,5 @@
 <div>
-    <div class="offcanvas-body cart_add_section pb-5">
+    <div class="offcanvas-body cart_add_section pb-xl-5 pb-lg-5 pb-md-1 pb-sm-1 pb-0">
         @if(count($cart_products)!=0)
             <div class="row pb-2 list-items">
                 <div class="col-12 pb-3">
@@ -29,10 +29,10 @@
                                                 <small class="fw-bold py-1 price">{{ $ip_data->currency_symbol??'₹' }} <span class="fw-bold product-price">{{ $cart_product['price'] }}</span></small>
                                             @endif
                                         </h6>
-                                        <div class="d-flex justify-content-between align-items-center pt-1">
+                                        <div class="d-flex justify-content-between align-items-center pt-1 gap-2">
                                             @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit'];  @endphp
                                             @if($cart_product['quantity']<=$limit)
-                                                <div class="qty-dropdown w-50 position-relative">
+                                                <div class="qty-dropdown jkef2 position-relative">
                                                     <div class="card rounded-0 p-1">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
