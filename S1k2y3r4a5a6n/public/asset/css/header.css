@@ -1759,8 +1759,10 @@ padding-top: 155px!important;
 .filter-dropdown p.selected{
     background-color: var(--items-list-bg-color);
 }
-.cat-card{
-    height: 200px;
+.cat-card
+{
+    min-height: 150px;
+    max-height: 300px;
     overflow-y: scroll;
 }
 
@@ -1769,10 +1771,10 @@ padding-top: 155px!important;
 }
 
 .cat-card::-webkit-scrollbar-track {
-    background: #FFF;
+    background: var(--items-list-bg-color);
 }
 
 .cat-card::-webkit-scrollbar-thumb {
-    background:rgb(194, 193, 193);
+    background: var(--price-content-color);
     width: 2px;
 }

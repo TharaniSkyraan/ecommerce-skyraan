@@ -153,7 +153,7 @@
                                 </div>
                             </a>
                             @if(\Auth::check())
-                                <a href="javascript:void(0);" class="col-6 AddCart" wire:click="checkout">
+                                <a href="javascript:void(0);" class="col-6 AddCart" wire:click.prevent="checkout">
                                     <div class="card card2 border-0 p-3">
                                         <h5 class="text-white text-center fw-normal">Buy Now</h5>
                                     </div>
@@ -179,7 +179,7 @@
                                     </span>
                                     <span class="form-control border-0 h-sms" style="background-color: white"> {{ $postal_code }} </span>
                                     <div class="vertical-line"></div>
-                                    <button class="btn fw-bold h-sms hover-btn" wire:click="enablechangepincode">Change <i class="bi bi-chevron-down"></i></button>
+                                    <button class="btn fw-bold h-sms hover-btn" wire:click.prevent="enablechangepincode">Change <i class="bi bi-chevron-down"></i></button>
                                 </div>
                                 <br />
                                 <div class="card location-card border-0 shadow-lg  mb-5 bg-white rounded" @if($isenabletoggle) style="display:block;" @else style="display:none;" @endif>
@@ -189,7 +189,7 @@
                                             <h6 class="h-sms py-2  text-secondary">Select From Saved Addresses</h6>
                                             @php $addresses = \Auth::user()->addresses; @endphp
                                             @foreach($addresses as $address)       
-                                            <div class="d-flex justify-content-between selectAddress gap-4 mb-3 align-items-center {{ ($address_id==$address->id)?'selected':'' }}" wire:click="changepincode({{$address->id}})">
+                                            <div class="d-flex justify-content-between selectAddress gap-4 mb-3 align-items-center {{ ($address_id==$address->id)?'selected':'' }}" wire:click.prevent="changepincode({{$address->id}})">
                                                 <div class="h-sms" for="address{{$address->id}}"><strong>{{ $address->name }}</strong>, {{ucwords($address->address)}}, {{$address->city}}, {{$address->postal_code}}. {{$address->phone}}, {{$address->alternative_phone}}.</div>
                                                 <div class="form-check ">
                                                     <input type="radio" name="address" id="address{{$address->id}}" class="form-check-input" @if($address_id==$address->id) checked @endif/>
@@ -207,7 +207,7 @@
                                         <div class="d-flex align-items-center input-container mt-3">
                                             <input type="number" oninput="isNumberKey(event)" class="form-control border-0 h-sms" value="" wire:model="postal_code1" placeholder="Enter Pincode" style="background-color: white" />
                                             <div class="vertical-line"></div>
-                                            <button class="btn fw-bold h-sms" wire:click="checkpincode">Check</button>
+                                            <button class="btn fw-bold h-sms" wire:click.prevent="checkpincode">Check</button>
                                         </div>
                                         @error('postal_code1') <span class="error">{{$message}}</span> @endif
                                     </div>
@@ -234,7 +234,7 @@
 </section>
 <section class="details py-5">
     <div class="container">
-        <div class="d-flex gap-xl-5 gap-lg-5 gap-md-5 gap-sm-5 gap-4     justify-content-center pb-4 tab-head">
+        <div class="d-flex gap-xl-5 gap-lg-5 gap-md-5 gap-sm-5 gap-4 justify-content-center pb-4 tab-head">
             <h6 class=" text-secondary opacity-75 fw-bold product-tab {{ ($tab=='description')?'activated':''}}" data-tab="description" >Product Description</h6>
             <h6 class="text-secondary opacity-75 fw-bold product-tab {{ ($tab=='information')?'activated':''}}" data-tab="information">Additional information</h6>
             <h6 class="text-secondary opacity-75 fw-bold product-tab {{ ($tab=='reviews'||$tab=='review')?'activated':''}}" data-tab="reviews">Reviews</h6>

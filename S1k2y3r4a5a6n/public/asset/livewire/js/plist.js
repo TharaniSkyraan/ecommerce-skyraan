@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", function () {
         if(urlParams.size!=0){
             
         }else{
-            
             Livewire.emit('disbaleLoader');
         }
         initiated = false;

@@ -24,7 +24,7 @@ class Create extends Component
         }, ARRAY_FILTER_USE_KEY)));
 
         $rules = [
-            'name' => 'required|max:180|unique:brands,name,'.$this->brand_id.',id,deleted_at,NULL',
+            'name' => 'required|max:30|unique:brands,name,'.$this->brand_id.',id,deleted_at,NULL',
             'description' => 'required|max:180', 
             'status' => 'required',
             'website_link' => 'nullable|url|max:180'

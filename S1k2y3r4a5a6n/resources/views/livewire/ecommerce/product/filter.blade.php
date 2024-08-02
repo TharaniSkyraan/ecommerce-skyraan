@@ -24,31 +24,11 @@
     </div>
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
-            <h6 class="fw-bold pb-2">Categories</h6>
-            <div class="cat-card" >
-                @foreach($categories as $category)
-                    <div class="d-flex gap-2 cat-div cursor category-filter" data-id="{{$category->slug}}">
-                        <img src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{ $category->name }}</p>
-                    </div>
-                    @foreach($category->active_sub_categories() as $sub_category)
-                        @if($sub_category->status =='active')
-                            <div class="ps-3 pt-2 show-div">
-                                <p class="h-sms category-filter {{ (in_array($sub_category->id, array_keys($category_ids))?'fw-bold':'cursor opacity-75') }}" data-id="{{$sub_category->slug}}">{{ $sub_category->name}}</p>
-                            </div>
-                        @endif
-                    @endforeach
-                @endforeach
-            </div>
-        </div>
-    </div>
-    <div class="pt-3">
-        <div class="card px-4 py-2 border-0">
             <div class="d-flex justify-content-between">
                 <h6 class="fw-bold">Price</h6>
                 <a href="javascript:void(0)" wire:click="resetPrice" class="resetPrice"><small class="text-secondary text-decoration-underline"> {{ (($max != $max_price)||($min != $min_price))?'Reset':'' }} </small></a>
             </div>
-            <div wire:ignore>
+            <div @if($max != 0) wire:ignore @endif>
                 <small class="text-secondary opacity-50 py-1 pb-3 h-sms">Maximum price is {{ $ip_data->currency_symbol??'₹' }}.{{$max}}</small>
                 <div class="slider mt-2" >
                     <div class="progress"></div>
@@ -76,6 +56,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="pt-3">
+        <div class="card px-4 py-2 border-0">
+            <h6 class="fw-bold pb-2">Categories</h6>
+            <div class="cat-card" >
+                @foreach($categories as $category)
+                    <div class="d-flex gap-2 cat-div cursor category-filter" data-id="{{$category->slug}}">
+                        <img src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
+                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{ $category->name }}</p>
+                    </div>
+                    @foreach($category->active_sub_categories() as $sub_category)
+                        @if($sub_category->status =='active')
+                            <div class="ps-3 pt-2 show-div">
+                                <p class="h-sms category-filter {{ (in_array($sub_category->id, array_keys($category_ids))?'fw-bold':'cursor opacity-75') }}" data-id="{{$sub_category->slug}}">{{ $sub_category->name}}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                @endforeach
             </div>
         </div>
     </div>

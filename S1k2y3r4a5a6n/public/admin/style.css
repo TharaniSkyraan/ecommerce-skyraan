@@ -1562,3 +1562,6 @@ table::-webkit-scrollbar-track {
 .m-0{
   margin: 0px !important;
 }
+.order-items .prdname{
+  text-wrap: wrap;
+}
