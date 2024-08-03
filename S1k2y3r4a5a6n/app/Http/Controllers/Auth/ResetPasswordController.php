@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Mail\PasswordChangedMail;
 
 class ResetPasswordController extends Controller
 {
@@ -27,10 +28,14 @@ class ResetPasswordController extends Controller
             return back()->withInput()->with('error', 'Invalid token!');
         
         $user = User::where('email', $request->email)->first();
+        $name = $user->name;
+        $email = $user->email;
         $user->password = bcrypt($request->password);
         $user->save();
 
         \DB::table('password_reset_tokens')->where(['email'=> $request->email])->delete();
+
+        \Mail::send(new PasswordChangedMail($name,$email));
 
         // Log the user in after password reset
         \Auth::login($user);

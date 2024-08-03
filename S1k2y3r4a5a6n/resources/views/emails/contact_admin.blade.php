@@ -83,10 +83,10 @@
     </div>
     <div class="card">
         <div class="p1">Name</div>
-        <div class="p2">Emily Johnson</div>
+        <div class="p2">{{$data['name']}}</div>
         <hr>
         <div class="p1">E Mail ID</div>
-        <div class="p2">emilyjohnson@gmail.com</div> 
+        <div class="p2">{{$data['email']}}</div> 
         <hr>       
         <div class="p1">Feedback</div>
         <div class="p2">I hope you’re doing well. I’m sending this email regarding the issue I faced while using the website. I lost all my data and the products I added to the cart since I did not log in for a while. Also, the delivery is getting delayed more than the estimated time.I hope your team will help me resolve this issue as soon as possible.</div>

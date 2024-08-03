@@ -609,9 +609,12 @@ padding-top: 155px!important;
 }
 .close-btn{
     cursor: pointer;
-    margin-right: -20px!important;
-    padding: 0rem!important;
+    margin-right: -20px !important;
+    padding: 0rem !important;
     width: 20px;
+    margin-top: -19px !important;
+    position: absolute;
+    z-index: 9;
 }
 .nav-link{
     cursor: pointer;
@@ -1839,12 +1842,4 @@ padding-top: 155px!important;
     flex-direction: column;
     flex-grow: 1;
     height: 100%;
-}
-
-#cancel-order .close-btn {
-    cursor: pointer;
-    margin-right: -24px !important;
-    padding: 0rem !important;
-    width: 20px;
-    margin-top: -46px!important;
 }

@@ -110,7 +110,7 @@
     <div class="main-div text-center">
         <img src="{{asset('asset/home/password-change.png')}}" alt="">
         <p class="title-content text-center"><b>Password Changed Successfully!</b></p>
-        <p class="text-left">Hi Elena, We wanted to let you know that your password was successfully changed</p>
+        <p class="text-left">Hi {{$name}}, We wanted to let you know that your password was successfully changed</p>
         <p class="text-center acc">You can now log in to your account with your new password.</p>
         <img src="{{asset('asset/home/Whats_Next.png')}}" alt="word" class="word">
         <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">Login</span></button></div>

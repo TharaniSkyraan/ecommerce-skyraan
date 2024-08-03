@@ -2,24 +2,26 @@
 
 namespace App\Mail;
 
+use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable
+class PasswordChangedMail extends Mailable
 {
-    use SerializesModels;
+    use Queueable, SerializesModels;
 
     public $name,$email;
 
     /**
      * Create a new message instance.
      */
+
     public function __construct($name,$email)
     {
         $this->name = $name;
         $this->email = $email;
     }
-
+  
     public function build()
     {
         $name = $this->name;
@@ -27,8 +29,8 @@ class WelcomeMail extends Mailable
 
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($email, $name)
-                    ->subject('Welcome Mail '. config('siteSetting.site_name'))
-                    ->markdown('emails.welcomemail')
+                    ->subject('Password Changed Mail'. config('siteSetting.site_name'))
+                    ->markdown('emails.password-change')
                     ->with([
                         'name' => $this->name,
                     ]);

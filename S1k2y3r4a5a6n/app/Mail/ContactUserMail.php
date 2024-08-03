@@ -13,42 +13,25 @@ class ContactUserMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Contact User Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    
     public function build()
     {
-        return $this->markdown('emails.contact_user');
-    }   
+        $data = $this->data;
+        $emailscc = array('ravindhiran@skyraan.com');
+        array_push($emailscc, 'gnanamaruthu@skyraan.com');
+        return $this->from($data['email'], $data['name'])
+            ->replyTo($data['email'], $data['name'])
+            ->cc($emailscc)
+            ->to('supportadmin@skyraan.net', 'skyraa ecommerce')
+            ->subject('Receive Contact mail from '.$data['name'])
+            ->markdown('emails.contact_user')
+            ->with(['data'=>$data]);
+    }
+  
 }

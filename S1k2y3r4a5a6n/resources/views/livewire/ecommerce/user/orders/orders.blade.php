@@ -275,10 +275,10 @@
     
     <div class="modal fade" id="submit-cancel-order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="text-end">
-                <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
-            </div>
             <div class="modal-content">
+                <div class="text-end">
+                    <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
+                </div>
                 <div class="modal-bodys p-5">
                     <div class="col-12 text-center pt-2">
                         <img src="{{asset('asset/home/cancel-order.svg')}}" alt="cancel order" class="pb-3">

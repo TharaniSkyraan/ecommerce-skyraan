@@ -474,5 +474,4 @@ $(document).on('click','.like_img, .add-to-cart', function()
 
 $(document).on('click','.close-btn', function()
 {
-alert(1);
 });

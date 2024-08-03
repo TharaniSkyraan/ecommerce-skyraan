@@ -315,10 +315,10 @@
 <!-- Edit popup -->    
 <div class="modal fade" id="Editpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
-        <div class="text-end">
-            <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
-        </div>
         <div class="modal-content rounded-0 border-0">
+            <div class="text-end">
+                <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+            </div>
             <div class="modal-bodys p-4">
                 @livewire('ecommerce.layout.quick-shop')
             </div>

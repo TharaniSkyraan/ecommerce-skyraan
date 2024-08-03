@@ -49,10 +49,10 @@
         <!-- Sign in Modal -->
         <div class="modal  fade" id="signin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="text-end ">
-                    <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
-                </div>
                 <div class="modal-content">
+                    <div class="text-end ">
+                        <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                    </div>
                     <div class="modal-bodys">
                         @livewire('ecommerce.user.login')  
                         <!-- <div class="container-fluid">
@@ -90,10 +90,10 @@
         <!-- Signup -->
         <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="text-end ">
-                    <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
-                </div>
                 <div class="modal-content">
+                    <div class="text-end ">
+                        <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                    </div>
                     <div class="modal-bodys">
                         @livewire('ecommerce.user.signup')  
                     </div>
@@ -115,10 +115,10 @@
         <!-- forgot password -->
         <div class="modal fade" id="forgotpassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="text-end ">
-                    <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
-                </div>
                 <div class="modal-content">
+                    <div class="text-end ">
+                        <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                    </div>
                     <div class="modal-bodys">
                         @livewire('ecommerce.user.forgot-password')  
                     </div>
@@ -263,10 +263,10 @@
    <!-- verify otp -->
     <div class="modal fade" id="verify-otp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="text-end">
-                <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
-            </div>
             <div class="modal-content">
+                <div class="text-end">
+                    <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
+                </div>
                 <div class="modal-bodys p-5">
                     <div class="col-12 text-center pt-2">
                         <img src="" alt="">

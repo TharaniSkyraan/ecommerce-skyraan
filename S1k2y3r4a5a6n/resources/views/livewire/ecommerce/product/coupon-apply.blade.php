@@ -85,7 +85,7 @@
         <!-- Placeholder image -->
         <div class="row py-4 cart_add_section">
             <div class="col-12 pb-3 empty-cart">
-                <img src="{{ asset('asset/home/coupon-placeholder.svg') }}" alt="home" class="w-75">
+                <img src="{{ asset('asset/home/coupon-placeholder.svg') }}" alt="home" class="w-50">
                 <h6>Oops! No Coupons Available</h6>
             </div>
         </div>
