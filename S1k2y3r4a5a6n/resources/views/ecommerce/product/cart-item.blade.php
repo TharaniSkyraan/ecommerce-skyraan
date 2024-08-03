@@ -32,7 +32,7 @@
         @endif
     </div>
     @if($cart_product['quantity']>$limit)
-        <div class="px-2 pt-2"><span class="text-danger h-sms px-2">{{ ($cart_product['available_quantity']==0)?'Out of stock':'Only '.$limit.' quantity is allowed.' }} </span> <span class="h-sms"> | <text class="cursor mx-2 deleteCart" wire:click=""> Remove </text> </span></div>
+        <div class="px-2 pt-2"><span class="text-danger h-sms px-2">{{ ($cart_product['available_quantity']==0)?'Out of stock':'Only '.$limit.' quantity is allowed.' }} </span> <span class="h-sms"> | <text class="cursor mx-2 deleteCart"> Remove </text> </span></div>
     @endif
 
 </div>
