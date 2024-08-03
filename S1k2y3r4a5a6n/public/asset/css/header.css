@@ -1413,7 +1413,7 @@ padding-top: 155px!important;
         display: none!important;
     }
     .cart_add_section .list-items {
-        height: 56%!important;
+        height: 49% !important;
     }
 }
 @media (min-width: 1025px) and (max-width: 1199px){
@@ -1829,7 +1829,7 @@ padding-top: 155px!important;
 }
 
 .cart_add_section .list-items {
-    height: 99%;
+    height: 80%;
     overflow-y: scroll;
 }
 
@@ -1837,7 +1837,5 @@ padding-top: 155px!important;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    height: 100%; /* Set height for the cart section */
+    height: 100%;
 }
-
-
