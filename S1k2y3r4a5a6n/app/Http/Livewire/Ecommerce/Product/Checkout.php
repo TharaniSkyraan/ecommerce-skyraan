@@ -224,7 +224,7 @@ class Checkout extends Component
                 $product['distance'] = $distance??0;
                 $product['cart_limit'] = $default->cart_limit??0;
                 $limit = ($product['available_quantity'] <= $product['cart_limit'])? $product['available_quantity'] : $product['cart_limit'];
-                $this->action = ($data['quantity']>$limit)?'disabled':'';
+                $this->action = (empty($this->action))?($data['quantity']>$limit)?'disabled':'':'';
 
                 $total_price += $product['total_price']??0;
                 $cart_products[$data['id']] = $product;
