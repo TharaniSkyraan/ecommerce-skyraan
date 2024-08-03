@@ -4,13 +4,13 @@
         <section class="product-list cartpage">
             <div class="container">
                 <div class="row pt-xl-4 pt-lg-4 pt-md-4 pt-sm-4 pt-0">
-                    <div class="col-5">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                         <h6 class="sys-view">Product info</h6>
                     </div>
-                    <div class="col-4">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-4">
                         <h6 class="sys-view">Quantity</h6>
                     </div>
-                    <div class="col-3">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-2">
                         <h6 class="sys-view total">Total</h6>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                     @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
                     <div class="row py-2 cartList price-list PrdRow ps-2" data-id="{{ $cart_product['id'] }}" data-cid="{{ $cart_product['cart_id'] }}">
                         <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
-                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="row">
                                 <div class="col-4 p-2">
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $cart_product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($cart_product['created_at'])->timestamp }}" target="_blank">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-7 align-self-center pt-2 ps-0">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 align-self-center pt-2 ps-0">
                             <!-- <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-5 qty-container d-flex align-items-center justify-content-center border p-1 rounded-1  text-dark">
                                 <div class="col text-center px-1 qty-btn-minus"><span>-</span></div>
                                 <div class="vr"></div>
@@ -61,7 +61,9 @@
                                 <div class="col text-center px-1 qty-btn-plus"><span>+</span></div>
                             </div> -->
                             @if($cart_product['quantity']<=$limit)
-                                <div class="qty-dropdown w-25 position-relative">
+                            <div class="d-flex gap-3 align-items-center">
+                                <span class="h-sms mbl-view fw-bold ps-2">Qty:</span>
+                                <div class="qty-dropdown position-relative jkef4">
                                     <div class="card rounded-0 py-1 px-2">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
@@ -74,17 +76,22 @@
                                         @endfor
                                     </div>
                                 </div>
+                            </div>
+                                
                             @else
                                 <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
                             @endif
                         </div>
 
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-5 d-flex align-self-center justify-content-start">
-                            @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
-                            @else
-                                <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
-                            @endif    
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-6 d-flex align-self-center justify-content-start">
+                            <div class="d-flex align-items-center gap-3">
+                            <span class="h-sms mbl-view fw-bold ps-2">TOTAL : </span>
+                                @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
+                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
+                                @else
+                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
+                                @endif   
+                            </div> 
                         </div>
                     </div>
                     <hr>

@@ -1,7 +1,7 @@
 <div>
     <div class="offcanvas-body cart_add_section pb-xl-5 pb-lg-5 pb-md-1 pb-sm-1 pb-0">
         @if(count($cart_products)!=0)
-            <div class="row pb-2 list-items">
+            <div class="row pb-5 list-items">
                 <div class="col-12 pb-3">
                     @foreach($cart_products as $cart_product)
                         <div class="card cartList main-card p-2 mb-2 PrdRow" data-id="{{ $cart_product['id'] }}">
