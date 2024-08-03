@@ -11,7 +11,7 @@ class OrderItem extends Model
     
     protected $append=['order_code','variant'];
     
-    protected $fillable = ["order_id","product_id","product_name","product_image","quantity","weight","wide","height","length",
+    protected $fillable = ["order_id","warehouse_id","product_id","product_name","product_image","quantity","weight","wide","height","length",
                            "price", "sale_price", "tax", "tax_id", "tax_amount", "taxable_amount", "gross_amount","discount_amount","sub_total",
                            "shipping_charge", "shipping_tax", "shipping_tax_id", "shipping_tax_amount", "shipping_taxable_amount", "shipping_gross_amount", "shipping_discount_amount", "shipping_sub_total",
                            "total_amount", "attribute_set_ids"];

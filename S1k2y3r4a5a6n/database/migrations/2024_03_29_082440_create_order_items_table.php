@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('order_id')->default(0);
+            $table->integer('warehourse_id')->default(0);
             $table->integer('product_id')->default(0);
             $table->double('quantity', 16, 2);
             $table->double('price', 16, 2)->default(0); // price without tax

@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('stock_histories', function (Blueprint $table) {
             $table->id();  
             $table->text('reference_number')->nullable();
-            $table->enum('stock_type', ['upload', 'transfer'])->default('upload');
+            $table->enum('stock_type', ['upload', 'transfer','order'])->default('upload');
             $table->unsignedBigInteger('warehouse_from_id'); 
             $table->unsignedBigInteger('warehouse_to_id'); 
             $table->dateTime('sent_date')->nullable();
             $table->dateTime('received_date')->nullable();
-            $table->enum('status', ['sent', 'received'])->default('received');           
+            $table->enum('status', ['sent', 'received', 'new_order', 'delivered', 'cancelled'])->default('received');           
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         
