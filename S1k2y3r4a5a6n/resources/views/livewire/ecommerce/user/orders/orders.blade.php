@@ -228,20 +228,20 @@
     <!-- Cancel order -->
     <div class="modal fade {{$isopenmodel}}" id="cancel-order" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
+            <div class="modal-content">
             <div class="text-end">
                 <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
             </div>
-            <div class="modal-content">
                 <div class="modal-bodys p-3">
                     <div class="text-center head">
                         <h4 class="hding">Cancel order</h4>
                     </div>
                     <hr>
                     <div class="d-flex justify-content-start ">
-                        <div >
-                                <small class="fw-bold">Order ID &nbsp;: &nbsp;</small>
+                        <div>
+                            <small class="fw-bold">Order ID &nbsp;: &nbsp;</small>
                         </div>
-                        <div >
+                        <div>
                             <small class="fw-bold"> {{ $order_code }}</small>
                         </div>
                     </div>
