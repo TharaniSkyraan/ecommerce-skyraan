@@ -1,7 +1,7 @@
 <div>
     <div class="offcanvas-body cart_add_section pb-xl-5 pb-lg-5 pb-md-1 pb-sm-1 pb-0">
         @if(count($cart_products)!=0)
-            <div class="row pb-2 list-items">
+            <div class="row pb-5 list-items">
                 <div class="col-12 pb-3">
                     @foreach($cart_products as $cart_product)
                         <div class="card cartList main-card p-2 mb-2 PrdRow" data-id="{{ $cart_product['id'] }}">
@@ -89,7 +89,7 @@
                 @endif 
             </div>
         @else
-            <div class="row pb-2 list-items empty-cart cart_add_section">
+            <div class="row pb-2 list-items empty-cart ">
                 <div class="col-12 pb-3">
                     <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
                     <h6 class="py-4">Your cart is empty.</h6>
@@ -99,7 +99,7 @@
         @endif
     </div>
     @if(count($cart_products)!=0)
-        <div class="cart_add_section cardsfww">
+        <div class=" cardsfww">
             <div class="py-2 subtotal px-1 bg-white">
                 <div class="card p-2">
                     <div class="d-flex justify-content-between">

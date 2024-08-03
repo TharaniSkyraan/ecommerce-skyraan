@@ -453,20 +453,21 @@ $(document).on('click','.like_img, .add-to-cart', function()
     e.stopPropagation();
 });
   
-$(document).ready(function(){
-const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    // Remove list styles for summary elements on iOS
-    if (isiOS) {
-        document.addEventListener('DOMContentLoaded', function () {
-            const summaries = document.querySelectorAll('summary');
-            summaries.forEach(function (summary) {
-                summary.style.listStyle = 'none';
-            });
-        });
-    }
-});
-document.addEventListener('touchmove', function (event) {
-    if (event.scale !== 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
+// $(document).ready(function(){
+// const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+//     // Remove list styles for summary elements on iOS
+//     if (isiOS) {
+//         document.addEventListener('DOMContentLoaded', function () {
+//             const summaries = document.querySelectorAll('summary');
+//             summaries.forEach(function (summary) {
+//                 summary.style.listStyle = 'none';
+//             });
+//         });
+//     }
+// });
+
+// document.addEventListener('touchmove', function (event) {
+//     if (event.scale !== 1) {
+//         event.preventDefault();
+//     }
+// }, { passive: false });
