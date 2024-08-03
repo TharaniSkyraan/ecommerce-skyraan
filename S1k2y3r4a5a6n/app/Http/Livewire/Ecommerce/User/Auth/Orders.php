@@ -36,7 +36,7 @@ class Orders extends Component
 
     protected $queryString = ['tab','sort_by'];
 
-    protected $listeners = ['loadMore'];
+    protected $listeners = ['loadMore','CloseModel'];
 
     public function cancelOrderRequest($ordRef)
     {
@@ -46,7 +46,11 @@ class Orders extends Component
         $this->isopenmodel = 'show';
         $this->emit('OpenCancelRequestModel');
     }
-    
+    public function CloseModel()
+    {
+        $this->isopenmodel = '';
+        $this->emit('CloseCancelRequestModel');
+    }
     public function cancelOrder()
     {
         $validatedData =  $this->validate([

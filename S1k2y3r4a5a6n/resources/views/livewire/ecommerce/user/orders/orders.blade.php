@@ -226,7 +226,7 @@
         </div>
     @endif
     <!-- Cancel order -->
-    <div class="modal fade {{$isopenmodel}}" id="cancel-order" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade {{$isopenmodel}}" id="cancel-order" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="text-end">

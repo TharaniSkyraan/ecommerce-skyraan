@@ -664,11 +664,12 @@ class Checkout extends Component
     public function CouponApplied($emit='false'){
         $this->coupon_discount = 0;
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
-        $cart_product = auth()->user()->usercart->applicable_products??'';
+        $applicable_products = auth()->user()->usercart->applicable_products??'';
         if(!empty($this->coupon_code))
         {
             $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
-            $cart_product = array_filter(explode(',',$cart_product));
+
+            $cart_product = CartItem::whereIn('product_id',array_filter(explode(',',$applicable_products)))->pluck('id')->toArray();
             $discount_type = $coupon->discount_type;
             $discount = $coupon->discount;
             if($discount_type=='flat' && count($cart_product)==0){
