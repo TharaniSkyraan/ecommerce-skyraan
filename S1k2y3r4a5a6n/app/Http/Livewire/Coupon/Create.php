@@ -181,7 +181,7 @@ class Create extends Component
         $this->customers = Customer::limit(5)->get();
         $this->products = Product::limit(5)->get();
         $this->categories = Category::whereNULL('parent_id')->orderBy('sort','asc')->whereStatus('active')->get();
-        $this->collections = Collection::get();
+        $this->collections = Collection::whereStatus('active')->orWhere('id',$this->collection??'')->get();
         $this->today = Carbon::now()->format('d-m-Y H:i');
     }
 

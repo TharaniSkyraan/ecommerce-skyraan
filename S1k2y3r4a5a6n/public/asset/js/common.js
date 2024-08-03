@@ -169,10 +169,15 @@ $(document).on('click','.deleteCart', function()
     localStorage.setItem('cart',JSON.stringify(productsArray));
     Livewire.emit('RemoveProductFromCart',index);
     Livewire.emit('MyCart',productsArray);
-    updateRelatedCaurosel()
-    cartProductQuantity();
-    if(!($(".product-list").hasClass('cartpage')) && !($('.checkoutpage').hasClass("check_out_li"))){
+    if($('.checkoutpage').hasClass("check_out_li")){
         $(this).closest('.PrdRow').remove();
+        Livewire.emit('cartList');
+    }else{
+        updateRelatedCaurosel()
+        cartProductQuantity();
+        if(!($(".product-list").hasClass('cartpage'))){
+            $(this).closest('.PrdRow').remove();
+        }
     }
 });
 
@@ -189,9 +194,6 @@ function cartProductQuantity(){
     
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     
-    if($('.checkoutpage').hasClass("check_out_li")){
-        Livewire.emit('cartList');
-    }
     if($(".product-list").hasClass('cartpage')){
         Livewire.emit('addCartinUserCart',productsArray,'cartpage');
     }else{

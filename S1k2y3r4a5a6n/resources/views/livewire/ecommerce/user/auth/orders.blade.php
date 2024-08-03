@@ -103,6 +103,9 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
+    // $('#cancel-order').on('hidden.bs.modal', function (e) {
+    //     @this.set('isopenmodel', '');
+    // });
     $(window).scroll(function() {  
         if($('#load-more').html()){
             var length = $('.OrdRow').length;
