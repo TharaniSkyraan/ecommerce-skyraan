@@ -85,10 +85,11 @@
             <h6>Coupon Discount</h6>
             <img id="info-tooltip" class="info-tooltip" src="{{ asset('asset/home/info.svg') }}" alt="info" style="width: 18px;">
             <div class="tooltip align-items-center justify-content-between gap-5 p-2">
-                @php $coupon_carts = auth()->user()->usercart->applicable_products??'';
+                @php 
                     $discount_type = auth()->user()->usercart->coupon->discount_type??'';
                     $discount = auth()->user()->usercart->coupon->discount??'';
-                    $coupon_carts = (!empty($coupon_carts))?array_filter(explode(',',$coupon_carts)):[];
+                    $applicable_products = array_filter(explode(',',(auth()->user()->usercart->applicable_products??'')));
+                    $coupon_carts = \App\Models\Cart::whereIn('product_id',$applicable_products)->pluck('id')->toArray();
                 @endphp
 
                 @if($apply_for!='all' && !empty($discount_type))

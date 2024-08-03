@@ -7,6 +7,7 @@ use App\Models\Cart as CartItem;
 use App\Models\UserCart;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Category;
 use App\Models\Collection;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -121,39 +122,41 @@ class CouponApply extends Component
                     $discount = $coupon->discount;                        
                     break;
                 case 'collection':
-                    $apply_for_ids = $coupon->apply_for_ids;
-                    $product_ids = Collection::where('id',$apply_for_ids)->pluck('product_ids')->first();
-                    if(isset($product_ids)){
-                        $cart_product = CartItem::whereIn('product_id',explode(',',$product_ids))
+                    $collection_product_ids = Collection::where('id',$coupon->apply_for_ids)->pluck('product_ids')->first();
+                    if(isset($collection_product_ids)){
+                        $product_ids = CartItem::whereIn('product_id',explode(',',$collection_product_ids))
                                             ->whereUserId(auth()->user()->id)
-                                            ->pluck('id')->toArray();
-                        if(count($cart_product)!=0){
+                                            ->pluck('product_id')->toArray();
+                        if(count($product_ids)!=0){
                             $discount = $coupon->discount;  
                         } 
                     }                       
                     break;
                 case 'category':
                     $apply_for_ids = $coupon->apply_for_ids;
-                    $product_ids = Product::where('category_ids', 'like', '%,'.$apply_for_ids.',%')->pluck('id')->toArray();
-                    if(isset($product_ids)){
-                        $cart_product = CartItem::whereIn('product_id',$product_ids)
-                                            ->whereUserId(auth()->user()->id)
-                                           ->pluck('id')->toArray();
-                        if(count($cart_product)!=0){
-                            $discount = $coupon->discount;  
-                        } 
-                    }   
+
+                    //Apply for all sub category
+                    $apply_for_sub_ids = Category::where('parent_id',$apply_for_ids)->pluck('id')->toArray();
+
+                    $cart_product_ids = CartItem::whereUserId(auth()->user()->id) ->pluck('product_id')->toArray();
+
+                    $product_ids = Product::where(function($q) use ($apply_for_ids, $apply_for_sub_ids) {
+                                                $q->where('category_ids', 'like', '%,'.$apply_for_ids.',%');
+                                                foreach ($apply_for_sub_ids as $sub_id) {
+                                                    $q->orWhere('category_ids', 'like', '%,'.$sub_id.',%');
+                                                }
+                                            })->whereIn('id',$cart_product_ids)->pluck('id')->toArray();
+                    if(count($product_ids)!=0){
+                        $discount = $coupon->discount;  
+                    } 
                     break;
-                case 'product':                        
-                    $product_ids = explode(',',$coupon->apply_for_ids);
-                    if(isset($product_ids)){
-                        $cart_product = CartItem::whereIn('product_id',$product_ids)
-                                            ->whereUserId(auth()->user()->id)
-                                           ->pluck('id')->toArray();
-                        if(count($cart_product)!=0){
-                            $discount = $coupon->discount;  
-                        } 
-                    }   
+                case 'product':                                           
+                    $product_ids = CartItem::whereIn('product_id',explode(',',$coupon->apply_for_ids))
+                                        ->whereUserId(auth()->user()->id)
+                                        ->pluck('product_id')->toArray();
+                    if(count($product_ids)!=0){
+                        $discount = $coupon->discount;  
+                    } 
                     break;
                 case 'customer':                 
                     $user_ids = explode(',',$coupon->apply_for_ids);
@@ -180,9 +183,10 @@ class CouponApply extends Component
             }
         }
         if(empty($this->coupon_error)){
+
             UserCart::updateOrCreate(
                 ['user_id' => auth()->user()->id],
-                ['coupon_code'=>$this->coupon_code, 'applicable_products'=> (isset($cart_product))?implode(',',$cart_product):null]
+                ['coupon_code'=>$this->coupon_code, 'applicable_products'=> (isset($product_ids))?implode(',',$product_ids):null]
             );
             $this->coupon_code = '';
 

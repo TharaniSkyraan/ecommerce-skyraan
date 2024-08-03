@@ -16,7 +16,9 @@ use App\Models\CancelOrder;
 use App\Models\CancelReason;
 use App\Models\OrderShipment;
 use App\Models\OrderHistory;
-use App\Models\ShippingHistory;
+use App\Models\ProductStock;
+use App\Models\StockHistory;
+use App\Models\ProductStockUpdateQuantityHistory;
 use Razorpay\Api\Api;
 use App\Traits\OrderInvoice;
 
@@ -36,7 +38,7 @@ class Orders extends Component
 
     protected $queryString = ['tab','sort_by'];
 
-    protected $listeners = ['loadMore'];
+    protected $listeners = ['loadMore','CloseModel'];
 
     public function cancelOrderRequest($ordRef)
     {
@@ -46,7 +48,11 @@ class Orders extends Component
         $this->isopenmodel = 'show';
         $this->emit('OpenCancelRequestModel');
     }
-    
+    public function CloseModel()
+    {
+        $this->isopenmodel = '';
+        $this->emit('CloseCancelRequestModel');
+    }
     public function cancelOrder()
     {
         $validatedData =  $this->validate([
@@ -73,7 +79,47 @@ class Orders extends Component
             ['order_id' => $this->order_id],
             $validatedData
         );
+
         Order::where('id',$this->order_id)->update(['status'=>'cancelled']);
+
+        $stockhistories = StockHistory::whereReferenceNumber($this->order_id)
+                                      ->whereStockType('order')->get();
+        
+        foreach($stockhistories as $stock_history)
+        {
+
+            $stock_history =  StockHistory::find($stock_history->id)->update(['received_date' => Carbon::now(),'status' => 'cancelled']);
+
+            $quantity_update_histories = ProductStockUpdateQuantityHistory::whereHistoryId($stock_history->id)->get();
+
+            foreach($quantity_update_histories as $quantity_history)
+            {
+
+                $product_stock = ProductStock::whereWarehouseId($quantity_history->warehouse_id)
+                                              ->whereProductVariantId($quantity_history->product_variant_id)
+                                              ->first();
+
+                $product_stock = ProductStock::find($product_stock->id);
+                $available_stock = $product_stock->available_quantity;
+                $product_stock->available_quantity += $quantity_history->updated_quantity;
+                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                $product_stock->save();
+                
+                ProductStockUpdateQuantityHistory::create([
+                    'history_id' => $stock_history->id,
+                    'warehouse_id' => $quantity_history->warehouse_id,
+                    'product_name' => $quantity_history->product_name,
+                    'product_id' => $quantity_history->product_id,
+                    'product_variant_id' => $quantity_history->product_variant_id,
+                    'previous_available_quantity' => $available_stock,
+                    'updated_quantity' => $quantity_history->updated_quantity,
+                    'available_quantity' => $available_stock + $quantity_history->updated_quantity,
+                ]);
+
+            }
+
+        }
+
         OrderShipment::where('order_id',$this->order_id)->update(['status'=>'cancelled']);
         OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'You requested a cancellation because '.$this->reason.'.']);
         ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$order->user_id,'action'=>'order_cancelled','shipment_id'=>$order->shipment->id??''],['description'=>'You requested a cancellation because '.$this->reason.'.']);

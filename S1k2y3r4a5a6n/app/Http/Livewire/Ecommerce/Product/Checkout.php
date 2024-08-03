@@ -21,6 +21,8 @@ use App\Models\Setting;
 use App\Models\Tax;
 use App\Models\Warehouse;
 use App\Models\ProductStock;
+use App\Models\StockHistory;
+use App\Models\ProductStockUpdateQuantityHistory;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
 use DB;
@@ -354,7 +356,7 @@ class Checkout extends Component
             foreach($carts as $cart)
             {
                 $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
-                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
+                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
                 $tax = Tax::find($cart['tax_ids']);
                 $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
 
@@ -403,7 +405,7 @@ class Checkout extends Component
                 }
                 $orderitem["order_id"] = $order_id;
                 $orderitem["product_id"] = $cart['id'];
-                $orderitem['product_name'] = $cart['name'];
+                $orderitem['product_name'] = $productvariant->product_name;
                 $orderitem['product_image'] = $cart['image'];
                 $orderitem['quantity'] = $cart['quantity'];
                 $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
@@ -431,12 +433,43 @@ class Checkout extends Component
                 $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
                 $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
 
-                OrderItem::create($orderitem);
                 $product_stock_id = $cart['product_stock_id'];
+
                 $product_stock = ProductStock::find($product_stock_id);
+                $warehouse_id = $product_stock->warehouse_id;
+                $available_stock = $product_stock->available_quantity;
                 $product_stock->available_quantity -= $cart['quantity'];
                 $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
                 $product_stock->save();
+
+                $date = Carbon::now();
+
+                $stock_history =  StockHistory::updateOrCreate([
+                    'reference_number' => $order_id,
+                    'warehouse_to_id' => $warehouse_id,
+                    'stock_type' => 'order',
+                ],[
+                    'warehouse_from_id' => 0,
+                    'sent_date' => $date,
+                    'status' => 'new_order'
+                ]);
+
+                // Product Stock Quantity Update History
+                $quantity_update_history = ProductStockUpdateQuantityHistory::create([
+                    'history_id' => $stock_history->id,
+                    'warehouse_id' => $warehouse_id,
+                    'product_name' => $productvariant->product_name,
+                    'product_id' => $cart['id'],
+                    'product_variant_id' => $cart['variant_id'],
+                    'previous_available_quantity' => $available_stock,
+                    'updated_quantity' => $cart['quantity'],
+                    'available_quantity' => $available_stock - $cart['quantity'],
+                ]);
+                    
+                $orderitem["order_id"] = $order_id;
+                $orderitem["warehouse_id"] = $warehouse_id;
+
+                OrderItem::create($orderitem);
             }
     
             SavedAddress::query()
@@ -473,7 +506,7 @@ class Checkout extends Component
             {
                     
                 $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
-                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
+                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
                 $tax = Tax::find($cart['tax_ids']);
                 $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
 
@@ -519,7 +552,7 @@ class Checkout extends Component
                     }
                 }
                 $orderitem["product_id"] = $cart['id'];
-                $orderitem['product_name'] = $cart['name'];
+                $orderitem['product_name'] = $productvariant->product_name;
                 $orderitem['product_image'] = $cart['image'];
                 $orderitem['quantity'] = $cart['quantity'];
                 $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
@@ -547,7 +580,6 @@ class Checkout extends Component
                 $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
                 $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
 
-
                 $orderData['user_id'] = auth()->user()->id;
                 $orderData['coupon_code'] = $this->coupon_code;
                 $orderData['sub_total'] = $orderitem["sub_total"];
@@ -574,15 +606,44 @@ class Checkout extends Component
         
                 Order::where('id',$order->id)->update(['code'=>$order_code,'payment_id'=>$payment->id]);
                 
-                $orderitem["order_id"] = $order_id;
-
-                OrderItem::create($orderitem);
                 
                 $product_stock_id = $cart['product_stock_id'];
+
                 $product_stock = ProductStock::find($product_stock_id);
+                $warehouse_id = $product_stock->warehouse_id;
+                $available_stock = $product_stock->available_quantity;
                 $product_stock->available_quantity -= $cart['quantity'];
                 $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
                 $product_stock->save();
+
+                $date = Carbon::now();
+
+                $stock_history =  StockHistory::updateOrCreate([
+                    'reference_number' => $order_id,
+                    'warehouse_to_id' => $warehouse_id,
+                    'stock_type' => 'order',
+                ],[
+                    'warehouse_from_id' => 0,
+                    'sent_date' => $date,
+                    'status' => 'new_order'
+                ]);
+
+                // Product Stock Quantity Update History
+                $quantity_update_history = ProductStockUpdateQuantityHistory::create([
+                    'history_id' => $stock_history->id,
+                    'warehouse_id' => $warehouse_id,
+                    'product_name' => $productvariant->product_name,
+                    'product_id' => $cart['id'],
+                    'product_variant_id' => $cart['variant_id'],
+                    'previous_available_quantity' => $available_stock,
+                    'updated_quantity' => $cart['quantity'],
+                    'available_quantity' => $available_stock - $cart['quantity'],
+                ]);
+                    
+                $orderitem["order_id"] = $order_id;
+                $orderitem["warehouse_id"] = $warehouse_id;
+
+                OrderItem::create($orderitem);
 
                 $orderShipment['order_id'] = $order_id;
                 $orderShipment['user_id'] = auth()->user()->id;
@@ -615,7 +676,6 @@ class Checkout extends Component
             CartItem::whereUserId(auth()->user()->id)->delete();
 
         }
-
 
         $this->emit('clearCart',$order_code);
 
@@ -664,11 +724,12 @@ class Checkout extends Component
     public function CouponApplied($emit='false'){
         $this->coupon_discount = 0;
         $this->coupon_code = auth()->user()->usercart->coupon_code??'';
-        $cart_product = auth()->user()->usercart->applicable_products??'';
+        $applicable_products = auth()->user()->usercart->applicable_products??'';
         if(!empty($this->coupon_code))
         {
             $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
-            $cart_product = array_filter(explode(',',$cart_product));
+
+            $cart_product = CartItem::whereIn('product_id',array_filter(explode(',',$applicable_products)))->pluck('id')->toArray();
             $discount_type = $coupon->discount_type;
             $discount = $coupon->discount;
             if($discount_type=='flat' && count($cart_product)==0){
