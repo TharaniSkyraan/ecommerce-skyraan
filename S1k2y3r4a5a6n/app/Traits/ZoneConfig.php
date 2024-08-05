@@ -27,7 +27,6 @@ trait ZoneConfig
                 view()->share('zone_data',\Session::get('zone_config'));                
             }
         }else{            
-            session(['zone_config' => $result]);
             view()->share('zone_data',\Session::get('zone_config')); 
         }
     
