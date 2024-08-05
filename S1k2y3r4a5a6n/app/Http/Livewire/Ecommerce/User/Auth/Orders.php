@@ -210,7 +210,7 @@ class Orders extends Component
                             ->orderBy('created_at','desc');
         }
         if($this->tab!='buy-again'){
-            $orders = $orders->paginate(2, ['*'], 'page', $this->page);
+            $orders = $orders->paginate(20, ['*'], 'page', $this->page);
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages();       
             $orders = $orders->each(function ($order, $key) {            
@@ -240,7 +240,7 @@ class Orders extends Component
                         ->select('product_id', 'attribute_set_ids', \DB::raw('MAX(created_at) as created_at'))
                         ->groupBy('product_id', 'attribute_set_ids')
                         ->orderBy('created_at', 'desc')
-                        ->paginate(2, ['*'], 'page', $this->page);
+                        ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages(); 
