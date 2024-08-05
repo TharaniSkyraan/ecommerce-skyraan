@@ -448,9 +448,10 @@ function openInNewTabWithNoopener(val) {
     aTag.click();
 }
 
-$(document).on('click','.like_img, .add-to-cart', function()
+$(document).on('click','.like_img, .add-to-cart', function(e)
 {
     e.stopPropagation();
+    
 });
   
 // $(document).ready(function(){

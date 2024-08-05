@@ -58,8 +58,8 @@ class Signup extends Component
             ],[                
                 'email.unique' => 'The given email already exist',
                 'email.required' => 'Email id is required',
-                'email.email' => 'Please enter valid phone number',
-                'email.max' => 'Email must be less than 30 characters',
+                'email.email' => 'Please enter valid email',
+                'email.max' => 'Email must be less than 180 characters',
             ]);
         } elseif ($propertyName === 'name') {
             $this->resetValidation('name');

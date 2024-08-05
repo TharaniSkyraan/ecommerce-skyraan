@@ -2,7 +2,7 @@
 <nav class="navbar">
     <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
-        <img src="{{ asset('admin/images/logo.png') }}" alt="">
+        <img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="">
         {{$siteSetting->site_name}}
     </div>
 

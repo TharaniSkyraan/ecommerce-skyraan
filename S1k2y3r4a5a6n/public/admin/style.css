@@ -1575,3 +1575,8 @@ table::-webkit-scrollbar-track {
   font-size: 12px !important;
   padding-left: 10px;
 }
+.logo_item img{
+  width: fit-content;
+  border-radius: 0px;
+  height: 50px;
+}
