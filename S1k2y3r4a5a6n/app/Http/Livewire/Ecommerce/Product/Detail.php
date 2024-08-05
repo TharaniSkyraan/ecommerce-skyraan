@@ -194,21 +194,16 @@ class Detail extends Component
         $product = $product->toArray();
         
         $this->product_id = $id = $product['id'];
-        // dd($this->product_id);
         if(!empty($this->variant) && $this->variant !=0){
             $default = ProductVariant::select('id as variant_id','cart_limit','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                     ->where('id',$this->variant)
                                     ->first()->toArray();
         }else{            
             $default = ProductVariant::select('id as variant_id','cart_limit','images','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
-                                    ->whereHas('product_stock', function($q1){
-                                        $q1->whereIn('warehouse_id', $this->warehouse_ids);
-                                    })
                                     ->whereIn('is_default', ['yes', 'no'])
                                     ->orderByRaw("is_default = 'yes' DESC")                                      
                                     ->whereProductId($product['id'])
                                     ->first()->toArray();
-                                    dd($default);
             $this->variant = $default['variant_id'];
             // $this->product_variant = encrypt($this->variant, 'aes-256-cbc', 'SkyRaan213', 0, 'SkyRaan213');
             $this->product_variant = $this->variant;
