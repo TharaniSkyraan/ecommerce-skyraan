@@ -126,6 +126,7 @@ class Checkout extends Component
         $this->lng = $zone['longitude'];
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
+        dd($zone);
 
         $cart_products = [];
         $total_price = 0;
@@ -144,26 +145,16 @@ class Checkout extends Component
 
                     $variant_id = $data['product_variant_id'];
                     $quantity = $data['quantity'];
-                    // $available_warehouse = Warehouse::whereHas('productstock', function($q) use($quantity,$variant_id){
-                    //                                     $q->where('available_quantity','>=',$quantity)
-                    //                                         ->where('product_variant_id',$variant_id);
-                    //                                 })->select("*", DB::raw("6371 * acos(cos(radians(" . $this->lat . "))
-                    //                                 * cos(radians(lat)) * cos(radians(lng) - radians(" . $this->lng . "))
-                    //                                 + sin(radians(" .$this->lat. ")) * sin(radians(lat))) AS distance"))
-                    //                                 ->whereIn('id',$this->warehouse_ids)
-                    //                                 ->orderBy('distance', 'asc')
-                    //                                 ->first();
-
-                    $available_warehouse = Warehouse::whereHas('productstock', function($q) use($quantity, $variant_id) {
-                                                        $q->where('available_quantity', '>=', $quantity)
-                                                          ->where('product_variant_id', $variant_id);
+                    $available_warehouse = Warehouse::whereHas('productstock', function($q) use($quantity,$variant_id){
+                                                        $q->where('available_quantity','>=',$quantity)
+                                                            ->where('product_variant_id',$variant_id);
                                                     })->select("*", DB::raw("6371 * acos(cos(radians(" . $this->lat . "))
                                                     * cos(radians(lat)) * cos(radians(lng) - radians(" . $this->lng . "))
                                                     + sin(radians(" .$this->lat. ")) * sin(radians(lat))) AS distance"))
-                                                    ->whereIn('id', $this->warehouse_ids)
+                                                    ->whereIn('id',$this->warehouse_ids)
                                                     ->orderBy('distance', 'asc')
                                                     ->first();
-
+                                                    
                     $product_stock = ProductStock::select('id', 'available_quantity')
                                                 ->where('warehouse_id',$available_warehouse->id??0)
                                                 ->whereProductVariantId($data['product_variant_id'])
