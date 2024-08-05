@@ -208,6 +208,7 @@ class Detail extends Component
                                     ->orderByRaw("is_default = 'yes' DESC")                                      
                                     ->whereProductId($product['id'])
                                     ->first()->toArray();
+                                    dd($default);
             $this->variant = $default['variant_id'];
             // $this->product_variant = encrypt($this->variant, 'aes-256-cbc', 'SkyRaan213', 0, 'SkyRaan213');
             $this->product_variant = $this->variant;
