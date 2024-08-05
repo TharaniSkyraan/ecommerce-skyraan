@@ -237,9 +237,9 @@ class Orders extends Component
                             $q->where('user_id',auth()->user()->id)
                               ->where('status','delivered');
                         })
-                        ->orderBy('created_at','desc')
-                        ->select('product_id', 'attribute_set_ids')
+                        ->select('product_id', 'attribute_set_ids', \DB::raw('MAX(created_at) as created_at'))
                         ->groupBy('product_id', 'attribute_set_ids')
+                        ->orderBy('created_at', 'desc')
                         ->paginate(2, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
