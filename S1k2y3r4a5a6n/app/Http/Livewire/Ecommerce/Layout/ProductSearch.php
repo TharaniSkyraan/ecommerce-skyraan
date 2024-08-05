@@ -29,7 +29,7 @@ class ProductSearch extends Component
 
     public function Search(){
         if(!empty($this->query))
-        return redirect(route('ecommerce.product.list',['search',$this->query]));
+        return redirect(route('ecommerce.product.list',['search']).'?q='.$this->query);
     }
 
     public function productList(){

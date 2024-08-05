@@ -17,7 +17,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                     <div class="owl-slide">
                         <div class="">
                             @if(empty($banner['product_slug']))
-                            <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $banner['slug']]) }}">
+                            <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection']) }}?q={{ $banner['slug'] }}">
                             @else
                             <a href="{{ route('ecommerce.product.detail', ['slug' => $banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($banner['product_created'])->timestamp}}&product_variant={{ $banner['variant_id'] }}">
                             @endif
@@ -44,7 +44,7 @@ $duration = (count($collections) / 5) * $baseDuration;
             <div id="home_first_carousel" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-4 px-sm-4 px-0">
                 @foreach($categories as $key => $category)                
                     <div class="owl-slide">
-                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="owl--text d-flex py-1 px-3 justify-content-center">
+                        <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="owl--text d-flex py-1 px-3 justify-content-center">
                             <div class="p-1 card {{ $key % 2 == 0 ? 'card1' : 'card2' }} {{ $key % 2 == 0 ? 'bg-lites' : 'bg-darks' }} border-0 round-2">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -76,7 +76,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                     @foreach($promotion_banners as $key => $promotion_banner)
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pb-3">
                             @if(empty($promotion_banner['product_slug']))
-                                <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $promotion_banner['slug']]) }}">
+                                <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection']) }}?q={{ $promotion_banner['slug'] }}">
                             @else
                                 <a href="{{ route('ecommerce.product.detail', ['slug' => $promotion_banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($promotion_banner['product_created'])->timestamp}}&product_variant={{ $promotion_banner['variant_id'] }}">
                             @endif
@@ -220,7 +220,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     <h3 class="text-end fw-bold">{{ $special_product['name'] }}</h3>
                                     <div class=" d-flex justify-content-end pt-2">
                                         @if(empty($special_product['product_slug']))
-                                            <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection', 'slug' => $special_product['slug']]) }}" class="but_this d-flex align-items-center">
+                                            <a href="{{ route('ecommerce.product.list', ['type' => 'product-collection']) }}?q={{ $special_product['slug'] }}" class="but_this d-flex align-items-center">
                                         @else
                                             <a href="{{ route('ecommerce.product.detail', ['slug' => $special_product['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($special_product['product_created'])->timestamp}}&product_variant={{ $special_product['variant_id'] }}"  class="but_this d-flex align-items-center">
                                         @endif

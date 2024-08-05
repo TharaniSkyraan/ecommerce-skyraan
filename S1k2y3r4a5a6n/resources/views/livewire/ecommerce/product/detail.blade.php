@@ -208,7 +208,7 @@
                                         @else
                                             <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
                                             <div class="text-center py-2">
-                                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
+                                                <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#signin" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
                                             </div>
                                             <div class="separator mt-2">or</div>
                                         @endif

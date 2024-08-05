@@ -5,7 +5,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
 
 .marquee_content2 .marquee__group1
 {
-    animation: scroll1 {{$duration}}s linear infinite;
+    animation: scroll1 {{ $duration }}s linear infinite;
 }
 
 </style>
@@ -14,7 +14,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
         <div class="marquee__group1">
             @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
-                    <a href="{{ route('ecommerce.product.list', ['type' => 'collection', 'slug' => $collection['slug']]) }}" >
+                    <a href="{{ route('ecommerce.product.list', ['type' => 'collection']) }}?q={{ $collection['slug'] }}" >
                         <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="{{$collection['name']}}">
                     </a>
                 @else
@@ -27,7 +27,7 @@ $baseDuration = 13; $duration = (count($collections) / 5) * $baseDuration;
         <div aria-hidden="true" class="marquee__group1">
             @foreach($collections as $collection)
                 @if(empty($collection['product_slug']))
-                    <a href="{{ route('ecommerce.product.list', ['type' => 'collection', 'slug' => $collection['slug']]) }}" >
+                    <a href="{{ route('ecommerce.product.list', ['type' => 'collection']) }}?q={{ $collection['slug'] }}" >
                         <img src="{{ asset('storage') }}/{{$collection['image']}}" alt="{{$collection['name']}}">
                     </a>
                 @else
