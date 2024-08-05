@@ -24,7 +24,7 @@ class AddressList extends Component
                 'city' => $address->city??'', 
                 'latitude' => '', 
                 'longitude' => '', 
-                'postal_code' => $address->postal_code??''
+                'postal_code' => $address->postal_code??($zone['postal_code']??'')
             );      
             $result = $this->configzone($data); 
             session(['zone_config' => $result]);
