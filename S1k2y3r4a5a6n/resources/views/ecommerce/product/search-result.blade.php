@@ -16,7 +16,7 @@
                             @endif
                             <li class="breadcrumb-item text-dark active h-sms detail-dot" aria-current="page">{{ $category->name }}</li>
                         @else
-                            <li class="breadcrumb-item text-dark active h-sms" aria-current="page"><span class="search_result_count"> </span> <span class="detail-dot">results for <b>"{{ ucwords(str_replace('-',' ',$slug)) }}"</b></span></li>
+                            <li class="breadcrumb-item text-dark active h-sms" aria-current="page"><span class="search_result_count"> </span> <span class="detail-dot">Results for <b>"{{ ucwords(str_replace('-',' ',$slug)) }}"</b></span></li>
                         @endif
                     </ol>
                 </nav>

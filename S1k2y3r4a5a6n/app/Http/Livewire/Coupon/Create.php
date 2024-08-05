@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class Create extends Component
 {
-    public $today,$coupon_id,$coupon_code,$unlimited_coupon,$display_at_checkout,$status,$start_date,$end_date,$never_expired,
+    public $today,$coupon_id,$coupon_code,$terms_and_condition,$unlimited_coupon,$display_at_checkout,$status,$start_date,$end_date,$never_expired,
             $count,$discount,$minimum_order,$category,$categories,$collection,$collections,$customer,$product;
     public $apply_for = 'all-orders';
     public $discount_type = 'flat';
@@ -87,7 +87,6 @@ class Create extends Component
         }
     }
     
-
     public function GenerateCouponCode(){
         $this->coupon_code = \Str::random(12);
     }
@@ -105,6 +104,7 @@ class Create extends Component
          $rules = [
             'coupon_code' => 'required|min:8|max:12|unique:coupons,coupon_code,'.$this->coupon_id.',id,deleted_at,NULL',
             'status' => 'required',
+            'terms_and_condition' => 'required|max:255',
             'discount_type' => 'required',            
             'category' => 'required_if:apply_for,category',
             'collection' => 'required_if:apply_for,collection',
@@ -127,6 +127,7 @@ class Create extends Component
          $this->validate($rules);
          
          $validateData['coupon_code'] = $this->coupon_code;
+         $validateData['terms_and_condition'] = $this->terms_and_condition;
          $validateData['unlimited_coupon'] = ($this->unlimited_coupon=='yes')?'yes':'no';
          $validateData['count'] = ($this->unlimited_coupon!='yes')?$this->count:0;
          $validateData['display_at_checkout'] = ($this->display_at_checkout=='yes')?'yes':'no';
@@ -159,6 +160,7 @@ class Create extends Component
         if(!empty($coupon_id)){
             $coupon = Coupon::find($coupon_id);
             $this->coupon_code = $coupon->coupon_code;
+            $this->terms_and_condition = $coupon->terms_and_condition;
             $this->display_at_checkout = ($coupon->display_at_checkout=='yes')?'yes':'';
             $this->unlimited_coupon = ($coupon->unlimited_coupon=='yes')?'yes':'';
             $this->count = $coupon->count;

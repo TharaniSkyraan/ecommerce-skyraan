@@ -13,12 +13,18 @@
                 @error('coupon_code') <span class="error"> {{$message}}</span> @endif
                 <div class="d-flex">
                     <input type="checkbox" wire:model="display_at_checkout" id="display_at_checkout" value="yes">
-                    <label for="display_at_checkout"> &nbsp; Display coupon code at the checkout page? </label>
+                    <label for="display_at_checkout"> &nbsp; Display coupon code at the checkout page? <br> (Only applicable for - Order amount from,Customer,Once per customer)</label>
                 </div> 
-                <div class="d-flex">
+                <div class="d-flex mb-2">
                     <input type="checkbox" wire:model="unlimited_coupon" id="unlimited_coupon" value="yes">
                     <label for="unlimited_coupon"> &nbsp; Unlimited Coupon? </label>
                 </div>     
+                <div class="form-group" wire:ignore>
+                    <label for="terms_and_condition">Terms and Condition</label>
+                    <textarea name="terms_and_condition" id="terms_and_condition" placeholder="Terms and Condition" wire:model="terms_and_condition">{!! $terms_and_condition !!}</textarea>
+                </div>
+                @error('terms_and_condition') <span class="error"> {{$message}}</span> @endif
+
                 <div class="form-group {{ ($this->unlimited_coupon!='yes')?'':'d-none'}}">
                     <label for="count">Enter Count</label>
                     <input type="text" name="count" id="count" placeholder="Coupon count" wire:model="count">
@@ -289,5 +295,15 @@ $(document).ready(function() {
     });
 });
 
+
+    ClassicEditor
+    .create(document.querySelector('#terms_and_condition'))
+    .then(editor => {
+        editor.model.document.on('change:data', () => {
+            @this.set('terms_and_condition', editor.getData());
+        })
+    });
+    
 </script>
 @endpush
+
