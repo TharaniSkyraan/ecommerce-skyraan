@@ -126,8 +126,7 @@ class Checkout extends Component
         $this->lng = $zone['longitude'];
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
-        dd($zone);
-
+       
         $cart_products = [];
         $total_price = 0;
 
