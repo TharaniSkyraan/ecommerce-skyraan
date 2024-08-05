@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class Create extends Component
 {
-    public $today,$coupon_id,$coupon_code,$terms_and_condition,$unlimited_coupon,$display_at_checkout,$status,$start_date,$end_date,$never_expired,
+    public $today,$coupon_id,$coupon_code,$above_order,$terms_and_condition,$unlimited_coupon,$display_at_checkout,$status,$start_date,$end_date,$never_expired,
             $count,$discount,$minimum_order,$category,$categories,$collection,$collections,$customer,$product;
     public $apply_for = 'all-orders';
     public $discount_type = 'flat';
@@ -114,7 +114,11 @@ class Create extends Component
          
          if($this->discount_type!='free_shipping'){
             $rules['discount'] = ($this->discount_type=='flat')?'required|numeric|min:1':'required|numeric|max:99|min:1';
+            if($this->discount_type=='flat'){
+                $rules['above_order'] = 'required|numeric|max:1000000|min:1';
+            }
          }
+         
          if($this->unlimited_coupon!='yes'){
             $rules['count'] = 'required|numeric';
          }
@@ -133,6 +137,7 @@ class Create extends Component
          $validateData['display_at_checkout'] = ($this->display_at_checkout=='yes')?'yes':'no';
          $validateData['discount'] = ($this->discount_type!='free_shipping')?$this->discount:0;
          $validateData['discount_type'] = $this->discount_type; 
+         $validateData['above_order'] = $this->above_order??0;
          $validateData['apply_for'] = $this->apply_for;
          $validateData['status'] = $this->status;
          $apply_for_ids = ($this->apply_for=='product')? ','.implode(',',$this->product_ids).',' :
@@ -165,6 +170,7 @@ class Create extends Component
             $this->unlimited_coupon = ($coupon->unlimited_coupon=='yes')?'yes':'';
             $this->count = $coupon->count;
             $this->discount_type = $coupon->discount_type;
+            $this->above_order = $coupon->above_order;
             $this->discount = ($coupon->discount!='0')?$coupon->discount:'';
             $this->status = $coupon->status;
             $this->start_date = Carbon::parse($coupon->start_date)->format('d-m-Y H:i');

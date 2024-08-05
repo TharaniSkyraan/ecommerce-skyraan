@@ -24,7 +24,6 @@
                     <textarea name="terms_and_condition" id="terms_and_condition" placeholder="Terms and Condition" wire:model="terms_and_condition">{!! $terms_and_condition !!}</textarea>
                 </div>
                 @error('terms_and_condition') <span class="error"> {{$message}}</span> @endif
-
                 <div class="form-group {{ ($this->unlimited_coupon!='yes')?'':'d-none'}}">
                     <label for="count">Enter Count</label>
                     <input type="text" name="count" id="count" placeholder="Coupon count" wire:model="count">
@@ -61,30 +60,37 @@
                             @error('discount') <span class="error"> {{$message}}</span> @endif
                         </div>                          
                     </div>
-                    <div class="col-4 pl-3">
-                        <div class="form-group mb-4">
-                            <label for="apply_for">Apply For</label>
-                            <select name="apply_for" id="apply_for" wire:model="apply_for">
-                                <option value="all-orders">All orders</option>
-                                <option value="minimum-order">Order amount from</option>
-                                <option value="collection">Product collection</option>
-                                <option value="category">Product category</option>
-                                <option value="product">Product</option>
-                                <option value="customer">Customer</option>
-                                <option value="once-per-customer">Once per customer</option>
-                            </select>
-                            @error('apply_for') <span class="error"> {{$message}}</span> @endif
-                        </div>
-                    </div>
+                    <div class="col-4 pl-3 {{($discount_type!='flat')?'d-none':''}}">
+                        <div class="form-group">
+                            <label for="above_order">Order Should be Above</label>
+                            <input type="text" name="above_order" id="above_order" placeholder="Order Above" wire:model="above_order">
+                            @error('above_order') <span class="error"> {{$message}}</span> @endif
+                        </div> 
+                    </div>   
                     <div class="row">
-                        <div class="col-4 {{($apply_for!='minimum-order')?'d-none':''}}">
+                        <div class="col-4">
+                            <div class="form-group mb-4">
+                                <label for="apply_for">Apply For</label>
+                                <select name="apply_for" id="apply_for" wire:model="apply_for">
+                                    <option value="all-orders">All orders</option>
+                                    <option value="minimum-order">Order amount from</option>
+                                    <option value="collection">Product collection</option>
+                                    <option value="category">Product category</option>
+                                    <option value="product">Product</option>
+                                    <option value="customer">Customer</option>
+                                    <option value="once-per-customer">Once per customer</option>
+                                </select>
+                                @error('apply_for') <span class="error"> {{$message}}</span> @endif
+                            </div>
+                        </div>
+                        <div class="col-4 pl-3 {{($apply_for!='minimum-order')?'d-none':''}}">
                             <div class="form-group">
                                 <label for="minimum_order">Minimum amount order</label>
                                 <input type="text" name="minimum_order" id="minimum_order" placeholder="Discount" wire:model="minimum_order">
                                 @error('minimum_order') <span class="error"> {{$message}}</span> @endif
                             </div> 
-                        </div>
-                        <div class="col-4 {{($apply_for!='collection')?'d-none':''}}">    
+                        </div>   
+                        <div class="col-4 pl-3 {{($apply_for!='collection')?'d-none':''}}">    
                             <div class="form-group mb-4">
                                 <label for="collection">Collection</label>
                                 <select name="collection" id="collection" wire:model="collection">
@@ -96,7 +102,7 @@
                                 @error('collection') <span class="error"> {{$message}}</span> @endif
                             </div>
                         </div>
-                        <div class="col-4 {{($apply_for!='category')?'d-none':''}}">    
+                        <div class="col-4 pl-3 {{($apply_for!='category')?'d-none':''}}">    
                             <div class="form-group mb-4">
                                 <label for="category">Category</label>
                                 <select name="category" id="category" wire:model="category">
@@ -107,8 +113,10 @@
                                 </select>
                                 @error('category') <span class="error"> {{$message}}</span> @endif
                             </div>
-                        </div>
-                        <div class="col-8 {{($apply_for!='product')?'d-none':''}}">                            
+                        </div>                  
+                    </div>
+                    <div class="row">
+                        <div class="col-12 {{($apply_for!='product')?'d-none':''}}">                            
                             <div class="form-group">
                                 <label for="product">Product</label>
                                 <input type="search" name="product" id="product" placeholder="Product" wire:model="product">
@@ -145,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8 {{($apply_for!='customer')?'d-none':''}}">                            
+                        <div class="col-12 {{($apply_for!='customer')?'d-none':''}}">                            
                             <div class="form-group">
                                 <label for="customer">Customer</label>
                                 <input type="search" name="customer" id="customer" placeholder="Customer" wire:model="customer">
@@ -155,7 +163,7 @@
                                             <div class="autocomplete">
                                                 <ul>
                                                     @foreach($customers as $customer)
-                                                        <li class="customer_id" wire:click="addCustomer({{$customer->id}})"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> {{$customer->name}}</li>
+                                                        <li class="customer_id" wire:click="addCustomer({{$customer->id}})"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> {{$customer->name}} - {{$customer->phone}}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -175,7 +183,7 @@
                                 <div class="">
                                     @foreach($selected_customers as $scustomer)
                                         <div class="selected-customers">
-                                            <div class="customer"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> <span> {{$scustomer->name}} </span> </div>
+                                            <div class="customer"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> <span> {{$scustomer->name}} - {{$scustomer->phone}}</span> </div>
                                             <div><i class="bx bx-x cursor-pointer" wire:click="removeCustomer({{$scustomer->id}})"></i></div>
                                         </div>
                                     @endforeach

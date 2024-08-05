@@ -4,7 +4,7 @@
          <div class="row">
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  pt-xl-5 pt-lg-5 pt-sm-3 pt-md-5 pt-3">
                   <a href="{{ url('/') }}" class="d-flex justify-content-center pb-3"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="" class="logo_img"></a>
-                  <h6 class="text-white lh-base text-center mbls-view fw-normal">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
+                  <h6 class="text-white lh-base text-center mbls-view fw-normal">{{ $siteSetting->footer_content }}</h6>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  pt-xl-5 pt-lg-5 pt-sm-4 pt-md-4 pt-5 locations">
                   <h6 class="text-white fw-bold pb-3">Contact US</h6>

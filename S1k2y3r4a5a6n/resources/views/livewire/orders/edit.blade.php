@@ -15,8 +15,8 @@
                             <thead>
                                 <tr>
                                     <th class="p-2" style="padding-left: 20px;">Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
+                                    <th style="padding-left: 10px;">Price</th>
+                                    <th style="padding: 0px 30px;">Qty</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
@@ -38,8 +38,8 @@
                                                 <br> <span>WareHouse : {{ $item->warehouse->name??'' }}</span>
                                             </p>
                                         </td>
-                                        <td><p> @if($item->sale_price!=0) <span class="currency">₹</span> {{ $item->sale_price }}  <del> <span class="currency">₹</span> {{$item->price}}</del>  @php $price = $item->sale_price; @endphp @else <span class="currency">₹</span> {{$item->price}} @endif</p></td>
-                                        <td><p>{{$item->quantity}}</p></td>
+                                        <td><p class="text-center">@if($item->sale_price!=0)<del class="p-0"><span class="currency">₹</span> {{$item->price}}</del><br><span class="currency">₹</span> {{ $item->sale_price }}    @php $price = $item->sale_price; @endphp @else <span class="currency">₹</span> {{$item->price}} @endif</p></td>
+                                        <td><p class="text-center">{{$item->quantity}}</p></td>
                                         <td> <span class="currency">₹</span> {{$item->taxable_amount}}</td>
                                     </tr>
                                 @endforeach

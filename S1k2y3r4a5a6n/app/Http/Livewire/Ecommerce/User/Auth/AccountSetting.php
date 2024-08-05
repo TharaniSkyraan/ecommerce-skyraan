@@ -77,7 +77,7 @@ class AccountSetting extends Component
         $validatedData = $this->validate([
             'phone' => 'required|numeric|phone:'.$ipData->code.'|unique:users,phone,'.auth()->user()->id.',id',
             'email' => 'required|string|max:180|email|unique:users,email,'.auth()->user()->id.',id',
-            'name' => 'required|string|min:3|max:180',
+            'name' => 'required|string|min:3|max:30',
         ], [
             'phone.required' => 'Phone number is required',
             'phone.numeric'=> 'Please enter valid Phone Number',

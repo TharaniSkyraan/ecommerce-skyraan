@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('unlimited_coupon', ['yes', 'no'])->default('no');
             $table->enum('display_at_checkout', ['yes', 'no'])->default('no');
             $table->double('discount', 16, 2)->notNullable();
+            $table->double('above_order', 16, 2)->default(0);
             $table->double('minimum_order', 16, 2)->notNullable();
             $table->enum('discount_type', ['flat', 'percentage', 'free_shipping'])->default('flat');
             $table->enum('apply_for', ['all-orders', 'minimum-order', 'category', 'collection', 'customer', 'product', 'once-per-customer'])->default('all-orders');

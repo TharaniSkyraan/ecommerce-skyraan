@@ -172,7 +172,7 @@ class Nav extends Component
                     Cart::create($data);
                 }
             }
-            $datas = Cart::whereUserId(auth()->user()->id)->get()->toArray();
+            $datas = Cart::whereUserId(auth()->user()->id)->orderBy('updated_at','desc')->get()->toArray();
             foreach($datas as $key => $data)
             {
                 if(Product::where('id',$data['product_id'])->doesntExist() || ProductVariant::where('id',$data['product_variant_id'])->doesntExist()){
