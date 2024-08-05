@@ -35,6 +35,7 @@
                                                 @foreach($attributes as $attribute)
                                                 <br><span>{{ $attribute->attribute->name }} : {{ $attribute->name }}</span>
                                                 @endforeach
+                                                <br> <span>WareHouse : {{ $item->warehouse->name??'' }}</span>
                                             </p>
                                         </td>
                                         <td><p> @if($item->sale_price!=0) <span class="currency">₹</span> {{ $item->sale_price }}  <del> <span class="currency">₹</span> {{$item->price}}</del>  @php $price = $item->sale_price; @endphp @else <span class="currency">₹</span> {{$item->price}} @endif</p></td>

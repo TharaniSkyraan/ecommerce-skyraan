@@ -179,8 +179,10 @@ class StockHistoryController extends Controller
                         ->editColumn('status', function ($stock_history) {
                             if($stock_history->status=='sent'){
                                 return '<button class="btn tag btn-c">'. ucwords($stock_history->status)."</button>";
+                            }elseif($stock_history->status=='cancelled'){
+                                return '<button class="btn tag btn-d">'. ucwords($stock_history->status)."</button>";
                             }else{
-                                return '<button class="btn tag btn-s">'. ucwords($stock_history->status)."</button>";
+                                return '<button class="btn tag btn-s">'. ucwords(str_replace('_',' ',$stock_history->status))."</button>";
                             }
                         })
                         ->addColumn('action', function ($stock_history) {

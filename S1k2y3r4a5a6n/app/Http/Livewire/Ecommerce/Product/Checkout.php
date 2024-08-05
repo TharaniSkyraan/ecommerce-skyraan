@@ -403,7 +403,7 @@ class Checkout extends Component
                         $discount = ($this->total_price * ($discount / 100)) / count($carts);
                     }
                 }
-                $orderitem["order_id"] = $order_id;
+                $orderitem["order_id"] = $order_code;
                 $orderitem["product_id"] = $cart['id'];
                 $orderitem['product_name'] = $productvariant->product_name;
                 $orderitem['product_image'] = $cart['image'];
@@ -619,7 +619,7 @@ class Checkout extends Component
                 $date = Carbon::now();
 
                 $stock_history =  StockHistory::updateOrCreate([
-                    'reference_number' => $order_id,
+                    'reference_number' => $order_code,
                     'warehouse_to_id' => $warehouse_id,
                     'stock_type' => 'order',
                 ],[
