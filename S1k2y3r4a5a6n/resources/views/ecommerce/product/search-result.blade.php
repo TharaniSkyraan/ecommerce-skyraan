@@ -12,7 +12,7 @@
                         @if($type=='category')
                             <li class="breadcrumb-item text-dark h-sms"><a href="{{url('/')}}" class="text-dark">Home</a></li>
                             @if(isset($category->parent_category))
-                            <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
+                            <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category?q={{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
                             @endif
                             <li class="breadcrumb-item text-dark active h-sms detail-dot" aria-current="page">{{ $category->name }}</li>
                         @else

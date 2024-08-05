@@ -5,9 +5,9 @@
             <ol class="breadcrumb">
                 @if(isset($category))
                     @if(isset($category->parent_category))
-                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category?q={{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
                     @endif
-                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->slug}}" class="text-dark">{{ $category->name }}</a></li>
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category?q={{$category->slug}}" class="text-dark">{{ $category->name }}</a></li>
                     <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
                 @else
                     <li class="breadcrumb-item text-dark h-sms"><a href="{{url('/')}}" class="text-dark">Home</a></li>
