@@ -116,7 +116,7 @@ class Home extends Component
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                             })
                                             ->orderBy('created_at','desc')
-                                            ->limit(4)
+                                            ->limit(8)
                                             ->pluck('id')->toArray();
         $this->productList('new_products',json_encode($new_product_ids));
 
