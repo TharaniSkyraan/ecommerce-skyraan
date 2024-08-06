@@ -27,7 +27,7 @@ class Reviews extends Component
         $validatedData = $this->validate([
             'rating' => 'required',
             'title' => 'required|string|min:3|max:180',
-            'content' => 'required|string|min:3|max:255',
+            'content' => 'nullable|string|min:3|max:255',
         ], [
             'rating.required' => 'Rating is required',
             'title.required'=> 'Please enter your review title',
@@ -37,7 +37,7 @@ class Reviews extends Component
             'content.min' => 'Description must be at least 3 characters',
             'content.max' => 'Description must be less than 30 characters.',
         ]);
-        $validatedData['commends'] = $validatedData['content'];
+        $validatedData['commends'] = $validatedData['content']??'';
         unset($validatedData['content']);
         $validatedData['user_id'] = auth()->user()->id??0;
         $validatedData['product_id'] = $this->product_id;

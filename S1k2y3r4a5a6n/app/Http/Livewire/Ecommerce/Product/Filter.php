@@ -44,7 +44,6 @@ class Filter extends Component
         
         $filters = [];
         $i=0;
-        
         $availablestock = array_keys(array_filter(array_filter($this->selectedStocks, function($key) {
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY)));
@@ -56,7 +55,7 @@ class Filter extends Component
         $category = array_keys(array_filter(array_filter($this->category_ids, function($key) {
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY)));
-        
+
         if(count($availablestock)!=0){
             $filters['availablestock'] = $availablestock;
             $i += 1;
@@ -144,6 +143,11 @@ class Filter extends Component
     {
         $this->filterCount();
     }
+    public function updatedSelectedStocks()
+    {
+        $this->filterCount();
+    }
+
 
     public function updatedMaxPrice()
     {

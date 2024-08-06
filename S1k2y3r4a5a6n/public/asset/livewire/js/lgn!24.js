@@ -1,6 +1,6 @@
 
 document.addEventListener('livewire:load', function () {        
-    Livewire.on('updateCart', message => {
+    Livewire.on('updateSigninCart', message => {
         var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
         Livewire.emit('addCartinUserCart',productsArray,'login');
     });     

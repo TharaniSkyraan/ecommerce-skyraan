@@ -228,11 +228,11 @@ class TransferStock extends Component
         {
             $admin_id = \Auth::guard('admin')->user()->id;     
             $this->warehouses = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->get();
-            $this->to_warehouses = Warehouse::all(); 
         }
         else{
             $this->warehouses = Warehouse::all();
         }
+        $this->to_warehouses = Warehouse::all(); 
     }
 
     public function render()

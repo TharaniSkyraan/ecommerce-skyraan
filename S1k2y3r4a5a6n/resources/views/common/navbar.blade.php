@@ -16,7 +16,7 @@
             </div>
             <div class="col-6 d-none d-lg-block">
                 <div class="d-flex gap-4 justify-content-end align-items-center">
-                    <h6 class="text-white h-sms"> <i class='bi bi-geo-alt'></i> Delivering to - {{ $zone_data['city']}} {{ $zone_data['postal_code']}} {{ $zone_data['warehouse_ids']}} </h6>
+                    <h6 class="text-white h-sms"> <i class='bi bi-geo-alt'></i> Delivering to - {{ $zone_data['city']}} {{ $zone_data['postal_code']}} Warehouse - {{ $zone_data['warehouse_ids']}} ZOne - {{ $zone_data['zone_id']}} </h6>
                     <a href="{{url('/aboutus')}}"><h6 class="text-white h-sms">About Us</h6></a>
                     <a href="{{url('/contactus')}}"><h6 class="text-white h-sms">Contact Us</h6></a>
                 </div>
