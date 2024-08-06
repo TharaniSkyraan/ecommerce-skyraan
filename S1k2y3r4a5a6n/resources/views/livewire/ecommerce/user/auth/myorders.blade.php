@@ -59,7 +59,7 @@
                                     <div class="container-fluid">
                                         <div class="row p-1 order-summary-bg">
                                             <div class="col-3 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Ordered on <small class="fw-bold h-sm">January 12, 2024</small></small></div>
-                                            <div class="col-4 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Delivered to <small class="fw-bold h-sm">Arun kumar S <img src="{{asset('asset/home/edit.png')}}" alt="edit"></small></small></div>
+                                            <div class="col-4 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Delivered to <small class="fw-bold h-sm">Arun kumar S <img src="{{asset('asset/home/edit.svg')}}" alt="edit"></small></small></div>
                                             <div class="col-2 text-center  border-end border-white ps-0 pe-0"><small class="h-sm">Status<small class="fw-bold h-sm"> Shipped</small></small></div>
                                             <div class="col-1 text-center  border-end border-white ps-0 pe-0"><small class="fw-bold ps-1 h-sm">Invoice</small></div>
                                             <div class="col-2 text-center ps-0 pe-0"><small>Total<small class="fw-bold ps-1 h-sm">{{ $ip_data->currency_symbol??'₹' }} 299.00</small></small></div>
@@ -115,7 +115,7 @@
                                     </div>
                                     <div class="order-summary-bg d-flex px-2 py-1 justify-content-between align-items-center">
                                         <small>Ordered on <small class="fw-bold">January 12, 2024</small></small>
-                                        <small>Delivered to <small class="fw-bold">Arun kumar S <img src="{{asset('asset/home/edit.png')}}" alt="edit"></small></small>
+                                        <small>Delivered to <small class="fw-bold">Arun kumar S <img src="{{asset('asset/home/edit.svg')}}" alt="edit"></small></small>
                                     </div>
                                 </div>
                             </div>

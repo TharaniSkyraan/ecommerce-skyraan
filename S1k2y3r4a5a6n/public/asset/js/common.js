@@ -471,3 +471,16 @@ $(document).on('click','.like_img, .add-to-cart', function()
 //         event.preventDefault();
 //     }
 // }, { passive: false });
+
+
+// body full loader
+
+$(document).ready(function () {
+    setTimeout(function () {
+        $(".loader-overlay").fadeOut("fast");
+        $("#overlayer").fadeOut("fast", function () {
+            $('body').removeClass('overlayScroll');
+        });
+    }, 1000);
+});
+

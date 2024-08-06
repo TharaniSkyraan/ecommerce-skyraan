@@ -1,6 +1,6 @@
 <div>
-    <div class="text-center pb-4">
-        <h6 class="">ADD TO CART</h6>
+    <div class="text-center py-3">
+        <h5 class="fw-bold">ADD TO CART</h5>
     </div>
     <div class="container-fluid">
         <div class="text-center">
@@ -10,11 +10,11 @@
         <div class="row PrdRow dffe" data-id="{{ $product_id }}" data-pvid="{{ $product_previous_variant_id }}" wire:loading.remove>
             <span class="variant_id d-none">{{ $product_variant_id }}</span>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pb-3">
-                <div class="detail-img text-center">
-                    <img src="{{ $image1??asset('asset/home/default-hover1.png') }}" alt="image" class="w-75 ">
+                <div class="text-center">
+                    <img src="{{ $image1??asset('asset/home/default-hover1.png') }}" alt="image" class="w-100 quick-shop-img ">
                 </div>                            
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 price-detail ps-0 pb-3">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 price-detail ps-4 pb-3 pt-2">
                 <h6 class="text-dark fw-bold">{{($cart_product->name??'Wheat Flour')}}</h6>
                 <input type="hidden" wire:model="product_id">
                 <div class="d-flex justify-content-start gap-2 py-2 price-discount align-items-center">
@@ -46,12 +46,12 @@
                     @elseif($review==5)
                         <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                     @endif
-                    <h6 class="text-secondary text-opacity-50 ">{{$review_count}} reviews</h6>
+                    <h6 class="text-secondary text-opacity-50 h-sms">{{$review_count}} reviews</h6>
                 </div>
-                <hr class="my-2">
+                <hr class="my-2 q-s-hr">
                 <div class="d-flex py-1">
                     <small class="text-dark fw-bold">Availablity : &nbsp;</small>
-                    <small class="text-dark ">@if(isset($stock_status) && $stock_status=='in_stock') In stock @else Sold out @endif</small>
+                    <small class="text-dark ">@if(isset($stock_status) && $stock_status=='in_stock') In stock @else Sold Out @endif</small>
                 </div>
                 @isset($cart_product)
                     @php 
@@ -105,7 +105,7 @@
                 </div>
                 @if(isset($stock_status) && $stock_status=='in_stock')
                     @if($quickshop_type=='edit')
-                        <div class="row add-to-cart py-2 w-100 px-0">
+                        <div class="row add-to-cart py-2 w-100 px-2">
                             <a href="javascript:void(0)" class="col-12 px-0 AddCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 <div class="card card1 border-0 py-3 px-5">
                                     <h6 class="text-dark text-center">Add to cart</h6>
@@ -113,7 +113,7 @@
                             </a>
                         </div>
                     @else
-                        <div class="row add-to-cart py-2 w-100 px-0">
+                        <div class="row add-to-cart py-2 w-100 px-2">
                             <a href="javascript:void(0)" class="col-12 px-0 ReplaceCart" data-cid="{{ $cart_product->cart_id }}">
                                 <div class="card card1 border-0 py-3 px-5">
                                     <h6 class="text-dark text-center">Replace Item</h6>
@@ -122,7 +122,7 @@
                         </div>
                     @endif
                 @else
-                    <div class="row add-to-cart py-2 w-100 px-0">
+                    <div class="row add-to-cart py-2 w-100 px-2">
                         <a href="javascript:void(0)" class="col-12 px-0 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                             <div class="card card1 border-0 py-3 px-5">
                                 <h6 class="text-dark text-center">Notify Me</h6>

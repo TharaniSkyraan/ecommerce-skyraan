@@ -17,7 +17,7 @@
                 <hr class="sys-view">
                 @foreach($cart_products as $cart_product)
                     @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit']; @endphp
-                    <div class="row py-2 cartList price-list PrdRow ps-2" data-id="{{ $cart_product['id'] }}" data-cid="{{ $cart_product['cart_id'] }}">
+                    <div class="row py-2 cartList price-list PrdRow ps-2 align-items-center" data-id="{{ $cart_product['id'] }}" data-cid="{{ $cart_product['cart_id'] }}">
                         <span class="variant_id d-none">{{ $cart_product['variant_id'] }}</span>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                             <div class="row">
@@ -62,7 +62,7 @@
                             </div> -->
                             @if($cart_product['quantity']<=$limit)
                             <div class="d-flex gap-3 align-items-center">
-                                <span class="h-sms mbl-view fw-bold ps-2">Qty:</span>
+                                <span class="h-sms mbl-view fw-bold ps-2">QTY : </span>
                                 <div class="qty-dropdown position-relative jkef4">
                                     <div class="card rounded-0 py-1 px-2">
                                         <div class="d-flex align-items-center justify-content-between">
@@ -82,7 +82,6 @@
                                 <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
                             @endif
                         </div>
-
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-6 d-flex align-self-center justify-content-start">
                             <div class="d-flex align-items-center gap-3">
                             <span class="h-sms mbl-view fw-bold ps-2">TOTAL : </span>
@@ -119,7 +118,7 @@
                 <div class="row" id="shipping">
                     <div class="col-xl-7 col-lg-7 col-md-5 col-sm-5 col-12">  
                         @if(!empty($coupon_code))
-                            <div class=" d-flex pb-3 gap-4">
+                            <div class=" d-flex py-3 gap-4">
                                 <div class="d-flex align-items-center gap-2">
                                     <img src="{{asset('asset/home/icons-tick.svg')}}" alt="tickicon" class="tick_img">
                                     <h6 class="green">Coupen Applied !</h6>

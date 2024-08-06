@@ -11,7 +11,7 @@
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
                                             @if($product['stock_status']=='out_of_stock')
-                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0 "><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">sold out</h6></div></div>
+                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0 "><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -62,17 +62,18 @@
                             <div class="price_info py-3">
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name'] }}</h6>
                                     <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6 px-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-2 col-lg-3 col-md-2 col-sm-3 col-6 px-0">
                                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 px-0">
+                                            <div class="col-xl-2 col-lg-3 col-md-2 col-sm-3 col-6 px-0">
                                                 @if($product['discount']!=0)
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                 @else
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                 @endif
                                             </div>
+                                            <div class="col-xl-2 col-lg-4 col-md-2 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                         </div>
                                     </div>                                
                                     <div class="row align-items-center">
@@ -167,7 +168,7 @@
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
                                             @if($product['stock_status']=='out_of_stock')
-                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">sold out</h6></div></div>
+                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -218,17 +219,18 @@
                             <div class="price_info py-3">
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-6 px-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
                                             <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                         </div>
-                                        <div class="col-xl-7 col-lg-7 col-md-6 col-sm-6 col-6 px-0">
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
                                             @if($product['discount']!=0)
                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                             @else
                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                             @endif
                                         </div>
+                                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
@@ -323,7 +325,7 @@
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
                                             @if($product['stock_status']=='out_of_stock')
-                                                <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">sold out</h6></div></div>
+                                                <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -375,17 +377,18 @@
                             <div class="price_info py-3">
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-6 px-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 px-0">
                                             <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                         </div>
-                                        <div class="col-6 px-0">
+                                        <div class="col-4 px-0">
                                             @if($product['discount']!=0)
                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                             @else
                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                             @endif
                                         </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                     </div>
                                 </div>                                
                                 <div class="row align-items-center">
@@ -479,7 +482,7 @@
                                 <div class="row pt-1">
                                     <div class="col-6 px-0">
                                         @if($product['stock_status']=='out_of_stock')
-                                            <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">sold out</h6></div></div>
+                                            <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                         @elseif(!empty($product['label']))
                                         <div class="position-relative best-seller">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -526,6 +529,7 @@
                                 @else
                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                 @endif
+                                <div class=" px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                             </div>
                             <h6 class="text-secondary text-opacity-50 pb-2 lh-base h-sms">Ajwain The benefits of these seeds are not only limited to the taste but go much beyond that. The goodness of these tiny fruit pods also includes weight loss. Ajwain...</h6>
                             <div class="d-flex gap-3 align-items-center pb-2">

@@ -9,7 +9,7 @@
                 <form autocomplete="off">
                     @csrf
                     <div class="input-group">
-                        <input class="form-control border-end-0 rounded-end-0" name="search" id="query" wire:model="query" type="search" placeholder="Search" aria-label="Search" autocomplete="off" required>
+                        <input class="form-control border-end-0 rounded-end-0" name="search" id="query" wire:model="query" type="search" placeholder="Search for here" aria-label="Search" autocomplete="off" required>
                         <button class="search-btn btn p-0 border-start-0 rounded-end-2 srch_icon px-2 bg-white cursor" wire:click.prevent="Search"><i class="bi bi-search"></i></button>  
                     </div>  
                 </form>
@@ -313,13 +313,13 @@
 </div>
 
 <!-- Edit popup -->    
-<div class="modal fade" id="Editpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade quick-shop" id="Editpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content rounded-0 border-0">
             <div class="text-end">
                 <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
             </div>
-            <div class="modal-bodys p-4">
+            <div class="modal-bodys p-xl-4 p-lg-4 p-md-4 p-sm-3 p-2">
                 @livewire('ecommerce.layout.quick-shop')
             </div>
         </div>

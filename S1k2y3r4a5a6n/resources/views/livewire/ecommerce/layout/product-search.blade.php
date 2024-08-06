@@ -1,8 +1,8 @@
 <div>
-    <div class="offcanvas-body position-relative">
-        <form autocomplete="off">
+    <div class="offcanvas-body position-relative rounded-0">
+        <form autocomplete="off" class="rounded-0">
             @csrf
-            <input type="search" name="search" wire:model="query" placeholder="Search" id="productsearch" class="input-text" aria-label="Search our store" autocomplete="off" required>   
+            <input type="search" name="search" wire:model="query" placeholder="Search for here" id="productsearch" class="input-text rounded-0" aria-label="Search our store" autocomplete="off" required>   
             <button class="search-btn btn p-0" wire:click.prevent="Search"><i class="bi bi-search"></i></button>    
         </form>
     </div>

@@ -60,7 +60,7 @@
                     </div>
                     @error('title') <span class="error"> {{$message}}</span> @endif
                     <div class="mb-3">
-                        <label for="review_description" class="form-label">Body of review <span class="text-secondary opacity-50 h-sms">(1500)</span></label>
+                        <label for="review_description" class="form-label">Review<span class="text-secondary opacity-50 h-sms">(1500)</span></label>
                         <textarea class="form-control rounded-0 fst-italic" placeholder="Leave a comment here" id="review_description" placeholder="Enter your comments here" wire:model="content"></textarea>
                     </div>
                     @error('content') <span class="error"> {{$message}}</span> @endif
