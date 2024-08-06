@@ -26,7 +26,7 @@
                     <div class="row position-absolute w-100">
                         <div class="col-6">
                             @if(!empty($product['label']))
-                            <div class="trapezoid1" style="border-color:{{$product['label_color_code']}};"><span class="h-sms">{{$product['label']}}</span></div>
+                            <div class="trapezoid1" style="border-color:{{$product['label_color_code']}};"><span class="h-smss">{{$product['label']}}</span></div>
                             @endif
                         </div>
                         <div class="col-6 text-end pt-2">
