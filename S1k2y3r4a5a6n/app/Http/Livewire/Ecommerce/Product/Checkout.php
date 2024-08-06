@@ -256,7 +256,8 @@ class Checkout extends Component
         {
             $weight = $cart_product['weight'];
             $distance = $cart_product['distance'];
-            \Log::info($this->zone);
+            \Log::info('weight'.$weight);
+            \Log::info('distance'.$distance);
             $shipping_charge = 0;
             if($setting->is_enabled_shipping_charges=='yes')
             {
