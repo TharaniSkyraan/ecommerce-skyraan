@@ -141,6 +141,8 @@ $(document).ready(function() {
             $(this).attr('src', '../../asset/home/like-filled.svg');
             $(this).attr('data-id','unlike');
         }
+        id = $(this).closest('.PrdRow').data('id');
+        Livewire.emit('addremoveWish', id);
     });
 });
 

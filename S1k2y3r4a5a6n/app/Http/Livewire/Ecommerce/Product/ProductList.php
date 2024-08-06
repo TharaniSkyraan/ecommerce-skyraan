@@ -33,7 +33,7 @@ class ProductList extends Component
 
     protected $queryString = ['category','availablestock','rating','min_price','max_price','sort_by'];
 
-    protected $listeners = ['loadMore','GetFilters','InitiateFilters','GetView','GetSortBy'];
+    protected $listeners = ['loadMore','GetFilters','InitiateFilters','GetView','GetSortBy','addremoveWish'];
 
     public function loadMore()
     {

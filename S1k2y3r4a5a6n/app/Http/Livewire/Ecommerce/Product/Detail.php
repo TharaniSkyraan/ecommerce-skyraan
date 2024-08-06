@@ -44,6 +44,8 @@ class Detail extends Component
     protected $queryString = ['product_variant','tab','prdRef'];
 
     public $wishlist = [];
+    
+    protected $listeners = ['addremoveWish'];
 
     public function calculatePrice()
     {

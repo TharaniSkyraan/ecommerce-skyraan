@@ -4,9 +4,9 @@ $duration = (count($collections) / 5) * $baseDuration;
 @endphp
 
 <style>
-.marquee__group {
+/* .marquee__group {
     animation: scroll {{ $duration }}s linear infinite;
-}
+} */
 </style>
 <div>
     @if(count($banners)!=0)
@@ -126,9 +126,9 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         <div class="col-6 d-flex justify-content-end pe-0 align-self-center">
                                             <div class=" rounded-circle bg-white">
                                                 @if(in_array($tproduct['id'], $wishlist)) 
-                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $tproduct['id'] }}')" class="like_img addwishlist">
+                                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike"  class="like_img likedislike">
                                                 @else
-                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $tproduct['id'] }}')" class="like_img addwishlist" @else  data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif >
+                                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
                                                 @endif
                                             </div>
                                         </div>
@@ -273,9 +273,9 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             <div class="col-6 d-flex justify-content-end pe-0 align-self-center">
                                                 <div class=" rounded-circle bg-white">
                                                     @if(in_array($product['id'], $wishlist)) 
-                                                        <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist">
+                                                        <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike" class="like_img likedislike">
                                                     @else
-                                                        <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img addwishlist" @else data-bs-toggle="modal" data-bs-target="#signin" class="like_img" @endif >
+                                                        <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
                                                     @endif
                                                 </div>
                                             </div>
@@ -399,9 +399,9 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     <div class="col-6 d-flex justify-content-end align-self-center">
                                                         <div class="rounded-circle bg-white">
                                                             @if(in_array($product['id'], $wishlist)) 
-                                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img likedislike">
+                                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike" class="like_img likedislike">
                                                             @else
-                                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
+                                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
                                                             @endif
                                                         </div>
                                                     </div>

@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant='{{$product['variant_id']}}'">
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}&product_variant={{$product['variant_id']}}">
                                     <div class="text-center position-relative">
                                         <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image" style="height:250px; object-fit:contain;">
                                         @if(!empty($product['image2']))

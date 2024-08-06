@@ -23,6 +23,8 @@ class Home extends Component
     public $wishlist = [];
     public $warehouse_ids = [];
 
+    protected $listeners = ['addremoveWish'];
+
     public function mount()
     {
         $zone = \Session::get('zone_config');
@@ -115,9 +117,10 @@ class Home extends Component
                                             })->whereHas('product_stock', function($q1){
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                             })
+                                            ->groupBy('product_id')
                                             ->orderBy('created_at','desc')
                                             ->limit(8)
-                                            ->pluck('id')->toArray();
+                                            ->pluck('product_id')->toArray();
         $this->productList('new_products',json_encode($new_product_ids));
 
         $top_selling_product_ids = Product::whereHas('product_stock', function($q1){
@@ -177,7 +180,8 @@ class Home extends Component
     public function productList($type,$ids)
     {
         
-        if($type !='new_products')
+        // if($type !='new_products')
+        if($type)
         {
 
             $ids=json_decode($ids);
