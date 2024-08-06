@@ -256,8 +256,9 @@ class Checkout extends Component
         {
             $weight = $cart_product['weight'];
             $distance = $cart_product['distance'];
+            \Log::info($this->zone);
             $shipping_charge = 0;
-            if(!empty($this->zone) && ($setting->is_enabled_shipping_charges=='yes'))
+            if($setting->is_enabled_shipping_charges=='yes')
             {
 
                 if($weight<=$minimum_kg){
