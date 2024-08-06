@@ -268,7 +268,7 @@ class Checkout extends Component
                 }else{
                     $shipping_charge = $cost_minimum_kg + (($weight-$minimum_kg)*$cost_per_kg);
                 }
-                
+                \Log::info('kg_price'.$shipping_charge);
                 if($distance<=$minimum_km){
                     $shipping_charge += $cost_minimum_km;
                 }else{
