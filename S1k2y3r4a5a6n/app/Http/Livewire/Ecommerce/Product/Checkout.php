@@ -269,12 +269,20 @@ class Checkout extends Component
                     $shipping_charge = $cost_minimum_kg + (($weight-$minimum_kg)*$cost_per_kg);
                 }
                 \Log::info('kg_price'.$shipping_charge);
+                \Log::info('cost_min_kg_price'.$cost_minimum_kg);
+                \Log::info('min_kg'.$minimum_kg);
+                \Log::info('cost_per_kg'.$cost_per_kg);
                 if($distance<=$minimum_km){
                     $shipping_charge += $cost_minimum_km;
                 }else{
                     $shipping_charge += $cost_minimum_km + (($distance-$minimum_km)*$cost_per_km);
                 }
                 
+                \Log::info('km_price+kg_price'.$shipping_charge);
+                \Log::info('cost_min_km_price'.$cost_minimum_km);
+                \Log::info('min_km'.$minimum_km);
+                \Log::info('cost_per_km'.$cost_per_km);
+
                 if($setting->is_enabled_shipping_tax && $shipping_charge!=0)
                 {
                     if($tax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first())
