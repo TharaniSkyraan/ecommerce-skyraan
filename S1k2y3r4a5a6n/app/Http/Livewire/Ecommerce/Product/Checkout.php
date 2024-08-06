@@ -257,7 +257,7 @@ class Checkout extends Component
         {
             $weight = $cart_product['weight'];
             $distance = $cart_product['distance'];
-            \Log::info('cart_product'.$cart_product);
+            \Log::info('cart_product'.json_encode($cart_product));
             \Log::info('weight'.$weight);
             \Log::info('distance'.$distance);
             $shipping_charge = 0;
