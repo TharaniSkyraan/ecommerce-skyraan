@@ -30,7 +30,7 @@ class CustomConfigServiceProvider extends ServiceProvider
                 
                 'site_name' => $setting->site_name,
 
-                'site_logo' => asset('storage/').$setting->site_logo,
+                'site_logo' => asset('storage').'/'.$setting->site_logo,
             ];
             
             $this->app['config']['mail'] = [
