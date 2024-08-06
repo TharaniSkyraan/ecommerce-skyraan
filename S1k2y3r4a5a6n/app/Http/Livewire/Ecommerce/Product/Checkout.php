@@ -162,7 +162,7 @@ class Checkout extends Component
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
                                                     \Log::info('Available_warehouse_distance'.$available_warehouse->distance);
-                    $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance/1000, 2):0;
+                    $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance, 2):0;
                                                 
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
