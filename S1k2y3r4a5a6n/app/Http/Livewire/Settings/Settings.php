@@ -202,6 +202,7 @@ class Settings extends Component
             $this->mail_to_name = $setting->mail_to_name;
             $this->mail_support_name = $setting->mail_support_name;
             $this->address = $setting->address;
+            $this->footer_content = $setting->footer_content;
     
             $this->is_mail_enable = $setting->is_mail_enable;
             $this->is_whatsapp_enable = $setting->is_whatsapp_enable;

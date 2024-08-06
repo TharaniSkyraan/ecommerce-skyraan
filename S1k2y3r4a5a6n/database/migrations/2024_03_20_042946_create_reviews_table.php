@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('rating');
             $table->string('title',180);
-            $table->string('commends',255);
+            $table->string('commends',255)->nullable();
             $table->unsignedBigInteger('user_id'); // Reference column should be unsigned
             $table->unsignedBigInteger('product_id'); // Reference column should be unsigned
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
