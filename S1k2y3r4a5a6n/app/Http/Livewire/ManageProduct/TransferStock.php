@@ -232,12 +232,11 @@ class TransferStock extends Component
         else{
             $this->warehouses = Warehouse::all();
         }
-        $this->to_warehouses = Warehouse::all(); 
     }
 
     public function render()
     {
-       
+        $this->to_warehouses = Warehouse::where('id','!=',$this->warehouse_id)->get(); 
         return view('livewire.manage-product.transfer-stock');
     }
 }
