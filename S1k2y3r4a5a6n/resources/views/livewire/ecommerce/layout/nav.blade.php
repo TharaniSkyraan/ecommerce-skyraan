@@ -77,7 +77,7 @@
                     <div class="nav-link d-flex align-items-center px-3 gap-1" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">Login</h6></div>
                     @else
                     <div>
-                        <div class="nav-link align-items-center after-login px-3 mt-0"><a href="javascript:void(0);" class="d-flex gap-1 align-items-center"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">{{auth()->user()->name}}</h6><img src="{{asset('asset/home/down-ar.svg')}}" alt="" class="down-ar-nav"></a></div>
+                        <div class="nav-link align-items-center after-login px-3 mt-0"><a href="javascript:void(0);" class="d-flex gap-1 align-items-center"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms name-dot">{{auth()->user()->name}}</h6><img src="{{asset('asset/home/down-ar.svg')}}" alt="" class="down-ar-nav"></a></div>
                         <div class="box arrow-top position-absolute">
                             <div class=" cursor">
                                 <a class="d-flex gap-2 align-items-center" href="{{ route('ecommerce.orders') }}">
@@ -180,7 +180,7 @@
                             <ul>
                                 @foreach($categories as $category)
                                     <li class="main-item">
-                                        <div class="d-flex justify-content-between align-items-center py-1">
+                                        <div class="d-flex justify-content-between align-items-center py-xl-1 py-lg-1 py-md-1 py-sm-1 py-0">
                                             <span class="detail-dot"><a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category->slug }}" class="fw-bold-res">{{ $category->name }}</a></span>
                                             @if(count($category->sub_categories) > 0)
                                                 <span class="toggle-symbol sybl fw-bold-res ">+</span>
@@ -190,7 +190,7 @@
                                             <ul class="sub-list ps-3 fw-bold">
                                                 @foreach($category->sub_categories as $sub_category)
                                                     @if($sub_category->status=='active')
-                                                        <li><a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $sub_category['slug'] }}" >{{ $sub_category->name }}</a></li>
+                                                        <li><a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $sub_category['slug'] }}" class="subname">{{ $sub_category->name }}</a></li>
                                                     @endif
                                                 @endforeach
                                             </ul>

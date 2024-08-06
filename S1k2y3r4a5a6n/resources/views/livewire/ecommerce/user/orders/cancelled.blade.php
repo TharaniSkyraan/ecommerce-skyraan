@@ -7,7 +7,7 @@
             $items = $order['order_items'];
         @endphp            
         <div class="card border OrdRow rounded-0 mb-3">
-            <div class="pb-3">
+            <div class="pb-xl-3 pb-lg-3 pb-sm-3 pb-md-3 pb-0">
                 <div class="card-head p-2  ">
                     <div class="container-fluid">
                         <div class="row">
@@ -78,10 +78,10 @@
                 </div>
                 <div class="card-body">
                     <div class="container-fluid px-0">
-                        <div class="row pb-xl-4 pb-lg-4 pb-md-4 pb-sm-4 pb-4">
+                        <div class="row pb-xl-4 pb-lg-4 pb-md-4 pb-sm-4 pb-2">
                             <div class="col-xl-12 col-lg-12 col-sm-12 col-md-12 col-12 ">
                                 <div class="d-flex align-items-center gap-1">
-                                    <h6 class="h-sms">Cancelled on 29 May2024</h6>
+                                    <h6 class="h-sms red">Cancelled on 29 May2024</h6>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                 <div class=""><span class="h-sms">{{ ucwords($attribute->attribute->name) }} : <span class="fw-bold">{{ ucwords($attribute->name) }}</span></span></div>
                                 @endforeach
                                 <div class=""><span class="h-sms">Quantity : <span class="fw-bold">{{ $item['quantity'] }} nos</span></span></div>
-                                <h5 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
+                                <h5 class="fw-bold py-2 sys-view">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
                             </div>
                             @if((count($items)-1) != $key) 
                                 <div class="col-12"> <hr> </div> 

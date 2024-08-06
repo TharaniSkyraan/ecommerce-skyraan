@@ -249,7 +249,7 @@
                     <div class="card p-2 pt-4 rounded-0">  
                         <div class="py-1">           
                             <div class="form-group">
-                                <label for="reason" class="fw-bold h-sms">Please select the reason for your cancellation</label>
+                                <label for="reason" class="fw-bold h-sms pb-2">Please select the reason for your cancellation</label>
                                 <select class="form-select h-sms w-100" wire:model="reason" placeholder="Select">
                                     <option value="">Select Reason</option>
                                     @foreach($reasons as $reaso)
