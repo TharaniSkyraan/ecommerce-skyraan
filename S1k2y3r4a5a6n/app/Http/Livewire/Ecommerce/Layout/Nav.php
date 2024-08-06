@@ -184,8 +184,10 @@ class Nav extends Component
                 $this->emit('cartList');
             }elseif($page=='login'){
                 $this->emit('SigninComplete', $datas);
+            }elseif($page=='signup'){
+                $this->emit('updateSignupCart', $datas);
             }else{
-                $this->emit('updatedCart', $datas);
+                $this->emit('updateCartQuantity', $datas);
             }
         }
     }

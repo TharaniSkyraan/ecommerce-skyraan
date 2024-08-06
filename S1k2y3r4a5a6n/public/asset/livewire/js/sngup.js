@@ -1,7 +1,16 @@
 document.addEventListener('livewire:load', function () {        
     Livewire.on('SignupComplete', message => {
         var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
-        Livewire.emit('addCartinUserCart',productsArray);
+        Livewire.emit('addCartinUserCart',productsArray,'signup');
+        location.reload();
+    });
+    Livewire.on('updateSignupCart', datas => {
+        var productsArray = {};            
+        $.each(datas, function(key, value){
+        var index = value.product_id+'-'+value.product_variant_id;
+            productsArray[index] = {product_id: value.product_id, product_variant_id: value.product_variant_id, quantity: parseInt(value.quantity)};
+        });
+        localStorage.setItem('cart',JSON.stringify(productsArray));
         location.reload();
     });
 });

@@ -59,6 +59,7 @@
             </div>
         </div>
     </div>
+    @if(count($categories)!=0)
     <div class="pt-3">
         <div class="card px-4 py-2 border-0">
             <h6 class="fw-bold pb-2">Categories</h6>
@@ -79,6 +80,7 @@
             </div>
         </div>
     </div>
+    @endif
     <div class="pt-3">
         <div class="card px-4 py-2 border-0 ">
             <h6 class="fw-bold pb-3">Ratings</h6>
