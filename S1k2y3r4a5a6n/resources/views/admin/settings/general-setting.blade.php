@@ -76,6 +76,11 @@
                     @error('mail_support_name') <span class="error"> {{$message}}</span> @endif
                 </div> 
                 <div class="form-group">
+                    <label for="gst_number">GST Number</label>
+                    <input type="text" name="gst_number" id="gst_number" placeholder="GST Number" wire:model="gst_number">
+                    @error('gst_number') <span class="error"> {{$message}}</span> @endif
+                </div> 
+                <div class="form-group">
                     <label for="mail_support_address">Support email address</label>
                     <input type="email" name="mail_support_address" id="mail_support_address" placeholder="Support email" wire:model="mail_support_address">
                     @error('mail_support_address') <span class="error"> {{$message}}</span> @endif

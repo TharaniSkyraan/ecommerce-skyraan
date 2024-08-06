@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('site_name',180)->nullable();
             $table->string('site_logo',255)->nullable();
+            $table->string('gst_number',30)->nullable();
+            $table->string('footer_content',255)->nullable();
             $table->string('fav_icon',255)->nullable();
             $table->string('theme_primary_color',30)->nullable();
             $table->string('theme_secondary_color',30)->nullable();
