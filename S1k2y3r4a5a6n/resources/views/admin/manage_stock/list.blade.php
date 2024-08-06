@@ -386,6 +386,11 @@
                 $('.update-stock').addClass('show');
             });
             
+            $('#product_name').on('keyup', function (e) {
+                dataTable.draw();
+                e.preventDefault();
+            });
+            
             $(document).on('click', '.update-stock-modal', function () { 
                 var productId = $(this).attr('data-id'); 
                 Livewire.emit('OpenUpdatestock','update',productId);

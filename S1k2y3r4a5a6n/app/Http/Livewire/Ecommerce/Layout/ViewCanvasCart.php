@@ -47,23 +47,19 @@ class ViewCanvasCart extends Component
             if(Product::where('id',$data['product_id'])->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
          
                 $product = Product::where('id',$data['product_id'])->select('id','slug','name','images','related_product_ids','tax_ids','created_at')->first()->toArray();
-                $default = ProductVariant::where('id',$data['product_variant_id'])->select('price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')->first();
+                $default = ProductVariant::where('id',$data['product_variant_id'])->first();
 
                 $discount = $price = $sale_price = 0;
                 
                 if(isset($default))
                 {
-                    
                     $product_stock = ProductStock::select('id', 'available_quantity')
                                                 ->whereIn('warehouse_id',$this->warehouse_ids)
                                                 ->whereProductVariantId($data['product_variant_id'])
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
-
-                    $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
-                    $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
-
+                   
                     $price = $default->price;
 
                     if($default->sale_price!=0 && $default->discount_expired!='yes')
@@ -110,7 +106,7 @@ class ViewCanvasCart extends Component
                     $product['discount'] = ($discount!=0)?(round($discount)):0;
                     $product['quantity'] = $data['quantity'];
                     $product['cart_limit'] = $default->cart_limit;
-                    $product['attributes'] = implode('-',$attribute_set_name);
+                    $product['attributes'] = $default->getSetAttribute();
                     $product['total_price'] = (($discount!=0)?($data['quantity']*$sale_price):($data['quantity']*$price));
                     $total_price += $product['total_price'];
                     $product['product_type'] = ProductVariant::whereProductId($data['product_id'])->count();

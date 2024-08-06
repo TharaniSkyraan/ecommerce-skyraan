@@ -132,13 +132,18 @@ class StockHistoryController extends Controller
                         ->filter(function ($query) use ($request,$role,$warehouse_ids) {  
                             if($role!='admin'){
                                 if(empty($request->warehouse)){
-                                    $query->whereIn('warehouse_to_id', $warehouse_ids)
+                                    $query->where(function($q) use($warehouse_ids){
+                                        $q->whereIn('warehouse_to_id', $warehouse_ids)
                                           ->orWhereIn('warehouse_from_id', $warehouse_ids);
+                                    });
                                 }                         
                             }   
                             if ($request->has('warehouse') && !empty($request->warehouse)) {
-                                $query->whereIn('warehouse_to_id', [$request->warehouse])
-                                    ->orWhereIn('warehouse_from_id', [$request->warehouse]);
+                                $warehouse = $request->warehouse;
+                                $query->where(function($q) use($warehouse){
+                                    $q->whereIn('warehouse_to_id', [$warehouse])
+                                      ->orWhereIn('warehouse_from_id', [$warehouse]);
+                                });
                             } 
                             if ($request->has('status') && !empty($request->status)) {
                                 $query->where('status', $request->get('status'));
