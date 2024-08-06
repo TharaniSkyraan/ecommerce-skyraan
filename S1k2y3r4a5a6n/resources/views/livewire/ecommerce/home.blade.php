@@ -105,7 +105,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     <div class="row pt-1 position-absolute w-100 reviews-div">
                                         <div class="col-6 px-0">
                                             @if($tproduct['stock_status']=='out_of_stock')
-                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">sold out</h6></div></div>
+                                                <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($tproduct['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -156,18 +156,18 @@ $duration = (count($collections) / 5) * $baseDuration;
                                 <div class="price_info py-2">
                                     <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $tproduct['name']}}</h6>
                                     <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-6 px-0">
-                                                
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['price']}}</del>
                                             </div>
-                                            <div class="col-6 px-0">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                 @if($tproduct['discount']!=0)
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['sale_price']}}</h6>
                                                 @else
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$tproduct['price']}}</h6>
                                                 @endif
                                             </div>
+                                            <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$tproduct['discount']}}% off</small></div>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
@@ -252,7 +252,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         <div class="row pt-1 position-absolute w-100 reviews-div">
                                             <div class="col-6">
                                                 @if($product['stock_status']=='out_of_stock')
-                                                    <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">sold out</h6></div></div>
+                                                    <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                                 @elseif(!empty($product['label']))
                                                 <div class="position-relative best-seller">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -303,17 +303,18 @@ $duration = (count($collections) / 5) * $baseDuration;
                                 <div class="price_info py-2">
                                     <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                     <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-6 px-0">
+                                        <div class="row align-items-center">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
-                                            <div class="col-6 px-0">
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                 @if($product['discount']!=0)
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                 @else
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                 @endif
                                             </div>
+                                            <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
@@ -378,7 +379,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <div class="row pt-1">
                                                     <div class="col-6 px-0">
                                                         @if($product['stock_status']=='out_of_stock')
-                                                        <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 ps-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center">sold out</h6></div></div>
+                                                        <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 ps-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center">Sold Out</h6></div></div>
                                                         @elseif(!empty($product['label']))
                                                         <div class="position-relative best-seller">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
@@ -429,17 +430,18 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         <div class="price_info py-2">
                                             <h6 class="text-dark fw-bold align-self-center max-height h-sms">{{ $product['name']}}</h6>
                                             <div class="container-fluid">
-                                                <div class="row">
-                                                    <div class="col-6 px-0">
+                                                <div class="row align-items-center">
+                                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                         <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                                     </div>
-                                                    <div class="col-6 px-0">
+                                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
                                                         @if($product['discount']!=0)
                                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
                                                         @else
                                                             <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                                         @endif
                                                     </div>
+                                                    <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                                 </div>
                                             </div>
                                             <div class="row align-items-center">
@@ -516,28 +518,23 @@ $duration = (count($collections) / 5) * $baseDuration;
         <section class="mbl-view"  wire:ignore>
             <div class="row py-4">
                 <div><h5 class="fw-bold text-secondary opacity-50 text-center hghg">WHY CHOOSE </h5></div>
-                <div><h3 class="fw-bold text-secondary opacity-75 text-center">SKYRAA ORGANIC </h3></div>
+                <div><h3 class="fw-bold text-secondary opacity-75 text-center">{{$siteSetting->site_name}}</h3></div>
                 <div class="px-5 py-2">
                     <div id="why-choosnne" class="owl-carousel">
+                    @foreach($why_choose as $why_chooses)
                         <div class="owl-slide">
                             <div class="card border-0 p-3">
-                                <img src="{{asset('asset/home/Group 32129.png')}}" alt="">
-                                <h6 class="lh-base">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
-                            </div>
-                        </div>
-                        <div class="owl-slide">
-                            <div class="card border-0 p-3">
-                                <img src="{{asset('asset/home/Group 32129.png')}}" alt="">
-                                <h6 class="lh-base">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
-                            </div>
-                        </div>
-                        <div class="owl-slide">
-                            <div class="card border-0 p-3">
-                                <img src="{{asset('asset/home/Group 32129.png')}}" alt="">
-                                <h6 class="lh-base">Organic foods retain a higher concentration of essential vitamins and minerals compared to conventionally grown counterparts, providing a nutrient-rich option for those seeking a healthier and more wholesome diet.</h6>
+                                @php
+                                    $imagePath = asset('storage') . '/' . $why_chooses->why_chs_img;
+                                    $defaultImage = asset('asset/home/flat-design-omnichannel-illustration.png');
+                                @endphp
+                                <h6 class="fw-bold text-center">{{ $why_chooses->why_chs_title }}</h6>
+                                <img src="{{ $why_chooses->why_chs_img ? $imagePath : $defaultImage }}" alt="image">
+                                <h6 class="lh-base">{{ $why_chooses->why_chs_desc }}</h6>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -548,11 +545,11 @@ $duration = (count($collections) / 5) * $baseDuration;
                     <h5 class="text-white text-center py-3 hghg">WHAT OUR CUSTOMERS SAY!</h5>
                 </div>
             </div>
-            <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3">
+            <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
                 @foreach($reviews as $reviews_data)
                 <div class="owl-slide px-3">
                     <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2">
+                        <div class="p-4 card  border-0 round-2 ">
                             <div class="row">
                                 <div class="text-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
@@ -563,13 +560,13 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     </svg>                                
                                 </div>
                                 <div class="py-3">
-                                    <h6 class="text-start lh-base ">{{$reviews_data->commends}}</h6>
+                                    <h6 class="text-start lh-base review-dot">{{$reviews_data->commends}}</h6>
                                 </div>
                                 <div class="d-flex gap-2 justify-content-end align-items-center">
                                     <div class="line-with-text"></div>
                                     <div>
                                     <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
-                                    </div>
+                                </div>
                                 </div>
                             </div>
                         </div>           

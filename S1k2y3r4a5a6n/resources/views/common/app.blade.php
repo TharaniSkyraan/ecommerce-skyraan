@@ -7,6 +7,7 @@
 
 </head>
 <body>
+
     @include('common.navbar')
     @yield('content')
     @include('common.footer')

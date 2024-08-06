@@ -40,7 +40,7 @@
 @endforeach
 <div class="price-dtl pt-3" id="shipping">
     @if(!empty($coupon_code))
-        <div class=" d-flex pb-3 gap-4">
+        <div class=" d-flex py-3 gap-4">
             <div class="d-flex align-items-center gap-2">
                 <img src="{{asset('asset/home/icons-tick.svg')}}" alt="tickicon" class="tick_img">
                 <h6 class="green">Coupen Applied !</h6>
@@ -83,7 +83,7 @@
     <div class="d-flex justify-content-between align-items-center mt-2">
         <div class="d-flex gap-1 align-items-center wrapper">
             <h6>Coupon Discount</h6>
-            <img id="info-tooltip" class="info-tooltip" src="{{ asset('asset/home/info.svg') }}" alt="info" style="width: 18px;">
+            <img id="info-tooltip" class="info-tooltip cursor" src="{{ asset('asset/home/info.svg') }}" alt="info" style="width: 18px;">
             <div class="tooltip align-items-center justify-content-between gap-5 p-2">
                 @php 
                     $discount_type = auth()->user()->usercart->coupon->discount_type??'';
