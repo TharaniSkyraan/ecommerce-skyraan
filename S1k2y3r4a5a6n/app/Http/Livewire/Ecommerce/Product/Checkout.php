@@ -122,6 +122,7 @@ class Checkout extends Component
     {
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+        \Log::info($this->warehouse_ids);
         $this->lat = $zone['latitude'];
         $this->lng = $zone['longitude'];
 
@@ -160,7 +161,7 @@ class Checkout extends Component
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
-
+                                                    \Log::info('Available_warehouse'.$available_warehouse->id);
                     $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance/1000, 2):0;
                                                 
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
