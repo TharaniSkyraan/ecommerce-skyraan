@@ -15,7 +15,7 @@
                   </div>
                   <div class="d-flex gap-1 align-items-center pb-3">
                      <i class="bi bi-envelope text-white"></i>
-                     <a href="mailto:info@skyraan.com " class="text-white ms-2"><h6 class="foo-des fw-normal">{{$siteSetting->mail_from_address}}</h6></a>
+                     <a href="mailto:info@skyraan.com " class="text-white ms-xl-2 ms-lg-2 ms-sm-2 ms-md-2 ms-0"><h6 class="foo-des fw-normal">{{$siteSetting->mail_from_address}}</h6></a>
                   </div>
                   <div class="d-flex gap-1 align-items-center pb-3">
                      <i class="bi bi-telephone text-white"></i>
@@ -34,18 +34,20 @@
                   </div>
                   <div class="mbl-view">
                      <div class="d-flex align-items-center justify-content-between" id="for-drpt2">
-                        <span class="fw-normal cursor text-white fw-bold foo-des ">Information</span>
+                        <span class="fw-normal cursor text-white fw-bold foo-head ">Information</span>
                         <div>
                            <img class="cursor down-ar" src="{{asset('asset/home/down-ar.svg')}}" alt="">
                            <img class="cursor up-ar" style="display:none;width: 14px;" src="{{asset('asset/home/up-ar.svg')}}" alt="">
                         </div>
                      </div>
+                     <hr class="w-50 my-1 border-white">
+
                      <div class="fortr-drpt2">
                         <ul class="pt-2 ps-3">                           
                            <li class="text-white d-flex pb-3 gap-2"><img src="{{asset('asset/home/arrow_1.svg')}}" alt="" class="png-foo"><a href="{{url('/aboutus')}}"><h6 class="text-white  fw-normal h-sms ">About Us </h6></a></li>
                            <li class="text-white d-flex pb-3 gap-2"><img src="{{asset('asset/home/arrow_1.svg')}}" alt="" class="png-foo"><a href="{{url('/contactus')}}"><h6 class="text-white fw-normal h-sms">Contact Us</h6></a></li>
                            <li class="text-white d-flex pb-3 gap-2"><img src="{{asset('asset/home/arrow_1.svg')}}" alt="" class="png-foo"><a href="{{url('/privacy-policy')}}"><h6 class="text-white fw-normal h-sms">Privacy Policy</h6></a></li>
-                           <li class="text-white d-flex pb-3 gap-2"><img src="{{asset('asset/home/arrow_1.svg')}}" alt="" class="png-foo"><a href="{{url('/terms-and-condition')}}"><h6 class="text-white fw-normal h-sms">Terms & Conditions</h6></a></li>
+                           <li class="text-white d-flex pb-xl-3 pb-lg-3 pb-md-3 pb-sm-3 pb-0 gap-2"><img src="{{asset('asset/home/arrow_1.svg')}}" alt="" class="png-foo"><a href="{{url('/terms-and-condition')}}"><h6 class="text-white fw-normal h-sms">Terms & Conditions</h6></a></li>
                         </ul>
                      </div>
                   </div>

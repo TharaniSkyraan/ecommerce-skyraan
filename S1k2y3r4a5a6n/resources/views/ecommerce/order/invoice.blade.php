@@ -9,12 +9,8 @@
                 padding-top: 1.5rem !important;
                 padding-bottom: 1.5rem !important;
             }
-
             .fw-bold {
-            font-weight: 700 !important;
-            }
-            .text-end {
-                text-align: right !important;
+                font-weight: 700 !important;
             }
             .py-2 {
                 padding-top: .5rem !important;
@@ -44,7 +40,6 @@
             table {
                 margin-top: 5px;
             }
-
             .px-3 {
                 padding-right: 1rem !important;
                 /* padding-left: 1rem !important; */
@@ -61,7 +56,6 @@
             .p-3 {
                 padding: 1rem !important;
             }
-
             hr {
                 margin-top:10px;
             }
@@ -123,7 +117,6 @@
                    font-size:29px;
                 }
             }
-
             .text-start{
                float:left!important;
             }
@@ -161,19 +154,12 @@
             .class-headers span {
                 font-size: 14px;
             }
-            .col-foo{
-                width:250px;
-                padding-top:40px !important
-            }
             .pt-0{
                 padding-top:0px!important;
                 padding-bottom:0!important;
             }
             .pt-2{
                 padding-top:1px;
-            }
-            .jkef{
-                padding-left:50px;
             }
             .jkef h6{
                 font-size:10px;
@@ -188,45 +174,70 @@
             .logo-img{
                 width:125px;
             }
-            .tabless{
-                table {
-                   border-collapse: collapse;
-                }
-
-                thead th {
-                    border: 1px solid #000;
-                   
-                }
-
-                tbody td {
-                    border: 1px solid #000;
-                   
-                }
-
-                tbody tr {
-                    border: 1px solid #000;
-                   
-                }
-                tbody th {
-                    border: 1px solid #000;
-                   
-                }
-
-                th, td {
-                    padding: 10px;
-                    text-align: center;
-                }
-
-                thead tr {
-                    border: 1px solid #000;
-                   
-                }
-
+            .tabless table {
+                border-collapse: collapse;
+            }
+            .tabless thead th {
+                border: 1px solid #000;
+            }
+            .tabless tbody td {
+                border: 1px solid #000;
+            }
+            .tabless tbody tr {
+                border: 1px solid #000;
+            }
+            .tabless tbody th {
+                border: 1px solid #000;
+            }
+            .tabless th, td {
+                padding: 10px;
+                text-align: center;
+            }
+            .tabless thead tr {
+                border: 1px solid #000;
             }
             .b-none{
                 border:none!important;
             }
-            
+            .w-100 {
+                width: 100%;
+            }
+            .invoice-footer table {
+                width: 100%;
+            }
+            .invoice-footer th, .invoice-footer td {
+                vertical-align: top;
+            }
+            .text-start {
+                text-align: left;
+            }
+            .text-end {
+                text-align: right;
+            }
+            .jkef p {
+                font-size:14px;
+                padding-top: 15px;
+                padding-right: 23px;
+            }
+            .jkef h6 {
+                font-size:14px;
+                margin-top: -5px;
+                margin-right: 20px;
+            }
+            .font-sz{
+                font-size:15px;
+            }
+            .col-foo{
+                width:250px;
+                padding-top:40px !important
+            }
+            .col-foo p{
+                padding-top:10px;
+                font-size:13px;
+            }
+            {
+                font-family: "poppins"!important;
+            }
         </style>
     </head>
     <body>
@@ -305,21 +316,31 @@
                 </table>
                 <div class="row class-headers py-4 px-3">
                     <span class=" text-start fw-bold" >AMOUNT IN WORDS</span>
-                    <span class=" text-end   fw-bold" style="padding-left:60px;">{{ $order['prininword'] }}</span>
+                    <span class="text-end fw-bold" style="margin-right:-12px;text-transform: uppercase;">{{ $order['prininword'] }}</span>
                 </div>
             </div>
         </div>
         <div class="invoice-footer">
-            <table class="b-none">
+            <table class="b-none w-100">
                 <thead class="b-none">
                     <tr class="b-none">
-                        <th class="col text-center b-none"><h6 class="fw-bold ewhjd text-start ">SOLD BY SKYRAA ORGANICS</h6></th>
+                        <th class="col b-none">
+                            <h6 class="fw-bold text-start font-sz">SOLD BY SKYRAA ORGANICS</h6>
+                        </th>
+                        <th class="col b-none"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-center b-none">
-                        <td class="p-4 col-foo b-none text-start">Hari Complex, Opp.to: Prozon Mall, Saravanampatti, Coimbatore, Tamil Nadu - 641 035, India</td>
-                        <td class=" pt-0 jkef b-none ">info@skyraan.com <h6 class="pt-2 "> +91 78453 35332</h6> </td>
+                    <tr class="b-none">
+                        <td class="p-4 col-foo b-none text-start">
+                            <p>Hari Complex, Opp.to: Prozon Mall, Saravanampatti, Coimbatore, Tamil Nadu - 641 035, India</p>
+                        </td>
+                        <td class="pt-0 jkef b-none text-end">
+                            <div>
+                                <p>info@skyraan.com</p>
+                                <h6 class="pt-2">+91 78453 35332</h6>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>

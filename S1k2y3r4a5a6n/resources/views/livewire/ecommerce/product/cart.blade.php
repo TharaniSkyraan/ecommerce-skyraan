@@ -82,7 +82,7 @@
                                 <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
                             @endif
                         </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-6 d-flex align-self-center justify-content-start">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-6 d-flex align-self-center justify-content-start pt-xl-0 pt-lg-0 pt-sm-0 pt-md-0 pt-2 ">
                             <div class="d-flex align-items-center gap-3">
                             <span class="h-sms mbl-view fw-bold ps-2">TOTAL : </span>
                                 @if(isset($cart_product['discount']) && $cart_product['discount']!=0)

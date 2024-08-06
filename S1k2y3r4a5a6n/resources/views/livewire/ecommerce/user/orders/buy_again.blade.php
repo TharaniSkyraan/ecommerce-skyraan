@@ -20,9 +20,9 @@
                                 <h6 class="fw-bold px-2 align-self-center">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['sale_price']}}</h6>
                             </div>
                             @else
-                                <h6 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['price']}}</h6>
+                                <h6 class="fw-bold py-2 sys-view">{{ $ip_data->currency_symbol??'₹' }} {{$order['product']['price']}}</h6>
                             @endif
-                            <div class="row pb-3">
+                            <!-- <div class="row pb-3">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 rfjjfjnew">
                                     <div class="qty-container d-flex align-items-center justify-content-center border rounded-0  text-dark">
                                         <div class="col text-center qty-btn-minus"><span>-</span></div>
@@ -32,7 +32,7 @@
                                         <div class="col text-center qty-btn-plus"><span>+</span></div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"><span class="h-sm">Availability : <span class="buy-color h-sm">{{ ($order['product']['stock_status']=='in_stock')?'In stock':'Out of stock' }}</span></span></div>
                                 <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 "><span class="h-sm">Last Buy : {{ \Carbon\Carbon::parse($order['product']['last_buy'])->format('d M Y') }}</span></div>

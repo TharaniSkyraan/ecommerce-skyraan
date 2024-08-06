@@ -20,7 +20,7 @@
                                                 <h6 class="h-sms">{{ucwords($address['address'])}}, {{$address['city']}}, {{$address['postal_code']}}. </h6> 
                                                 <h6 class="h-sms py-2"> {{$address['phone']}}, {{$address['alternative_phone']}}.</h6>
                                             </div>
-                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">                    
+                                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 text-end">                    
                                                 <div class="dropdown text-end">
                                                     <img class="dropdown-toggle icons-menu cursor " src="{{ asset('asset/home/icons-menu.svg') }}" alt="menu" data-bs-toggle="dropdown">
                                                     <ul class="dropdown-menu drop-hover py-1" aria-labelledby="navbarDropdownMenuLink">
