@@ -217,6 +217,9 @@ input[type="range"]::-moz-range-thumb {
     .grid-img .card:nth-child(4) {
         order: 1;
     }
+    .Quick-shop-img{
+        width: 15px !important;
+    }
 }
 @media (min-width: 992px){
     .filter-col{

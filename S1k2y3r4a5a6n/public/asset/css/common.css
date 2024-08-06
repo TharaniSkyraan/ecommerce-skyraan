@@ -7546,7 +7546,7 @@ textarea.form-control-lg {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 99;
+    z-index: 111;
     background-color: var(--items-list-bg-color);
     animation: slideDown 0.8s ease-out forwards;
 }
