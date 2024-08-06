@@ -118,7 +118,7 @@ class Home extends Component
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                             })
                                             ->groupBy('product_id')
-                                            ->orderBy('created_at','desc')
+                                            ->orderBy(DB::raw('MAX(created_at)'), 'desc')
                                             ->limit(8)
                                             ->pluck('product_id')->toArray();
         $this->productList('new_products',json_encode($new_product_ids));
