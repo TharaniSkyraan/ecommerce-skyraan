@@ -268,7 +268,7 @@
                     @foreach($related_products as $product)
                         <div class="item p-2 prdDet cursor">
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
-                                <div class="row pt-1  position-absolute w-100 ">
+                                <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
@@ -374,7 +374,7 @@
                     @foreach($frequently_bought_products as $product)
                         <div class="item px-2 prdDet cursor">
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
-                                <div class="row pt-1  position-absolute w-100 ">
+                                <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
                                         @if($product['stock_status']=='out_of_stock')
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
