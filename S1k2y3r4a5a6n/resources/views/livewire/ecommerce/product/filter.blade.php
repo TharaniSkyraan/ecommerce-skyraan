@@ -181,21 +181,15 @@ const rangeInput = document.querySelectorAll(".range-input input"),
     $(document).on('click','.category-filter', function()
     {
         var slug = $(this).data('id');
-        var url = "{{ url('/') }}/category/"+slug;
+        var url = "{{ url('/') }}/category?q="+slug;
         var queryParams = {};
         var urlParams = new URLSearchParams(window.location.search);
         
-        var i = 0;
         urlParams.forEach(function(value, key) {
             queryParams[key] = value;
 
-            if(key!='category'){
-               if(i==0){
-                    url = url+'?'+key+'='+value;
-               }else{
-                    url = url+'&'+key+'='+value;
-               }
-               i++;
+            if(key!='category' && key!='q'){
+                url = url+'&'+key+'='+value;
             }
         });
         window.location.href = url;
