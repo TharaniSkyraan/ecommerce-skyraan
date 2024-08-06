@@ -25,6 +25,11 @@ class OrderItem extends Model
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
     
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
+    }
+
     public function review()
     {
         $user_id = auth()->user()->id??'';

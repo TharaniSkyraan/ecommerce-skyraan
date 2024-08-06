@@ -19,6 +19,9 @@ class TransferStock extends Component
     public $suggesstion = false;
     protected $listeners = ['SelectProduct','suggestion', 'unsetsuggestion', 'resetInputvalues','OpenStockLimit'];
 
+    public function GenerateReference(){
+        $this->reference_number = \Str::random(12);
+    }
     public function updatedQuery(){
         if(!empty($this->query)){
             $query = $this->query;

@@ -78,7 +78,8 @@ Route::name('ecommerce.')->group(function () {
          })->name('product.detail');
 
         // Product collection type or product name filter
-        Route::get('{type}/{slug?}',function($type,$slug=''){
+        Route::get('{type}/{slug?}',function(Request $request, $type,$slug=''){
+            $slug = $request->q;
             return view('ecommerce.product.search-result',compact(['slug','type']));
         })->name('product.list');
 

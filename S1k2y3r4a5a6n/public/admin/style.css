@@ -1210,6 +1210,12 @@ table.dataTable tbody th, table.dataTable tbody td {
 .justify-content-between{
   justify-content: space-between;
 }
+.justify-content-around{
+  justify-content: space-around;
+}
+.justify-content-evenly{
+  justify-content: space-evenly;
+}
 .align-item-center{
   align-items: center
 }
@@ -1564,4 +1570,13 @@ table::-webkit-scrollbar-track {
 }
 .order-items .prdname{
   text-wrap: wrap;
+}
+.generate{
+  font-size: 12px !important;
+  padding-left: 10px;
+}
+.logo_item img{
+  width: fit-content;
+  border-radius: 0px;
+  height: 50px;
 }

@@ -17,6 +17,8 @@ class WishLists extends Component
     public $wishlist,$products;
     public $warehouse_ids = [];
     
+    protected $listeners = ['addremoveWish'];
+    
     public function addremoveWish($product_id)
     {
         $zone = \Session::get('zone_config');

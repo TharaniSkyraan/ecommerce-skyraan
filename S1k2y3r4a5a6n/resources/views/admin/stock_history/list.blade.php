@@ -84,7 +84,8 @@
                                     <select name="stock_type" id="stock_type">
                                     <option value="" selected="selected">Is all?</option>
                                     <option value="upload">Update</option>
-                                    <option value="transfer">Transfer</option> </select>
+                                    <option value="transfer">Transfer</option> 
+                                    <option value="transfer">Order</option> </select>
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -95,7 +96,10 @@
                                     <select name="status" id="status">
                                     <option value="" selected="selected">Is all?</option>
                                     <option value="sent">Sent</option>
-                                    <option value="received">Received</option> </select>
+                                    <option value="received">Received</option>
+                                    <option value="new_order">New Order</option> 
+                                    <option value="delivered">Delivered</option> 
+                                    <option value="cancelled">Cancelled</option>  </select>
                                 </td>
                                 <td></td>
                             </tr>

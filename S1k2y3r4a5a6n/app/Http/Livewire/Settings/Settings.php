@@ -15,7 +15,7 @@ class Settings extends Component
     public $site_logo,$site_name,$fav_icon,$temp_site_logo,$temp_fav_icon,
            $theme_primary_color,$theme_secondary_color,$theme_tertiary_color,
            $phone,$mail_from_address,$mail_to_address,$mail_support_address,
-           $mail_from_name,$mail_to_name,$mail_support_name,$address;
+           $mail_from_name,$mail_to_name,$mail_support_name,$address,$footer_content;
     
     // Notfication
     public $is_mail_enable,$is_whatsapp_enable,$is_sms_enable,$mail_driver,$mail_host,
@@ -55,6 +55,7 @@ class Settings extends Component
             'mail_from_name' => 'required|string|max:100',
             'mail_to_name' => 'required|string|max:100',
             'mail_support_name' => 'required|string|max:100',
+            'footer_content' => 'required|max:255', 
             'address' => 'required|max:255', 
         ];
         if(empty($this->temp_site_logo)){

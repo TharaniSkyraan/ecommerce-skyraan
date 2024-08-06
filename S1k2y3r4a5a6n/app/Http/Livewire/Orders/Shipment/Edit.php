@@ -8,6 +8,9 @@ use App\Models\ShippingStatus;
 use App\Models\Order;
 use App\Models\OrderHistory;
 use App\Models\ShippingHistory;
+use App\Models\ProductStock;
+use App\Models\StockHistory;
+use App\Models\ProductStockUpdateQuantityHistory;
 use Carbon\Carbon;
 use Razorpay\Api\Api;
 use App\Traits\OrderInvoice;
@@ -107,6 +110,56 @@ class Edit extends Component
             }
             Order::where('id',$this->shipment->order_id)->update(['status'=>$this->status]);            
             OrderHistory::updateOrCreate(['order_id'=>$this->shipment->order_id,'action'=>$this->status],['description'=>$description]);
+        }
+        
+        if($this->status=='cancelled')
+        {
+            $stockhistories = StockHistory::whereReferenceNumber($this->shipment->order_id)->whereStockType('order')->get();
+    
+            foreach($stockhistories as $stock_history)
+            {
+
+                $stock_history =  StockHistory::find($stock_history->id)->update(['received_date' => Carbon::now(),'status' => 'cancelled']);
+
+                $quantity_update_histories = ProductStockUpdateQuantityHistory::whereHistoryId($stock_history->id)->get();
+
+                foreach($quantity_update_histories as $quantity_history)
+                {
+
+                    $product_stock = ProductStock::whereWarehouseId($quantity_history->warehouse_id)
+                                                ->whereProductVariantId($quantity_history->product_variant_id)
+                                                ->first();
+
+                    $product_stock = ProductStock::find($product_stock->id);
+                    $available_stock = $product_stock->available_quantity;
+                    $product_stock->available_quantity += $quantity_history->updated_quantity;
+                    $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                    $product_stock->save();
+                    
+                    ProductStockUpdateQuantityHistory::create([
+                        'history_id' => $stock_history->id,
+                        'warehouse_id' => $quantity_history->warehouse_id,
+                        'product_name' => $quantity_history->product_name,
+                        'product_id' => $quantity_history->product_id,
+                        'product_variant_id' => $quantity_history->product_variant_id,
+                        'previous_available_quantity' => $available_stock,
+                        'updated_quantity' => $quantity_history->updated_quantity,
+                        'available_quantity' => $available_stock + $quantity_history->updated_quantity,
+                    ]);
+
+                }
+
+            }
+        }
+
+        if($this->status=='delivered')
+        {
+            $stockhistories = StockHistory::whereReferenceNumber($this->shipment->order_id)->whereStockType('order')->get();
+    
+            foreach($stockhistories as $stock_history)
+            {
+                $stock_history =  StockHistory::find($stock_history->id)->update(['received_date' => Carbon::now(),'status' => 'delivered']);
+            }
         }
         session()->flash('message', 'Shipping Status updated successfully.');
         $this->IsModalOpen();

@@ -108,7 +108,7 @@ class Checkout extends Component
                 'city' => $address->city??'', 
                 'latitude' => '', 
                 'longitude' => '', 
-                'postal_code' => $address->postal_code??''
+                'postal_code' => $address->postal_code??($zone['postal_code']??'')
             );      
             $result = $this->configzone($data); 
             session(['zone_config' => $result]);
@@ -126,8 +126,7 @@ class Checkout extends Component
         $this->lng = $zone['longitude'];
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
-        // dd($datas);
-
+       
         $cart_products = [];
         $total_price = 0;
 
@@ -161,8 +160,7 @@ class Checkout extends Component
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
-
-                    $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance/1000, 2):0;
+                    $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance, 2):0;
                                                 
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
                     $attribute_set_name = AttributeSet::find($attribute_set_ids)->pluck('name')->toArray();
@@ -258,7 +256,7 @@ class Checkout extends Component
             $weight = $cart_product['weight'];
             $distance = $cart_product['distance'];
             $shipping_charge = 0;
-            if(!empty($this->zone) && ($setting->is_enabled_shipping_charges=='yes'))
+            if($setting->is_enabled_shipping_charges=='yes')
             {
 
                 if($weight<=$minimum_kg){
@@ -266,13 +264,13 @@ class Checkout extends Component
                 }else{
                     $shipping_charge = $cost_minimum_kg + (($weight-$minimum_kg)*$cost_per_kg);
                 }
-                
                 if($distance<=$minimum_km){
                     $shipping_charge += $cost_minimum_km;
                 }else{
                     $shipping_charge += $cost_minimum_km + (($distance-$minimum_km)*$cost_per_km);
                 }
                 
+
                 if($setting->is_enabled_shipping_tax && $shipping_charge!=0)
                 {
                     if($tax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first())
@@ -403,7 +401,7 @@ class Checkout extends Component
                         $discount = ($this->total_price * ($discount / 100)) / count($carts);
                     }
                 }
-                $orderitem["order_id"] = $order_id;
+                $orderitem["order_id"] = $order_code;
                 $orderitem["product_id"] = $cart['id'];
                 $orderitem['product_name'] = $productvariant->product_name;
                 $orderitem['product_image'] = $cart['image'];
@@ -619,7 +617,7 @@ class Checkout extends Component
                 $date = Carbon::now();
 
                 $stock_history =  StockHistory::updateOrCreate([
-                    'reference_number' => $order_id,
+                    'reference_number' => $order_code,
                     'warehouse_to_id' => $warehouse_id,
                     'stock_type' => 'order',
                 ],[

@@ -56,6 +56,7 @@
                                 @endif                                
                             @endif
                             </div>
+
                             <div class="py-2 plus cursor">
                                 <span class="buy-color icon ">+</span>
                                 <span class="buy-color text">More</span>
@@ -67,14 +68,9 @@
 
                             <div class="more-detl" style="display:none">
                                 <h6 class="pb-2">Terms & Conditions</h6>
-                                <ul>
-                                    <li class="text-secondary opacity-75 h-sms">Applicable twice per user per month</li>
-                                    @if(!empty($available_coupon['end_date']))
-                                        <li class="text-secondary opacity-75 h-sms">Offer valid till {{ \Carbon\Carbon::parse($available_coupon['end_date'])->format('d M Y h:i A')}}</li>
-                                    @endif
-                                    <li class="text-secondary opacity-75 h-sms">Other T&Cs may apply</li>
-                                </ul>
+                                {!! $available_coupon['terms_and_condition'] !!}
                             </div>
+
                         </div>
                     </div>
                     <hr>

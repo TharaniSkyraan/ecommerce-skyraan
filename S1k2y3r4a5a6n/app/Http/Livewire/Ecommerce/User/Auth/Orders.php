@@ -18,6 +18,7 @@ use App\Models\OrderShipment;
 use App\Models\OrderHistory;
 use App\Models\ProductStock;
 use App\Models\StockHistory;
+use App\Models\ShippingHistory;
 use App\Models\ProductStockUpdateQuantityHistory;
 use Razorpay\Api\Api;
 use App\Traits\OrderInvoice;
@@ -199,18 +200,18 @@ class Orders extends Component
                 $endOfYear = Carbon::create($this->sort_by, 12, 31, 23, 59, 59);                
                 $orders->whereBetween('created_at', [$startOfYear, $endOfYear]);
             }
-            $orders->orderBy('created_at','desc');
+            $orders->orderBy('id','desc');
         }if($this->tab=='shipped'){
             $orders = Order::where('user_id',auth()->user()->id)
                             ->whereIn('status',['shipped','out_for_delivery'])
-                            ->orderBy('created_at','desc');
+                            ->orderBy('id','desc');
         }if($this->tab=='cancelled'){
             $orders = Order::where('user_id',auth()->user()->id)
                             ->where('status','cancelled')
-                            ->orderBy('created_at','desc');
+                            ->orderBy('id','desc');
         }
         if($this->tab!='buy-again'){
-            $orders = $orders->paginate(2, ['*'], 'page', $this->page);
+            $orders = $orders->paginate(20, ['*'], 'page', $this->page);
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages();       
             $orders = $orders->each(function ($order, $key) {            
@@ -235,12 +236,12 @@ class Orders extends Component
         {
             $orders = OrderItem::whereHas('orders', function($q){
                             $q->where('user_id',auth()->user()->id)
-                              ->where('status','delivered');
+                            ->where('status','delivered')
+                            ->orderBy('invoice_date', 'desc');
                         })
-                        ->orderBy('created_at','desc')
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
-                        ->paginate(2, ['*'], 'page', $this->page);
+                        ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages(); 

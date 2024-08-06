@@ -57,19 +57,21 @@
                     <h3>Modules</h3><br>
                     <div class="py-3">                    
                         @foreach($modules as $index => $module)
-                            @if(count($module->sub_modules)==0)                      
-                                <div class="d-flex">
-                                    <input type="checkbox" wire:model="privileges.{{ $module->id }}" id="checkbox{{ $module->id }}">
-                                    <label for="checkbox{{ $module->id }}"> &nbsp; {{ ucwords($module->module) }}</label>
-                                </div>
-                            @else
-                                <label for="" class="fw-bold">{{ ucwords($module->module)}}</label>
-                                @foreach($module->sub_modules as $index => $submodule)
-                                    <div class="d-flex mx-4">                                
-                                        <input type="checkbox" wire:model="privileges.{{ $submodule->id }}" id="checkbox{{ $submodule->id }}">
-                                        <label for="checkbox{{ $submodule->id }}"> &nbsp; {{ ucwords($submodule->module) }}</label>
-                                    </div>                            
-                                @endforeach
+                            @if($module->key !='sub-admin')
+                                @if(count($module->sub_modules)==0)                      
+                                    <div class="d-flex">
+                                        <input type="checkbox" wire:model="privileges.{{ $module->id }}" id="checkbox{{ $module->id }}">
+                                        <label for="checkbox{{ $module->id }}"> &nbsp; {{ ucwords($module->module) }}</label>
+                                    </div>
+                                @else
+                                    <label for="" class="fw-bold">{{ ucwords($module->module)}}</label>
+                                    @foreach($module->sub_modules as $index => $submodule)
+                                        <div class="d-flex mx-4">                                
+                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}" id="checkbox{{ $submodule->id }}">
+                                            <label for="checkbox{{ $submodule->id }}"> &nbsp; {{ ucwords($submodule->module) }}</label>
+                                        </div>                            
+                                    @endforeach
+                                @endif
                             @endif
                         @endforeach
                     </div>

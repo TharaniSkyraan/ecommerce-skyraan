@@ -70,40 +70,9 @@
             <div class="collapse navbar-collapse " id="navbarScroll">
                 <ul class="navbar-nav  my-2 my-lg-0 navbar-nav-scroll menu_icons">
                     <a class="nav-link d-flex align-items-center px-3 gap-1" aria-current="page" href="{{ route('ecommerce.home') }}" ><img src="{{asset('asset/home/home.svg')}}" alt="home" class=""><h6 class="text-dark h-sms">Home</h6></a>
-                    <!-- <li class="nav-item dropdown menu-large px-3 py-3 d-flex align-items-center">
-                        <a href="javascript:void(0)" class="dropdown-toggle" id="services" data-toggle="dropdown"><h6 class="h-sms ">All Categories</h6><span class="caret"></span></a>
-                        <div class="dropdown-menu megamenu py-0" role="menu">
-                            <div class="container-fluid">
-                                <div class="width_menu">
-                                    <div class="row">
-                                        @php $i=0; $j=1; @endphp
-                                        @foreach($categories as $key => $category)
-                                            @if($i==0) <div class="border_dcz col-md-{{$class_name}} asd {{ ($j % 2 == 0) ? 'bg-grey' : 'bg-white' }}"> @endif
-                                            @if(count($category->sub_categories)==0) 
-                                            <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
-                                                <h5 class="py-1 fw-bold">{{ $category->name }}</h5>
-                                            </a>
-                                            @else
-                                                <h5 class="py-1 fw-bold">{{ $category->name }}</h5>
-                                            @endif
-                                                @php $i++; @endphp
-                                            @if($i==$count) @php  $i=0; $j++; @endphp</div>@endif
-                                            @foreach($category->sub_categories as $sub_category)
-                                                @if($sub_category->status=='active')
-                                                    @if($i==0) <div class="border_dcz col-md-{{$class_name}} asd {{ ($j % 2 == 0) ? 'bg-grey' : 'bg-white' }}"> @endif
-                                                        <h6 class="p-1 "><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" class="fw-light">{{ $sub_category->name }}</a></h6>
-                                                        @php $i++; @endphp
-                                                    @if($i==$count) @php $i=0; $j++; @endphp </div>@endif
-                                                @endif
-                                            @endforeach
-                                        @endforeach                                   
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li> -->
+                   
                     
-                    <a class="nav-link d-flex align-items-center px-3 gap-1" href="{{ route('ecommerce.product.list', ['type' => 'special','slug' => '']) }}"><img src="{{asset('asset/home/skyraa_spl.svg')}}" alt="home"><h6 class="w-100 text-dark h-sms text-nowrap">Skyraa Specials</h6></a>
+                    <a class="nav-link d-flex align-items-center px-3 gap-1" href="{{ route('ecommerce.product.list', ['type' => 'special']) }}"><img src="{{asset('asset/home/skyraa_spl.svg')}}" alt="home"><h6 class="w-100 text-dark h-sms text-nowrap">Skyraa Specials</h6></a>
                     @if(!Auth::check())
                     <div class="nav-link d-flex align-items-center px-3 gap-1" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">Login</h6></div>
                     @else
@@ -212,7 +181,7 @@
                                 @foreach($categories as $category)
                                     <li class="main-item">
                                         <div class="d-flex justify-content-between align-items-center py-1">
-                                            <span class="detail-dot"><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category->slug]) }}" class="fw-bold-res">{{ $category->name }}</a></span>
+                                            <span class="detail-dot"><a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category->slug }}" class="fw-bold-res">{{ $category->name }}</a></span>
                                             @if(count($category->sub_categories) > 0)
                                                 <span class="toggle-symbol sybl fw-bold-res ">+</span>
                                             @endif
@@ -221,7 +190,7 @@
                                             <ul class="sub-list ps-3 fw-bold">
                                                 @foreach($category->sub_categories as $sub_category)
                                                     @if($sub_category->status=='active')
-                                                        <li><a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $sub_category['slug']]) }}" >{{ $sub_category->name }}</a></li>
+                                                        <li><a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $sub_category['slug'] }}" >{{ $sub_category->name }}</a></li>
                                                     @endif
                                                 @endforeach
                                             </ul>
@@ -276,7 +245,7 @@
             </div>
             @endif
             <div  class="menu-list">
-                <a href="{{ route('ecommerce.product.list', ['type' => 'special','slug' => '']) }}"><h5 class="li-item fw-normal">Skyraa Specials</h5></a>
+                <a href="{{ route('ecommerce.product.list', ['type' => 'special']) }}"><h5 class="li-item fw-normal">Skyraa Specials</h5></a>
                 <button class="btn px-1 pt-0 pb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Search</button>
                 <a href="{{url('/aboutus')}}"><h5 class="li-item fw-normal">About us</h5></a>
                 <a href="{{url('/contactus')}}"><h5 class="li-item fw-normal">Contact us</h5></a>

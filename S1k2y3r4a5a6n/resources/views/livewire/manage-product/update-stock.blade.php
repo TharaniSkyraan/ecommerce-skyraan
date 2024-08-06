@@ -6,7 +6,7 @@
                     <div class="row mb-4">
                         <div class="col-6">
                             <div class="form-group me-2">
-                                <label for="reference_number">Reference Number</label>
+                                <label for="reference_number" class="d-flex">Reference Number <span wire:click="GenerateReference" class="primary generate">Generate</span></label>
                                 <input type="text" name="reference_number" id="reference_number" placeholder="Reference Number" wire:model="reference_number">
                                 @error('reference_number') <span class="error"> {{$message}}</span> @endif
                             </div>                        
@@ -76,7 +76,7 @@
                                                 @if($action != "new")
                                                     <th class="p-0"> <p>Warehouse</p></th>
                                                 @endif
-                                                <th class="p-0"> <p>Products</p></th>
+                                                <th class="p-0"> <p>Product Variant</p></th>
                                                 <th class="p-0"> <p>Available Stock</p></th>
                                                 <th class="p-0"> <p>Quantity</p></th>
                                             </tr>
@@ -88,9 +88,9 @@
                                                         <td> <p> {{ $sproduct['warehouse_name'] }} </p> </td>
                                                     @endif
                                                     <td><p>  {{ $sproduct['product_name'] }} </p> </td>
-                                                    <td> <p>  {{ $sproduct['available_stock'] }} </p> </td>
+                                                    <td> <p class="text-center">  {{ $sproduct['available_stock'] }} </p> </td>
                                                     <td> 
-                                                        <div class="d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-around">
                                                             <div class="qty-container d-flex align-items-center justify-content-center border p-1 rounded-1 text-dark" style="width:150px; margin: 0 auto;">
                                                                 <div class="text-center px-2 qty-btn-minus" wire:click="decreaseQuantity('{{ $key }}')" style="align-content: center;"><span>-</span></div>
                                                                 <div class="vr"></div>

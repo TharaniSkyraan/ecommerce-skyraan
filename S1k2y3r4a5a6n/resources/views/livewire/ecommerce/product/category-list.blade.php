@@ -5,11 +5,11 @@
             @foreach($categories1 as $category)
                 <div class="dropdown px-xl-4 px-lg-4 px-sm-2 px-md-2 px-2">
                     @if(count($category->active_sub_categories())==0)
-                    <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
+                    <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="fw-light">
                         <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                     </a>
                     @else
-                        <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light category-mob-menu">
+                        <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="fw-light category-mob-menu">
                             <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                         </a>
                         <a href="javascrip:void(0)" class="category-des-menu">
@@ -41,7 +41,7 @@
                                 @foreach($sub_categories as $sub_category)
                                    <div class="col-{{$class_name}} {{ ($j % 2 == 0) ? 'color-filled' : '' }} py-2">
                                         @foreach($sub_category as $subcategory)
-                                            <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $subcategory['slug']]) }}" class="fw-light">
+                                            <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $subcategory['slug'] }}" class="fw-light">
                                                 <p class="py-1 h-sms">{{ $subcategory['name'] }}</p>
                                             </a>
                                         @endforeach
@@ -56,7 +56,7 @@
             
             @foreach($categories as $category)
                 <div class="dropdown px-xl-4 px-lg-4 px-sm-2 px-md-2 px-2  d-none category-mob-menu">
-                    <a href="{{ route('ecommerce.product.list', ['type' => 'category','slug' => $category['slug']]) }}" class="fw-light">
+                    <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="fw-light">
                         <span class="h-sms category-top-dot cursor">{{ $category->name }}</span>
                     </a>
                 </div>
@@ -73,7 +73,7 @@
                         @endif
                         <div>
                             @if(count($category->sub_categories) == 0) 
-                                <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $category['slug']]) }}" class="fw-light">
+                                <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="fw-light">
                                     <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
                                 </a>
                             @else
@@ -92,7 +92,7 @@
                                     <div class="col-{{$more_class_name}} {{ ($l % 2 == 0) ? 'color-filled' : '' }} py-2">
                                 @endif
                                 <div>
-                                    <a href="{{ route('ecommerce.product.list', ['type' => 'category', 'slug' => $sub_category['slug']]) }}" class="fw-light">
+                                    <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $sub_category['slug'] }}" class="fw-light">
                                         <p class="py-1 h-sms">{{ $sub_category->name }}</p>
                                     </a>
                                 </div>

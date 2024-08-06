@@ -107,6 +107,9 @@ class CouponApply extends Component
             {
                 $this->coupon_error = 'Please enter valid coupon code';
             }
+            if($coupon->above_order > $this->total_price && $coupon->discount_type=='flat'){
+                $this->coupon_error = 'Your order should be above '.$coupon->above_order;
+            }
             $apply_for = $coupon->apply_for;
             $discount = 0;
          

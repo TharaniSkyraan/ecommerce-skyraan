@@ -21,6 +21,11 @@ class StockHistory extends Model
         return $this->belongsTo(Warehouse::class, 'warehouse_to_id', 'id');
     }
     
+    public function order()
+    {    
+        return $this->belongsTo(Order::class, 'reference_number', 'code');
+    }
+    
     public function updatedproducts()
     {    
         return $this->hasMany(ProductStockUpdateQuantityHistory::class, 'history_id', 'id');

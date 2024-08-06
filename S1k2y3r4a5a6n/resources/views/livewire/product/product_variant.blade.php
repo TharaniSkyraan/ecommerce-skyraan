@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="col-4 me-2 my-1">                                            
                                     <div class="form-group">
-                                        <label for="shipping_weight"> Weight (g)</label>
+                                        <label for="shipping_weight"> Weight (kg)</label>
                                         <input type="text" name="shipping_weight" id="shipping_weight" wire:model="shipping_weight">
                                     </div>
                                     @error('shipping_weight') <span class="error"> {{$message}}</span> @endif

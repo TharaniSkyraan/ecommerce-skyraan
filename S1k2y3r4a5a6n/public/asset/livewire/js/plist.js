@@ -37,4 +37,17 @@ $(document).ready(function() {
             });
         }
     });
+    
+    $(document).on('click','.likedislike', function()
+    {
+        if($(this).attr('data-id')=='unlike'){
+            $(this).attr('src', '../../asset/home/like.svg');
+            $(this).attr('data-id','like');
+        }else{
+            $(this).attr('src', '../../asset/home/like-filled.svg');
+            $(this).attr('data-id','unlike');
+        }
+        id = $(this).closest('.PrdRow').data('id');
+        Livewire.emit('addremoveWish', id);
+    });
 });

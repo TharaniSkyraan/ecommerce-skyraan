@@ -10,7 +10,7 @@ class Coupon extends Model
 {
     use HasFactory,SoftDeletes;
     
-    protected $fillable = ['coupon_code','count','unlimited_coupon','display_at_checkout','discount','minimum_order','discount_type', 'apply_for','apply_for_ids','status','start_date','end_date','never_expired'];
+    protected $fillable = ['coupon_code','terms_and_condition','count','unlimited_coupon','display_at_checkout','discount','minimum_order','discount_type','above_order','apply_for','apply_for_ids','status','start_date','end_date','never_expired'];
 
     protected $append=['expired_status'];
 

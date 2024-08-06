@@ -5,9 +5,9 @@
             <ol class="breadcrumb">
                 @if(isset($category))
                     @if(isset($category->parent_category))
-                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category?q={{$category->parent_category->slug}}" class="text-dark">{{ $category->parent_category->name }}</a></li>
                     @endif
-                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category/{{$category->slug}}" class="text-dark">{{ $category->name }}</a></li>
+                    <li class="breadcrumb-item text-dark h-sms detail-dot" aria-current="page"><a href="{{url('/')}}/category?q={{$category->slug}}" class="text-dark">{{ $category->name }}</a></li>
                     <li class="breadcrumb-item active text-dark h-sms detail-dot" aria-current="page">{{ $product['name'] }}</li>
                 @else
                     <li class="breadcrumb-item text-dark h-sms"><a href="{{url('/')}}" class="text-dark">Home</a></li>
@@ -208,7 +208,7 @@
                                         @else
                                             <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
                                             <div class="text-center py-2">
-                                                <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
+                                                <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#signin" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
                                             </div>
                                             <div class="separator mt-2">or</div>
                                         @endif
