@@ -74,10 +74,10 @@
                         <div>
                             @if(count($category->sub_categories) == 0) 
                                 <a href="{{ route('ecommerce.product.list', ['type' => 'category']) }}?q={{ $category['slug'] }}" class="fw-light">
-                                    <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
+                                    <p class="py-1 h-sms fw-bold text-dark">{{ $category->name }}</p>
                                 </a>
                             @else
-                                <p class="py-1 h-sms fw-bold">{{ $category->name }}</p>
+                                <p class="py-1 h-sms fw-bold text-dark">{{ $category->name }}</p>
                             @endif
                         </div>
                         @php $k++; @endphp

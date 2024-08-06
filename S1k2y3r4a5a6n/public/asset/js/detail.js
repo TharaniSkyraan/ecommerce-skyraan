@@ -128,7 +128,7 @@ $('#frequent-images').owlCarousel({
 // hover img
 
 $('.detail-img .demo-trigger').hover(function() {
-  $('.zoom-in').addClass('hovered').css('height', '80%');
+  $('.zoom-in').addClass('hovered').css('height', '72%');
 }, function() {
   $('.zoom-in').removeClass('hovered').css('height', '0%'); 
 });

@@ -84,9 +84,18 @@
     width: 49px;
     height: 39px;
 }
-.detail-img img{
-   height:450px;
-   object-fit: contain;
+
+.detail-img {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%; 
+    max-height: 70%; 
+}
+
+.detail-img img {
+    width: 100%; 
+    height: auto; 
+    object-fit: contain; 
 }
 .detail_page_carousal img{
     height:80px;
@@ -161,7 +170,7 @@
 }
 .detail-card .price-detail .zoom-in {
     position: absolute;
-    width: 40%;
+    width: 45%;
     float: left;
     z-index: 9;
 }
@@ -379,8 +388,8 @@
     .carousel-wrap .owl-stage{
         padding-left: 0px!important;
     }
-    .detail-img img {
-        height: 327px!important;
+    .detail-img {
+        max-height: 78%; 
     }
     .item-image {
         height: 130px!important;

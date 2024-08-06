@@ -1,5 +1,5 @@
 <div>
-    <div class="offcanvas-body cart_add_section flex-grow-1">
+    <div class="offcanvas-body cart_add_section">
         @if(count($cart_products)!=0)
         <div>
             @foreach($cart_products as $cart_product)
@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                     @endif
-                                    
+
                                     @if($cart_product['quantity']>$limit)
                                         <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
                                     @endif
