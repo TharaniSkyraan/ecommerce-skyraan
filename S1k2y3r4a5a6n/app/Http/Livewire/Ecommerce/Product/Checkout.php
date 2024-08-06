@@ -122,7 +122,6 @@ class Checkout extends Component
     {
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
-        \Log::info($this->warehouse_ids);
         $this->lat = $zone['latitude'];
         $this->lng = $zone['longitude'];
 
@@ -161,7 +160,6 @@ class Checkout extends Component
                                                 ->groupBy('id', 'available_quantity')
                                                 ->orderBy('available_quantity','desc')
                                                 ->first();
-                                                    \Log::info('Available_warehouse_distance'.$available_warehouse->distance);
                     $distance = (isset($available_warehouse->distance))?round($available_warehouse->distance, 2):0;
                                                 
                     $attribute_set_ids = ProductAttributeSet::whereProductVariantId($data['product_variant_id'])->pluck('attribute_set_id')->toArray();
@@ -257,9 +255,6 @@ class Checkout extends Component
         {
             $weight = $cart_product['weight'];
             $distance = $cart_product['distance'];
-            \Log::info('cart_product'.json_encode($cart_product));
-            \Log::info('weight'.$weight);
-            \Log::info('distance'.$distance);
             $shipping_charge = 0;
             if($setting->is_enabled_shipping_charges=='yes')
             {
@@ -269,20 +264,12 @@ class Checkout extends Component
                 }else{
                     $shipping_charge = $cost_minimum_kg + (($weight-$minimum_kg)*$cost_per_kg);
                 }
-                \Log::info('kg_price'.$shipping_charge);
-                \Log::info('cost_min_kg_price'.$cost_minimum_kg);
-                \Log::info('min_kg'.$minimum_kg);
-                \Log::info('cost_per_kg'.$cost_per_kg);
                 if($distance<=$minimum_km){
                     $shipping_charge += $cost_minimum_km;
                 }else{
                     $shipping_charge += $cost_minimum_km + (($distance-$minimum_km)*$cost_per_km);
                 }
                 
-                \Log::info('km_price+kg_price'.$shipping_charge);
-                \Log::info('cost_min_km_price'.$cost_minimum_km);
-                \Log::info('min_km'.$minimum_km);
-                \Log::info('cost_per_km'.$cost_per_km);
 
                 if($setting->is_enabled_shipping_tax && $shipping_charge!=0)
                 {
