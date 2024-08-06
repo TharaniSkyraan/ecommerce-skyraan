@@ -1,6 +1,6 @@
 <div>
     <div class="pt-3">
-        <div class="card px-4 py-2 border-0 ">
+        <div class="card px-xl-4 px-lg-4 px-md-4 px-sm-3 px-3 py-2 border-0 ">
             <small class="text-secondary {{($filtercount!=0)?'':'opacity-50'}}">{{$filtercount}} filters  <a href="javascript:void(0);" wire:click="ResetAllFilters" class="float-end ResetAllFilters"><small class="text-dark text-decoration-underline"> @if($filtercount!=0) Reset @endif</small></a> </small>
             <div> 
                 @if(count($selectedStocks)!=0)<small class="selectedfilter h-sms">Availability ({{count($filters['availablestock'])}}) <a href="javascript:void(0)" wire:click="resetAvailable">×</a></small> @endif
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="pt-3">
-        <div class="card px-4 py-2 border-0 ">
+        <div class="card px-xl-4 px-lg-4 px-md-4 px-sm-3 px-3 py-2 border-0 ">
             <h6 class="fw-bold pb-2">Availability</h6>
             @foreach($stocks as $key => $stock)
             <div class="form-check ">
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="pt-3">
-        <div class="card px-4 py-2 border-0">
+        <div class="card px-xl-4 px-lg-4 px-md-4 px-sm-3 px-3 py-2 border-0">
             <div class="d-flex justify-content-between">
                 <h6 class="fw-bold">Price</h6>
                 <a href="javascript:void(0)" wire:click="resetPrice" class="resetPrice"><small class="text-secondary text-decoration-underline"> {{ (($max != $max_price)||($min != $min_price))?'Reset':'' }} </small></a>
@@ -61,13 +61,13 @@
     </div>
     @if(count($categories)!=0)
     <div class="pt-3">
-        <div class="card px-4 py-2 border-0">
+        <div class="card px-xl-4 px-lg-4 px-md-4 px-sm-3 px-3 py-2 border-0">
             <h6 class="fw-bold pb-2">Categories</h6>
             <div class="cat-card" >
                 @foreach($categories as $category)
                     <div class="d-flex gap-2 cat-div cursor category-filter" data-id="{{$category->slug}}">
                         <img src="{{asset('asset/home/left-ar.svg')}}" alt="arrow">
-                        <p class="h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{ $category->name }}</p>
+                        <p class="detail-dot h-sms fw-bold {{ (in_array($category->id, array_keys($category_ids))?'':'opacity-75') }}">{{ $category->name }}</p>
                     </div>
                     @foreach($category->active_sub_categories() as $sub_category)
                         @if($sub_category->status =='active')
@@ -82,7 +82,7 @@
     </div>
     @endif
     <div class="pt-3">
-        <div class="card px-4 py-2 border-0 ">
+        <div class="card px-xl-4 px-lg-4 px-md-4 px-sm-3 px-3 py-2 border-0 ">
             <h6 class="fw-bold pb-3">Ratings</h6>
             @foreach($ratings as $rating)
                 <div class="form-check">

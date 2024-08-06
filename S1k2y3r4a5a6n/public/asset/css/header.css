@@ -555,10 +555,6 @@ fieldset, legend {
 .price{
     color: var(--price-content-color);
 }
-.detail-img{
-    position: relative;
-    z-index: 11;
-}
 
 .detail-img .sold-out-text {
     position: absolute;
@@ -1340,6 +1336,9 @@ padding-top: 155px!important;
     #abt_review .card{
         height: 170px!important;
     }
+    .detail-dot {
+        max-width: 18ch!important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 900px){
@@ -1668,7 +1667,7 @@ padding-top: 155px!important;
 }
 .Quick-shop-img{
     filter: brightness(0) invert(1) grayscale(1);
-    width: 19px!important;
+    width: 17px!important;
 }
 #flush-collapseOne .sub-list {
     display: none;
@@ -1703,7 +1702,7 @@ padding-top: 155px!important;
     width: 100%;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index:11;
+    z-index:99;
     width: max-content;
 
 }
@@ -1713,7 +1712,7 @@ padding-top: 155px!important;
     position: absolute;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 11;
+    z-index: 99;
     right: 0;
     width: max-content;
 }
