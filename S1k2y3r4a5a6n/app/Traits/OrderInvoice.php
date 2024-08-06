@@ -18,7 +18,9 @@ trait OrderInvoice
         $data['order']['invoiced_date'] = \Carbon\Carbon::parse($order->invoice_date)->copy()->timezone('Asia/Kolkata');
         $data['order']['prininword'] = ucwords($this->numToWordsRec($data['order']['total_amount']));
         
-        $imagePath = 'https://skyraa-ecommerce.skyraan.net/storage/setting/eB7sQkTnA7rdrXOxAAiPKYGt82C0QUABpeJc2yaB.svg';
+        // $imagePath = 'https://skyraa-ecommerce.skyraan.net/storage/setting/eB7sQkTnA7rdrXOxAAiPKYGt82C0QUABpeJc2yaB.svg';
+        
+        $imagePath = config('siteSetting.site_logo');
         $imageData = base64_encode(file_get_contents($imagePath));
         $data['logo_base64'] = 'data:image/png;base64,' . $imageData;
         $pdf = Pdf::loadView('ecommerce.order.invoice', $data);

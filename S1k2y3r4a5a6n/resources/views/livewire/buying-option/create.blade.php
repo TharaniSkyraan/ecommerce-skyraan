@@ -18,7 +18,7 @@
                             <img src="{{ asset('admin/images/placeholder.png') }}" alt="Buying Option-icon" class="my-1 cat-image">
                         @endif
                     </label>
-                    <input type="file" name="image" id="image" wire:model="image" accept=".png, .jpg, .jpeg" class="d-none">
+                    <input type="file" name="image" id="image" wire:model="image" accept=".svg" class="d-none">
                     @error('image') <span class="error"> {{$message}}</span> @endif
                 </div>
                 <div class="form-group" wire:ignore>
