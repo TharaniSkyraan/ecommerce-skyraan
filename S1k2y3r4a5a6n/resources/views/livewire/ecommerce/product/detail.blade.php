@@ -103,6 +103,7 @@
                                                         return $key !== "";
                                                     }, ARRAY_FILTER_USE_KEY)))
                 @endphp
+
                 @foreach($parent_attribute as $attribute)
                 <div class="price py-1">
                     <h6 class="text-dark fw-bold">{{ucwords($attribute['name'])}}</h6>
@@ -119,12 +120,13 @@
                     <h6 class="text-dark fw-bold">{{ucwords($attribute['name'])}}</h6>
                     <div class="d-flex gap-3 align-items-center py-1 attribute">
                         @foreach($attribute['sets'] as $attribute_set)
-                            <label class="cursor {{ (count(array_intersect($parent_available_variant_ids, $attribute_set['available_variant_ids']))!=0)? 'attribute-label' :'outofstock text-dark'}} card px-2 py-1 border-0 {{ (in_array($attribute_set['id'], $selected_attributes_set_ids)? 'active': '')}}" id="{{$attribute_set['id']}}"><small>{{ucwords($attribute_set['name'])}}</small></label>
+                            <label class="cursor {{ (count(array_intersect($parent_available_variant_ids, $attribute_set['available_variant_ids']))!=0)? 'attribute-label other-attribute' :'outofstock text-dark'}} card px-2 py-1 border-0 {{ (in_array($attribute_set['id'], $selected_attributes_set_ids)? 'active': '')}}" id="{{$attribute_set['id']}}"><small>{{ucwords($attribute_set['name'])}}</small></label>
                             <input class="form-check-input d-none" type="checkbox" id="selected_attributes_set_ids{{$attribute_set['id']}}" wire:model="selected_attributes_set_ids.{{$attribute_set['id']}}">
                         @endforeach
                     </div>
                 </div>
                 @endforeach
+
                 @php $limit = ($available_quantity <= $cart_limit)? $available_quantity : $cart_limit; @endphp
                 @if($limit !=0)
                     <div class="quantity PY-2">

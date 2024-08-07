@@ -45,7 +45,7 @@ class Detail extends Component
 
     public $wishlist = [];
     
-    protected $listeners = ['addremoveWish'];
+    protected $listeners = ['addremoveWish','updateAttributeId'];
 
     public function calculatePrice()
     {
@@ -131,47 +131,106 @@ class Detail extends Component
     
     public function updatedParentAttributeSetId()
     {
-
         $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                         $q->whereHas('product_stock', function($q1){
                                                                             $q1->whereIn('warehouse_id', $this->warehouse_ids);
                                                                         });
                                                                     })->whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
+        $this->updateattribute($this->parent_attribute_set_id, $this->parent_available_variant_ids, $this->attributes, 'yes');
+    }
+    public function updateAttributeId($attribute_set_id){
+        
+        $attribute_ids = $this->product['attribute_ids'];
+        $attribute_id = AttributeSet::where('id',$attribute_set_id)->pluck('attribute_id')->first();
+
+        $key = array_search($attribute_id, $attribute_ids);
+        $id = $this->product['id'];
+        unset($attribute_ids[$key]);
+
+        $attributes = Attribute::find($attribute_ids)
+                                ->each(function ($attribute, $key) use($id) {  
+                                    $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                                        $q->whereHas('product_stock', function($q1){
+                                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                        });
+                                                                                    })->whereProductId($id)
+                                                                                    ->whereAttributeId($attribute->id)
+                                                                                    ->pluck('attribute_set_id')->toArray();
+                                    $attribute['sets'] = AttributeSet::find($product_attribute_set_ids)
+                                                                    ->each(function ($product_attribute_set, $key) use($id) {  
+                                                                        $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
+                                                                            $q->whereHas('product_stock', function($q1){
+                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            });
+                                                                        })->whereProductId($id)
+                                                                        ->whereAttributeSetId($product_attribute_set->id)
+                                                                        ->pluck('product_variant_id')->toArray();
+                                        });
+                                })->toArray();
+        $available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
+            $q->whereHas('product_stock', function($q1){
+                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+            });
+        })->whereProductId($this->product_id)->whereAttributeSetId($attribute_set_id)->pluck('product_variant_id')->toArray();
+        $available_variant_ids = array_intersect($this->parent_available_variant_ids, $available_variant_ids);
+        $this->updateattribute($attribute_set_id, $available_variant_ids, $attributes);
+
+    }
+
+    public function updateattribute($attribute_setId, $available_variant_ids, $attributes, $is_parent=''){
+
         $selected_attributes_set_ids = array_keys(array_filter(array_filter($this->selected_attributes_set_ids, function($key) {
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY)));
         
-        $arrays = array_diff($selected_attributes_set_ids, [$this->parent_attribute_set_id]);
         $veriy_selected_attribute_set_ids = [];
-        foreach($this->attributes as $attribute){
-            $is_have_variant = 'no'; 
-            $variant_attribute_set_id = [];
+        $select_available_variant_id = '';
+        foreach($available_variant_ids as $available_variant_id)
+        {
+            $match = 'yes';
+            $selected_attribute_set_ids = [];
 
-            foreach($attribute['sets'] as $set){
-                if(in_array($set['id'], $selected_attributes_set_ids) && count(array_intersect($this->parent_available_variant_ids, $set['available_variant_ids']))!=0){
-                    $is_have_variant = 'yes';
-                    $veriy_selected_attribute_set_ids[] = $set['id'];
-                }
-                if(count(array_intersect($this->parent_available_variant_ids, $set['available_variant_ids']))!=0){
-                    $variant_attribute_set_id[] = $set['id'];
-                }
-            }
+            if(empty($select_available_variant_id)){
+                    
+                foreach($attributes as $attribute){
+                    $is_have_variant = 'no'; 
+                    $attribute_set_id = '';
+                    
+                    foreach($attribute['sets'] as $set){
+                        if(in_array($set['id'], $selected_attributes_set_ids) && in_array($available_variant_id, $set['available_variant_ids'])){
+                            $is_have_variant = 'yes';
+                            $attribute_set_id = $set['id'];
+                        }
+                        if(in_array($available_variant_id, $set['available_variant_ids']) && empty($attribute_set_id)){
+                            $is_have_variant = 'yes';
+                            $attribute_set_id = $set['id'];
+                        }
+                    }
 
-            if($is_have_variant=='no'){
-                $veriy_selected_attribute_set_ids[] = $variant_attribute_set_id[0];
+                    if($is_have_variant=='no'){
+                        $match = 'no';
+                    }else{
+                        $selected_attribute_set_ids[] = $attribute_set_id;
+                    }
+                }
+                    
+                if($match=='yes'){
+                    $select_available_variant_id = $available_variant_id;
+                    $veriy_selected_attribute_set_ids = $selected_attribute_set_ids;
+                }
+
             }
+            
         }
-        $veriy_selected_attribute_set_ids[] = $this->parent_attribute_set_id;
+
+        $veriy_selected_attribute_set_ids[] = $attribute_setId;
+        if(empty($is_parent)){
+            $veriy_selected_attribute_set_ids[] = $this->parent_attribute_set_id;
+        }
 
         $this->selected_attributes_set_ids = array_fill_keys($veriy_selected_attribute_set_ids, true);
 
         $this->calculatePrice();
-    }
-    
-    public function updatedSelectedAttributesSetIds(){
-
-        $this->calculatePrice();
-
     }
 
     public function mount($slug)
@@ -287,6 +346,7 @@ class Detail extends Component
         $attribute_id = array_values(array_filter(explode(',',$product['attribute_ids'])));   
 
         $this->parent_attribute_id = explode(',',array_shift($attribute_id));    
+        $product['attribute_ids'] = $attribute_id;
         $attribute_id = $attribute_id??[];
 
         $this->parent_attribute_set_id = ProductAttributeSet::whereProductVariantId($default['variant_id'])->whereAttributeId($this->parent_attribute_id)->pluck('attribute_set_id')->first();
