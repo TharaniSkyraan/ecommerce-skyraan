@@ -40,6 +40,15 @@ class Orders extends Component
     protected $queryString = ['tab','sort_by'];
 
     protected $listeners = ['loadMore','CloseModel'];
+    
+    protected $rules = [
+        'reason' => 'required|string',
+        'notes' => 'nullable|string',
+    ];
+
+    protected $messages = [
+        'reason.required' => 'Please select a reason for cancellation.',
+    ];
 
     public function cancelOrderRequest($ordRef)
     {
@@ -59,7 +68,7 @@ class Orders extends Component
         $validatedData =  $this->validate([
             'order_id'=>'required',
             'reason'=>'required',
-            'notes'=>'required|string|min:3|max:255',
+            'notes'=>'nullable|string|min:3|max:255',
         ]);
         $order = Order::find($this->order_id);
         

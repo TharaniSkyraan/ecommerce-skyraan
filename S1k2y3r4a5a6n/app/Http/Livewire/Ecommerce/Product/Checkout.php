@@ -313,10 +313,14 @@ class Checkout extends Component
         $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
                 $result = $this->configzone($data); 
                 if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available here.');
+                    $fail('Delivery is not available for this location.');
                 }
             }]
-        ]);
+        ],[
+            'address_id.not_in' => 'Please add the Address to proceed.',
+            'address_id.required' => 'Please add the Address to proceed.',
+         
+         ]);
 
         $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
         $setting = Setting::first();
@@ -695,9 +699,14 @@ class Checkout extends Component
         $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
                 $result = $this->configzone($data); 
                 if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available here.');
+                    $fail('Delivery is not available for this location.');
                 }
             }]
+        ],[
+            
+           'address_id.not_in' => 'Please add the Address to proceed.',
+           'address_id.required' => 'Please add the Address to proceed.',
+        
         ]);
 
         if(config('shipping.payment_platform')=='razorpay')

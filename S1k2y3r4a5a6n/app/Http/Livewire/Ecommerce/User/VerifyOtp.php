@@ -68,7 +68,7 @@ class VerifyOtp extends Component
                 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
                     'To' => $to_number,
                     'From' => $twilio_number,
-                    'Body' => "Your OTP is: {$otp}"
+                    'Body' => "Your OTP for secure login is: {$otp}. Please do not share this code with anyone for your security."
                 ]));
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);

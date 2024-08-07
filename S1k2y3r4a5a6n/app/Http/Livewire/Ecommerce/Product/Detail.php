@@ -586,7 +586,7 @@ class Detail extends Component
         $this->validate([
             'postal_code1' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($result) {
                 if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available here.');
+                    $fail('Delivery is not available for this location.');
                 }
             }]
         ], [

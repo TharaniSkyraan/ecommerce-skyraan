@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
-                                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                                    <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
                                         @if($product['review']==0)
                                             <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                             @elseif($product['review']==1)
@@ -91,7 +91,7 @@
                                             <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                         @endif
                                     </div>
-                                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                    <div class="col-xl-4 col-lg-7 col-md-7 col-sm-6 col-12">
                                         <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                     </div>
                                 </div>

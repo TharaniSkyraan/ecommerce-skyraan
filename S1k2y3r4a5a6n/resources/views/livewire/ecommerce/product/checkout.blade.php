@@ -24,7 +24,7 @@
                     <div class="stickyclass">
                         <div>
                             <h6 class="fw-bold py-3">Shipping Address</h6>
-                            @error('address_id') <span class="error"> {{ $message }} </span> @endif
+                            @error('address_id') <span class="error mb-2"> {{ $message }} </span> @endif
                         </div>
                         @if(count($addresses)!=0)
                             <div>

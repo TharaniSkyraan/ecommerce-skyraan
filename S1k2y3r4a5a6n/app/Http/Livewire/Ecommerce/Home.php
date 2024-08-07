@@ -80,6 +80,7 @@ class Home extends Component
         $special_products = Banner::whereSpecialProduct('yes')
                                         ->whereStatus('active')
                                         ->orderBy('created_at','desc')
+                                        ->take(2)
                                         ->get()->each(function ($items) {
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)

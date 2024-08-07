@@ -64,7 +64,7 @@ class SavedAddresses extends Component
             'postal_code' => ['required','postal_code:'.($ipData->code??'IN'), function ($attribute, $value, $fail) use($data) {
                 $result = $this->configzone($data); 
                 if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available here.');
+                    $fail('Delivery is not available  for this location.');
                 }
             }]
         ], [
