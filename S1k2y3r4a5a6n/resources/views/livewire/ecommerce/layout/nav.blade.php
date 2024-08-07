@@ -9,7 +9,7 @@
                 <form autocomplete="off">
                     @csrf
                     <div class="input-group">
-                        <input class="form-control border-end-0 rounded-end-0" name="search" id="query" wire:model="query" type="search" placeholder="Search for here" aria-label="Search" autocomplete="off" required>
+                        <input class="form-control border-end-0 rounded-end-0 search-placeholder" name="search" id="query" wire:model="query" type="search" placeholder="Search for Products, Categories and More" aria-label="Search" autocomplete="off" required>
                         <button class="search-btn btn p-0 border-start-0 rounded-end-2 srch_icon px-2 bg-white cursor" wire:click.prevent="Search"><i class="bi bi-search"></i></button>  
                     </div>  
                 </form>

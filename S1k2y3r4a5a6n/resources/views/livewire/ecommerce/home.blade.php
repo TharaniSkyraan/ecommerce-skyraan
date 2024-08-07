@@ -72,7 +72,7 @@ $duration = (count($collections) / 5) * $baseDuration;
         @if(count($promotion_banners)!=0)
         <section class="top_cntr_card py-4">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-center">
                     @foreach($promotion_banners as $key => $promotion_banner)
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 pb-3">
                             @if(empty($promotion_banner['product_slug']))
@@ -171,7 +171,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
-                                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
                                             @if($tproduct['review']==0)
                                                 <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                                 @elseif($tproduct['review']==1)
@@ -186,7 +186,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                             @endif
                                         </div>
-                                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                        <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6 col-12 ">
                                             <h6 class="text-secondary text-opacity-50 text-nowrap h-sms ">{{$tproduct['review_count']}} reviews</h6>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                         <img src="{{asset('asset/home/special-product.png')}}" alt="" >
                     </div>
                 </div>
-                <div id="home_sec_carousel" class=" row px-5 pb-5">
+                <div id="home_sec_carousel" class="row px-5 pb-5 justify-content-center">
                     @foreach($special_products as $special_product)
                     <div class="col-6">
                     <div class="card border-0 round-2 p-2 ">
@@ -318,7 +318,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
-                                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                                        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
                                             @if($product['review']==0)
                                                 <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                                 @elseif($product['review']==1)
@@ -333,7 +333,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                             @endif
                                         </div>
-                                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                        <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6 col-12">
                                             <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
                                         </div>
                                     </div>
@@ -445,7 +445,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 </div>
                                             </div>
                                             <div class="row align-items-center">
-                                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6 col-12">
+                                                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
                                                     @if($product['review']==0)
                                                         <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
                                                         @elseif($product['review']==1)
@@ -460,7 +460,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                         <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                                     @endif
                                                 </div>
-                                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6 col-12">
+                                                <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6 col-12">
                                                     <h6 class="text-secondary text-opacity-50 text-nowrap h-sms pt-2">{{$product['review_count']}} reviews</h6>
                                                 </div>
                                             </div>

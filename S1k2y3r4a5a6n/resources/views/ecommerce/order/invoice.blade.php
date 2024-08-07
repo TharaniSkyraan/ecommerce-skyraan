@@ -166,7 +166,7 @@
             }
             .hjfew{
                 font-size:20px;
-                height:60px;
+                height:100px;
             }
             .invoice-container {
                 overflow: hidden;
@@ -244,7 +244,7 @@
         <div class="container pb-4" id="invoice">
             <div>
                 <div class="invoice-container">
-                    <p class="fw-normal b-0 hjfew"><img src="{{ $logo_base64 }}" alt="" class="text-start logo-img"> <span class="text-end"> Invoice No : {{ $order['invoice_number']??'' }} <br><br> Date : {{ \Carbon\Carbon::parse($order['invoiced_date'])->format('d-m-Y h:i A')}} <br> GST Number : {{$siteSetting->gst_number}}</span></p>
+                    <p class="fw-normal b-0 hjfew"><img src="{{ $logo_base64 }}" alt="" class="text-start logo-img"> <span class="text-end"> Invoice No : {{ $order['invoice_number']??'' }} <br><br> Date : {{ \Carbon\Carbon::parse($order['invoiced_date'])->format('d-m-Y h:i A')}} <br><br> GST Number : {{$siteSetting->gst_number}}</span></p>
                 </div>
             </div>
             <hr>
