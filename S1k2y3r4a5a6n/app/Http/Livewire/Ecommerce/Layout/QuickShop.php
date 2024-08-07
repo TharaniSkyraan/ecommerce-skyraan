@@ -16,7 +16,7 @@ use App\Models\ProductStock;
 
 class QuickShop extends Component
 {
-    public $cart_product,$parent_attribute_id,$parent_attribute_set_id,$product_id,$product_variant_id,$product_previous_variant_id,$quickshop_type;
+    public $cart_product,$parent_attribute_id,$attributeIds,$parent_attribute_set_id,$product_id,$product_variant_id,$product_previous_variant_id,$quickshop_type;
     public $product_stock_id;
     public $cart_limit =0;
     public $available_quantity = 0;   
@@ -27,7 +27,7 @@ class QuickShop extends Component
     public $warehouse_ids = [];
     public $image1,$stock_status,$price,$sale_price,$discount,$review,$review_count;
     
-    protected $listeners = ['quickShop','updateAttributeId'];
+    protected $listeners = ['quickShop','updateAttributeSetId'];
     public $isLoading = true;
     
     public function mount(){
@@ -44,9 +44,10 @@ class QuickShop extends Component
                                                                     })->whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
         $this->updateattribute($this->parent_attribute_set_id, $this->parent_available_variant_ids, $this->attributes, 'yes');
     }
-    public function updateAttributeId($attribute_set_id){
+    public function updateAttributeSetId($attribute_set_id){
         
-        $attribute_ids = $this->product->attribute_ids;
+        $attribute_ids = $this->attributeIds;
+        
         $attribute_id = AttributeSet::where('id',$attribute_set_id)->pluck('attribute_id')->first();
 
         $key = array_search($attribute_id, $attribute_ids);
@@ -306,7 +307,7 @@ class QuickShop extends Component
 
             $this->parent_attribute_id = explode(',',array_shift($attribute_id));   
 
-            $product->attribute_ids = $attribute_id;
+            $this->attributeIds = $attribute_id;
 
             $attribute_id = $attribute_id??[];
 

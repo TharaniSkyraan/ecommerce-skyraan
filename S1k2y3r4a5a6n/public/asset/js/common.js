@@ -240,7 +240,9 @@ $(document).on('click', '.attribute-label', function () {
     $(this).closest('.price').find('#selected_attributes_set_ids'+previous_id).trigger('click');
     $(this).closest('.price').find('#selected_attributes_set_ids'+id).trigger('click');
     if($(this).hasClass('other-attribute')){
-        Livewire.emit('updateAttributeId', id);
+        Livewire.emit('updateAttributesetId', id);
+    }if($(this).hasClass('other-attributes')){
+        Livewire.emit('updateAttributeSetId', id);
     }
 });
 $(document).on('click','.cartGo', function()

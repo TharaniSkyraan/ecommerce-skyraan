@@ -45,7 +45,7 @@ class Detail extends Component
 
     public $wishlist = [];
     
-    protected $listeners = ['addremoveWish','updateAttributeId'];
+    protected $listeners = ['addremoveWish','updateAttributesetId'];
 
     public function calculatePrice()
     {
@@ -138,7 +138,7 @@ class Detail extends Component
                                                                     })->whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
         $this->updateattribute($this->parent_attribute_set_id, $this->parent_available_variant_ids, $this->attributes, 'yes');
     }
-    public function updateAttributeId($attribute_set_id){
+    public function updateAttributesetId($attribute_set_id){
         
         $attribute_ids = $this->product['attribute_ids'];
         $attribute_id = AttributeSet::where('id',$attribute_set_id)->pluck('attribute_id')->first();
