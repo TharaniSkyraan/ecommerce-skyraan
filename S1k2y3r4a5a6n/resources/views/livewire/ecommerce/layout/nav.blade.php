@@ -303,6 +303,38 @@
         </div>
     </div>
 </div>
+
+
+<!-- Add to cart offcanvas left -->
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title fw-bold" id="offcanvasRightLabel">My Shopping Cart</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>        
+    @livewire('ecommerce.layout.view-canvas-cart')  
+    <div class="cardsfww">
+        <div class="py-2 subtotal px-1 bg-white">
+            <div class="card p-2">
+                <div class="d-flex justify-content-between">
+                    <h6 class="text-dark fw-bold ">Subtotal</h6>
+                    <h6 class="text-dark fw-bold ">{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold"></span> {{ $ip_data->currency_code??'INR' }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="check-out px-2 py-4 bg-white">
+            <div class="d-flex justify-content-between">
+                @if(\Auth::check())
+                    <a href="{{route('ecommerce.cart')}}" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Go to cart</h6></a>
+                    <a href="{{route('ecommerce.checkout')}}" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Check out</h6></a>
+                @else
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Go to cart</h6></a>
+                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signin" class="btn px-xl-4 px-lg-5 px-sm-5 px-md-5 px-4 text-white"><h6 class="fw-normal h-sms">Check out</h6></a>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 @push('scripts')
 <script src="{{asset('asset/livewire/js/nav.js')}}"></script>
 @endpush

@@ -16,7 +16,7 @@ use Auth;
 class Nav extends Component
 {
     public $show_result = false;
-    public $query, $cart_product;
+    public $query;
     public $products = [];
     public $warehouse_ids = [];
     public $cart_quantity;
