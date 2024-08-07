@@ -515,26 +515,26 @@ $duration = (count($collections) / 5) * $baseDuration;
             </div>
         </section>
         @endif
-        <section class="mbl-view"  wire:ignore>
+        <section class="mbl-view" wire:ignore>
             <div class="row py-4">
-                <div><h5 class="fw-bold text-secondary opacity-50 text-center hghg">WHY CHOOSE </h5></div>
+                <div><h5 class="fw-bold text-secondary opacity-50 text-center hghg">WHY CHOOSE</h5></div>
                 <div><h3 class="fw-bold text-secondary opacity-75 text-center">{{$siteSetting->site_name}}</h3></div>
                 <div class="px-5 py-2">
                     <div id="why-choosnne" class="owl-carousel">
-                    @foreach($why_choose as $why_chooses)
-                        <div class="owl-slide">
-                            <div class="card border-0 p-3">
-                                @php
-                                    $imagePath = asset('storage') . '/' . $why_chooses->why_chs_img;
-                                    $defaultImage = asset('asset/home/flat-design-omnichannel-illustration.png');
-                                @endphp
-                                <h6 class="fw-bold text-center">{{ $why_chooses->why_chs_title }}</h6>
-                                <img src="{{ $why_chooses->why_chs_img ? $imagePath : $defaultImage }}" alt="image">
-                                <h6 class="lh-base">{{ $why_chooses->why_chs_desc }}</h6>
+                        @foreach($why_choose as $why_chooses)
+                            <div class="owl-slide">
+                                <div class="card border-0 p-3">
+                                    @php
+                                        $imagePath = asset('storage') . '/' . $why_chooses->why_chs_img;
+                                        $defaultImage = asset('asset/home/flat-design-omnichannel-illustration.png');
+                                    @endphp
+                                    <h6 class="fw-bold text-center head pb-2">{{ $why_chooses->why_chs_title }}</h6>
+                                    <img src="{{ $why_chooses->why_chs_img ? $imagePath : $defaultImage }}" alt="image">
+                                    <h6 class="lh-base pt-2">{{ $why_chooses->why_chs_desc }}</h6>
+                                </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             </div>
         </section>

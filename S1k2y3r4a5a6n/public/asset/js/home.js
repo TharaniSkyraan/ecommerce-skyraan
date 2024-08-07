@@ -120,17 +120,6 @@ $(document).ready(function() {
             }
         }
     });
-    var owl = $('#why-choosnne');
-    owl.owlCarousel({
-        loop: true,
-        nav: true,
-        dots: false,
-        responsive: {
-            0:{
-                items: 1
-            }
-        }
-    });
 
     $(document).on('click','.likedislike', function()
     {
@@ -146,3 +135,16 @@ $(document).ready(function() {
     });
 });
 
+    $(document).ready(function(){
+        var owl = $('#why-choosnne');
+        owl.owlCarousel({
+            loop: true,
+            nav: true,
+            dots: false,
+            responsive: {
+                0:{
+                    items: 1
+                }
+            }
+        });
+    });

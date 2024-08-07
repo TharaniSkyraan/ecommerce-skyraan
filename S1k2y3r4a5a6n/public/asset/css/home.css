@@ -268,8 +268,8 @@
     position: absolute;
     top: 41%;
     transform: translateY(-50%);
-    width: 36px;
-    height: 54px;
+    width: 30px;
+    height: 43px;
     background-color: var(--next-prev-arrow-color) !important;
     color: #fff !important;
     cursor: pointer;
@@ -304,6 +304,9 @@
     }
 }
 @media only screen and (max-width:600px){
+    #why-choosnne .head{
+        font-size: 18px;
+    }
     .with-horizontal-line::before, .with-horizontal-line::after {
         width: 11%!important;
     }
