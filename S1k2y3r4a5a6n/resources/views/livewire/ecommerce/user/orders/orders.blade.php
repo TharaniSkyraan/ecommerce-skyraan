@@ -125,7 +125,7 @@
                                 <div class=""><span class="h-sms">{{ ucwords($attribute->attribute->name??'') }} : <span class="fw-bold">{{ ucwords($attribute->name??'') }}</span></span></div>
                                 @endforeach
                                 <div class=""><span class="h-sms">Quantity : <span class="fw-bold">{{ $item['quantity'] }} nos</span></span></div>
-                                <h5 class="fw-bold py-2">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
+                                <h5 class="fw-bold py-2 sys-view">{{ $ip_data->currency_symbol??'₹' }} {{ $item['total_amount'] }}</h5>
                                 @if($order['status']=='delivered')
                                     <div class="row ">
                                         @if(isset($item['variant']) || (count($attributes)==0))
