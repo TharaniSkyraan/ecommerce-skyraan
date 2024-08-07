@@ -24,8 +24,13 @@ class ViewCanvasCart extends Component
 
     public $total_price = 0;
 
-    protected $listeners = ['MyCart','updatePrice','RemoveProductFromCart'];
+    public $viewcartisOpen = false;
 
+    protected $listeners = ['MyCart','updatePrice','RemoveProductFromCart','ViewCartoffCanvas'];
+
+    public function ViewCartoffCanvas(){
+        $this->viewcartisOpen = ($this->viewcartisOpen)?false:true;
+    }
     public function mount(){        
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));

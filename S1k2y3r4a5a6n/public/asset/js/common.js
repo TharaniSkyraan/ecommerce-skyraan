@@ -245,6 +245,7 @@ $(document).on('click','.cartGo', function()
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     Livewire.emit('MyCart',productsArray);
     updateRelatedCaurosel();    
+    Livewire.emit('ViewCartoffCanvas');
 });
 
 function updateRelatedCaurosel(){
