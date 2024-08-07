@@ -1069,9 +1069,7 @@ padding-top: 155px!important;
 .subname{
     color: #4e4e4e!important;
 }
-.offcanvas-height{
-    max-height: 60vh;
-}
+
 @media only screen and (max-width: 333px){
     .mbl-view{
         display: block!important;
@@ -1890,16 +1888,14 @@ padding-top: 155px!important;
 }
 
 .cardsfww {
-    position:absolute;
+    /* position:relative;
     bottom: 0;
-    width: 100%;
+    width: 100%; */
     background-color: white;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
     padding: 10px 0; 
-    z-index: 99;
+    /* z-index: 99; */
 }
-
-
 
 /* loader */
 

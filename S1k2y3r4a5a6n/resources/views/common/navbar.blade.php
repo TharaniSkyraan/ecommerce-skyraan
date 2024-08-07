@@ -37,14 +37,7 @@
     </div>
 
     <!-- Add to cart offcanvas left -->
-    
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-        <div class="offcanvas-header">
-            <h6 class="offcanvas-title fw-bold" id="offcanvasRightLabel">My Shopping Cart</h6>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        @livewire('ecommerce.layout.view-canvas-cart')        
-    </div>
+    @livewire('ecommerce.layout.view-canvas-cart')  
 
     <!-- Sign in Modal -->
     @if(!Auth::check())
@@ -184,4 +177,5 @@
             </div>
         </div>
     </div>  
+    
 </section>
