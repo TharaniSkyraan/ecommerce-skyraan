@@ -736,7 +736,7 @@ class Checkout extends Component
         {
             $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
 
-            $cart_product = CartItem::whereIn('product_id',array_filter(explode(',',$applicable_products)))->pluck('id')->toArray();
+            $cart_product = CartItem::whereUserId(auth()->user()->id)->whereIn('product_id',array_filter(explode(',',$applicable_products)))->pluck('id')->toArray();
             $discount_type = $coupon->discount_type;
             $discount = $coupon->discount;
             if($discount_type=='flat' && count($cart_product)==0){
