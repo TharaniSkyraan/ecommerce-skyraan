@@ -96,7 +96,7 @@ class CouponApply extends Component
             'coupon_code.exists' => 'Please try again! Invalid coupon code.'
         ]);
 
-        $coupon = Coupon::whereCouponCode($this->coupon_code)->first();
+        $coupon = Coupon::whereCouponCode($this->coupon_code)->whereStatus('active')->first();
 
         if($coupon->isExpired())
         {
