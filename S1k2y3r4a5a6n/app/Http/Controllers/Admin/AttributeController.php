@@ -102,8 +102,10 @@ class AttributeController extends Controller
                         })
                         ->addColumn('action', function ($attributes) {
 
-							$action = '<button href="javascript:void(0);" onclick="delete_attribute(' . $attributes->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.attribute.edit', $attributes->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
+							// $action = '<button href="javascript:void(0);" onclick="delete_attribute(' . $attributes->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
+                            // <a href="' . route('admin.attribute.edit', $attributes->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
+
+                            $action = '<a href="' . route('admin.attribute.edit', $attributes->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
 
                             return $action;
                         })

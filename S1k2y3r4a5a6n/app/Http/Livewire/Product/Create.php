@@ -131,6 +131,10 @@ class Create extends Component
             'shipping_weight' => 'required|min:1|numeric',
             // 'cost_per_item' => 'required|min:1|numeric',
         ];
+        
+        if(!empty($this->sale_price)){    
+            $rules['sale_price']='required|max:'.$this->price.'|numeric';
+        }
         if(($this->discount_duration=='yes')){
             $rules['discount_start_date']='required';
             $rules['discount_end_date']='required';

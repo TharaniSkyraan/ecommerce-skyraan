@@ -8,7 +8,7 @@
                     <input type="text" name="name" id="name" placeholder="Attribute Name" wire:model="name">
                     @error('name') <span class="error"> {{$message}}</span> @endif
                 </div>
-                <div class="form-group mb-4">
+                <!-- <div class="form-group mb-4">
                     <label for="name">Status</label>
                     <select name="status" id="status" wire:model="status">
                         <option value="">Select</option>
@@ -16,7 +16,7 @@
                         <option value="inactive">Inactive</option>
                     </select>
                     @error('status') <span class="error"> {{$message}}</span> @endif
-                </div>
+                </div> -->
                 <div class="form-group">
                     <div class="card">       
                         <div class="d-flex justify-content-between mb-3">
@@ -35,7 +35,9 @@
                                         <td>Title</td>
                                         <td>Color</td>
                                         <td>Image</td>
+                                        @if(empty($attribute_id))
                                         <td>Remove</td>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>                                
@@ -51,12 +53,14 @@
                                                     @elseif(!empty($attributeList[$index]['temp_image']))
                                                         <img src="{{ asset('storage') }}/{{ $attributeList[$index]['temp_image'] }}" alt="ATtr-icon" class="my-1 cat-image" style="width: 50%;height:50%">
                                                     @else
-                                                        <img src="{{ asset('admin/images/placeholder.png') }}" alt="ATtr-icon" class="my-1 cat-image" style="width: 50%;height:50%">
+                                                        <img src="{{ asset('admin/images/placeholder.png') }}" alt="ATtr-icon" class="my-1 cat-image" style="width: 25%;height:25%">
                                                     @endif
                                                 </label>
                                                 <input type="file" class="d-none" name="image[]" id="attributeList.{{ $index }}.image" wire:model="attributeList.{{ $index }}.image">
                                             </td>
+                                            @if(empty($attribute_id))
                                             <td><i class="bx bx-trash btn btn-d cursor-pointer" wire:click="removeRow({{ $index }})"></i></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>
