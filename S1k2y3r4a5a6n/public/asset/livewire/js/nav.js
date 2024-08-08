@@ -29,4 +29,13 @@ document.addEventListener('livewire:load', function () {
         }, 1000);
     });
 
+    Livewire.on('cartCount', (cartCount, price)  => {
+        
+        $('.sub-total').html(price);
+        if(cartCount==0){
+            $('.cardsfww').hide();
+        }else{
+            $('.cardsfww').show();
+        }
+    });
 });
