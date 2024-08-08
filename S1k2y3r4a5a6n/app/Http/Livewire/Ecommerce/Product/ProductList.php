@@ -90,8 +90,8 @@ class ProductList extends Component
 
     public function mount($type,$slug)
     {
-        $zone = \Session::get('zone_config');
-        $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+        $zones = \Session::get('zone_config');
+        $this->warehouse_ids = array_filter(explode(',',$zones['warehouse_ids']));
 
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
