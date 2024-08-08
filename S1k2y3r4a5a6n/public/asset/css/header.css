@@ -1902,13 +1902,23 @@ padding-top: 155px!important;
 }
 
 .cardsfww {
-    position:absolute;
-    bottom: 0;
-    width: 100%;
     background-color: white;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
     padding: 10px 0; 
     z-index: 99;
+}
+
+#offcanvasRight .offcanvas-body::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+#offcanvasRight .offcanvas-body::-webkit-scrollbar-track {
+    background: #FFF !important;
+}
+
+#offcanvasRight .offcanvas-body::-webkit-scrollbar-thumb {
+    background: gray !important;
+    width: 2px !important;
 }
 
 /* loader */
