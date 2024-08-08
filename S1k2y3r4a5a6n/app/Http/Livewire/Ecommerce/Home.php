@@ -162,9 +162,7 @@ class Home extends Component
         $this->reviews = $reviews;
 
         $collections = BuyingOption::where('status', 'active')
-                                ->where(function ($query) {
-                                    $query->where('feature_type', '!=', 'buying');
-                                })
+                                ->where('feature_type', '!=', 'buying')
                                 ->get()
                                 ->toArray();  
 

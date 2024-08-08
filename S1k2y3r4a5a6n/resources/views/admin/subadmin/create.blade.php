@@ -5,8 +5,12 @@
   </x-slot>
   <ul class="breadcrumb">
     <li><a href="{{url('/')}}">Dashboard</a></li>
+    @if(\Auth::guard('admin')->user()->id!=$id)
     <li><a href="{{ route('admin.subadmin.index') }}">Subadmin List</a></li>
     <li>Subadmin</li>
+    @else
+    <li>Profile Update</li>
+    @endif
   </ul>
   @livewire('subadmin.create', ['subadmin_id' => $id??''])
 </x-admin.app-layout>

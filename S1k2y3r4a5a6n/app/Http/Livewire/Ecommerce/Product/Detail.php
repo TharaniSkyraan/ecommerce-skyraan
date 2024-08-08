@@ -419,9 +419,7 @@ class Detail extends Component
         $this->productList('frequently_bought_products',implode(',',$frequently));
 
         $this->buying_options  = BuyingOption::whereStatus('active')
-                                ->where(function ($query) {
-                                    $query->where('feature_type', '=', 'buying');
-                                })
+                                ->where('feature_type', '!=', 'product')
                                 ->get()
                                 ->toArray();  
 

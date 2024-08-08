@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Warehouse;
 use App\Models\Order;
 use DataTables;
 
@@ -71,8 +72,19 @@ class OrdersController extends Controller
     public function fetchData(Request $request)
     {
         
-        $orders = Order::join('users', 'orders.user_id', '=', 'users.id')
-                       ->select('users.name','users.email','users.phone','orders.*');
+        if(\Auth::guard('admin')->user()->role!='admin')
+        {
+            $admin_id = \Auth::guard('admin')->user()->id;     
+            $warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->pluck('id')->toArray(); 
+        
+            $orders = Order::with('orderItems')->whereHas('orderItems', function($q) use($warehouse_ids) {
+                                    $q->whereIn('warehouse_id', $warehouse_ids);
+                                })->join('users', 'orders.user_id', '=', 'users.id')
+                            ->select('users.name', 'users.email', 'users.phone', 'orders.*');
+        }else{
+            $orders = Order::join('users', 'orders.user_id', '=', 'users.id')
+                            ->select('users.name','users.email','users.phone','orders.*');
+        }
         
         return Datatables::of($orders)
                         ->filter(function ($query) use ($request) {

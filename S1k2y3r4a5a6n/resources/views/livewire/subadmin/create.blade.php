@@ -1,4 +1,9 @@
 <div>
+    @if(session()->has('message'))
+        <div class="alert-success my-2">
+            {{session('message')}}
+        </div>                
+    @endif
     <form autocomplete="off" enctype="multipart/form-data">
         <div class="row">
             <div class="col-8">
@@ -34,7 +39,7 @@
                         <input type="file" name="image" id="image" wire:model="profile_photo_path" accept=".png, .jpg, .jpeg">
                         @error('profile_photo_path') <span class="error"> {{$message}}</span> @endif
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 {{ (\Auth::guard('admin')->user()->id!=$subadmin_id)?'':'d-none'}}">
                         <label for="locationSets">Warehouse</label>
                         <section wire:ignore>
                             <select name="locationSets" id="locationSets" multiple="multiple" placeholder="Filter by...">
@@ -52,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 {{ (\Auth::guard('admin')->user()->id!=$subadmin_id)?'':'d-none'}}">
                 <div class="card">
                     <h3>Modules</h3><br>
                     <div class="py-3">                    
@@ -77,6 +82,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
 </div>
