@@ -22,20 +22,20 @@ class Locale
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(Session::has('zone_config')){
-            $zone_data = \Session::get('zone_config');
-            if(!empty($zone_data['zone_id'])){
+        // if(Session::has('zone_config')){
+        //     $zone_data = \Session::get('zone_config');
+        //     if(!empty($zone_data['zone_id'])){
                 
-                $zones = Zone::whereStatus('active')->get();
+        //         $zones = Zone::whereStatus('active')->get();
 
-                if(isset($zone) && ($zone_data['warehouse_ids'] == $zones->warehouse_ids))
-                {
-                    view()->share('zone_data',Session::get('zone_config'));
-                }
-            }
-            Session::forget('zone_config');
+        //         if(isset($zone) && ($zone_data['warehouse_ids'] == $zones->warehouse_ids))
+        //         {
+        //             view()->share('zone_data',Session::get('zone_config'));
+        //         }
+        //     }
+        //     Session::forget('zone_config');
 
-        }
+        // }
         if(Session::has('zone_config')==false || empty(Session::get('zone_config')['postal_code']))
         {  
 
@@ -83,6 +83,8 @@ class Locale
                 }
             }
 
+        }else{
+            view()->share('zone_data',\Session::get('zone_config'));
         }
         
         if(Session::has('ip_config')==false)
