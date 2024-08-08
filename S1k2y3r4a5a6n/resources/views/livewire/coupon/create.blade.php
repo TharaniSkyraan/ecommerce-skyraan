@@ -73,7 +73,9 @@
                                 <label for="apply_for">Apply For</label>
                                 <select name="apply_for" id="apply_for" wire:model="apply_for">
                                     <option value="all-orders">All orders</option>
+                                    @if($discount_type!='flat')
                                     <option value="minimum-order">Order amount from</option>
+                                    @endif
                                     <option value="collection">Product collection</option>
                                     <option value="category">Product category</option>
                                     <option value="product">Product</option>
