@@ -175,7 +175,7 @@ class Home extends Component
             $collections = array_fill(1, 6, $collections[1]); // Duplicate single image to fill space
         }
 
-        $this->collections = $collections;      
+        $this->collections = $collections;  
         
     }
     public function productList($type,$ids)

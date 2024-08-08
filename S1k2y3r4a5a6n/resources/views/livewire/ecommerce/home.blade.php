@@ -576,6 +576,7 @@ $duration = (count($collections) / 5) * $baseDuration;
             </div>
         </section>
         @endif
+        @if(!empty($collections))
         <section class="marquee_content">
             <div class="marquee py-2">
                 <div class="marquee__group">
@@ -599,7 +600,8 @@ $duration = (count($collections) / 5) * $baseDuration;
                     @endforeach
                 </div>
             </div>
-        </section>    
+        </section>   
+        @endif 
         @livewire('ecommerce.product.collection-list')
     </main>
 </div>

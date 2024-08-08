@@ -10,10 +10,10 @@
 }
 /* PRICE RANGE */
 
-::selection {
+/* ::selection {
   color: #fff;
   background: #17a2b8;
-}
+} */
 
 .slider ,.slider1 {
     height: 2px;
