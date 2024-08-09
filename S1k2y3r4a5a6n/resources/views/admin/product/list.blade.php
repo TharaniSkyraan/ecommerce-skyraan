@@ -1,7 +1,7 @@
 <x-admin.app-layout>
     <ul class="breadcrumb">
         <li><a href="{{url('/')}}">Dashboard</a></li>
-        <li>Attributes List</li>
+        <li>Product List</li>
     </ul>
     <div class="card">
 @if(session()->has('message'))

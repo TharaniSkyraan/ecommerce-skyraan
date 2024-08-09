@@ -30,11 +30,11 @@ class CouponApply extends Component
         $user_id = auth()->user()->id;
 
         // coupon ids        
-        $user_coupon_ids = Coupon::withCount('user_orders')->havingRaw("user_orders_count < 1")->where('apply_for','once-per-customer')->where('display_at_checkout','yes')->pluck('id')->toArray();
+        $user_coupon_ids = Coupon::withCount('user_orders')->whereStatus('active')->havingRaw("user_orders_count < 1")->where('apply_for','once-per-customer')->where('display_at_checkout','yes')->pluck('id')->toArray();
        
-        $customer_coupon_ids = Coupon::where('apply_for','customer')->where('display_at_checkout','yes')->where('apply_for_ids', 'REGEXP', $user_id)->pluck('id')->toArray();
+        $customer_coupon_ids = Coupon::where('apply_for','customer')->whereStatus('active')->where('display_at_checkout','yes')->where('apply_for_ids', 'REGEXP', $user_id)->pluck('id')->toArray();
      
-        $coupon_ids = Coupon::where('display_at_checkout','yes')->whereNotIn('apply_for',['customer','once-per-customer'])->pluck('id')->toArray();
+        $coupon_ids = Coupon::where('display_at_checkout','yes')->whereStatus('active')->whereNotIn('apply_for',['customer','once-per-customer'])->pluck('id')->toArray();
      
         $coupon_ids = array_merge($user_coupon_ids, $customer_coupon_ids, $coupon_ids);
     
@@ -96,7 +96,7 @@ class CouponApply extends Component
             'coupon_code.exists' => 'Please try again! Invalid coupon code.'
         ]);
 
-        $coupon = Coupon::whereCouponCode($this->coupon_code)->first();
+        $coupon = Coupon::whereCouponCode($this->coupon_code)->whereStatus('active')->first();
 
         if($coupon->isExpired())
         {

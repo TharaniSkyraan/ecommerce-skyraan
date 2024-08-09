@@ -15,11 +15,13 @@
     <i class='bx bx-sun d-none' id="darkLight"></i>
 
     {{ \Auth::guard('admin')->user()->name }}
+    <a href="{{ route('admin.subadmin.edit', \Auth::guard('admin')->user()->id)}}">
     @if(\Auth::guard('admin')->user()->profile_photo_path)
         <img src="{{ asset('storage') }}/{{ \Auth::guard('admin')->user()->profile_photo_path }}" alt="Brand-icon" class="profile">
     @else
         <img src="{{ asset('admin/images/profile.jpg') }}" alt="Brand-icon" class="profile">
     @endif
+    </a>
     <a href="javascript:void(0)" onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();">
         <i class='bx bx-log-out-circle'></i>
     </a>

@@ -20,18 +20,18 @@
                         <td>
                             <input id="name" name="name" type="text" placeholder="Search...">
                         </td>
-                        <td>
+                        <!-- <td>
                             <select name="status" id="status">
                             <option value="all" selected="selected">Is active?</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option> </select>
-                        </td>
+                        </td> -->
                         <td></td>
                     </tr>
                     <tr>
                         <th class="border-bottom-0">ID</th>
                         <th class="border-bottom-0">Attribute</th>
-                        <th class="border-bottom-0">Status</th>
+                        <!-- <th class="border-bottom-0">Status</th> -->
                         <th class="border-bottom-0">Action</th>
                     </tr>
                 </thead>
@@ -61,7 +61,7 @@ var dataTable = $('#datatable').DataTable({
             }, columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
-                {data: 'status', name: 'status'},
+                // {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
@@ -69,10 +69,10 @@ var dataTable = $('#datatable').DataTable({
         dataTable.draw();
         e.preventDefault();
     });
-    $('#status').on('change', function (e) {
-        dataTable.draw();
-        e.preventDefault();
-    });
+    // $('#status').on('change', function (e) {
+    //     dataTable.draw();
+    //     e.preventDefault();
+    // });
     function delete_attribute(id) {
         if (confirm('Are you sure! you want to delete?')) {
             $.post("{{ url('admin/attribute') }}/"+id, {id: id, _method: 'DELETE', _token: '{{ csrf_token() }}'})

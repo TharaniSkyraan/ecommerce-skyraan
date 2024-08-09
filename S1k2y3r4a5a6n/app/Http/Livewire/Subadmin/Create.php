@@ -82,8 +82,9 @@ class Create extends Component
         }
 
         session()->flash('message', 'Admin successfully saved.');
-        
-        return redirect()->to('admin/subadmin');
+        if(\Auth::guard('admin')->user()->id != $this->subadmin_id){
+            return redirect()->to('admin/subadmin');
+        }
     }
     
     public function render()

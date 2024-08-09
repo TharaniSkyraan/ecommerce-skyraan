@@ -12,9 +12,10 @@ use App\Models\Category;
 class Create extends Component
 {
     use WithFileUploads;
-    public $attribute_id,$name,$status,$slug, $categories,$is_default;
+    public $attribute_id,$name,$slug, $categories,$is_default;
     public $category_ids = [];
     public $attributeList = [];
+    public $status='active';
     
     public function addRow()
     {

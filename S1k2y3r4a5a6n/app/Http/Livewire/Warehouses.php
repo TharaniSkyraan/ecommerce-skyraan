@@ -24,9 +24,21 @@ class Warehouses extends Component
         $validateData['admin_ids'] = implode(',',$this->admin_ids);
         unset($validateData['ware_house_address']);
         
+        $warehouse = Warehouse::find($this->warehouse_id);
+
+        if($warehouse->status=='active' && $this->status=='inactive'){
+            $validateData['previous_zone_ids'] = implode(',',$this->selected_zone_ids);
+        } 
+        if($warehouse->status=='inactive' && $this->status=='active'){
+            $validateData['previous_zone_ids'] ='';
+            $this->zone_ids = [];
+        }
+        if($this->status=='inactive'){        
+            $this->selected_zone_ids = [];
+        }
+
         $warehouse = Warehouse::updateOrCreate(['id' => $this->warehouse_id],$validateData);
 
-        
         $this->warehouse_id = $warehouse->id;
 
         $selected_zone_ids = $this->selected_zone_ids;
@@ -68,7 +80,8 @@ class Warehouses extends Component
             $this->lat = $warehousedata->lat;
             $this->lng = $warehousedata->lng;
             $this->status = $warehousedata->status;  
-            $this->zone_ids = Zone::whereRaw('FIND_IN_SET(?, warehouse_ids)', [$id])->whereStatus('active')->pluck('id')->toArray();
+            $zone_ids = Zone::whereRaw('FIND_IN_SET(?, warehouse_ids)', [$id])->whereStatus('active')->pluck('id')->toArray();
+            $this->zone_ids = ($warehousedata->status=='inactive')?array_filter(explode(',',$warehousedata->previous_zone_ids)):$zone_ids;
             $this->selected_zone_ids = $this->zone_ids;
         }
         $this->zones = Zone::whereStatus('active')->get();
