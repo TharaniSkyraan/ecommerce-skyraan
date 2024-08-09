@@ -1,4 +1,7 @@
 <div>
+    <div class="text-end mbl-view">
+        <i class="bi bi-x-lg close-btn" data-bs-dismiss="modal" aria-label="Close" class=""></i>
+    </div>
     <div class="text-center py-3">
         <h5 class="fw-bold">ADD TO CART</h5>
     </div>

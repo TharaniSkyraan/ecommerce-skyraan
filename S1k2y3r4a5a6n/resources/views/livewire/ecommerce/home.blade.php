@@ -4,9 +4,9 @@ $duration = (count($collections) / 5) * $baseDuration;
 @endphp
 
 <style>
-/* .marquee__group {
+.marquee__group {
     animation: scroll {{ $duration }}s linear infinite;
-} */
+}
 </style>
 <div>
     @if(count($banners)!=0)

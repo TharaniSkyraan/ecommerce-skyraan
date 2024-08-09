@@ -127,7 +127,7 @@
                                 <img src="{{asset('asset/home/cart.svg')}}" alt="home" class="cart_img_nav">
                             </div>
                         @else
-                            <div class="btn d-flex align-items-center px-3 nav-cart gap-2">
+                            <div class="btn d-flex align-items-center px-3 nav-cart gap-2 badge-div">
                                 <span class="badge cartCount">{{ $cart_quantity }}</span>
                                 <img src="{{asset('asset/home/cart.svg')}}" alt="home" class="cart_img_nav">
                             </div>
@@ -285,7 +285,7 @@
 <div class="modal fade quick-shop" id="Editpopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog ">
         <div class="modal-content rounded-0 border-0">
-            <div class="text-end">
+            <div class="text-end sys-view">
                 <img src="{{asset('asset/home/close.svg')}}" alt="close" data-bs-dismiss="modal" aria-label="Close" class="close-btn">
             </div>
             <div class="modal-bodys p-xl-4 p-lg-4 p-md-4 p-sm-3 p-2">

@@ -164,7 +164,7 @@ class Cart extends Component
 
         $this->resetValidation();
         $validateData = $this->validate([
-            'notes' => 'nullable|max:10|max:180',
+            'notes' => 'nullable|min:10|max:180',
         ], [
             'notes.min' => 'Notes must be at least 10 characters',
             'notes.max' => 'Notes must be less than 180 characters.',

@@ -23,15 +23,12 @@ class ContactUserMail extends Mailable
     public function build()
     {
         $data = $this->data;
-        $emailscc = array('ravindhiran@skyraan.com');
-        array_push($emailscc, 'gnanamaruthu@skyraan.com');
-        return $this->from($data['email'], $data['name'])
-            ->replyTo($data['email'], $data['name'])
-            ->cc($emailscc)
-            ->to('supportadmin@skyraan.net', 'skyraa ecommerce')
-            ->subject('Receive Contact mail from '.$data['name'])
-            ->markdown('emails.contact_user')
-            ->with(['data'=>$data]);
+
+        return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
+                    ->to($data['email'], $data['name'])
+                    ->subject('Receive Contact mail from '.$data['name'])
+                    ->markdown('emails.contact_user')
+                    ->with(['data'=>$data]);
     }
   
 }

@@ -49,7 +49,7 @@
                                 @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
                                 <div>
                                     <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                        <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="w-75">
+                                        <img src="{{asset('asset/home/edit.svg')}}" alt="edit" class="edi-btn">
                                     </button>
                                 </div>
                                 @endif
@@ -62,7 +62,7 @@
                 </a>
             </div>
         @endforeach
-        @if(count($related_products) !=0)
+        @if(count($related_products) > 0)
             <div class="related-items py-2">
                 <div class="row py-2">
                     <h6 class="text-center">You might also like</h6>
