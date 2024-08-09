@@ -56,6 +56,21 @@
                                     <div class="deleteCart cursor">
                                         <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
                                     </div>
+                                @endif
+
+                                @if($cart_product['quantity']>$limit)
+                                    <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                                @endif
+
+                                @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
+                                <div>
+                                    <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                        <img src="{{asset('asset/home/edit.svg')}}" alt="edit" class="edi-btn">
+                                    </button>
+                                </div>
+                                @endif
+                                <div class="deleteCart cursor">
+                                    <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
                                 </div>
                             </div>
                         </div>
@@ -67,22 +82,30 @@
                     <div class="row py-2">
                         <h6 class="text-center">You might also like</h6>
                     </div>
-                    <div id="related-items-cart" class="owl-carousel px-3">
-                        @foreach($related_products as $product)
-                            @php
-                                $images = json_decode($product['images'], true);
-                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-                            @endphp
-                            <div class="owl-slide mx-1">
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
-                                    <img src="{{ $image }}" alt="image" class="cursor">
-                                </a>
-                            </div> 
-                        @endforeach
-                    </div>
-                </div>  
-            @endif 
-        </div>
+                </a>
+            </div>
+        @endforeach
+        @if(count($related_products) > 0)
+            <div class="related-items py-2">
+                <div class="row py-2">
+                    <h6 class="text-center">You might also like</h6>
+                </div>
+                <div id="related-items-cart" class="owl-carousel px-3">
+                    @foreach($related_products as $product)
+                        @php
+                            $images = json_decode($product['images'], true);
+                            $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                        @endphp
+                        <div class="owl-slide mx-1">
+                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                <img src="{{ $image }}" alt="image" class="cursor">
+                            </a>
+                        </div> 
+                    @endforeach
+                </div>
+            </div>  
+        @endif 
+    </div>
     @else
         <div class=" empty-cart ">
                 <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">

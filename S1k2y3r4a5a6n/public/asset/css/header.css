@@ -1080,6 +1080,12 @@ padding-top: 155px!important;
 .subname{
     color: #4e4e4e!important;
 }
+#signin .form-control::placeholder{
+    color: #747474!important;
+}
+#signup .form-control::placeholder{
+    color: #747474!important;
+}
 
 @media only screen and (max-width: 333px){
     .mbl-view{
@@ -1151,7 +1157,12 @@ padding-top: 155px!important;
         height: 19%;
     }
     .close-btn{
-        margin-right: 2px!important;
+        margin-top: -2px !important;
+        margin-left: -21px !important;
+    }
+    #signin .close-btn, #signup .close-btn{
+        margin-top: 2px !important;
+        margin-left: -25px !important;
     }
     .h-sms{
         font-size: 12px;
@@ -1356,6 +1367,13 @@ padding-top: 155px!important;
         height: 56%!important;
     }
      */
+     .text-areaa{
+        font-size: 14px;
+     }
+     .sub-totall{
+        font-size: 15px;
+        padding-top: 10px;
+     }
      #numberverify .otp-input {
         width: 27px!important;
      }
@@ -1368,6 +1386,11 @@ padding-top: 155px!important;
     .foo-des {
         font-size: 12px!important;
     }
+    .cartpage hr{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
 }
 
 @media (min-width: 768px) and (max-width: 900px){
@@ -1562,7 +1585,9 @@ padding-top: 155px!important;
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-  
+  .edi-btn{
+    width: 17px;
+  }
 .dial_code{
     align-self: center;
     border: 1px solid var(--next-prev-arrow-color);

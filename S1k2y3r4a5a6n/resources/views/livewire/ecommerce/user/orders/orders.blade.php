@@ -229,10 +229,13 @@
     <div class="modal fade {{$isopenmodel}}" id="cancel-order" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="text-end">
+            <div class="text-end sys-view">
                 <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
             </div>
                 <div class="modal-bodys p-3">
+                    <div class="text-end mbl-view">
+                        <i class="bi bi-x-lg close-btn" data-bs-dismiss="modal" aria-label="Close" class=""></i>
+                    </div>
                     <div class="text-center head">
                         <h4 class="hding">Cancel order</h4>
                     </div>

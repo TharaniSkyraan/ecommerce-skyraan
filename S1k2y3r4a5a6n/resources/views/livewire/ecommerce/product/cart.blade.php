@@ -41,7 +41,7 @@
                                         @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
                                             <div>
                                                 <button class="bg-unset border-0 px-0 me-3 EditQuickShop" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                                    <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="w-75">
+                                                    <img src="{{asset('asset/home/edit.svg')}}" alt="edit" class="edi-btn">
                                                 </button>
                                             </div>
                                         @endif
@@ -107,8 +107,8 @@
                     </div>
                     <div class="col-xl-5 col-lg-5  col-md-7  col-sm-7  col-12 px-xl-5 px-lg-5 px-md-4 px-sm-4 px-4">
                         <div class="d-flex justify-content-between py-2">
-                            <h6 class="">Subtotal</h6>
-                            <h6 >{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
+                            <h6 class="sub-totall">Subtotal</h6>
+                            <h6 class="sub-totall">{{ $ip_data->currency_symbol??'₹' }} <span class="sub-total fw-bold">{{ $total_price }}</span>  {{ $ip_data->currency_code??'INR' }}</h6>
                         </div>
                         <div>
                             <h6 class="taxt-secondary opacity-50 py-3 h-sms fw-normal">Taxes and shipping calculated at checkout</h6>
