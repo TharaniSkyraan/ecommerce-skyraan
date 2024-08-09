@@ -62,7 +62,7 @@
                     </a>
                 </div>
             @endforeach
-            @if(count($related_products) > 0)
+            @if(!empty($related_products))
                 <div class="related-items py-2">
                     <div class="row py-2">
                         <h6 class="text-center">You might also like</h6>
