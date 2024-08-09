@@ -195,6 +195,14 @@
                                 <div class="card location-card border-0 shadow-lg  mb-5 bg-white rounded" @if($isenabletoggle) style="display:block;" @else style="display:none;" @endif>
                                     <div class="card-body">
                                         <div class="tooltip-arrow"></div>
+                                        <div class="d-flex align-items-center input-container ">
+                                            <input type="number" oninput="isNumberKey(event)" class="form-control border-0 h-sms" value="" wire:model="postal_code1" placeholder="Enter Pincode" style="background-color: white" />
+                                            <div class="vertical-line"></div>
+                                            <button class="btn fw-bold h-sms" wire:click="checkpincode">Check</button>
+                                        </div>
+                                        <div class="separator mt-2">or</div>
+
+                                        @error('postal_code1') <span class="error">{{$message}}</span> @endif
                                         @if(\Auth::check())
                                             <h6 class="h-sms py-2  text-secondary">Select From Saved Addresses</h6>
                                             @php $addresses = \Auth::user()->addresses; @endphp
@@ -206,20 +214,13 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                                            <div class="separator mt-2">or</div>                                        
                                         @else
                                             <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
                                             <div class="text-center py-2">
                                                 <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#signin" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
                                             </div>
-                                            <div class="separator mt-2">or</div>
                                         @endif
-                                        <div class="d-flex align-items-center input-container mt-3">
-                                            <input type="number" oninput="isNumberKey(event)" class="form-control border-0 h-sms" value="" wire:model="postal_code1" placeholder="Enter Pincode" style="background-color: white" />
-                                            <div class="vertical-line"></div>
-                                            <button class="btn fw-bold h-sms" wire:click="checkpincode">Check</button>
-                                        </div>
-                                        @error('postal_code1') <span class="error">{{$message}}</span> @endif
+
                                     </div>
                                 </div>
                             </div>

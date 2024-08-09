@@ -923,7 +923,7 @@ padding-top: 155px!important;
 }
 .box {
     width: 170px;
-    height: 149px;
+    height: 135px;
     background-color: #fff;
     padding: 11px;
     margin-top: 10px;
@@ -939,6 +939,7 @@ padding-top: 155px!important;
 /* .after-login:hover + .box {
     display: block;
 } */  
+ 
 .box.arrow-top:after {
     content: " ";
     position: absolute;
