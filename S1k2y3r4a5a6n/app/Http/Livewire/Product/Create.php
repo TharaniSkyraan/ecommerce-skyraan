@@ -408,7 +408,6 @@ class Create extends Component
             $productVariant->save();
 
             $product_variant_id = $productVariant->id;
-            // dd($this->selectedattrList);
             foreach($this->selectedattrList as $index => $attribute){
                 $attribute_set = AttributeSet::whereSlug($variant[$attribute->slug][1])
                                              ->whereAttributeId($attribute->id)

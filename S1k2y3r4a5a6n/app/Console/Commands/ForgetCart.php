@@ -28,7 +28,6 @@ class ForgetCart extends Command
     public function handle()
     {
         $date = Carbon::now()->subDays(15); 
-        // dd($userIds);
         $carts = Cart::whereNull('reminder')
                       ->where('attempt', 0)
                       ->whereDate('updated_at', '<=', $date)
@@ -36,7 +35,6 @@ class ForgetCart extends Command
                       ->get(['user_id']);
 
                       $userIds = $carts->pluck('user_id');
-        // dd($userIds);
                       return 0;
     }
 }

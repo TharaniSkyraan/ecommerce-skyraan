@@ -44,7 +44,7 @@ class ViewCanvasCart extends Component
             if(!isset($data['product_id'])){
                 unset($datas[$key]);
             }else
-            if(Product::where('id',$data['product_id'])->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
+            if(Product::where('id',$data['product_id'])->whereStatus('active')->exists() && ProductVariant::where('id',$data['product_variant_id'])->exists()){
          
                 $product = Product::where('id',$data['product_id'])->select('id','slug','name','images','related_product_ids','tax_ids','created_at')->first()->toArray();
                 $default = ProductVariant::where('id',$data['product_variant_id'])->first();
@@ -122,7 +122,6 @@ class ViewCanvasCart extends Component
                 unset($datas[$key]);
                 $this->RemoveProductFromCart($key);
             }
-           
         }
         $this->total_price = $total_price;
         $this->cart_products = $cart_products;

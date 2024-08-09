@@ -44,7 +44,7 @@ $(document).ready(function(){
     
     $(document).on('click','.plus, .minus', function()
     {
-         $(this).closest('.moredetail').find('.plus').toggle();
+        $(this).closest('.moredetail').find('.plus').toggle();
         $(this).closest('.moredetail').find('.minus').toggle();
         $(this).closest('.moredetail').find('.more-detl').toggle();
         // $('.plus, .minus').toggle();

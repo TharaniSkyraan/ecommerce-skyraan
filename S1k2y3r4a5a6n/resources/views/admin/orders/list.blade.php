@@ -16,7 +16,9 @@
                       <thead>
                           <tr class="form-group">
                               <td></td>
-                              <td></td>
+                              <td>
+                                  <input id="code" name="code" type="text" placeholder="Search...">
+                              </td>
                               <td>
                                   <input id="name" name="name" type="text" placeholder="Search...">
                               </td>
@@ -80,11 +82,12 @@
                   scrollX: true,
                   "order": [[0, "desc"]],
                   ajax: {
-                      url: '{!! route('admin.fetch.orders.data') !!}',
-                      data: function (d) {
-                          d.name = $('input[name=name]').val();
-                          d.status = $('#status').val();         
-                      }
+                        url: '{!! route('admin.fetch.orders.data') !!}',
+                        data: function (d) {
+                            d.code = $('input[name=code]').val();
+                            d.name = $('input[name=name]').val();
+                            d.status = $('#status').val();         
+                        }
                   }, columns: [
                       {                        
                         className: 'dt-control',
@@ -92,7 +95,7 @@
                         data: null,
                         defaultContent: ''
                       },
-                      {data: 'id', name: 'id'},
+                      {data: 'code', name: 'code'},
                       {data: 'name', name: 'name'},
                       {data: 'phone', name: 'phone'},
                       {data: 'status', name: 'status'},
@@ -112,6 +115,10 @@
                     row.child(format(row.data())).show();
                 }
             });
+          $('#code').on('keyup', function (e) {
+              dataTable.draw();
+              e.preventDefault();
+          });
           $('#name').on('keyup', function (e) {
               dataTable.draw();
               e.preventDefault();

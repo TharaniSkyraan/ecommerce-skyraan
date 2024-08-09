@@ -440,6 +440,7 @@ class Detail extends Component
         $Products = Product::whereHas('product_stock', function($q){
                                 $q->whereIn('warehouse_id', $this->warehouse_ids);
                             })->select('id','slug','name','images','label_id','tax_ids','created_at')
+                            ->whereStatus('active')
                             ->whereIn('id',$ids)
                             ->get()
                             ->sortBy(function ($product) use ($ids) {

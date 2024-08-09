@@ -88,6 +88,10 @@ class OrdersController extends Controller
         
         return Datatables::of($orders)
                         ->filter(function ($query) use ($request) {
+                            if ($request->has('code') && !empty($request->code)) {
+                                $code = str_replace('#','',$request->code);
+                                $query->where('orders.code', 'like', "%{$code}%");
+                            }
                             if ($request->has('name') && !empty($request->name)) {
                                 $query->where('users.name', 'like', "%{$request->get('name')}%");
                             }
@@ -103,6 +107,9 @@ class OrdersController extends Controller
                         })
                         ->editColumn('name', function ($orders) {
                             return ucwords($orders->name);
+                        })
+                        ->editColumn('code', function ($orders) {
+                            return '#'.$orders->code;
                         })
                         ->editColumn('order_at', function ($orders) {
                             return \Carbon\Carbon::parse($orders->created_at->copy()->timezone('Asia/Kolkata'))->format('d-m-y h:i A');
@@ -135,7 +142,7 @@ class OrdersController extends Controller
 							$action = '<a href="' . route('admin.orders.edit', $orders->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
                             return $action;
                         })
-                        ->rawColumns(['action','name','status','image','payment_status'])
+                        ->rawColumns(['code','action','name','status','image','payment_status'])
                         ->setRowId(function($orders) {
                             return 'order_dt_row_' . $orders->id;
                         })

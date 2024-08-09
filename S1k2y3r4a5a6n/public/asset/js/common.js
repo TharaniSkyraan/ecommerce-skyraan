@@ -73,6 +73,8 @@ window.addEventListener('scroll', function() {
 
 
 $(document).ready(function() {
+    Livewire.emit('MyCart',JSON.parse(localStorage.getItem('cart'))??{});
+    updateRelatedCaurosel();
     cartProductQuantity();
 
     $(document).on('click', '.qty-dropdown .card', function(e) {
@@ -102,7 +104,9 @@ $(document).ready(function() {
                 }
             }
             localStorage.setItem('cart', JSON.stringify(newProductsArray));
+
             cartProductQuantity();
+
         }
     });
 
@@ -168,16 +172,22 @@ $(document).on('click','.deleteCart', function()
     delete productsArray[index];    
     localStorage.setItem('cart',JSON.stringify(productsArray));
     Livewire.emit('RemoveProductFromCart',index);
-    Livewire.emit('MyCart',productsArray);
+    
+    $(this).closest('.PrdRow').remove();
     if($('.checkoutpage').hasClass("check_out_li")){
-        $(this).closest('.PrdRow').remove();
         Livewire.emit('cartList');
+    }else if($(".product-list").hasClass('cartpage')){
+        var price = 0;
+        $(".cartList").each(function() {
+            product_price = $(this).find('.product-price').html();
+            quantity = $(this).find('.input-qty').html();
+            price = price + (parseFloat(product_price)*parseFloat(quantity));
+        });
+        $('.sub-total').html(price);
     }else{
+        Livewire.emit('MyCart',productsArray);
         updateRelatedCaurosel()
         cartProductQuantity();
-        if(!($(".product-list").hasClass('cartpage'))){
-            $(this).closest('.PrdRow').remove();
-        }
     }
 });
 
@@ -190,20 +200,20 @@ function cartProductQuantity(){
     });
     $('.cartCount').html(quantity);
     
-    Livewire.emit('cartQuantityUpdate',quantity);
-    
+    var price = 0;
+    $(".cartList").each(function() {
+        product_price = $(this).find('.product-price').html();
+        quantity = $(this).find('.input-qty').html();
+        product_subtotal_price = parseFloat(product_price)*parseFloat(quantity);
+        $(this).find('.product_subtotal_price').html(product_subtotal_price);
+        price = price + product_subtotal_price;
+    });
+    $('.sub-total').html(price);
+
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
-    
     if($(".product-list").hasClass('cartpage')){
         Livewire.emit('addCartinUserCart',productsArray,'cartpage');
     }else{
-        var price = 0;
-        $(".cartList").each(function() {
-            product_price = $(this).find('.product-price').html();
-            quantity = $(this).find('.input-qty').html();
-            price = price + (parseFloat(product_price)*parseFloat(quantity));
-        });
-        $('.sub-total').html(price);
         Livewire.emit('addCartinUserCart',productsArray);
     }
 }
@@ -244,12 +254,6 @@ $(document).on('click', '.attribute-label', function () {
     }if($(this).hasClass('other-attributes')){
         Livewire.emit('updateAttributeSetId', id);
     }
-});
-$(document).on('click','.cartGo', function()
-{
-    var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
-    Livewire.emit('MyCart',productsArray);
-    updateRelatedCaurosel();    
 });
 
 function updateRelatedCaurosel(){
