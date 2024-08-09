@@ -149,7 +149,6 @@ class Create extends Component
          $validateData['never_expired'] = ($this->never_expired=='yes')?'yes':'no';
          $validateData['start_date'] = Carbon::parse($this->start_date)->format('Y-m-d H:i');
          $validateData['end_date'] = ($this->never_expired=='yes')?null:Carbon::parse($this->end_date)->format('Y-m-d H:i');
-        //  dd($validateData)
          $coupon = Coupon::updateOrCreate(
             ['id' => $this->coupon_id],
             $validateData

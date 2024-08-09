@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-9 align-self-center">
                             <div class="d-flex gap-2 align-items-center">
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $order['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($order['product']['created_at'])->timestamp}}"><h5 class="fw-bold pb-1 buy-color"> {{ $order['product']['name'] }} {{ $order['product']['attributes']? '| '.$order['product']['attributes']:''}}</h5></a>
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $order['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($order['product']['created_at'])->timestamp}}" target="_blank"><h5 class="fw-bold pb-1 buy-color"> {{ $order['product']['name'] }} {{ $order['product']['attributes']? '| '.$order['product']['attributes']:''}}</h5></a>
                             </div>                            
                             @if($order['product']['discount']!=0)
                             <div class="d-flex py-2">
@@ -34,15 +34,11 @@
                                 </div>
                             </div> -->
                             <div class="row">
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"><span class="h-sm">Availability : <span class="buy-color h-sm">{{ ($order['product']['stock_status']=='in_stock')?'In stock':'Out of stock' }}</span></span></div>
-                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 "><span class="h-sm">Last Buy : {{ \Carbon\Carbon::parse($order['product']['last_buy'])->format('d M Y') }}</span></div>
+                                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"><span class="h-sm">Availability : <span class="buy-color h-sm">{{ ($order['product']['stock_status']=='in_stock')?'In stock':'Out of stock' }}</span></span></div> -->
+                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12"><span class="h-sm">Last Buy : {{ \Carbon\Carbon::parse($order['product']['last_buy'])->format('d M Y') }}</span></div>
                             </div>
                             <div class="d-flex gap-2 pt-2">
-                            @if($order['product']['stock_status']=='in_stock')
-                                <a href="javascript:void(0)" class="btnss cart-btn text-white h-sms py-2 px-5 rounded-1 AddCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Add to cart</a>
-                            @else
-                                <a href="javascript:void(0)" class="btnss cart-btn text-white h-sms py-2 px-5 rounded-1 opacity-50">Add to cart</a>
-                            @endif
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $order['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($order['product']['created_at'])->timestamp }}" class="btnss cart-btn text-white h-sms py-2 px-5 rounded-1">Buy Again</a>
                             </div>
                         </div>
                     </div>

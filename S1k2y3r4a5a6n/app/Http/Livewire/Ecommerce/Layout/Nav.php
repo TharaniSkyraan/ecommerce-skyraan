@@ -19,13 +19,7 @@ class Nav extends Component
     public $query;
     public $products = [];
     public $warehouse_ids = [];
-    public $cart_quantity;
-    protected $listeners = ['suggestion', 'unsetsuggestion', 'cartQuantityUpdate','Getwishlist','addCartinUserCart'];
-
-    public function cartQuantityUpdate($quantity)
-    {
-        $this->cart_quantity = $quantity;
-    }
+    protected $listeners = ['suggestion', 'unsetsuggestion','Getwishlist','addCartinUserCart'];
 
     public function mount()
     {
@@ -154,7 +148,7 @@ class Nav extends Component
     public function addCartinUserCart($datas,$page=false)
     {
         if(\Auth::check()){
-
+            
             foreach($datas as $data)
             { 
                 
@@ -175,15 +169,16 @@ class Nav extends Component
             $datas = Cart::whereUserId(auth()->user()->id)->orderBy('updated_at','desc')->get()->toArray();
             foreach($datas as $key => $data)
             {
-                if(Product::where('id',$data['product_id'])->doesntExist() || ProductVariant::where('id',$data['product_variant_id'])->doesntExist()){
+                if(Product::where('id',$data['product_id'])->whereStatus('active')->doesntExist() || ProductVariant::where('id',$data['product_variant_id'])->doesntExist()){
                     $cart = Cart::where('id',$data['id'])->delete();
                     unset($datas[$key]);
+                    $page = !empty($page)?$page:'refreshCart';
                 }
             }
             if($page=='cartpage'){
                 $this->emit('cartList');
-            }elseif($page=='login'){
-                $this->emit('SigninComplete', $datas);
+            }elseif($page=='login' || $page=='refreshCart'){
+                $this->emit('updateCart', $datas, $page);
             }elseif($page=='signup'){
                 $this->emit('updateSignupCart', $datas);
             }else{

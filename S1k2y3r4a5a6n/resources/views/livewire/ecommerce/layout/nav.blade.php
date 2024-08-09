@@ -123,12 +123,12 @@
                     <div wire:ignore class="pt-0">
                         @if((Route::currentRouteName() != 'ecommerce.cart') && (Route::currentRouteName() != 'ecommerce.checkout'))
                             <div class="btn d-flex align-items-center px-3 nav-cart gap-2 cartGo" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                <span class="badge cartCount p-1">{{ $cart_quantity }}</span>
+                                <span class="badge cartCount p-1"> </span>
                                 <img src="{{asset('asset/home/cart.svg')}}" alt="home" class="cart_img_nav">
                             </div>
                         @else
                             <div class="btn d-flex align-items-center px-3 nav-cart gap-2 badge-div">
-                                <span class="badge cartCount">{{ $cart_quantity }}</span>
+                                <span class="badge cartCount"></span>
                                 <img src="{{asset('asset/home/cart.svg')}}" alt="home" class="cart_img_nav">
                             </div>
                         @endif
@@ -149,12 +149,12 @@
         @if((Route::currentRouteName() != 'ecommerce.cart') && (Route::currentRouteName() != 'ecommerce.checkout'))
             <div class="btn cart-btn cartGo" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >
                 <img src="{{asset('asset/home/cart.svg')}}" alt="cart">
-                <span class="text-white cartCount h-sm">{{ $cart_quantity }}</span>
+                <span class="text-white cartCount h-sm"> </span>
             </div>
         @else
             <div class="btn cart-btn">
                 <img src="{{asset('asset/home/cart.svg')}}" alt="cart">
-                <span class="text-white cartCount h-sm">{{ $cart_quantity }}</span>
+                <span class="text-white cartCount h-sm"> </span>
             </div>
         @endif
         </div>
@@ -313,7 +313,7 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>        
     @livewire('ecommerce.layout.view-canvas-cart')  
-    <div class="cardsfww">
+    <div class="cardsfww d-none">
         <div class="py-2 subtotal px-1 bg-white">
             <div class="card p-2">
                 <div class="d-flex justify-content-between">

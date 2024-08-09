@@ -26,14 +26,13 @@ class ForgetCart extends Mailable
      */
     public function build()
     {
-        // dd($this->cart_products);
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
-            ->to($this->email, $this->name)
-            ->subject('Forgotten Cart at ' . config('siteSetting.site_name'))
-            ->markdown('emails.forgetcartemail')
-            ->with([
-                'name' => $this->name,
-                'cart_products' => $this->cart_products,
-            ]);
+                    ->to($this->email, $this->name)
+                    ->subject('Forgotten Cart at ' . config('siteSetting.site_name'))
+                    ->markdown('emails.forgetcartemail')
+                    ->with([
+                        'name' => $this->name,
+                        'cart_products' => $this->cart_products,
+                    ]);
     }
 }

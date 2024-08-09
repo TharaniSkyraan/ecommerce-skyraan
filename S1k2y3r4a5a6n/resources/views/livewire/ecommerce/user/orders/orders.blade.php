@@ -130,13 +130,13 @@
                                     <div class="row ">
                                         @if(isset($item['variant']) || (count($attributes)==0))
                                             <div class="col-xl-4 col-lg-4 col-md-6 cl-sm-6 col-5 py-2 px-0">
-                                                @if(isset($item['variant']))
+                                                <!-- @if(isset($item['variant']))
                                                     @if($item['variant']['stock_status']=='in_stock')
                                                         <a href="javascript:void(0);" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap AddCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Buy Again</a>
                                                     @else
-                                                        <a href="javascript:void(0);" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap opacity-50">Buy Again</a>
                                                     @endif
-                                                @endif
+                                                @endif -->
+                                                <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id'] }}" target="_blank" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap">Buy Again</a>
                                             </div>
                                             @if(!isset($item['review']))
                                             <div class="col-xl-4 col-lg-4 col-md-6 cl-sm-6 col-7 py-2 px-0 text-center">

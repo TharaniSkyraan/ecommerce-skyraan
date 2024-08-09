@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('postal_code',30)->nullable();
             $table->string('notes',255)->nullable();
             $table->integer('product_variant_id')->default(0);
-            $table->double('quantity', 16, 2);
+            $table->double('quantity', 16, 2)->default(1);
             $table->timestamps();
         });
     }

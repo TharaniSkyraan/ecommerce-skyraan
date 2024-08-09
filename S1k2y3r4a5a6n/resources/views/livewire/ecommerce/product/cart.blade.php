@@ -86,9 +86,9 @@
                             <div class="d-flex align-items-center gap-3">
                             <span class="h-sms mbl-view fw-bold ps-2">TOTAL : </span>
                                 @if(isset($cart_product['discount']) && $cart_product['discount']!=0)
-                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['sale_price'] }}</h6>
+                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} <span class="product_subtotal_price"> {{ $cart_product['quantity'] * $cart_product['sale_price'] }} </span></h6>
                                 @else
-                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} {{ $cart_product['quantity'] * $cart_product['price'] }}</h6>
+                                    <h6 class="price_clr">{{ $ip_data->currency_symbol??'₹' }} <span class="product_subtotal_price"> {{ $cart_product['quantity'] * $cart_product['price'] }} </span> </h6>
                                 @endif   
                             </div> 
                         </div>
