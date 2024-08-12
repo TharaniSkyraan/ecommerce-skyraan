@@ -1,22 +1,7 @@
 let product_id;
 let product_variant_id;
-$(document).ready(function() {    
-    $('#related-items-cart').owlCarousel({
-        loop:true,
-        nav:true,
-        dots:false,
-        responsive:{
-            0:{
-                items:3
-            },
-            600:{
-                items:3
-            },
-            1000:{
-                items:3
-            }
-        }
-    });
+$(document).ready(function() {
+    
     $('#top_nav_carousel').owlCarousel({
         loop : true,
         autoplay : false,
@@ -308,7 +293,7 @@ function updateRelatedCaurosel(){
                 }
             }
         });
-    }, 1000);
+    }, 500);
 }
 
 $(document).on('click','.NotifyMe', function()

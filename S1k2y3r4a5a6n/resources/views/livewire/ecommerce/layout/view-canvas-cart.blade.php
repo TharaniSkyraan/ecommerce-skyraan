@@ -62,26 +62,24 @@
                     </a>
                 </div>
             @endforeach
-            @if(count($related_products) > 0)
-                <div class="related-items py-2">
-                    <div class="row py-2">
-                        <h6 class="text-center">You might also like</h6>
-                    </div>
-                    <div id="related-items-cart" class="owl-carousel px-3">
-                        @foreach($related_products as $product)
-                            @php
-                                $images = json_decode($product['images'], true);
-                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-                            @endphp
-                            <div class="owl-slide mx-1">
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
-                                    <img src="{{ $image }}" alt="image" class="cursor">
-                                </a>
-                            </div> 
-                        @endforeach
-                    </div>
-                </div>  
-            @endif 
+            <div class="related-items py-2 {{ (count($related_products) > 0)?'':'d-none' }}">
+                <div class="row py-2">
+                    <h6 class="text-center">You might also like</h6>
+                </div>
+                <div id="related-items-cart" class="owl-carousel px-3">
+                    @foreach($related_products as $product)
+                        @php
+                            $images = json_decode($product['images'], true);
+                            $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                        @endphp
+                        <div class="owl-slide mx-1">
+                            <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp}}">
+                                <img src="{{ $image }}" alt="image" class="cursor">
+                            </a>
+                        </div> 
+                    @endforeach
+                </div>
+            </div>  
         </div>
     @else
         <div class=" empty-cart ">
