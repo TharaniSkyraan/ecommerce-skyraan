@@ -75,8 +75,8 @@ window.addEventListener('scroll', function() {
 
 $(document).ready(function() {
     Livewire.emit('MyCart',JSON.parse(localStorage.getItem('cart'))??{});
-    updateRelatedCaurosel();
     cartProductQuantity();
+    updateRelatedCaurosel();
 
     $(document).on('click', '.qty-dropdown .card', function(e) {
         e.stopPropagation(); // Prevent the event from bubbling up
