@@ -273,7 +273,7 @@ $(document).on('click', '.attribute-label', function () {
 
 function updateRelatedCaurosel(){
 
-    $('#related-items-cart').trigger("destroy.owl.carousel");
+    // $('#related-items-cart').trigger("destroy.owl.carousel");
 
     setTimeout(function(){ 
         $('#related-items-cart').owlCarousel({
