@@ -32,7 +32,7 @@ class Home extends Component
         $banners = Banner::wherePromotionBanner('no')
                                 ->whereSpecialProduct('no')
                                 ->whereStatus('active')
-                                ->orderBy('created_at','desc')
+                                ->orderBy('sort','asc')
                                 ->limit(10)
                                 ->get()->each(function ($items) {
                                     $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
@@ -53,7 +53,7 @@ class Home extends Component
         $this->banners = array_filter($banners, function($banner) {
                                 return $banner['product_stock'] !== null;
                             });
-
+// dd($this->banners);
         $promotion_banners = Banner::wherePromotionBanner('yes')
                                         ->whereStatus('active')
                                         ->orderBy('created_at','desc')

@@ -11,7 +11,10 @@
 @endif
 <div class="row">
     <div class="col-12">
-        <div class="float-end"> <a class="btn btn-s btn-lg" href="{{ route('admin.banner.create') }}">Create Banner</a> </div>
+        <div class="float-end"> <a class="btn btn-p btn-lg" href="{{ route('admin.banner.create') }}">Sort Home Banner</a> 
+                                <!-- <a class="btn btn-p btn-lg" href="{{ route('admin.banner.create') }}">Sort Special Product Banner</a> 
+                                <a class="btn btn-p btn-lg" href="{{ route('admin.banner.create') }}">Sort Combo Off/Promotion Banner</a>  -->
+                                <a class="btn btn-s btn-lg" href="{{ route('admin.banner.create') }}">Create Banner</a> </div>
         <div class="table-responsive">
             <table id="datatable" class="table key-buttons text-md-nowrap">
                 <thead>
@@ -40,7 +43,7 @@
                         <th class="border-bottom-0">ID</th>
                         <th class="border-bottom-0">Combo offer</th>
                         <th class="border-bottom-0">Image</th>
-                        <th class="border-bottom-0">Name</th>
+                        <th class="border-bottom-0">Title</th>
                         <th class="border-bottom-0">Product Type</th>
                         <th class="border-bottom-0">Status</th>
                         <th class="border-bottom-0">Action</th>
