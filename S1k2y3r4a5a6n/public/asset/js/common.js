@@ -277,7 +277,7 @@ function updateRelatedCaurosel(){
 
     setTimeout(function(){ 
         $('#related-items-cart').owlCarousel({
-            loop:true,
+            loop:false,
             nav:true,
             dots:false,
             responsive:{
