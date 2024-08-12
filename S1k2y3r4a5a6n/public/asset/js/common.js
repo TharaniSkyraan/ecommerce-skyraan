@@ -308,7 +308,7 @@ function updateRelatedCaurosel(){
                 }
             }
         });
-    }, 500);
+    }, 1000);
 }
 
 $(document).on('click','.NotifyMe', function()
