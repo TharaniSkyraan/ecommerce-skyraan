@@ -30,11 +30,14 @@ class Settings extends Component
     $is_enabled_shipping_charges;
 
      // why choose
-     public $why_chs_title,$why_chs_desc,$why_chs_img;
+     public $why_chs_title,$why_chs_desc,$why_chs_img,$why_chs_temp_image,$why_chs_id;
+     public $why_chs_form = false;
 
     public $tab='general';
 
     protected $queryString = ['tab'];
+
+    protected $listeners = ['addEditwhychoose'];
 
     public function RemoveUploaded($param){        
         $this->reset([$param]); 
@@ -175,12 +178,31 @@ class Settings extends Component
             $validateData['why_chs_img'] = $filename;
         }
         WhyChoose::updateOrCreate(
-            ['id' => 0],
+            ['id' => $this->why_chs_id],
             $validateData
         );
-
+        $this->resetInputvalues();
         session()->flash('message', 'Updated Successfully.');
+        $this->emit('updatedwhyChoose','');
     }
+    
+    public function addEditwhychoose($id=''){
+        
+        $this->resetInputvalues();
+        $this->why_chs_form = true;
+        if(!empty($id)){
+            $WhyChoose = WhyChoose::find($id);
+            $this->why_chs_id = $id;
+            $this->why_chs_title = $WhyChoose->why_chs_title;
+            $this->why_chs_desc = $WhyChoose->why_chs_desc;
+            $this->why_chs_temp_image = $WhyChoose->image;
+        }
+    }
+
+    public function resetInputvalues(){      
+        $this->reset(['why_chs_id', 'why_chs_title', 'why_chs_desc','why_chs_temp_image', 'why_chs_img','why_chs_form']);  
+    }   
+
     public function mount(){
         
         $setting = Setting::first();

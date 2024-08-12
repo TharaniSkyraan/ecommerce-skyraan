@@ -22,6 +22,8 @@ class VerifyOtp extends Component
         if((($startdate->diffInSeconds($enddate)) > 300))  // 5 refers to 5 minutes
         {
             $this->error = 'OTP expired. Please try again.';
+            $this->remaining_time = 300 - $startdate->diffInSeconds($enddate);
+            $this->emit('CalculateTimer',$this->remaining_time);
         }elseif($otp!=$check_otp){
             $this->error = 'Invalid OTP. Please try again.';
         }else{
@@ -31,6 +33,7 @@ class VerifyOtp extends Component
     }
 
     public function ReSendOtp(){
+        
         $this->SendOtp($this->phone);
     }
 

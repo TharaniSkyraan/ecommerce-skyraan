@@ -36,8 +36,8 @@
                         <h4>Product variant type</h4>
                     </div>
                     <div>
-                        @if($product_variant_type=='multiple')<a href="javascript:void(0)" id="addEditAttrmodal" class="btn-p btn">Edit Attribute</a>@endif
-                        @if(count($selectedattrList)>0)<a href="javascript:void(0)" id="addEditVariantmodal" class="btn-p btn">Add New variation</a>@endif
+                        @if($product_variant_type=='multiple')<a href="javascript:void(0)" id="addEditAttrmodal" class="btn-p btn me-2">Edit Attribute</a>@endif
+                        @if(($product_variant_type=='multiple' && count($selectedattrList)!=0) || (count($productVariantList)==0 && $product_variant_type=='single'))<a href="javascript:void(0)" id="addEditVariantmodal" class="btn-p btn">Add New variation</a>@endif
                     </div>
                 </div>
                 <div>                    
@@ -121,7 +121,11 @@
                                 <div class="autocomplete">
                                     <ul>
                                         @foreach($products as $product)
-                                            <li class="product_id" wire:click="addProduct({{$product->id}})"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> {{$product->name}}</li>
+                                            @php
+                                                $images = json_decode($product->images, true);
+                                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                                            @endphp
+                                            <li class="product_id" wire:click="addProduct({{$product->id}})"> <img src="{{ $image }}" alt="Collection-icon"> {{$product->name}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -140,8 +144,12 @@
                     <label for="selected-products">Selected Product</label>
                     <div class="">
                         @foreach($selected_products as $sproduct)
+                            @php
+                                $images = json_decode($sproduct->images, true);
+                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                            @endphp
                             <div class="selected-products">
-                                <div class="product"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> <span> {{$sproduct->name}} </span> </div>
+                                <div class="product"> <img src="{{ $image }}" alt="Collection-icon"> <span> {{$sproduct->name}} </span> </div>
                                 <div><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div>
                             </div>
                         @endforeach
@@ -158,7 +166,11 @@
                                 <div class="autocomplete">
                                     <ul>
                                         @foreach($products as $product)
-                                            <li class="product_id" wire:click="addcrossSellingProduct({{$product->id}})"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> {{$product->name}}</li>
+                                            @php
+                                                $images = json_decode($product->images, true);
+                                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                                            @endphp
+                                            <li class="product_id" wire:click="addcrossSellingProduct({{$product->id}})"> <img src="{{ $image }}" alt="Collection-icon"> {{$product->name}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -177,8 +189,12 @@
                     <label for="selected-products">Selected Product</label>
                     <div class="">
                         @foreach($selected_cross_selling_products as $sproduct)
+                            @php
+                                $images = json_decode($sproduct->images, true);
+                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                            @endphp
                             <div class="selected-products">
-                                <div class="product"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> <span> {{$sproduct->name}} </span> </div>
+                                <div class="product"> <img src="{{ $image }}" alt="Collection-icon"> <span> {{$sproduct->name}} </span> </div>
                                 <div><i class="bx bx-x cursor-pointer" wire:click="removecrossSellingProduct({{$sproduct->id}})"></i></div>
                             </div>
                         @endforeach

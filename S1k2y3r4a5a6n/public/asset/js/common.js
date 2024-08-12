@@ -173,18 +173,25 @@ $(document).on('click','.deleteCart', function()
     localStorage.setItem('cart',JSON.stringify(productsArray));
     Livewire.emit('RemoveProductFromCart',index);
     
-    $(this).closest('.PrdRow').remove();
     if($('.checkoutpage').hasClass("check_out_li")){
+        $(this).closest('.PrdRow').remove();
         Livewire.emit('cartList');
     }else if($(".product-list").hasClass('cartpage')){
+        if($(".cartList.price-list").length==1){
+            $('#cartpage').hide();
+            $('.product-list').removeClass('d-none');
+            Livewire.emit('cartList');
+        }
+        $(this).closest('.PrdRow').remove();
         var price = 0;
-        $(".cartList").each(function() {
+        $(".cartList.price-list").each(function() {
             product_price = $(this).find('.product-price').html();
             quantity = $(this).find('.input-qty').html();
             price = price + (parseFloat(product_price)*parseFloat(quantity));
         });
         $('.sub-total').html(price);
     }else{
+        $(this).closest('.PrdRow').remove();
         Livewire.emit('MyCart',productsArray);
         updateRelatedCaurosel()
         cartProductQuantity();
@@ -200,20 +207,28 @@ function cartProductQuantity(){
     });
     $('.cartCount').html(quantity);
     
-    var price = 0;
-    $(".cartList").each(function() {
-        product_price = $(this).find('.product-price').html();
-        quantity = $(this).find('.input-qty').html();
-        product_subtotal_price = parseFloat(product_price)*parseFloat(quantity);
-        $(this).find('.product_subtotal_price').html(product_subtotal_price);
-        price = price + product_subtotal_price;
-    });
-    $('.sub-total').html(price);
-
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     if($(".product-list").hasClass('cartpage')){
+        var price = 0;
+        $(".cartList.price-list").each(function() {
+            product_price = $(this).find('.product-price').html();
+            quantity = $(this).find('.input-qty').html();
+            product_subtotal_price = parseFloat(product_price)*parseFloat(quantity);
+            $(this).find('.product_subtotal_price').html(product_subtotal_price);
+            price = price + product_subtotal_price;
+        });
+        $('.sub-total').html(price);
         Livewire.emit('addCartinUserCart',productsArray,'cartpage');
     }else{
+        var price = 0;
+        $(".cartList").each(function() {
+            product_price = $(this).find('.product-price').html();
+            quantity = $(this).find('.input-qty').html();
+            product_subtotal_price = parseFloat(product_price)*parseFloat(quantity);
+            $(this).find('.product_subtotal_price').html(product_subtotal_price);
+            price = price + product_subtotal_price;
+        });
+        $('.sub-total').html(price);
         Livewire.emit('addCartinUserCart',productsArray);
     }
 }

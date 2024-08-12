@@ -22,21 +22,25 @@ use Carbon\Carbon;
 class Create extends Component
 {
     use WithFileUploads;
-    public $product_id, $description, $content, $name, $status, $slug, $brand, $tax_ids, $query, $crosssellingquery, $label_id, $product_variant_type;
+    public $product_id, $description, $content, $name, $status, $slug, $brand, $tax_ids, $query, $crosssellingquery, $label_id;
     public $variant_id, $sku, $price, $cart_limit, $sale_price, $cost_per_item, $shipping_wide, $shipping_length, $shipping_height, $shipping_weight, $images, $is_default, $discount_duration, $discount_start_date, $discount_end_date;
     public $category_ids = [];
     public $collection_ids = [];
     public $imageList = [];
     public $variantImageList = [];
     public $attr_ids = [];
-    public $selectedattrList = [];
+    public $selectedattrList = []; 
+    public $previousSelectedattrList = [];
     public $attrModalisOpen = '';
     public $variantModalisOpen = '';
+    public $product_variant_type = 'single';
+    
     public $product_variant_menus = ['id'=>'Id', 'image'=>'Image', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
     public $default_menu = ['id'=>'Id', 'image'=>'Image', 'price'=>'Price', 'is_default'=>'Is Default', 'action'=>'Operation'];
     protected $listeners = ['initialize','attropenModal','variantopenModal','closeModal','GetImages','GetVariantImages','suggestion','unsetsuggestion','cross_selling_suggestion','unset_cross_selling_suggestion','GetDate'];
 
     public $productVariantList = [];
+    public $previousProductVariantList = [];   
     public $iseditproductVariant = '';
 
     public $product_ids = [];
@@ -61,9 +65,9 @@ class Create extends Component
     }
 
     public function closeModal(){
-        if(($this->attrModalisOpen=='show' && count($this->selectedattrList)==0) || ($this->variantModalisOpen=='show' && count($this->productVariantList)==0)){
-            $this->reset(['product_variant_type','is_default']);
-        }
+        // if(($this->attrModalisOpen=='show' && count($this->selectedattrList)==0) || ($this->variantModalisOpen=='show' && count($this->productVariantList)==0)){
+        //     $this->reset(['product_variant_type','is_default']);
+        // }
         $this->variantModalisOpen = $this->attrModalisOpen = '';
         $this->emit('resetvariantImageInputvalues');
         $this->resetproductVariants();
@@ -71,11 +75,15 @@ class Create extends Component
 
     public function updatedProductVariantType(){
         $this->selectedattrList = $this->productVariantList = [];
-        if($this->product_variant_type=='single'){
-            $this->emit('variantopenModal');
-        }if($this->product_variant_type=='multiple'){
-            $this->emit('attropenModal');
-        }
+
+        // $this->selectedattrList = $this->previousSelectedattrList;
+        // $this->productVariantList = $this->previousProductVariantList;
+        
+        // if($this->product_variant_type=='single'){
+        //     $this->emit('variantopenModal');
+        // }if($this->product_variant_type=='multiple'){
+        //     $this->emit('attropenModal');
+        // }
 
     }
 
@@ -85,7 +93,7 @@ class Create extends Component
             return $key !== "";
         }, ARRAY_FILTER_USE_KEY)));
         
-        $this->selectedattrList = Attribute::find($attr_ids);
+        $this->previousSelectedattrList = $this->selectedattrList = Attribute::find($attr_ids);
 
         $product_variant_menus = $this->default_menu;
 
@@ -499,7 +507,7 @@ class Create extends Component
             // product variants
             $productVariant = ProductVariant::whereProductId($product_id)->get()->toArray();
 
-            $this->productVariantList = array_map(function ($productvariant, $key) use(&$is_default) {
+            $this->previousProductVariantList = $this->productVariantList = array_map(function ($productvariant, $key) use(&$is_default) {
                 
                 $imageList     = json_decode($productvariant['images'], true);
 

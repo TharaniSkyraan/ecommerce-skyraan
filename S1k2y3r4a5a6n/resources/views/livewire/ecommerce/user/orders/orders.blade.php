@@ -116,9 +116,15 @@
                             </div>
                             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 col-8 align-self-center pe-0">
                                 <div class="d-flex gap-2 align-items-center">
+                                @if($item['product']['status']=='active')
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id']}}" target="_blank">
                                         <h5 class="fw-bold pb-1 buy-color">{{ $item['product_name'] }}</h5>
                                     </a>
+                                @else
+                                    <a href="javascript:void(0);">
+                                        <h5 class="fw-bold pb-1 buy-color">{{ $item['product_name'] }}</h5>
+                                    </a>
+                                @endif
                                 </div>
                                 @php $attributes = \App\Models\AttributeSet::find(explode(',',$item['attribute_set_ids'])); @endphp
                                 @foreach($attributes as $attribute)
@@ -129,6 +135,7 @@
                                 @if($order['status']=='delivered')
                                     <div class="row ">
                                         @if(isset($item['variant']) || (count($attributes)==0))
+
                                             <div class="col-xl-4 col-lg-4 col-md-6 cl-sm-6 col-5 py-2 px-0">
                                                 <!-- @if(isset($item['variant']))
                                                     @if($item['variant']['stock_status']=='in_stock')
@@ -136,9 +143,13 @@
                                                     @else
                                                     @endif
                                                 @endif -->
-                                                <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id'] }}" target="_blank" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap">Buy Again</a>
+                                                @if($item['product']['status']=='active')
+                                                    <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id'] }}" target="_blank" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap">Buy Again</a>
+                                                @else
+                                                    <a href="javascript:void(0);" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap opacity-75">Buy Again</a>
+                                                @endif
                                             </div>
-                                            @if(!isset($item['review']))
+                                            @if(!isset($item['review']) && $item['product']['status']=='active')
                                             <div class="col-xl-4 col-lg-4 col-md-6 cl-sm-6 col-7 py-2 px-0 text-center">
                                                 <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id']}}&tab=review" target="_blank" class="border border-secondary h-sms py-2 px-2 rounded-0 text-secondary">Write  Review</a>
                                             </div>

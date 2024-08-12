@@ -247,6 +247,8 @@ class Orders extends Component
                             $q->where('user_id',auth()->user()->id)
                             ->where('status','delivered')
                             ->orderBy('invoice_date', 'desc');
+                        })->whereHas('product', function($q1){
+                            $q1->where('status','active');
                         })
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Warehouse;
 use App\Models\Order;
 use DataTables;
 
@@ -67,11 +68,27 @@ class InvoiceController extends Controller
 
     public function fetchData(Request $request)
     {
-        $orders = Order::join('users', 'orders.user_id', '=', 'users.id')
-                        ->join('order_shipments', 'orders.id', '=', 'order_shipments.order_id')
-                        ->select('users.name', 'orders.code as order_code','orders.id','orders.status', 'orders.invoice_number', 'orders.invoice_date',
-                                'order_shipments.order_id', 'order_shipments.id as shipment_id', 'order_shipments.tracking_id')
-                        ->where('orders.status','=','delivered');
+        
+        if(\Auth::guard('admin')->user()->role!='admin')
+        {
+            $admin_id = \Auth::guard('admin')->user()->id;     
+            $warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->pluck('id')->toArray(); 
+        
+            $orders = Order::with('orderItems')->whereHas('orderItems', function($q) use($warehouse_ids) {
+                                    $q->whereIn('warehouse_id', $warehouse_ids);
+                                })->join('users', 'orders.user_id', '=', 'users.id')
+                                ->join('order_shipments', 'orders.id', '=', 'order_shipments.order_id')
+                                ->select('users.name', 'orders.code as order_code','orders.id','orders.status', 'orders.invoice_number', 'orders.invoice_date',
+                                        'order_shipments.order_id', 'order_shipments.id as shipment_id', 'order_shipments.tracking_id')
+                                ->where('orders.status','=','delivered');
+        }else{
+            $orders = Order::join('users', 'orders.user_id', '=', 'users.id')
+                            ->join('order_shipments', 'orders.id', '=', 'order_shipments.order_id')
+                            ->select('users.name', 'orders.code as order_code','orders.id','orders.status', 'orders.invoice_number', 'orders.invoice_date',
+                                    'order_shipments.order_id', 'order_shipments.id as shipment_id', 'order_shipments.tracking_id')
+                            ->where('orders.status','=','delivered');
+        }
+                        
         return Datatables::of($orders)
                     ->filter(function ($query) use ($request) {
                         if ($request->has('name') && !empty($request->name)) {

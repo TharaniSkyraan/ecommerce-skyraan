@@ -53,6 +53,9 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
 
         Route::get('/settings', function () { return view('admin/settings/settings'); })->name('settings');
         
+        Route::get('whychoose/fetchData','SettingController@fetchData')->name('fetch.whychoose.data');
+        Route::resource('whychoose','SettingController');
+
         Route::get('zones/fetchData','ZoneController@fetchData')->name('fetch.zones.data');
         Route::resource('zones','ZoneController');
        
