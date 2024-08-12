@@ -32,6 +32,7 @@ document.addEventListener('livewire:load', function () {
     Livewire.on('cartCount', (cartCount, price)  => {
         $('.sub-total').html(price);
         if(cartCount==0){$('.cardsfww').addClass('d-none');}else{$('.cardsfww').removeClass('d-none');}
+        updateRelatedCaurosel();
     });
     
     Livewire.on('updateCart', (datas, reload)  => {
