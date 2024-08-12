@@ -548,36 +548,36 @@ $duration = (count($collections) / 5) * $baseDuration;
                 <div class="row">
                     <h5 class="text-white text-center py-3 hghg">WHAT OUR CUSTOMERS SAY!</h5>
                 </div>
-            </div>
-            <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
-                @foreach($reviews as $reviews_data)
-                <div class="owl-slide px-3">
-                    <a href="javascript:void(0);" class="">
-                        <div class="p-4 card border-0 round-2">
-                            <div class="row">
-                                <div class="text-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
-                                        <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
-                                            <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="none"/>
-                                            <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="none"/>
-                                        </g>
-                                    </svg>                                
+                <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
+                    @foreach($reviews as $reviews_data)
+                    <div class="owl-slide px-3">
+                        <a href="javascript:void(0);" class="">
+                            <div class="p-4 card border-0 round-2">
+                                <div class="row">
+                                    <div class="text-start">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
+                                            <g id="Group_125" data-name="Group 125" transform="translate(-292.227 -5549.614)">
+                                                <path id="Path_238" data-name="Path 238" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(279 5678)" fill="none"/>
+                                                <path id="Path_239" data-name="Path 239" d="M13.6-94.567q7.388-2.315,8.956-5.788A27.4,27.4,0,0,0,24.5-105.7l.3-3.211H13.227v-19.479H34.272v15.6q0,10.751-5.261,17.322T13.6-86.8Z" transform="translate(304.391 5678)" fill="none"/>
+                                            </g>
+                                        </svg>                                
+                                    </div>
+                                    <div class="py-3">
+                                        <h6 class="text-start lh-base review-dot">{{$reviews_data->commends}}</h6>
+                                    </div>
                                 </div>
-                                <div class="py-3">
-                                    <h6 class="text-start lh-base review-dot">{{$reviews_data->commends}}</h6>
+                                <div class="d-flex gap-2 justify-content-end align-items-center">
+                                    <div class="line-with-text"></div>
+                                    <div>
+                                        <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex gap-2 justify-content-end align-items-center">
-                                <div class="line-with-text"></div>
-                                <div>
-                                    <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
-                                </div>
-                            </div>
-                        </div>
 
-                    </a>
+                        </a>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
         </section>
         @endif
