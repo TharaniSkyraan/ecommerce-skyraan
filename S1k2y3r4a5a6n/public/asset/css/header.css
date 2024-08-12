@@ -16,6 +16,7 @@ center, dl, dt, dd,  fieldset, form, label, legend, table, caption, tbody, tfoot
 	line-height:1.5;
     font-weight:normal;
     font-family: "poppins";
+    -webkit-tap-highlight-color: transparent; 
 }
 
 ol, ul {
@@ -483,7 +484,10 @@ fieldset, legend {
     width: 110px;
 }
 #abt_review .card{
- height: 200px;
+    height: 200px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
 }
 /* menu */
 
@@ -573,7 +577,7 @@ fieldset, legend {
     vertical-align: bottom;
 }
 .review-dot {
-    max-height: 53px;
+    /* max-height: 53px; */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -1448,7 +1452,9 @@ padding-top: 155px!important;
     .page-not-found .four-zero {
         font-size: 100px!important;
     }
-
+    .btn.QuickShop .Quick-shop-img-bottom{
+        display: none!important;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 900px){

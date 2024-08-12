@@ -552,8 +552,8 @@ $duration = (count($collections) / 5) * $baseDuration;
             <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
                 @foreach($reviews as $reviews_data)
                 <div class="owl-slide px-3">
-                    <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2 ">
+                    <a href="javascript:void(0);" class="">
+                        <div class="p-4 card border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
@@ -566,14 +566,15 @@ $duration = (count($collections) / 5) * $baseDuration;
                                 <div class="py-3">
                                     <h6 class="text-start lh-base review-dot">{{$reviews_data->commends}}</h6>
                                 </div>
-                                <div class="d-flex gap-2 justify-content-end align-items-center">
-                                    <div class="line-with-text"></div>
-                                    <div>
+                            </div>
+                            <div class="d-flex gap-2 justify-content-end align-items-center">
+                                <div class="line-with-text"></div>
+                                <div>
                                     <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
                                 </div>
-                                </div>
                             </div>
-                        </div>           
+                        </div>
+
                     </a>
                 </div>
                 @endforeach
