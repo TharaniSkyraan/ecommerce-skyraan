@@ -27,7 +27,7 @@
                                 <div class="d-flex justify-content-between align-items-center pt-1 gap-2">
                                     @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit'];  @endphp
                                     @if($cart_product['quantity']<=$limit)
-                                        <div class="qty-dropdown jkef2 position-relative">
+                                        <div class="qty-dropdown jkef2 position-relative cursor">
                                             <div class="card rounded-0 p-1">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
@@ -62,7 +62,7 @@
                     </a>
                 </div>
             @endforeach
-            @if(!empty($related_products))
+            @if(count($related_products) > 0)
                 <div class="related-items py-2">
                     <div class="row py-2">
                         <h6 class="text-center">You might also like</h6>

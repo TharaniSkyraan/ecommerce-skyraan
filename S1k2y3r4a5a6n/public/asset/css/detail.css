@@ -88,13 +88,13 @@
     position: relative;
     overflow: hidden; /* Ensure content doesn't overflow the container */
     max-width: 100%; /* Container's width can be 100% of its parent */
-    max-height: 70%; /* Set maximum height for the container */
+    max-height: 90%; /* Set maximum height for the container */
     z-index: 9;
 }
 
 .detail-img img {
     width: 100%; /* The image will fill the width of the container */
-    height: auto; /* The height will adjust proportionally */
+    height: 70%!important; /* The height will adjust proportionally */
     object-fit: contain; /* The image will scale down if necessary */
 }
 
@@ -192,7 +192,7 @@
     color: #AEAEAE;
 }
 .review-form textarea {
-    height: 150px; /* Adjust the height as needed */
+    height: 150px; 
 }
 .review-form input::placeholder {
     font-size: 14px;
@@ -390,7 +390,7 @@
         padding-left: 0px!important;
     }
     .detail-img {
-        max-height: 70%; 
+        max-height: 90%; 
     }
     .item-image {
         height: 130px!important;
@@ -460,3 +460,4 @@
     z-index: 11;
     position: relative;
 }
+

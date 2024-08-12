@@ -132,7 +132,7 @@
                     <div class="quantity PY-2">
                         <div class="d-flex gap-4 align-items-center">
                             <h6 class="text-dark fw-bold">Quantity :</h6>
-                            <div class="qty-dropdown position-relative jkef3">
+                            <div class="qty-dropdown position-relative jkef3 cursor">
                                 <div class="card rounded-0 py-1 px-1">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <p class="h-sms input-qty">1</p>
@@ -200,9 +200,10 @@
                                             <div class="vertical-line"></div>
                                             <button class="btn fw-bold h-sms" wire:click="checkpincode">Check</button>
                                         </div>
+                                        @error('postal_code1') <span class="error">{{$message}}</span> @endif
+
                                         <div class="separator mt-2">or</div>
 
-                                        @error('postal_code1') <span class="error">{{$message}}</span> @endif
                                         @if(\Auth::check())
                                             <h6 class="h-sms py-2  text-secondary">Select From Saved Addresses</h6>
                                             @php $addresses = \Auth::user()->addresses; @endphp
@@ -215,7 +216,7 @@
                                             </div>
                                             @endforeach
                                         @else
-                                            <span class="text-secondary h-sms">Login To Select From Saved Addresses</span>
+                                            <span class="text-secondary h-sms text-center">Login To Select From Saved Addresses</span>
                                             <div class="text-center py-2">
                                                 <a href="javascript:void(0)"  data-bs-toggle="modal" data-bs-target="#signin" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75"><span class="h-sms"> Login </span></a>
                                             </div>
@@ -317,6 +318,7 @@
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                         </button>
                                     @endif
                                 </div>
@@ -423,6 +425,7 @@
                                         <button class="btn d-flex justify-content-center w-100 w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                             <h6 class="text-center text-white h-sms  text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
                                             <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                         </button>
                                     @endif
                                 </div>

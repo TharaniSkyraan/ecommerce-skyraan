@@ -1,18 +1,46 @@
+
+
+
 .banner{
     overflow: hidden;
 }
 .banner .sys-view img{
     height: 316px!important;
 }
-.bnr-img{
+.bnr-img {
     height: 337px;
+    width: 100%;
+    transform: scale(1);
+    transition: transform 4s ease;
 }
+
+/* When the carousel changes the active slide */
+.owl-item.active .bnr-img {
+    transform: scale(1.2);
+    animation: zoomOut 4s ease forwards;
+}
+
+@keyframes zoomOut {
+    0% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
 #home_first_carousel{
     overflow: hidden;
 }
 #home_first_carousel .card{
     height: 172px;
     width: 342px;
+    transition: transform 0.3s ease-in-out;
+}
+#home_first_carousel .card:hover{
+    transform: scale(1.03);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .banner .owl--text {
     position: absolute;
@@ -99,10 +127,27 @@
 .top_carousal .owl--text::after {
     display: inline-block;
     padding-left: 8px;
-    content: "\0279E";
+    content: "\279E"; /* Corrected Unicode for right arrow */
     transition: transform 0.3s ease-out;
     color: #000;
 }
+
+.top_carousal .owl--text:hover::after {
+    animation: slide1 1s ease-in-out infinite;
+}
+
+@keyframes slide1 {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+  
+    50% {
+        transform: translate(10px, 0);
+    }
+}
+
+
 .home_first_carousel .bg-darks{
     background-color: #FFEDED;
 }
@@ -127,6 +172,9 @@
     color: #fff; 
     vertical-align: middle;
 }
+.buy-now:hover::after {
+    animation: slide1 1s ease-in-out infinite;
+}
 .home_sec_carousel{
     background-color: var(--items-list-bg-color);
 }
@@ -144,8 +192,12 @@
     display: inline-block;
     padding-left: 8px;
     content: "\2192";
-    transition: transform 0.3s ease-out;
+    transition: transform 0.5s ease-out;
 }
+.home_sec_carousel .but_this:hover::after {
+    animation: slide1 1s ease-in-out infinite;
+}
+
 #home_sec_carousel .images_position{
     z-index: 1;
     margin-left: 15px;
@@ -166,6 +218,7 @@
     border-radius: 5px;
     margin-bottom: -15px;
 }
+
 .card_and_carousal .owl-nav {
     position: absolute;
     top: -2%;
@@ -400,3 +453,4 @@
 .but_this{
     z-index: 9;
 }
+

@@ -80,7 +80,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                             @else
                                 <a href="{{ route('ecommerce.product.detail', ['slug' => $promotion_banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($promotion_banner['product_created'])->timestamp}}&product_variant={{ $promotion_banner['variant_id'] }}">
                             @endif
-                                <div class="card card1 border-0 round-2">
+                                <div class="card card1 border-0 round-2 hover14">
                                     <img src="{{ asset('storage') }}/{{$promotion_banner['image']}}" alt="image">
                                 </div> 
                             </a>
@@ -146,10 +146,12 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                             </button>  
                                         @else
-                                            <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                                <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
-                                                <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
-                                            </button>
+                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                            <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp;&nbsp;</h6>
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
+                                        </button>
+
                                         @endif
                                     </div>
                                 </div>
@@ -295,6 +297,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                     <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp; &nbsp;</h6>
                                                     <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                                 </button>
                                             @endif
                                         </div>
@@ -423,6 +426,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                         <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp;&nbsp;</h6>
                                                         <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                                     </button>                  
                                                 @endif  
                                             </div>
