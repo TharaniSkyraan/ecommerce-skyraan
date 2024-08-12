@@ -64,7 +64,7 @@
                                 @if($cart_product['quantity']<=$limit)
                                 <div class="d-flex gap-3 align-items-center">
                                     <span class="h-sms mbl-view fw-bold ps-2">QTY : </span>
-                                    <div class="qty-dropdown position-relative jkef4">
+                                    <div class="qty-dropdown position-relative jkef4 cursor">
                                         <div class="card rounded-0 py-1 px-2">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>

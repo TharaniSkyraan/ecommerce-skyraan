@@ -80,7 +80,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                             @else
                                 <a href="{{ route('ecommerce.product.detail', ['slug' => $promotion_banner['product_slug']]) }}?prdRef={{ \Carbon\Carbon::parse($promotion_banner['product_created'])->timestamp}}&product_variant={{ $promotion_banner['variant_id'] }}">
                             @endif
-                                <div class="card card1 border-0 round-2">
+                                <div class="card card1 border-0 round-2 hover14">
                                     <img src="{{ asset('storage') }}/{{$promotion_banner['image']}}" alt="image">
                                 </div> 
                             </a>
@@ -146,10 +146,12 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                             </button>  
                                         @else
-                                            <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                                <h6 class="text-center text-white h-sms text-nowrap ">Quick Shop &nbsp;&nbsp;</h6>
-                                                <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
-                                            </button>
+                                        <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                            <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp;&nbsp;</h6>
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                            <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
+                                        </button>
+
                                         @endif
                                     </div>
                                 </div>
@@ -295,6 +297,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                     <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp; &nbsp;</h6>
                                                     <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                                    <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                                 </button>
                                             @endif
                                         </div>
@@ -423,6 +426,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart QuickShop rounded-1" data-bs-toggle="modal" data-bs-target="#Editpopup">
                                                         <h6 class="text-center text-white h-sms text-nowrap">Quick Shop &nbsp;&nbsp;</h6>
                                                         <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img">
+                                                        <img src="{{asset('asset/home/cart.svg')}}" alt="add_to_cart" class="Quick-shop-img-bottom">
                                                     </button>                  
                                                 @endif  
                                             </div>
@@ -548,8 +552,8 @@ $duration = (count($collections) / 5) * $baseDuration;
             <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
                 @foreach($reviews as $reviews_data)
                 <div class="owl-slide px-3">
-                    <a  href="javascript:void(0);" class="">
-                        <div class="p-4 card  border-0 round-2 ">
+                    <a href="javascript:void(0);" class="">
+                        <div class="p-4 card border-0 round-2">
                             <div class="row">
                                 <div class="text-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="46.437" height="41.588" viewBox="0 0 46.437 41.588">
@@ -562,14 +566,15 @@ $duration = (count($collections) / 5) * $baseDuration;
                                 <div class="py-3">
                                     <h6 class="text-start lh-base review-dot">{{$reviews_data->commends}}</h6>
                                 </div>
-                                <div class="d-flex gap-2 justify-content-end align-items-center">
-                                    <div class="line-with-text"></div>
-                                    <div>
+                            </div>
+                            <div class="d-flex gap-2 justify-content-end align-items-center">
+                                <div class="line-with-text"></div>
+                                <div>
                                     <h6 class=" text-end lh-base fw-bold">{{$reviews_data->user->name}}</h6>
                                 </div>
-                                </div>
                             </div>
-                        </div>           
+                        </div>
+
                     </a>
                 </div>
                 @endforeach

@@ -2,11 +2,14 @@
 
 use Illuminate\Http\Request;
 
-
 use App\Http\Controllers\PDFController;
 
 Route::get('/privacy-policy', function () {
     return view('ecommerce/privacy');
+});
+
+Route::get('/page-not-found', function () {
+    return view('ecommerce/page-not-found');
 });
 
 Route::get('/terms-and-condition', function () {

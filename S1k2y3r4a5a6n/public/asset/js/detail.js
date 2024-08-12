@@ -183,9 +183,18 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-  $(document).on('click','.hover-btn', function(){
-      $(".location-card").toggle();
-  });
+$(document).on('click', function(event) {
+  // Check if the click was outside the .location-card and .hover-btn elements
+  if (!$(event.target).closest('.location-card, .hover-btn').length) {
+      $(".location-card").hide();
+  }
+});
+
+$(document).on('click', '.hover-btn', function(event) {
+  event.stopPropagation(); // Prevent the event from propagating to the document click handler
+  $(".location-card").toggle();
+});
+
 
 function isNumberKey(event) {
   const input = event.target;

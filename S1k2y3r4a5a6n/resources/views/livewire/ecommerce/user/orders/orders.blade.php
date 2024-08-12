@@ -178,7 +178,7 @@
             </div>
         </div>
     @empty    
-        <div class="row pb-2 cart_add_section">
+        <div class="row py-5 cart_add_section">
             <div class="col-12 pb-3 empty-cart">
                 <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
                 <h6 class="py-4">No orders found!.</h6>
