@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ShippingStatus;
+use App\Models\Warehouse;
 use App\Models\OrderShipment;
 use DataTables;
 
@@ -77,10 +78,25 @@ class ShipmentController extends Controller
     public function fetchData(Request $request)
     {
         
-        $shipments = OrderShipment::join('users', 'order_shipments.user_id', '=', 'users.id')
-                                  ->join('orders', 'order_shipments.order_id', '=', 'orders.id')
-                                  ->select('users.name','orders.code as order_code','order_shipments.*');
+        if(\Auth::guard('admin')->user()->role!='admin')
+        {
+            $admin_id = \Auth::guard('admin')->user()->id;     
+            $warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->pluck('id')->toArray(); 
         
+            $shipments = OrderShipment::with('order')->whereHas('order', function($q) use($warehouse_ids) {
+                                            $q->whereHas('orderItems', function($q1) use($warehouse_ids) {
+                                                $q1->whereIn('warehouse_id', $warehouse_ids);
+                                            });
+                                        })->join('users', 'order_shipments.user_id', '=', 'users.id')
+                                        ->join('orders', 'order_shipments.order_id', '=', 'orders.id')
+                                        ->select('users.name','orders.code as order_code','order_shipments.*');
+        }else{
+            $shipments = OrderShipment::join('users', 'order_shipments.user_id', '=', 'users.id')
+                                        ->join('orders', 'order_shipments.order_id', '=', 'orders.id')
+                                        ->select('users.name','orders.code as order_code','order_shipments.*');
+
+        }
+      
         return Datatables::of($shipments)
                         ->filter(function ($query) use ($request) {
                             if ($request->has('name') && !empty($request->name)) {

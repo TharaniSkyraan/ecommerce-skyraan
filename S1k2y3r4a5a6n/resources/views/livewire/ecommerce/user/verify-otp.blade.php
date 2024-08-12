@@ -29,9 +29,11 @@
         @if($error)<span class="error">{{$error}}</span>@endif
         <div class="d-flex justify-content-end align-items-center gap-2 py-2">
             <h6 class="text-secondary fw-normal opacity-75">Not received code yet?</h6>
-            <span id="remainingTime" class="d-none">{{$remaining_time}}</span>
-            <span class="restnt text-primary" id="restnt" style="display:none;"> <a href="javascript:;" wire:click="ReSendOtp">Resend OTP</a></span>
-            <h6 class="restnt seconds-counter" id="seconds-counter">00:00</h6>
+            <span class="seconds-counter1">
+                <span id="remainingTime" class="d-none">{{$remaining_time}}</span>
+                <span class="restnt text-primary" id="restnt" style="display:none;"> <a href="javascript:;" wire:click="ReSendOtp">Resend</a></span>
+                <h6 class="restnt seconds-counter" id="seconds-counter" style="display:none;">00:00</h6>
+            </span>
         </div>
     </div>
 </div>
@@ -43,7 +45,8 @@ $(document).on('click', '.changeNumber', function () {
     clearInterval(interval);
 });
 $(document).on('click', '#restnt', function () { 
-    runTimer(); 
+    $('.otp-input').val('');
+    clearInterval(interval);
 })
 const inputs = document.querySelectorAll(".digit-group input");
 let otp = '';

@@ -16,7 +16,7 @@ class Create extends Component
     public $products = [];
     public $selected_products = [];
     public $suggesstion = false;
-    protected $listeners = ['suggestion' => 'suggestion','unsetsuggestion' => 'unsetsuggestion'];
+    protected $listeners = ['suggestion','unsetsuggestion'];
     /**
      * Suggested product
      */

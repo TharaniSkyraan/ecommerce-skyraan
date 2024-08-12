@@ -56,8 +56,6 @@ var interval = '';
 function runTimer(time){
     // Set the initial time to 5 minutes
     remainingTime = time;
-    $('.seconds-counter').show();
-    $('#restnt').hide();
     interval = setInterval(otptimer, 1000); 
 }
 // Get the timer element
@@ -80,5 +78,8 @@ function otptimer(){
         timerEl.text('05:00');
         $('.seconds-counter').hide();
         $('#restnt').show();
+    }else{
+        $('.seconds-counter').show();
+        $('#restnt').hide();
     }
 }

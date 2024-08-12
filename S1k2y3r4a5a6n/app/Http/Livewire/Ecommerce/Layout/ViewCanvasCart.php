@@ -128,8 +128,7 @@ class ViewCanvasCart extends Component
 
         $this->related_products = Product::whereHas('product_stock', function($q1){
                                                 $q1->whereIn('warehouse_id', $this->warehouse_ids);
-                                         })->limit(10)->find($related_product_ids)->toArray();
-                                        //  dd($this->related_products);
+                                         })->whereStatus('active')->limit(10)->find($related_product_ids)->toArray();
         $this->emit('cartCount',count($cart_products),$total_price);
     }
     

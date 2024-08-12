@@ -56,7 +56,7 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
 <script>
-var dataTable = $('#datatable').DataTable({
+    var dataTable = $('#datatable').DataTable({
             processing: true,
             serverSide: true,
             stateSave: true,
