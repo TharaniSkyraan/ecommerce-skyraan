@@ -115,6 +115,18 @@
                                 </select>
                                 @error('category') <span class="error"> {{$message}}</span> @endif
                             </div>
+                        </div>  
+                        <div class="col-4 pl-3 {{(count($sub_categories)==0 || ($apply_for!='category'))?'d-none':''}}">    
+                            <div class="form-group mb-4">
+                                <label for="sub_category">Sub Category</label>
+                                <select name="sub_category" id="sub_category" wire:model="sub_category">
+                                    <option value="">Select</option>
+                                    @foreach($sub_categories as $sub_cat)
+                                        <option value="{{$sub_cat->id}}" >{{$sub_cat->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('sub_category') <span class="error"> {{$message}}</span> @endif
+                            </div>
                         </div>                  
                     </div>
                     <div class="row">

@@ -77,6 +77,8 @@ class CouponApply extends Component
 
                 if($apply=='success'){
                     return 'success';
+                }else{
+                    return 'fail';
                 }
             }
         }
@@ -90,20 +92,22 @@ class CouponApply extends Component
         $this->resetValidation('coupon_code');
         $this->coupon_error = '';
         
-        $validateData = $this->validate([
-            'coupon_code' => 'required|exists:coupons,coupon_code,deleted_at,NULL,status,active', 
-        ], [
-            'coupon_code.exists' => 'Please try again! Invalid coupon code.'
-        ]);
+        if($emit=='false'){
+            $validateData = $this->validate([
+                'coupon_code' => 'required|exists:coupons,coupon_code,deleted_at,NULL,status,active', 
+            ], [
+                'coupon_code.exists' => 'Please try again! Invalid coupon code.'
+            ]);
+        }
 
         $coupon = Coupon::whereCouponCode($this->coupon_code)->whereStatus('active')->first();
 
-        if($coupon->isExpired())
+        if((isset($coupon) && $coupon->isExpired()) || !isset($coupon))
         {
             $this->coupon_error = 'Please enter valid coupon code';
         }else
         {
-            if($coupon->unlimited_coupon=='no' && count($coupon->orders) > $coupon->count )
+            if($coupon->unlimited_coupon=='no' && ($coupon->used_count >= $coupon->count))
             {
                 $this->coupon_error = 'Please enter valid coupon code';
             }
@@ -132,40 +136,53 @@ class CouponApply extends Component
                                             ->pluck('product_id')->toArray();
                         if(count($product_ids)!=0){
                             $discount = $coupon->discount;  
-                        } 
+                        }else{                        
+                            $this->coupon_error = 'Please try again! Invalid coupon code.';
+                        }
+                    }else{                        
+                        $this->coupon_error = 'Please try again! Invalid coupon code.';
                     }                       
                     break;
                 case 'category':
                     $apply_for_ids = $coupon->apply_for_ids;
 
                     //Apply for all sub category
-                    $apply_for_sub_ids = Category::where('parent_id',$apply_for_ids)->pluck('id')->toArray();
+                    // $apply_for_sub_ids = Category::where('parent_id',$apply_for_ids)->pluck('id')->toArray();
 
                     $cart_product_ids = CartItem::whereUserId(auth()->user()->id) ->pluck('product_id')->toArray();
 
-                    $product_ids = Product::where(function($q) use ($apply_for_ids, $apply_for_sub_ids) {
-                                                $q->where('category_ids', 'like', '%,'.$apply_for_ids.',%');
-                                                foreach ($apply_for_sub_ids as $sub_id) {
-                                                    $q->orWhere('category_ids', 'like', '%,'.$sub_id.',%');
-                                                }
-                                            })->whereIn('id',$cart_product_ids)->pluck('id')->toArray();
+                    $product_ids = Product::where('category_ids', 'like', '%,'.$apply_for_ids.',%')
+                                            // ->where(function($q) use ($apply_for_ids, $apply_for_sub_ids) {
+                                            //     $q->where('category_ids', 'like', '%,'.$apply_for_ids.',%');
+                                            //     foreach ($apply_for_sub_ids as $sub_id) {
+                                            //         $q->orWhere('category_ids', 'like', '%,'.$sub_id.',%');
+                                            //     }
+                                            // })
+                                            ->whereIn('id',$cart_product_ids)->pluck('id')->toArray();
                     if(count($product_ids)!=0){
                         $discount = $coupon->discount;  
-                    } 
+                    }else{                        
+                        $this->coupon_error = 'Please try again! Invalid coupon code.';
+                    }
                     break;
                 case 'product':                                           
                     $product_ids = CartItem::whereIn('product_id',explode(',',$coupon->apply_for_ids))
                                         ->whereUserId(auth()->user()->id)
                                         ->pluck('product_id')->toArray();
+                   
                     if(count($product_ids)!=0){
                         $discount = $coupon->discount;  
+                    }else{
+                        $this->coupon_error = 'Please try again! Invalid coupon code.';
                     } 
                     break;
                 case 'customer':                 
                     $user_ids = explode(',',$coupon->apply_for_ids);
                     if(in_array(auth()->user()->id, $user_ids)) {
                         $discount = $coupon->discount;  
-                    }                           
+                    }else{
+                        $this->coupon_error = 'Please try again! Invalid coupon code.';
+                    }                
                     break;
                 case 'once-per-customer':
                     $order = Order::whereCouponCode($this->coupon_code)
@@ -174,6 +191,8 @@ class CouponApply extends Component
                                     ->count();
                     if($order==0){
                         $discount = $coupon->discount;  
+                    }else{                        
+                        $this->coupon_error = 'Please try again! Invalid coupon code.';
                     }
                     break;
             }
@@ -205,7 +224,11 @@ class CouponApply extends Component
         }
         
         if($emit=='true'){
-            return 'success';
+            if(empty($this->coupon_error)){
+                return 'success';
+            }else{
+                return 'fail';                
+            }
         }
     }
     public function render()

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('coupon_code',30);
             $table->text('terms_and_condition');
             $table->bigInteger('count')->default(0);
+            $table->integer('used_count')->default(0);
             $table->enum('unlimited_coupon', ['yes', 'no'])->default('no');
             $table->enum('display_at_checkout', ['yes', 'no'])->default('no');
             $table->double('discount', 16, 2)->notNullable();
