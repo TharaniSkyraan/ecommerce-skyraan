@@ -3,51 +3,28 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class RefundRequestedMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $order;
 
-    /**
-     * Create a new message instance.
-     */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Refund Requested Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function build()
     {
-        return $this->markdown('emails.refund-requested');
+        $order = $this->order;
+        return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
+                    ->to($order->user->email, $order->user->name)
+                    ->subject('Order cancel Successfully'. config('siteSetting.site_name'))
+                    ->markdown('emails.refund-requested')
+                    ->with([
+                        'order' => $this->order
+                    ]);
     }
 }

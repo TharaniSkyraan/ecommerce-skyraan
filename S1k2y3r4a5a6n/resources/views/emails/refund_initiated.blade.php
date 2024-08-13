@@ -131,7 +131,7 @@
                 border: 1px solid #eee;
             }
             .order-div .td1 img{
-                padding:0px 20px 10px 20px;
+                padding:10px 20px 10px 0px;
                 /* border-bottom:1px solid #eee; */
             }
             .order-div .td2 {
@@ -144,6 +144,16 @@
             .green{
                 color:#4CAF50!important;
             }
+            table{
+                width:100%
+            }
+            .product-img{
+                width:100px;
+                height:100px;
+            }
+            .td1{
+               width:140px
+            }
         </style>
     @endslot
     {{-- Body --}}
@@ -155,33 +165,23 @@
     </div>
     <div class="order-summary text-center">
         <div class="div1">
-            <p class="font-bold">Order Number #1234567910</p>
+            <p class="font-bold">Order Number #{{$order->code}}</p>
         </div>
     </div>
     <div class="order-div text-center">
         <table>
-            <tr>
-                <td class="td1">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                </td>
-                <td class="margin-left td2">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Quantity : <b>2</b></p>
-                    <p><b>₹345.00</b></p>
-                    <p>Reason for refund <span class="red">Incorrect Item</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                </td>
-                <td class="margin-left td2">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Quantity : <b>2</b></p>
-                    <p><b>₹345.00</b></p>
-                    <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
-                </td>
-            </tr>
+            @foreach($order->orderItems as $item)
+                <tr>
+                    <td class="td1">
+                        <img src="{{$item->product_image}}" alt="{{$item->product_name}}" class="product-img">
+                    </td>
+                    <td class="margin-left td2">
+                        <p>{{$item->product_name}}</p>
+                        <p>Quantity : <b>{{$item->quantity}}</b></p>
+                        <p><b>₹{{$item->total_amount}}</b></p>
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </div>
     <div class="bottom-div">
