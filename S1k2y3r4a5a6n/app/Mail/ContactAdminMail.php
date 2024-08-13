@@ -25,8 +25,8 @@ class ContactAdminMail extends Mailable
         $data = $this->data;
         // $emailscc = array('ravindhiran@skyraan.com');
         // array_push($emailscc, 'gnanamaruthu@skyraan.com');
-        return $this->from(($data['email']), $data['name'])
-        ->to(config('mail.support.address'), config('mail.support.name'))
+        return $this->to(config('mail.support.address'), config('mail.support.name'))
+        ->from(($data['email']), $data['name'])
         ->subject('Receive Contact mail from '.$data['name'])
         ->markdown('emails.contact_admin')
         ->with(['data'=>$data]);
