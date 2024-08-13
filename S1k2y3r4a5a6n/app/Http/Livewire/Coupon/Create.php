@@ -13,7 +13,7 @@ use Carbon\Carbon;
 class Create extends Component
 {
     public $today,$coupon_id,$coupon_code,$above_order,$terms_and_condition,$unlimited_coupon,$display_at_checkout,$status,$start_date,$end_date,$never_expired,
-            $count,$discount,$minimum_order,$category,$categories,$collection,$collections,$customer,$product;
+            $count,$discount,$minimum_order,$category,$categories,$sub_category,$sub_categories,$collection,$collections,$customer,$product;
     public $apply_for = 'all-orders';
     public $discount_type = 'flat';
     protected $listeners = ['suggestion','unsetsuggestion','customer_suggestion','unset_customer_suggestion'];
@@ -55,8 +55,13 @@ class Create extends Component
         $this->selected_products = Product::Find($this->product_ids);
     }
 
-    // Customers
+    // Category
+    public function updatedCategory(){
+        $this->sub_categories = Category::where('parent_id',$this->category)->orderBy('sort','asc')->whereStatus('active')->get();
+        $this->sub_category = null;
+    }
 
+    // Customers
     public function updatedCustomer(){
         if(!empty($this->customer)){
             $this->customers = Customer::where('name', 'like', "%{$this->customer}%")->limit(5)->get();
@@ -111,7 +116,9 @@ class Create extends Component
             'customer_ids.*' => 'required_if:apply_for,customer',
             'product_ids.*' => 'required_if:apply_for,product',
          ];
-         
+         if(count($this->sub_categories)!=0){
+            $rules['sub_category'] = 'required_if:apply_for,category';
+         }
          if($this->discount_type!='free_shipping'){
             $rules['discount'] = ($this->discount_type=='flat')?'required|numeric|min:1':'required|numeric|max:99|min:1';
             if($this->discount_type=='flat'){
@@ -142,7 +149,7 @@ class Create extends Component
          $validateData['status'] = $this->status;
          $apply_for_ids = ($this->apply_for=='product')? ','.implode(',',$this->product_ids).',' :
          (($this->apply_for=='customer')? ','.implode(',',$this->customer_ids).',' :
-         (($this->apply_for=='category')?$this->category:
+         (($this->apply_for=='category')?(!empty($this->sub_category)?$this->sub_category:$this->category):
          (($this->apply_for=='collection')?$this->collection:'')));
          $validateData['apply_for_ids'] = $apply_for_ids;
          $validateData['minimum_order'] = ($this->apply_for=='minimum-order')?$this->minimum_order:0;
@@ -183,8 +190,17 @@ class Create extends Component
             $this->minimum_order = $coupon->minimum_order;
             $this->selected_customers = Customer::Find($this->customer_ids);
             $this->selected_products = Product::Find($this->product_ids);
+            if(!empty($this->category)){
+                $category = Category::find($this->category);
+                $this->category = !empty($category->parent_id)?$category->parent_id:$category->id;
+                $this->sub_category = !empty($category->parent_id)?$category->id:null;
+            }
+
         }
 
+        $this->sub_categories = Category::where('parent_id',$this->category)
+                                        ->orderBy('sort','asc')
+                                        ->whereStatus('active')->get();
         $this->customers = Customer::limit(5)->get();
         $this->products = Product::limit(5)->get();
         $this->categories = Category::whereNULL('parent_id')->orderBy('sort','asc')->whereStatus('active')->get();

@@ -295,6 +295,8 @@ class Checkout extends Component
             $result  = $is_applied->CheckIsAppliedCoupon($this->total_price);
             if($result=='success'){
                 $this->CouponApplied('true');
+            }else{
+                $this->removeCoupon();
             }
         }
 
@@ -327,7 +329,7 @@ class Checkout extends Component
         $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
         $setting = Setting::first();
         $carts = $this->cart_products;
-
+        $coupon_update = Coupon::where('coupon_code',$this->coupon_code)->update(['used_count'=>$coupon->used_count+1]);
 
         if($this->place_order=='common'){
 
@@ -340,6 +342,8 @@ class Checkout extends Component
             $orderData['shipping_amount'] = $this->shipping_charges;
             $orderData['is_confirmed'] = 1;
             $orderData['status'] = 'new_request';
+
+
             
             $order = Order::create($orderData);
             $order_id = $order->id;
@@ -680,7 +684,7 @@ class Checkout extends Component
             CartItem::whereUserId(auth()->user()->id)->delete();
         }
         $order= Order::where('code',$order_code)->first();
-        \Mail::send(new OrderPlacedMail($order));
+        // \Mail::send(new OrderPlacedMail($order));
 
         $this->emit('clearCart',$order_code);
 
