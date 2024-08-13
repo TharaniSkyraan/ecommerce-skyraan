@@ -18,7 +18,7 @@ class Contactus extends Component
             'name' => 'required|string|min:3|max:30',
             'feedback' => 'required|string|min:3|max:300',
         ]);
-        \Mail::send(new ContactAdminMail($data));
+        // \Mail::send(new ContactAdminMail($data));
         \Mail::send(new ContactUserMail($data));
     }
     public function render()
