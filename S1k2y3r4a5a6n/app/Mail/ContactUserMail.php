@@ -3,10 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactUserMail extends Mailable
@@ -24,11 +21,10 @@ class ContactUserMail extends Mailable
     {
         $data = $this->data;
 
-        return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
-                    ->to($data['email'], $data['name'])
+        return $this->to($data['email'], $data['name'])  // Set the recipient
+                    ->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
                     ->subject('Receive Contact mail from '.$data['name'])
                     ->markdown('emails.contact_user')
-                    ->with(['data'=>$data]);
+                    ->with(['data' => $data]);
     }
-  
 }
