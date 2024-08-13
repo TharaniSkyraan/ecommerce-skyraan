@@ -13,6 +13,7 @@ use App\Models\ProductAttributeSet;
 use App\Models\AttributeSet;
 use App\Models\Collection;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\OrderShipment;
 use App\Models\OrderPayment;
@@ -27,6 +28,7 @@ use Carbon\Carbon;
 use Razorpay\Api\Api;
 use DB;
 use App\Traits\ZoneConfig;
+use App\Mail\OrderPlacedMail;
 
 class Checkout extends Component
 {
@@ -676,8 +678,9 @@ class Checkout extends Component
     
             UserCart::whereUserId(auth()->user()->id)->delete();
             CartItem::whereUserId(auth()->user()->id)->delete();
-
         }
+        $order= Order::where('code','$order_code')->first();
+        \Mail::send(new OrderPlacedMail($order));
 
         $this->emit('clearCart',$order_code);
 
@@ -785,6 +788,7 @@ class Checkout extends Component
             $this->emit('appliedCouponSuccessToast',$this->coupon_code);
         }
     }
+
     public function removeCoupon(){
         $this->coupon_code = '';
         $this->coupon_error = '';
