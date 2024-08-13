@@ -127,8 +127,7 @@ class Orders extends Component
         $this->reset(['order_id','reason', 'notes']);  
 
         // Order cancelled mail
-        $this->order_code = $order_code;
-        $order= Order::where('code',$order_code)->first();
+        $order= Order::find($this->order_id);
         \Mail::send(new OrderCancelMail($order));
 
         if(!empty($order->payments->charge_id)){
