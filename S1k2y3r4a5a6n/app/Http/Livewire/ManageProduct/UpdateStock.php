@@ -16,10 +16,11 @@ class UpdateStock extends Component
     public $products = [];
     public $selected_products = [];
     public $suggesstion = false;
-    protected $listeners = ['SelectProduct','suggestion' => 'suggestion','unsetsuggestion' => 'unsetsuggestion', 'resetInputvalues','OpenUpdatestock'];
+    protected $listeners = ['SelectProduct','suggestion','unsetsuggestion', 'resetInputvalues','OpenUpdatestock'];
 
-    public function GenerateReference(){
-        $this->reference_number = \Str::random(12);
+    public function GenerateReference(){    
+        $counter = StockHistory::select('id')->first();
+        $this->reference_number = 'UPLD-'.Carbon::now()->format('Yhis').'-'. str_pad($counter->id??1, 4, '0', STR_PAD_LEFT);
     }
 
     public function updatedQuery(){
@@ -79,6 +80,7 @@ class UpdateStock extends Component
     }
 
     public function OpenUpdatestock($action,$ids=""){
+        $this->GenerateReference();
         $this->action=$action;
         if($action != "new")
         {

@@ -20,7 +20,8 @@ class TransferStock extends Component
     protected $listeners = ['SelectProduct','suggestion', 'unsetsuggestion', 'resetInputvalues','OpenStockLimit'];
 
     public function GenerateReference(){
-        $this->reference_number = \Str::random(12);
+        $counter = StockHistory::select('id')->first();
+        $this->reference_number = 'TRF-'.Carbon::now()->format('Yhis').'-'. str_pad($counter->id??1, 4, '0', STR_PAD_LEFT);
     }
     public function updatedQuery(){
         if(!empty($this->query)){
@@ -78,6 +79,7 @@ class TransferStock extends Component
     }
 
     public function OpenStockLimit($action,$ids=""){
+        $this->GenerateReference();
         $this->action=$action;
         if($action != "new")
         {

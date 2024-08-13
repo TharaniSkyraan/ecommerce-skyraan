@@ -35,6 +35,8 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
         Route::resource('collection','CollectionController');
 
         Route::get('banner/fetchData','BannerController@fetchData')->name('fetch.banner.data');
+        Route::get('banners-sort','BannerController@bannerList');
+        Route::post('banner/sort','BannerController@sort')->name('banner.sort');
         Route::resource('banner','BannerController');
 
         Route::get('buying-option/fetchData','BuyingOptionController@fetchData')->name('fetch.buying-option.data');

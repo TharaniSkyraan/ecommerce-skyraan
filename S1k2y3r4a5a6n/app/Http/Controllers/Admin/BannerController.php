@@ -18,6 +18,11 @@ class BannerController extends Controller
         //
         return view('admin.banner.list');
     }
+    public function bannerList()
+    {
+        $banners = Banner::wherePromotionBanner('no')->whereSpecialProduct('no')->orderBy('sort','asc')->get();
+        return view('admin.banner.sort',compact('banners'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -138,5 +143,19 @@ class BannerController extends Controller
                         })
                         ->make(true);
   
+    }
+    
+    
+    public function sort(Request $request){
+        $ids = explode(',', $request->ids);
+        
+        $count = 1;
+        foreach ($ids as $id) {
+            $banner = Banner::find($id);
+            $banner->sort = $count;
+            $banner->update();
+            $count++;
+        }
+        return response()->json();
     }
 }

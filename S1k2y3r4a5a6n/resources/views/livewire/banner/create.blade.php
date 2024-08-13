@@ -13,7 +13,7 @@
                     <label for="special_product"> &nbsp; Special Products? </label>
                 </div>    
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Title</label>
                     <input type="text" name="name" id="name" placeholder="Banner Name" wire:model="name">
                     @error('name') <span class="error"> {{$message}}</span> @endif
                 </div>

@@ -127,7 +127,11 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
-                <div class="float-end"> <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> </div>
+                <div class="float-end">
+                    <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  
+                    <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> 
+                    <a class="btn btn-d btn-lg m-0 modify-stock-modal " href="javascript:void(0)"><i class="bx bx-edit" aria-hidden="true"></i> Modify Uploaded Stock</a> 
+                </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
                         <thead>
