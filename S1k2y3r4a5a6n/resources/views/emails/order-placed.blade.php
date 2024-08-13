@@ -85,26 +85,12 @@
                 color:#242323;
             }
             .footer-content{
+                margin-top: 129px;
                 p{
                     color:#111111;
                     margin-bottom:0px;
                     font-size: 14px!important;
                 }
-            }
-            .related-products{
-                margin-bottom:20px;
-            }
-            .related-products .border{
-                margin:10px;
-                border:1px solid #eee;
-                border-radius:3px;
-            }
-            .related-products td{
-                width:200px;
-            }
-            .related-products img{
-                width:80px;
-                margin:18px;
             }
             .text-start{
                font-size:23px;
@@ -186,9 +172,6 @@
             .products .total p,span{
                font-size:14px;
             }
-            .related-products p{
-                font-size:14px;
-            }
             .green{
                 color:#4CAF50!important;
             }
@@ -205,13 +188,17 @@
     <div class="order-summary">
         <div class="div1">
             <p class="font-bold">Order Summary</p>
-            <p class="fs-2">Order Summary : #1234567910</p>
+            <p class="fs-2">Order Id : #{{$order->code}}</p>
             <p class="fs-2">Order Placed : 23 Jun 2024</p>
-            <p class="fs-2">Order Total : ₹1207.00</p>
-        </div>
+            <p class="fs-2">Order Total : ₹{{ $order->total_amount }}</p>
+            </div>
         <div class="div2">
             <p class="font-bold">Shipping Address</p>
-            <p class="fs-2">Suite 389 25272 Bechtelar Islands, Gislasontown, ND 98919</p>
+            <p class="fs-2">
+                {{ $order->shipmentAddress->address }}, 
+                {{ $order->shipmentAddress->city }}, 
+                {{ $order->shipmentAddress->postal_code }}
+            </p>
         </div>
     </div>
     <div class="products">
@@ -219,70 +206,31 @@
             <tr>
                 <th class="th1 "><span class="txt-start">Product</span></th>
             </tr>
+            @foreach($order->orderItems as $item)
             <tr >
                 <td class="tr">
                     <div>
-                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
+                        <img src="{{$item->product_image}}" alt="{{$item->product_name}}">
                     </div>
                     <div class="cnt">
-                        <span>Barnyard Millet Boiled / Kuthraivali Pulungal 1 Kg</span>
+                        <span>{{$item->product_name}}</span>
                         <div>
-                            <p class="txt-start text-dark">Qty : 2</p>    
+                            <p class="txt-start text-dark">Qty : {{$item->quantity}}</p>    
                             <p class="txt-start font-bold text-dark price">₹235.00</p>  
                         </div>
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td class="tr">
-                    <div>
-                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                    </div>
-                    <div class="cnt">
-                        <span>Barnyard Millet Boiled / Kuthraivali Pulungal 1 Kg</span>
-                        <div>
-                            <p class="txt-start text-dark">Qty : 2</p>    
-                            <p class="txt-start font-bold text-dark price">₹235.00</p>  
-                        </div>
-                    </div>
-                </td>
-            </tr>
+            @endforeach
         </table>
         <div class="text-end total">
-            <p class="mb-0">Items Subtotal : <span >₹1,200.00</span></p>
-            <p class="mb-0">Coupon Discount : <span>₹1,200.00</span></p>
-            <p class="mb-0">Shipping Cost : <span>₹1,200.00</span></p>
-            <p class="mb-0 font-bold text-dark">Total <span >₹1,200.00</span></p>
+            <p class="mb-0">Items Subtotal : <span >₹{{$order->sub_total}}</span></p>
+            <p class="mb-0">Coupon Discount : <span>₹{{$order->discount_amount}}</span></p>
+            <p class="mb-0">Shipping Cost : <span>₹{{$order->shipping_amount}}</span></p>
+            <p class="mb-0 font-bold text-dark">Total <span >₹{{$order->total_amount}}</span></p>
         </div>
     </div>
-    <p class="text-start">You may also like</p>
-    <div class="related-products text-center">
-        <table>
-            <tr>
-                <td class="">
-                    <div class="border">
-                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                    </div>
-                </td>
-                <td class="">
-                    <div class="border">
-                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                    </div>
-                </td>
-                <td class="">
-                    <div class="border">
-                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
-                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
-                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
-            </tr>
-        </table>
-    </div>
-    <div class="footer-content">
+    <div class="footer-content" >
         <p class="text-center">Contact us via email <a href="">help@skyraaorganics.com</a> regarding any queries.</p>
     </div>
     {{-- Footer --}}

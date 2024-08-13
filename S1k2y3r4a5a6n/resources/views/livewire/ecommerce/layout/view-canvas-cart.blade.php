@@ -83,9 +83,9 @@
         </div>
     @else
         <div class=" empty-cart ">
-                <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
-                <h6 class="py-4">Your cart is empty.</h6>
-                <a href="{{ url('/') }}" class="btnss cart-btn text-white h-sms py-2 px-3">RETURN TO SHOP</a>
+            <img src="{{ asset('asset/home/empty-cart-placeholder.svg') }}" alt="home">
+            <h6 class="py-4">Your cart is empty.</h6>
+            <a href="{{ url('/') }}" class="btnss cart-btn text-white h-sms py-2 px-3">RETURN TO SHOP</a>
         </div>
     @endif
 </div>
