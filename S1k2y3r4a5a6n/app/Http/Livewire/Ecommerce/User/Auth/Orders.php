@@ -124,7 +124,6 @@ class Orders extends Component
         OrderShipment::where('order_id',$this->order_id)->update(['status'=>'cancelled']);
         OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'You requested a cancellation because '.$this->reason.'.']);
         ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$order->user_id,'action'=>'order_cancelled','shipment_id'=>$order->shipment->id??''],['description'=>'You requested a cancellation because '.$this->reason.'.']);
-        $this->reset(['order_id','reason', 'notes']);  
 
         // Order cancelled mail
         $order= Order::find($this->order_id);
@@ -153,6 +152,8 @@ class Orders extends Component
             }
         }
         
+        $this->reset(['order_id','reason', 'notes']);  
+
         $this->isopenmodel = '';
 
         $this->emit('OrderCancelSuccessfully',$this->order_code);
