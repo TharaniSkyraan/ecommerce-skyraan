@@ -22,6 +22,10 @@ use App\Models\ShippingHistory;
 use App\Models\ProductStockUpdateQuantityHistory;
 use Razorpay\Api\Api;
 use App\Traits\OrderInvoice;
+use App\Mail\OrderCancelMail;
+use App\Mail\RefundRequestedMail;
+use App\Mail\RefundInitiated;
+use App\Mail\RefundCancelMail;
 
 class Orders extends Component
 {
@@ -72,19 +76,6 @@ class Orders extends Component
         ]);
         $order = Order::find($this->order_id);
         
-        if(!empty($order->payments->charge_id)){
-            try {
-                $amount = $order->payments->amount;
-                $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
-                $refund = $api->payment->fetch($order->payments->charge_id)->refund([
-                    'amount' => $amount ? $amount * 100 : null  // Amount in paise
-                ]);
-                // \Log::info('Refund successful: ' . $refund['id']);
-            } catch (\Exception $e) {
-                // \Log::info('Refund failed: ' . $e->getMessage());
-            }
-        }
-        
         CancelOrder::updateOrCreate(
             ['order_id' => $this->order_id],
             $validatedData
@@ -133,9 +124,38 @@ class Orders extends Component
         OrderShipment::where('order_id',$this->order_id)->update(['status'=>'cancelled']);
         OrderHistory::updateOrCreate(['order_id'=>$this->order_id,'action'=>'cancelled'],['description'=>'You requested a cancellation because '.$this->reason.'.']);
         ShippingHistory::updateOrCreate(['order_id'=>$this->order_id,'user_id'=>$order->user_id,'action'=>'order_cancelled','shipment_id'=>$order->shipment->id??''],['description'=>'You requested a cancellation because '.$this->reason.'.']);
-        $this->reset(['order_id','reason', 'notes']);  
+
+        // Order cancelled mail
+        $order= Order::find($this->order_id);
+        \Mail::send(new OrderCancelMail($order));
+
+        if(!empty($order->payments->charge_id)){
+            try {
+                $amount = $order->payments->amount;
+                $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
+                $refund = $api->payment->fetch($order->payments->charge_id)->refund([
+                    'amount' => $amount ? $amount * 100 : null  // Amount in paise
+                ]);
+                // \Log::info('Refund successful: ' . $refund['id']);
+                // Refund request mail
+                \Mail::send(new RefundRequestedMail($order));
+                // Refund initiate mail
+                \Mail::send(new RefundInitiated($order));
+
+            } catch (\Exception $e) {
+                // \Log::info('Refund failed: ' . $e->getMessage());
+                // Refund request mail
+                \Mail::send(new RefundRequestedMail($order));
+                // Refund cancelled mail
+                \Mail::send(new RefundCancelMail($order));
+
+            }
+        }
         
+        $this->reset(['order_id','reason', 'notes']);  
+
         $this->isopenmodel = '';
+
         $this->emit('OrderCancelSuccessfully',$this->order_code);
     }
 

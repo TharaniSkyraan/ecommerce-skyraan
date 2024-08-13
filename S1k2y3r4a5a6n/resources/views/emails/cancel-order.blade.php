@@ -76,12 +76,10 @@
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                    margin-bottom:0px;
-                    font-size: 14px!important;
-                }
+            .footer-content p{
+                color:#111111;
+                margin-bottom:0px;
+                font-size: 14px!important;
             }
             .text-start{
                font-size:23px;
@@ -130,7 +128,7 @@
                 border: 1px solid #eee;
             }
             .order-div .td1 img{
-                padding:20px 20px 0px 20px;
+                padding:20px 20px 20px 0px;
                 /* border-bottom:1px solid #eee; */
             }
             .order-div .td2 {
@@ -142,6 +140,16 @@
             }
             .green{
                 color:#4CAF50!important;
+            }
+            .product-img{
+                width:100px;
+                height:100px;
+            }
+            table{
+                width:100%
+            }
+            .td1{
+               width:140px
             }
 
         </style>
@@ -156,32 +164,23 @@
     <div class="order-summary text-center">
         <div class="div1">
             <p class="font-bold">Order Summary</p>
-            <p class="fs-2">Order number : #1234567910</p>
-            <p class="fs-2">Order Placed : 23 Jun 2024</p>
+            <p class="fs-2">Order number : #{{$order->code}}</p>
+            <p class="fs-2">Order Placed : {{$order->order_histories['order_placed']}}</p>
         </div>
     </div>
     <div class="order-div text-center">
         <table>
-            <tr>
-                <td class="td1">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                </td>
-                <td class="margin-left td2">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Quantity : <b>2</b></p>
-                    <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td class="td1">
-                    <img src="{{asset('asset/home/special-product.png')}}" alt="">
-                </td>
-                <td class="margin-left td2">
-                    <p>Barnyard Millet Boiled / Kuthraivali Pulungal</p>
-                    <p>Quantity : <b>2</b></p>
-                    <p>Reason for Cancellation <span class="red">Incorrect Item</span></p>
-                </td>
-            </tr>
+            @foreach($order->orderItems as $item)
+                <tr>
+                    <td class="td1">
+                        <img src="{{$item->product_image}}" alt="{{$item->product_name}}" class="product-img">
+                    </td>
+                    <td class="td2">
+                        <p>{{$item->product_name}}</p>
+                        <p>Quantity : <b> {{$item->quantity}}</b></p>
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </div>
     <div class="bottom-div">

@@ -13,7 +13,7 @@ class Contactus extends Component
 
     public function contactus()
     {
-       $data =  $this->validate([
+        $data =  $this->validate([
             'email' => 'required|email',
             'name' => 'required|string|min:3|max:30',
             'feedback' => 'required|string|min:3|max:300',

@@ -7,7 +7,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Order;
 use App\Mail\ResetPassword;
 use App\Mail\ContactAdminMail;
-use App\Mail\OrderPlacedMail;
+use App\Mail\OrderCancelMail;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\ProductVariant;
@@ -17,7 +17,7 @@ class PDFController extends Controller
     public function testingfun()
     {
         $order= Order::where('code','ORD-00000129')->first();
-        return new OrderPlacedMail($order);
+        return new OrderCancelMail($order);
 
         // $date = \Carbon\Carbon::now()->subDays(15);
         // $carts = Cart::whereNull('last_reminder_date')

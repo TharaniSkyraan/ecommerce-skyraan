@@ -189,14 +189,14 @@
         <div class="div1">
             <p class="font-bold">Order Summary</p>
             <p class="fs-2">Order Id : #{{$order->code}}</p>
-            <p class="fs-2">Order Placed : 23 Jun 2024</p>
+            <p class="fs-2">Order Placed : {{$order->order_histories['order_placed']}}</p>
             <p class="fs-2">Order Total : ₹{{ $order->total_amount }}</p>
-            </div>
+        </div>
         <div class="div2">
             <p class="font-bold">Shipping Address</p>
             <p class="fs-2">
-                {{ $order->shipmentAddress->address }}, 
-                {{ $order->shipmentAddress->city }}, 
+                {{ $order->shipmentAddress->address }}, <br>
+                {{ $order->shipmentAddress->city }}, <br>
                 {{ $order->shipmentAddress->postal_code }}
             </p>
         </div>
@@ -207,7 +207,7 @@
                 <th class="th1 "><span class="txt-start">Product</span></th>
             </tr>
             @foreach($order->orderItems as $item)
-            <tr >
+            <tr>
                 <td class="tr">
                     <div>
                         <img src="{{$item->product_image}}" alt="{{$item->product_name}}">

@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RefundRequestedMail extends Mailable
+class OrderCancelMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $order;
@@ -21,8 +21,8 @@ class RefundRequestedMail extends Mailable
         $order = $this->order;
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($order->user->email, $order->user->name)
-                    ->subject('Refund Requested Mail from '. config('siteSetting.site_name'))
-                    ->markdown('emails.refund-requested')
+                    ->subject('Order cancel Successfully from '. config('siteSetting.site_name'))
+                    ->markdown('emails.cancel-order')
                     ->with([
                         'order' => $this->order
                     ]);
