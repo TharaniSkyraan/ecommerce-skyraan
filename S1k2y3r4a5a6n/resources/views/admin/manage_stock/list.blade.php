@@ -1,7 +1,7 @@
 <x-admin.app-layout>
     <x-slot name="styles">
         <link rel="stylesheet" href="{{ asset('admin/css/modal.css')}}" />
-
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     </x-slot>
     <style>
         .highcharts-figure,
@@ -191,6 +191,15 @@
             </div>
         </div>
 
+        <div class="modal-window modal-window-lg modify-updated-stock">
+            <div class="modal-toggle"> 
+                <div class="modal-header">
+                    <h1> Modify Updated Stock </h1>
+                    <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
+                </div>
+                @livewire('manage-product.modify-update-stock')                
+            </div>
+        </div>
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
@@ -198,7 +207,7 @@
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-        
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             var dataTable = $('#datatable').DataTable({
                 processing: true,
@@ -418,6 +427,11 @@
                     document.body.classList.add('modal-open');
                     $('.update-stock').addClass('show');
                 }
+            });
+
+            $(document).on('click', '.modify-stock-modal', function () {  
+                document.body.classList.add('modal-open');
+                $('.modify-updated-stock').addClass('show');
             });
 
             $(document).on('click', '.add-transfer-stock-modal', function () {  

@@ -26,8 +26,14 @@ class StockHistory extends Model
         return $this->belongsTo(Order::class, 'reference_number', 'code');
     }
     
+    public function modify()
+    {    
+        return $this->hasOne(StockHistory::class, 'reference_number', 'reference_number')->where('stock_type','=','modify');
+    }
+    
     public function updatedproducts()
     {    
         return $this->hasMany(ProductStockUpdateQuantityHistory::class, 'history_id', 'id');
     }
+
 }

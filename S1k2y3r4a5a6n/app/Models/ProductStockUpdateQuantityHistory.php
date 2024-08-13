@@ -15,4 +15,8 @@ class ProductStockUpdateQuantityHistory extends Model
     {    
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
+    public function history()
+    {    
+        return $this->belongsTo(StockHistory::class, 'history_id', 'id');
+    }
 }
