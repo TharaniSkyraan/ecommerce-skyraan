@@ -21,7 +21,7 @@ class OrderCancelMail extends Mailable
         $order = $this->order;
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($order->user->email, $order->user->name)
-                    ->subject('Order cancel Successfully'. config('siteSetting.site_name'))
+                    ->subject('Order cancel Successfully from '. config('siteSetting.site_name'))
                     ->markdown('emails.cancel-order')
                     ->with([
                         'order' => $this->order

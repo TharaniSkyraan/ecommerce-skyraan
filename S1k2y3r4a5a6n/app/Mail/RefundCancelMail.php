@@ -21,7 +21,7 @@ class RefundCancelMail extends Mailable
         $order = $this->order;
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($order->user->email, $order->user->name)
-                    ->subject('Refund Cancel Mail from'. config('siteSetting.site_name'))
+                    ->subject('Refund Cancel Mail from '. config('siteSetting.site_name'))
                     ->markdown('emails.refund-cancel')
                     ->with([
                         'order' => $this->order
