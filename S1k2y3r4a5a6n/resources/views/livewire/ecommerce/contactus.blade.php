@@ -91,3 +91,37 @@
         </section>
     </section>
 </div>
+
+@push('scripts')
+<script>
+
+    document.addEventListener('livewire:load', function () {    
+        Livewire.on('SendSuccess', data => {  
+    
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": true,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": true,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+        toastr['success']('Selected product is out of stock remove and proceed', {
+            closeButton: true,
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            newestOnTop: true
+        });
+    });
+});
+</script>
+@endpush
