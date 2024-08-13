@@ -93,7 +93,11 @@
                         <div class="row {{ $key % 2 == 0 ? '' : 'odd' }}" >
                             <div class="col-3 description">{{ $history->warehouse->name??'' }}</div>
                             <div class="col-3 description">{{ $history->product_name }}</div>
+                            @if($stock_history->stock_type!='modify')
                             <div class="col-3 description text-center {{ ($history->available_quantity < $history->previous_available_quantity)?'danger':'success' }}">{{ ($history->available_quantity < $history->previous_available_quantity)?'-':'+' }} {{ $history->updated_quantity }}</div>
+                            @else
+                            <div class="col-3 description text-center success">{{ $history->updated_quantity }}</div>
+                            @endif
                             <div class="col-3 description text-center">{{ $history->available_quantity }}</div>
                         </div>
                         @if($key!=(count($histories)-1)) <hr> @endif
