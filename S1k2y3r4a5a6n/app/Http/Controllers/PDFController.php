@@ -16,8 +16,8 @@ class PDFController extends Controller
 {
     public function testingfun()
     {
-        // $order= Order::where('code','ORD-00000129')->first();
-        // return new OrderPlacedMail($order);
+        $order= Order::where('code','ORD-00000129')->first();
+        return new OrderPlacedMail($order);
 
         // $date = \Carbon\Carbon::now()->subDays(15);
         // $carts = Cart::whereNull('last_reminder_date')
