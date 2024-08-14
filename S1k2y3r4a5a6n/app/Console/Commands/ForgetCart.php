@@ -22,7 +22,7 @@ class ForgetCart extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Remainder for buy the cart product';
 
     /**
      * Execute the console command.
