@@ -22,7 +22,7 @@ class Contactus extends Component
         // \Mail::send(new ContactUserMail($data));
         $this->reset(['name', 'email', 'feedback']);  
 
-        $this->emit('SendSuccess','');
+        $this->emit('SendSuccess','Feedback send successfully');
     }
     public function render()
     {
