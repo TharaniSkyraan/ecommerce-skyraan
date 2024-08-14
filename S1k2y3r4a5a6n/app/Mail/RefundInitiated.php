@@ -19,7 +19,7 @@ class RefundInitiated extends Mailable
     public function build()
     {
         $order = $this->order;
-        return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
                     ->to($order->user->email, $order->user->name)
                     ->subject('Refund Initiated Mail from '. config('siteSetting.site_name'))
                     ->markdown('emails.refund_initiated')

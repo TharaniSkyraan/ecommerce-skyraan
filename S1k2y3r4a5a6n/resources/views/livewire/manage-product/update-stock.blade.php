@@ -7,7 +7,7 @@
                         <div class="col-6">
                             <div class="form-group me-2">
                                 <label for="reference_number" class="d-flex">Reference Number <!-- <span wire:click="GenerateReference" class="primary generate">Generate</span> --> </label>
-                                <input type="text" name="reference_number" id="reference_number" placeholder="Reference Number" wire:model="reference_number">
+                                <input type="text" name="reference_number" id="reference_number" placeholder="Reference Number" wire:model="reference_number" disabled>
                                 @error('reference_number') <span class="error"> {{$message}}</span> @endif
                             </div>                        
                         </div>

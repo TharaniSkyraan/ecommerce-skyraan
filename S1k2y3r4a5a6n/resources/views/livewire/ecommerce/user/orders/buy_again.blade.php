@@ -7,7 +7,7 @@
                     <div class="row pb-2 PrdRow" data-id="{{ $order['product']['id'] }}" data-variant-id="{{ $order['product']['variant_id'] }}">
                         <div class="col-3 ps-0">
                             <div class="card border-0 align-items-center">
-                                <img src="{{ $order['product']['image1']??'' }}" alt="{{ $order['product']['name'] }}" class="product-img ">
+                                <img src="{{ $order['product']['image1']??'' }}" alt="{{ $order['product']['product_name'] }}" class="product-img ">
                             </div>
                         </div>
                         <div class="col-9 align-self-center">

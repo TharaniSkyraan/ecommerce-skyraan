@@ -106,7 +106,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/password-change.png')}}" alt="">
         <p class="title-content text-center"><b>Password Changed Successfully!</b></p>
@@ -116,7 +116,7 @@
         <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">Login</span></button></div>
     </div>
     <div class="footer-content">
-        <p class="text-center">If it’s not you, then kindly contact our support team immediately via <a href="" class="green">help@skyraaorganics.com </a>As our users’ security is our top priority, we will investigate further to ensure the safety of your account.</p>
+        <p class="text-center">If it’s not you, then kindly contact our support team immediately via <a href="" class="green">{{$siteSetting->mail_support_address}} </a>As our users’ security is our top priority, we will investigate further to ensure the safety of your account.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

@@ -146,10 +146,10 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <p class="title-content"><b>Welcome {{$name}} !</b></p>
     <p class="text-left text-center">We’re so happy to have you here! Thank you for choosing us as your go-to shopping destination.</p>
-    <p class="text-left text-center">We hope to meet all your needs and expectations. Skyraa E-Commerce provides products in various categories and helps you stay updated about our new arrivals.  </p>
+    <p class="text-left text-center">We hope to meet all your needs and expectations. {{ $siteSetting->site_name }} provides products in various categories and helps you stay updated about our new arrivals.  </p>
     <img class="welcome-img" src="{{asset('asset/home/welcome-mail.svg')}}" alt="welocme-mail">
     <div class="delivery-cnt text-center">
         <table class="center">
@@ -179,9 +179,9 @@
     </div>
     <div class="bottom-classs">
         <p class="title-content">Ready to start shopping?</p>
-        <p class="text-left text-center">Use your sign-up bonus for your first purchase. Head over to Skyraa Ecommerce and let the adventure begin. </p>
+        <p class="text-left text-center">Use your sign-up bonus for your first purchase. Head over to {{ $siteSetting->site_name }} and let the adventure begin. </p>
         <div class="text-center my-3"><button class="text-center px-3 py-3"><a href="{{url('/')}}"><span class="text-white">shop now</span></a><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
-        <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">help@skyraaorganics.com</a></p>
+        <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     </div>
     <div class="footer-content">
         <p class="text-center"> <b> Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails, <a href="">click here</a></p>

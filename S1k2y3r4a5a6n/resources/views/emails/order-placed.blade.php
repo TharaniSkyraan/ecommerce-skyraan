@@ -178,7 +178,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/password-change.png')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
@@ -231,7 +231,7 @@
         </div>
     </div>
     <div class="footer-content" >
-        <p class="text-center">Contact us via email <a href="">help@skyraaorganics.com</a> regarding any queries.</p>
+        <p class="text-center">Contact us via email <a href="">{{$siteSetting->mail_support_address}}</a> regarding any queries.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

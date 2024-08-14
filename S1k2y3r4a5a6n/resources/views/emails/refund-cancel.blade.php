@@ -120,7 +120,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/refund_request_initiated.png')}}" alt="">
         <p class="title-content text-center"><b>Refund Requested <span class="red">Failed</span></b></p>
@@ -131,7 +131,7 @@
         <p class="p2">We apologize for any inconvenience this may have caused and appreciate your understanding in this matter.</p>
     </div>
     <div class="footer-content">
-        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">help@skyraaorganics.com</a> </p>
+        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">{{$siteSetting->mail_support_address}}</a> </p>
     </div>
     {{-- Footer --}}
     @slot('footer')

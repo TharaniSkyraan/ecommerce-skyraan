@@ -1,7 +1,7 @@
 
 <div>
     <div class="text-center">
-        <h4 class="price">SKYRAAN</h4>
+        <h4 class="price">{{ $siteSetting->site_name }}</h4>
     </div>
     <div class="text-center">
         <div class="loader p-4" wire:loading></div>

@@ -1,20 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Console\Commands;
 
-use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Console\Command;
+use Carbon\Carbon;
 use App\Mail\RestockMail;
 use App\Models\NofityAvailableProduct;
 use App\Models\ProductVariant;
 use App\Traits\ZoneConfig;
 
-class TestingController extends Controller
+class NotifyAvailableProduct extends Command
 {
     use ZoneConfig;
 
-    public function testingfun()
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'notifyavailableproduct:mail';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Notify Available product description';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle()
     {
+
         $notifications = NofityAvailableProduct::whereAttempts(0)->get()
                                                 ->each(function ($items) {
                                                     $items->append(['address']);
@@ -24,7 +42,8 @@ class TestingController extends Controller
         $notifications = array_filter($notifications, function($notification) {
             return $notification['address'] !== null;
         });
-        foreach($notifications as $nofi){
+        foreach($notifications as $nofi)
+        {
             $address = $nofi['address'];
             $data = array(
                 'address_id' => $address['id'],
@@ -37,7 +56,9 @@ class TestingController extends Controller
             $result = $this->configzone($data); 
 
             $warehouse_ids = array_filter(explode(',',$result['warehouse_ids']));
-            if(count($warehouse_ids)!=0){
+            if(count($warehouse_ids)!=0)
+            {
+
                 $productVariant = ProductVariant::with('product')->whereHas('product', function($q){
                     $q->where('status','active');
                 })->whereHas('product_stock', function($q1) use($warehouse_ids){
@@ -52,10 +73,13 @@ class TestingController extends Controller
                 $data['image'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
                 $data['link'] =  route('ecommerce.product.detail', ['slug' => $productVariant->product->slug])."?prdRef=".\Carbon\Carbon::parse($productVariant->product->created_at)->timestamp."&product_variant=".$productVariant->id;
                 if(isset($productVariant)){
-                    return new RestockMail($data,$nofi['user']['name'],$nofi['user']['email']);
+                    \Mail::send(new RestockMail($data,$nofi['user']['name'],$nofi['user']['email']));
                 }
+                
             }         
             
         }
+
     }
+
 }
