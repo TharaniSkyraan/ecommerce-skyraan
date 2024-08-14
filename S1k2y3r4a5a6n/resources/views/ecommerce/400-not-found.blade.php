@@ -9,7 +9,6 @@
     <x-slot name="customstyle">
         <link href="{{asset('asset/css/header.css')}}" rel="stylesheet" type="text/css" />
     </x-slot>
-
     <section class="page-not-found pb-5">
         <div class="container pb-5">
             <div class="row justify-content-center pb-5">

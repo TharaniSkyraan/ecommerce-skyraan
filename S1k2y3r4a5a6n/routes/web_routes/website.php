@@ -8,8 +8,12 @@ Route::get('/privacy-policy', function () {
     return view('ecommerce/privacy');
 });
 
-Route::get('/page-not-found', function () {
-    return view('ecommerce/page-not-found');
+Route::get('/400-not-found', function () {
+    return view('ecommerce/400-not-found');
+});
+
+Route::get('/500-not-found', function () {
+    return view('ecommerce/500-not-found');
 });
 
 Route::get('/terms-and-condition', function () {

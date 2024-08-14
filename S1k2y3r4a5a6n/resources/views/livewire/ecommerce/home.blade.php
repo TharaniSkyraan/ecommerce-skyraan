@@ -356,7 +356,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                         <a href="javascript:void(0);" class="position-relative d-block">
                             <div class="card card1 border-0 rounded-3 d-flex justify-content-center cursor">
                                 <div class="text-center d-flex justify-content-center">
-                                    <img src="{{ $top_selling_products[0]['image1'] }}" alt="top_selling" class="w-50">
+                                    <img src="{{ $top_selling_products[0]['image1'] }}" alt="top_selling" class="w-100 rounded-3">
                                 </div>
                                 <div class="position-absolute bottom-0 start-50 translate-middle-x">
                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $top_selling_products[0]['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($top_selling_products[0]['created_at'])->timestamp}}&product_variant={{ $top_selling_products[0]['variant_id'] }}">
@@ -382,7 +382,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                 <div class="row pt-1">
                                                     <div class="col-6 px-0">
                                                         @if($product['stock_status']=='out_of_stock')
-                                                        <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 ps-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center">Sold Out</h6></div></div>
+                                                        <div class="ps-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms">Sold Out</h6></div></div>
                                                         @elseif(!empty($product['label']))
                                                         <div class="position-relative best-seller">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">

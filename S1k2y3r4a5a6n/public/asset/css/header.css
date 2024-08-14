@@ -488,6 +488,11 @@ fieldset, legend {
     display: flex; 
     flex-direction: column; 
     justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+}
+#abt_review .card:hover{
+    transform: scale(1.03);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 /* menu */
 

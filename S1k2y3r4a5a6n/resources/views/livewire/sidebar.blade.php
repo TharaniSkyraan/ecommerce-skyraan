@@ -1,5 +1,8 @@
 
     <!-- sidebar -->
+     <style>
+      
+     </style>
     <nav class="sidebar">
       <div class="menu_content">
         <ul class="menu_items">
@@ -262,3 +265,19 @@
         </div>
       </div>
     </nav>
+
+    <script>
+      document.querySelectorAll('.nav_link').forEach(item => {
+          item.addEventListener('click', function() {
+              const submenu = this.nextElementSibling;
+              if (submenu.classList.contains('show_submenu')) {
+                  submenu.classList.remove('show_submenu');
+              } else {
+                  document.querySelectorAll('.submenu').forEach(sub => {
+                      sub.classList.remove('show_submenu');
+                  });
+                  submenu.classList.add('show_submenu');
+              }
+          });
+      });
+    </script>
