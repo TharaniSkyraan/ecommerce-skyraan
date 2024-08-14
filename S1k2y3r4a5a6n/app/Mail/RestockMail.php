@@ -25,7 +25,7 @@ class RestockMail extends Mailable
 
     public function build()
     {
-        return $this->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
                     ->to($this->email, $this->name)
                     ->subject($this->product['name'].' Back In Stock ')
                     ->markdown('emails.restack')

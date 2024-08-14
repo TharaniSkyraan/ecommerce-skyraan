@@ -27,7 +27,7 @@ class PasswordChangedMail extends Mailable
         $name = $this->name;
         $email = $this->email;
 
-        return $this->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
                     ->to($email, $name)
                     ->subject('Password Changed Mail'. config('siteSetting.site_name'))
                     ->markdown('emails.password-change')

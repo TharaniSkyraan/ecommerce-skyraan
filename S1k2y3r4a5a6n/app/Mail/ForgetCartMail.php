@@ -26,7 +26,7 @@ class ForgetCartMail extends Mailable
      */
     public function build()
     {
-        return $this->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
                     ->to($this->email, $this->name)
                     ->subject('Forgotten Cart at ' . config('siteSetting.site_name'))
                     ->markdown('emails.forgetcartemail')
