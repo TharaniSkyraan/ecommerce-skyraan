@@ -273,7 +273,7 @@ class Orders extends Component
                         })
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
-                        ->orderBy('created_at','desc')
+                        // ->orderBy('created_at','desc')
                         ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();

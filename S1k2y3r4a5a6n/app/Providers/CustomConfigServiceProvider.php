@@ -49,13 +49,13 @@ class CustomConfigServiceProvider extends ServiceProvider
 
                 ], 
 
-                'receive_to' => [
+                'recieve_to' => [
 
                     'address' => $setting->mail_to_address,
 
                     'name' => $setting->mail_to_name
                 ],
-                'support_receive_to' => [
+                'support_recieve_to' => [
 
                     'address' => $setting->mail_support_address,
 
