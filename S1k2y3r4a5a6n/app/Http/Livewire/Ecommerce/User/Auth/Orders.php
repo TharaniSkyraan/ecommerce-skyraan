@@ -240,7 +240,9 @@ class Orders extends Component
                             ->orderBy('id','desc');
         }
         if($this->tab!='buy-again'){
-            $orders = $orders->paginate(20, ['*'], 'page', $this->page);
+            $orders = $orders->whereHas('shipmentAddress', function($q){
+                $q->where('user_id','!=','');
+             })->paginate(20, ['*'], 'page', $this->page);
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages();       
             $orders = $orders->each(function ($order, $key) {            
