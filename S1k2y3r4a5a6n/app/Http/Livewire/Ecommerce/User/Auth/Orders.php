@@ -270,9 +270,10 @@ class Orders extends Component
                             ->where('status','delivered');
                         })->whereHas('product', function($q1){
                             $q1->where('status','active');
-                        })->orderBy('created_at','desc')
+                        })
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
+                        ->orderBy('created_at','desc')
                         ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();

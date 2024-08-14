@@ -24,7 +24,7 @@ class ContactUserMail extends Mailable
     {
         $data = $this->data;
 
-        return $this->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
+        return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($data['email'], $data['name'])
                     ->subject('Receive Contact mail from '.$data['name'])
                     ->markdown('emails.contact_user')
