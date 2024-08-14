@@ -10,21 +10,25 @@ class RestockMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    
+    public $product, $name, $email;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($data)
+    public function __construct($product, $name, $email)
     {
-        $this->data = $data;
+        $this->product = $product;
+        $this->name = $name;
+        $this->email = $email;
     }
+
     
     public function build()
     {
         return $this->from(config('mail.recieve_to.address'), config('mail.recieve_to.name'))
                     ->to($this->email, $this->name)
-                    ->subject('Forgotten Cart at ' . config('siteSetting.site_name'))
+                    ->subject($this->product->name.' Back In Stock ')
                     ->markdown('emails.restack')
                     ->with([
                         'name' => $this->name,

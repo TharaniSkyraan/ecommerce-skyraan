@@ -31,7 +31,7 @@
 
     <ul class="breadcrumb">
     <li><a href="{{url('/')}}">Dashboard</a></li>
-    <li><a href="{{url('/banner')}}">Banner</a></li>
+    <li><a href="{{route('admin.banner.index')}}">Banner</a></li>
     <li>Sort</li>
     </ul>
     <div class="row">

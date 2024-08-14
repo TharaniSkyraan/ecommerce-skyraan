@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\PDFController;
+use App\Http\Controllers\TestingController;
 
 Route::get('/privacy-policy', function () {
     return view('ecommerce/privacy');
@@ -16,8 +16,7 @@ Route::get('/terms-and-condition', function () {
     return view('ecommerce/terms');
 });
 
-Route::get('/generate-pdf', [PDFController::class, 'generatePDF']);
-Route::get('/testing_route', [PDFController::class, 'testingfun']);
+Route::get('/testing_route', [TestingController::class, 'testingfun']);
 
 Route::post('reset-password','App\Http\Controllers\Auth\ResetPasswordController@resetPassword')->name('password.update');
 
