@@ -25,7 +25,7 @@ class WelcomeMail extends Mailable
         $name = $this->name;
         $email = $this->email;
 
-        return $this->from(config('mail.from.address'), config('mail.from.name'))
+        return $this->from(config('mail.receive_to.address'), config('mail.receive_to.name'))
                     ->to($email, $name)
                     ->subject('Welcome Mail '. config('siteSetting.site_name'))
                     ->markdown('emails.welcomemail')
