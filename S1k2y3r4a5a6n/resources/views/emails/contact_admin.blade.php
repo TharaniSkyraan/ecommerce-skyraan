@@ -75,7 +75,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
+    <p class="title"><img src=" " alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/contact-admin.png')}}" alt="">
         <p class="title-content text-center"><b>Hello Team!</b></p>
