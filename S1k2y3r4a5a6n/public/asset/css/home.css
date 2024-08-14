@@ -182,11 +182,14 @@
     margin-top: -28px;
     height: 55px;
 }
-.home_sec_carousel .card1{
-    background-color: #FFF8E1;
+.home_sec_carousel .card{
+    transition: transform 0.5s ease-out;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
 }
-.home_sec_carousel .card2{
-    background-color: #F8EBC1;
+.home_sec_carousel .card:hover{
+    transform: scale(1.03);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .home_sec_carousel .but_this::after {
     display: inline-block;
@@ -198,20 +201,12 @@
     animation: slide1 1s ease-in-out infinite;
 }
 
-#home_sec_carousel .images_position{
-    z-index: 1;
-    margin-left: 15px;
-    top: -5px;
-}
-#home_sec_carousel .owl-item {
-    height: 171px;
-}
 #home_sec_carousel .center-card{
     width:180px;
     height:105px;
 }
 .card_and_carousal .card1{
-    background: transparent radial-gradient(closest-side at 50% 95%, #D4F2FF 0%, #03A9F4 100%) 0% 0% no-repeat padding-box;
+    /* background: transparent radial-gradient(closest-side at 50% 95%, #D4F2FF 0%, #03A9F4 100%) 0% 0% no-repeat padding-box; */
     height:400px;
 }
 .card_and_carousal .buy-now {
@@ -438,11 +433,13 @@
         font-size: 20px;
     }
     .card_and_carousal  .card1 img{
-        width: 75%!important;
+        height: 400px;
     }
 }
 @media (min-width: 1374px) and (max-width: 1700px){
-
+    .card_and_carousal .card1{
+        height:460px;
+    }
 }
 @media (min-width: 2000px){
    
