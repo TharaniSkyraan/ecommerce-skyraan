@@ -123,7 +123,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src=" " alt=""></p>
+    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/contact-user.png')}}" alt="">
         <p class="title-content text-center"><b>Support Team</b></p>
@@ -134,7 +134,7 @@
         <p class="p2">Thank you for reaching out to us</p>
     </div>
     <div class="footer-content">
-        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green"> </a> </p>
+        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">help@skyraaorganics.com</a> </p>
     </div>
     {{-- Footer --}}
     @slot('footer')
