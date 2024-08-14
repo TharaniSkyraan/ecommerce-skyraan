@@ -550,6 +550,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                 </div>
                 <div id="abt_review" class="owl-carousel jkjew px-xl-5 px-lg-5 px-md-5 px-sm-5 px-4 pb-3 h-100">
                     @foreach($reviews as $reviews_data)
+                    @if($reviews_data->commends != null)
                     <div class="owl-slide px-3">
                         <a href="javascript:void(0);" class="">
                             <div class="p-4 card border-0 round-2">
@@ -576,6 +577,7 @@ $duration = (count($collections) / 5) * $baseDuration;
 
                         </a>
                     </div>
+                    @endif
                     @endforeach
                 </div>
             </div>

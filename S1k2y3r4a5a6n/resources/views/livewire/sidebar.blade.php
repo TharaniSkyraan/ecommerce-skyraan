@@ -10,9 +10,9 @@
           <!-- duplicate or remove this li tag if you want to add or remove navlink with submenu -->
           <!-- start -->
           @php
-              $role = Auth::guard('admin')->user()->role;              
-              $menus = Auth::guard('admin')->user()->privilegesData();
-              $submenus = Auth::guard('admin')->user()->submenuprivilegesData();
+            $role = Auth::guard('admin')->user()->role;              
+            $menus = Auth::guard('admin')->user()->privilegesData();
+            $submenus = Auth::guard('admin')->user()->submenuprivilegesData();
           @endphp
 
           @foreach($menus as $menu)
@@ -178,6 +178,39 @@
                         @endforeach
                   </ul>
                   @break
+
+                  @case('settings')
+                  <ul class="menu_items">
+                    <div class="menu_title menu_setting"></div>
+                    <li class="item">
+                      <div href="javascript:void(0)" class="nav_link submenu_item {{ ((request()->is('admin/tax*'))||(request()->is('admin/pages*'))||(request()->is('admin/settings'))) ? 'show_submenu active' : '' }}">
+                        <span class="navlink_icon">
+                          <i class="bx bx-cog"></i>
+                        </span>
+                        <span class="navlink">Settings</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                      </div>
+                      <ul class="menu_items submenu">
+                        @foreach($menu->sub_modules as $submenu)
+                            @php $submenukey = $submenu->key; @endphp
+                            @if(in_array($submenukey,$submenus))                            
+                              @switch($submenukey)
+                                @case('taxes')
+                                  <a href="{{ route('admin.tax.index') }}" class="nav_link sublink {{ (request()->is('admin/tax*')) ? 'active' : '' }}">Taxes</a>
+                                  @break
+                                @case('setting')
+                                  <a href="{{ route('admin.settings') }}" class="nav_link sublink {{ (request()->is('admin/settings')) ? 'active' : '' }}">Settings</a>
+                                  @break
+                                @case('pages')
+                                  <a href="{{ route('admin.pages.index') }}" class="nav_link sublink {{ (request()->is('admin/pages*')) ? 'active' : '' }}">Pages</a>
+                                  @break
+                              @endswitch
+                            @endif
+                        @endforeach
+                      </ul>
+                    </li>
+                  </ul>
+                @break
                 @case('sales')
                   <ul class="menu_items">
                     <div class="menu_title menu_sales"></div>                    
@@ -210,38 +243,7 @@
                         @endforeach
                   </ul>
                   @break
-                @case('settings')
-                  <ul class="menu_items">
-                    <div class="menu_title menu_setting"></div>
-                    <li class="item">
-                      <div href="javascript:void(0)" class="nav_link submenu_item {{ ((request()->is('admin/tax*'))||(request()->is('admin/pages*'))||(request()->is('admin/settings'))) ? 'show_submenu active' : '' }}">
-                        <span class="navlink_icon">
-                          <i class="bx bx-cog"></i>
-                        </span>
-                        <span class="navlink">Settings</span>
-                        <i class="bx bx-chevron-right arrow-left"></i>
-                      </div>
-                      <ul class="menu_items submenu">
-                        @foreach($menu->sub_modules as $submenu)
-                            @php $submenukey = $submenu->key; @endphp
-                            @if(in_array($submenukey,$submenus))                            
-                              @switch($submenukey)
-                                @case('taxes')
-                                  <a href="{{ route('admin.tax.index') }}" class="nav_link sublink {{ (request()->is('admin/tax*')) ? 'active' : '' }}">Taxes</a>
-                                  @break
-                                @case('setting')
-                                  <a href="{{ route('admin.settings') }}" class="nav_link sublink {{ (request()->is('admin/settings')) ? 'active' : '' }}">Settings</a>
-                                  @break
-                                @case('pages')
-                                  <a href="{{ route('admin.pages.index') }}" class="nav_link sublink {{ (request()->is('admin/pages*')) ? 'active' : '' }}">Pages</a>
-                                  @break
-                              @endswitch
-                            @endif
-                        @endforeach
-                      </ul>
-                    </li>
-                  </ul>
-                  @break
+
             @endswitch
 
 
@@ -265,19 +267,3 @@
         </div>
       </div>
     </nav>
-
-    <script>
-      document.querySelectorAll('.nav_link').forEach(item => {
-          item.addEventListener('click', function() {
-              const submenu = this.nextElementSibling;
-              if (submenu.classList.contains('show_submenu')) {
-                  submenu.classList.remove('show_submenu');
-              } else {
-                  document.querySelectorAll('.submenu').forEach(sub => {
-                      sub.classList.remove('show_submenu');
-                  });
-                  submenu.classList.add('show_submenu');
-              }
-          });
-      });
-    </script>
