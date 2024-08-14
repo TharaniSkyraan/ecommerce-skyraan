@@ -114,6 +114,7 @@
             a{
                 text-decoration: none;
             }
+
             .text-start{
                font-size:23px;
                font-weight:600;
@@ -186,15 +187,46 @@
                 </td>
                 <td class="margin-left">
                     <p>{{ $cart->name }}</p>
-                    <p>Quantity: <b>{{ $cart->quantity }} nos</b></p>
+                    <p>Item weight: <b>1 Kg</b></p>
+                    <p>Quantity: <b>1 nos</b></p>
                     <span>₹{{ $cart->price }}</span>
                 </td>
             </tr>
             @endforeach
         </table>
     </div>
-    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{ url('/') }}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
+    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
+    <p class="text-start">You may also like</p>
+    <div class="related-products text-center">
+        <table>
+            <tr>
+                <td class="">
+                    <div class="border">
+                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
+                    </div>
+                </td>
+                <td class="">
+                    <div class="border">
+                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
+                    </div>
+                </td>
+                <td class="">
+                    <div class="border">
+                        <img src="{{asset('asset/home/special-product.png')}}" alt="">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
+                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
+                <td class="td1"><p class="text-center">Barnyard Millet 1kg</p><p class="font-bold text-center">₹250.00</p></td>
+            </tr>
+        </table>
+    </div>
     <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">help@skyraaorganics.com</a></p>
+    <div class="footer-content">
+        <p class="text-center"> <b>Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails <a href=""> click here</a></p>
+    </div>
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')

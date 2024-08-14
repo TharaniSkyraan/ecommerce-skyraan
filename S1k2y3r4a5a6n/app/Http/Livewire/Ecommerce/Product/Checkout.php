@@ -329,7 +329,9 @@ class Checkout extends Component
         $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
         $setting = Setting::first();
         $carts = $this->cart_products;
-        $coupon_update = Coupon::where('coupon_code',$this->coupon_code)->update(['used_count'=>$coupon->used_count+1]);
+        if(!empty($this->coupon_code)){
+            $coupon_update = Coupon::where('coupon_code',$this->coupon_code)->update(['used_count'=>$coupon->used_count+1]);
+        }
 
         if($this->place_order=='common'){
 

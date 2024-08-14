@@ -24,11 +24,8 @@
         @endif
     </div>
     <div id="why_choose" class="tab-content pt-5 {{ ($tab=='why_choose')?'active-content':'' }}">
-        @if($tab=='why_choose')  
-            @include('admin.settings.why_choose')   
-        @endif
+        @include('admin.settings.why_choose')   
     </div>
-
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>

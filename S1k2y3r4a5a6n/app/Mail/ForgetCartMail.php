@@ -5,7 +5,7 @@ namespace App\Mail;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class ForgetCart extends Mailable
+class ForgetCartMail extends Mailable
 {
     use SerializesModels;
 
