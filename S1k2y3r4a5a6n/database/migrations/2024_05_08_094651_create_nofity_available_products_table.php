@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email',180);
             $table->integer('product_id')->default(0);
             $table->integer('product_variant_id')->default(0);
+            $table->integer('attempts')->default(0);
             $table->enum('status', ['0', '1'])->default('0');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

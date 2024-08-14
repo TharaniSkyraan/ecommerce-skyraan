@@ -10,7 +10,6 @@
                                 <select name="fromlocationSets" id="fromlocationSets" wire:model="reference_number">
                                     <option value="">Select Reference Number</option>
                                     @foreach($stocks as $index => $stock)
-
                                         <option value="{{ $stock->reference_number }}">
                                             {{ ucwords($stock->reference_number) }}
                                         </option>
@@ -29,7 +28,7 @@
                                                 <th class="p-0"><p>Product Variant</p></th>
                                                 <th class="p-0"><p>Available Stock</p></th>
                                                 <th class="p-0"><p>Uploaded Stock</p></th>
-                                                <th class="p-0"><p>Last Modified Stock</p></th>
+                                                <!-- <th class="p-0"><p>Last Modified Stock</p></th> -->
                                                 <th class="p-0"><p>Quantity</p></th>
                                             </tr>
                                         </thead>
@@ -40,7 +39,7 @@
                                                     <td><p>  {{ $sproduct['product_name'] }} </p> </td>
                                                     <td> <p class="text-center">  {{ $sproduct['available_stock'] }} </p> </td>
                                                     <td> <p class="text-center">  {{ $sproduct['upload_stock'] }} </p> </td>
-                                                    <td> <p class="text-center">  {{ $sproduct['last_modified_quantity'] }} </p> </td>
+                                                    <!-- <td> <p class="text-center">  {{ $sproduct['last_modified_quantity'] }} </p> </td> -->
                                                     <td> 
                                                         @if($sproduct['available_stock'] >= 1)
                                                         <div class="d-flex justify-content-around">

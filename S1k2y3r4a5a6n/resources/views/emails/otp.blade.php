@@ -119,16 +119,16 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <p class="title-content text-center">You're just a click away</p>
-        <p class="text-left">From completing your email verification for your Skyraa E-Commerce account.</p>
+        <p class="text-left">From completing your email verification for your {{ $siteSetting->site_name }} account.</p>
         <div class="text-center my-3 card-div"><div class="card px-3 py-2"><span class="text-dark">Your verification OTP is </span><p class="numbers text-center">862368</p></div></div>
         <img src="{{asset('asset/home/cursor-finger.png')}}" alt="">
         <div class="notes"><p class="text-center text-dark ">Please note that the code will be</p><p class="text-center"><b>valid only for 5 minutes</b></p></div>
     </div>
     <div>
-        <p class="text-center text-dark">Do not share your OTP with anyone for security reasons. We immensely care for all our users’ privacy, and our customer service will never ask any users to disclose their OTP. For any concern, you can contact us via <a href="">help@skyraaorganics.com</a></p>
+        <p class="text-center text-dark">Do not share your OTP with anyone for security reasons. We immensely care for all our users’ privacy, and our customer service will never ask any users to disclose their OTP. For any concern, you can contact us via <a href="">{{$siteSetting->mail_support_address}}</a></p>
     </div>
     <div class="footer-content">
         <p class="text-center"> <b> Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails,<a href="" class="green">click here</a></p>

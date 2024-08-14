@@ -12,7 +12,11 @@
                             <div class="autocomplete">
                                 <ul>
                                     @foreach($products as $product)
-                                        <li class="product_id" wire:click="addProduct({{$product->id}})"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Banner-icon"> {{$product->name}}</li>
+                                        @php
+                                            $images = json_decode($product->images, true);
+                                            $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                                        @endphp
+                                        <li class="product_id" wire:click="addProduct({{$product->id}})"> <img src="{{ $image }}" alt="Banner-icon"> {{$product->name}}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -29,8 +33,12 @@
                     <label for="selected-products">Selected Product</label>
                     <div class="">
                         @foreach($selected_products as $sproduct)
+                            @php
+                                $images = json_decode($sproduct->images, true);
+                                $image = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('admin/images/placeholder.png');
+                            @endphp
                             <div class="selected-products">
-                                <div class="product"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Banner-icon"> <span> {{$sproduct->name}} </span> </div>
+                                <div class="product"> <img src="{{ $image }}" alt="Banner-icon"> <span> {{$sproduct->name}} </span> </div>
                                 <div><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div>
                             </div>
                         @endforeach

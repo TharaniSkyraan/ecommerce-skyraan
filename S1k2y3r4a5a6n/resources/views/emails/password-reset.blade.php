@@ -99,16 +99,16 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/reset-password.png')}}" alt="">
         <p class="title-content text-center"><b>No Worries, We Got You!</b></p>
-        <p class="text-left">Hi {{$name}}, We have received a request to reset the password for your Skyraa E-Commerce account</p>
+        <p class="text-left">Hi {{$name}}, We have received a request to reset the password for your {{ $siteSetting->site_name }} account</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$resetLink}}"><span class="text-white">Reset Password Link</span></a></button></div>
         <p class="text-center text-dark">Link valid only for 10 minutes.</p>
     </div>
     <div class="footer-content">
-        <p class="text-center"> <b> Note : </b>If the password reset is no longer required, kindly disregard this email. For further queries, please contact us through <a href="" class="green">help@skyraaorganics.com</a></p>
+        <p class="text-center"> <b> Note : </b>If the password reset is no longer required, kindly disregard this email. For further queries, please contact us through <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     </div>
     {{-- Footer --}}
     @slot('footer')

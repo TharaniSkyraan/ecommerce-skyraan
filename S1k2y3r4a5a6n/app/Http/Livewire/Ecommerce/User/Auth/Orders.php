@@ -265,11 +265,10 @@ class Orders extends Component
         {
             $orders = OrderItem::whereHas('orders', function($q){
                             $q->where('user_id',auth()->user()->id)
-                            ->where('status','delivered')
-                            ->orderBy('invoice_date', 'desc');
+                            ->where('status','delivered');
                         })->whereHas('product', function($q1){
                             $q1->where('status','active');
-                        })
+                        })->orderBy('created_at','desc')
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
                         ->paginate(20, ['*'], 'page', $this->page);
@@ -279,7 +278,7 @@ class Orders extends Component
 
             $orders = $orders->each(function ($order, $key) {                                  
                             $attribute_ids = array_filter(explode(',',$order->attribute_set_ids));
-                            $variant = ProductVariant::select('id','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
+                            $variant = ProductVariant::select('id','product_name','price','images','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                                     ->where(function($q) use($attribute_ids) {
                                                         foreach($attribute_ids as $set_id){
                                                             $q->whereHas('product_attribute_set', function($q1) use($set_id){
@@ -339,6 +338,7 @@ class Orders extends Component
                             $product['stock_status'] = $variant->stock_status;
                             $product['slug'] = $product['slug'];
                             $product['price'] = $price;
+                            $product['product_name'] = $variant->product_name??$product['name'];
                             $product['attributes'] = implode('| ',$attributes);
                             $product['variant_id'] = $variant->id??0;
                             $product['sale_price'] = $sale_price;

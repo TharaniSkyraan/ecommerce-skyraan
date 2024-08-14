@@ -230,7 +230,7 @@
                 key: "{{ config('shipping.razorpay.razorpay_key') }}",
                 amount: data.amount,
                 currency: 'INR',
-                name: 'SkyraaEcommerce',
+                name: '{{ config("siteSetting.site_name") }}',
                 description: 'Purchase Description',
                 order_id: data.orderId,
                 handler: function(response) {

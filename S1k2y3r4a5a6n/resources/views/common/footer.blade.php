@@ -15,11 +15,11 @@
                   </div>
                   <div class="d-flex gap-1 align-items-center pb-3">
                      <i class="bi bi-envelope text-white"></i>
-                     <a href="mailto:info@skyraan.com " class="text-white ms-xl-2 ms-lg-2 ms-sm-2 ms-md-2 ms-0"><h6 class="foo-des fw-normal">{{$siteSetting->mail_from_address}}</h6></a>
+                     <a href="mailto:{{$siteSetting->mail_from_address}} " class="text-white ms-xl-2 ms-lg-2 ms-sm-2 ms-md-2 ms-0"><h6 class="foo-des fw-normal">{{$siteSetting->mail_from_address}}</h6></a>
                   </div>
                   <div class="d-flex gap-1 align-items-center pb-3">
                      <i class="bi bi-telephone text-white"></i>
-                     <a href="tel:+91 78453 35332" class="text-white "><h6 class="foo-des fw-normal">+91 {{$siteSetting->phone}}</h6></a>
+                     <a href="tel:+91{{$siteSetting->phone}}" class="text-white "><h6 class="foo-des fw-normal">+91 {{$siteSetting->phone}}</h6></a>
                   </div>
                </div>
                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12 pt-xl-5 pt-lg-5 pt-sm-4 pt-md-4 pt-2">
@@ -58,6 +58,6 @@
    <button id="scroll-to-top"><i class="bi bi-arrow-up"></i></button>
 
    <div>
-      <h6 class="text-center text-dark py-3 fw-bold copy-rights h-sm">All Rights Reserved @ 2024 Skyraa organics</h6>
+      <h6 class="text-center text-dark py-3 fw-bold copy-rights h-sm">All Rights Reserved @ 2024 {{ $siteSetting->site_name }}</h6>
    </div>
 </footer>

@@ -146,7 +146,7 @@
                                                 @if($item['product']['status']=='active')
                                                     <a href="{{ route('ecommerce.product.detail', ['slug' => $item['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($item['product']['created_at'])->timestamp}}&product_variant={{$item['variant']['id'] }}" target="_blank" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap">Buy Again</a>
                                                 @else
-                                                    <a href="javascript:void(0);" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap opacity-75">Buy Again</a>
+                                                    <!-- <a href="javascript:void(0);" class="cart-btn text-white h-sms py-2 px-xl-5 px-sm-5 px-lg-5 px-md-5 px-3 rounded-0 text-white text-nowrap opacity-75">Buy Again</a> -->
                                                 @endif
                                             </div>
                                             @if(!isset($item['review']) && $item['product']['status']=='active')

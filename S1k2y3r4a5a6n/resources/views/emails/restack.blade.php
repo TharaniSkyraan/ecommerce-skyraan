@@ -137,20 +137,20 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <p class="title-content"><b>Back In Stock!</b></p>
     <p class="text-left text-center">FINALLY!!! The wait is over. We’re so thrilled to inform you that the product you’ve been eagerly awaiting have finally been restocked.</p>
     <div class="text-center">
-        <img  src="{{asset('asset/home/restock.png')}}" alt="restock">
+        <img  src="{{ $product['image'] }}" alt="restock">
     </div>
     <div class="bottom-classs">
-        <p class="title-contents">Premium Crunchy Love Corn Cheese & onion Flavour</p>
-        <div class="text-center my-3"><button class="text-center px-3 py-3"><span class="text-white">Get it Now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></button></div>
+        <p class="title-contents">{{ $product['name'] }}</p>
+        <div class="text-center my-3"><button class="text-center px-3 py-3"><a href="{{ $product['link'] }}"><span class="text-white">Get it Now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
         <p class="title-content">Why are you still waiting?</p>
         <p class="text-center fdfd">Own it before it’s too late!</p>
     </div>
     <div class="footer-content">
-        <p class="text-center">Contact us via email <a href="" class="green">help@skyraaorganics.com</a>  regarding any queries.</p>
+        <p class="text-center">Contact us via email <a href="" class="green">{{$siteSetting->mail_support_address}}</a>  regarding any queries.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')

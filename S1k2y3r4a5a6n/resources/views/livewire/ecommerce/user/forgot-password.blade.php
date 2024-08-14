@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row eq-height">
         <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12 d-flex align-items-center justify-content-center py-4 sign-in">
-            <h4 class="fw-bold text-dark text-center text-white">SKYRAAN</h4>
+            <h4 class="fw-bold text-dark text-center text-white">{{ $siteSetting->site_name }}</h4>
         </div>
         <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7 col-12 py-xl-5 py-lg-5 py-sm-5 py-md-5 py-2 align-self-center">
             <div class="px-xl-4 px-lg-4 px-sm-4 px-md-4 px-3">

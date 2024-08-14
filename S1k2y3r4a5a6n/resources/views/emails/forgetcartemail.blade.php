@@ -174,7 +174,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('asset/home/default-hover2.png')}}" alt=""></p>
+    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <img class="welcome-img" src="{{asset('asset/home/forget-order.png')}}" alt="welocme-mail">
     <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
@@ -194,7 +194,7 @@
         </table>
     </div>
     <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{ url('/') }}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
-    <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">help@skyraaorganics.com</a></p>
+    <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')

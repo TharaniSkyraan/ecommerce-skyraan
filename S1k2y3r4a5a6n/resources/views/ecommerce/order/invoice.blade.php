@@ -325,7 +325,7 @@
                 <thead class="b-none">
                     <tr class="b-none">
                         <th class="col b-none">
-                            <h6 class="fw-bold text-start font-sz">SOLD BY SKYRAA ORGANICS</h6>
+                            <h6 class="fw-bold text-start font-sz">SOLD BY {{$siteSetting->site_name}}</h6>
                         </th>
                         <th class="col b-none"></th>
                     </tr>
@@ -333,12 +333,12 @@
                 <tbody>
                     <tr class="b-none">
                         <td class="p-4 col-foo b-none text-start">
-                            <p>Hari Complex, Opp.to: Prozon Mall, Saravanampatti, Coimbatore, Tamil Nadu - 641 035, India</p>
+                            <p>{{$siteSetting->address}}</p>
                         </td>
                         <td class="pt-0 jkef b-none text-end">
                             <div>
-                                <p>info@skyraan.com</p>
-                                <h6 class="pt-2">+91 78453 35332</h6>
+                                <p>{{$siteSetting->mail_support_address}}</p>
+                                <h6 class="pt-2">+91 {{$siteSetting->phone}}</h6>
                             </div>
                         </td>
                     </tr>
