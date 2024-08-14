@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Models\Cart;
+use App\Mail\ForgetCartMail;
+use App\Models\ProductVariant;
 
 class ForgetCart extends Command
 {
@@ -27,14 +29,34 @@ class ForgetCart extends Command
      */
     public function handle()
     {
-        $date = Carbon::now()->subDays(15); 
-        $carts = Cart::whereNull('reminder')
-                      ->where('attempt', 0)
-                      ->whereDate('updated_at', '<=', $date)
-                      ->groupBy('user_id')
-                      ->get(['user_id']);
-
-                      $userIds = $carts->pluck('user_id');
-                      return 0;
+        $date = \Carbon\Carbon::now()->subDays(15);
+        $carts = Cart::whereNull('last_reminder_date')
+            ->whereIn('attempt', [0,1])
+            ->whereDate('updated_at', '<=', $date)
+            ->groupBy('user_id')
+            ->pluck('user_id')->toArray();
+    
+        foreach ($carts as $user_id) {
+            $cart_products = Cart::where('user_id', $user_id)->get()->map(function ($products) {
+                $variant = ProductVariant::find($products->product_variant_id);
+                if ($variant) {
+                    $products->name = $variant->product_name;
+                    $products->price = $variant->search_price;
+                    $images = json_decode($variant->images, true);
+                    if (empty($images) && $variant->product) {
+                        $images = json_decode($variant->product->images, true);
+                    }
+                    $products->image = isset($images[0]) ? asset('storage/' . $images[0]) : asset('asset/home/default-hover1.png');
+                }
+                return $products;
+            });
+    
+            $user = User::find($user_id);
+    
+            if ($user && $cart_products->isNotEmpty()) {
+                Cart::whereUserId($user_id)->update(['last_reminder_date'=>\Carbon\Carbon::now()]);
+                \Mail::send(new ForgetCartMail($cart_products, $user->name, $user->email));
+            }
+        }
     }
 }

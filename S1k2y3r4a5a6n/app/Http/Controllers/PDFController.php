@@ -7,6 +7,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Order;
 use App\Mail\ResetPassword;
 use App\Mail\ContactAdminMail;
+use App\Mail\ForgetCartMail;
 use App\Mail\OrderCancelMail;
 use App\Models\Cart;
 use App\Models\User;
@@ -16,38 +17,38 @@ class PDFController extends Controller
 {
     public function testingfun()
     {
-        $order= Order::where('code','ORD-00000129')->first();
-        return new OrderCancelMail($order);
+        // $order= Order::where('code','ORD-00000129')->first();
+        // return new OrderCancelMail($order);
 
-        // $date = \Carbon\Carbon::now()->subDays(15);
-        // $carts = Cart::whereNull('last_reminder_date')
-        //     ->where('attempt', 0)
-        //     ->whereDate('updated_at', '<=', $date)
-        //     ->groupBy('user_id')
-        //     ->pluck('user_id')->toArray();
+        $date = \Carbon\Carbon::now()->subDays(15);
+        $carts = Cart::whereNull('last_reminder_date')
+            ->where('attempt', 0)
+            ->whereDate('updated_at', '<=', $date)
+            ->groupBy('user_id')
+            ->pluck('user_id')->toArray();
     
-        // foreach ($carts as $user_id) {
-        //     $cart_products = Cart::where('user_id', $user_id)->get()->map(function ($products) {
-        //         $variant = ProductVariant::find($products->product_variant_id);
-        //         if ($variant) {
-        //             $products->name = $variant->product_name;
-        //             $products->price = $variant->search_price;
-        //             $images = json_decode($variant->images, true);
-        //             if (empty($images) && $variant->product) {
-        //                 $images = json_decode($variant->product->images, true);
-        //             }
-        //             $products->image = isset($images[0]) ? asset('storage/' . $images[0]) : asset('asset/home/default-hover1.png');
-        //         }
-        //         return $products;
-        //     });
+        foreach ($carts as $user_id) {
+            $cart_products = Cart::where('user_id', $user_id)->get()->map(function ($products) {
+                $variant = ProductVariant::find($products->product_variant_id);
+                if ($variant) {
+                    $products->name = $variant->product_name;
+                    $products->price = $variant->search_price;
+                    $images = json_decode($variant->images, true);
+                    if (empty($images) && $variant->product) {
+                        $images = json_decode($variant->product->images, true);
+                    }
+                    $products->image = isset($images[0]) ? asset('storage/' . $images[0]) : asset('asset/home/default-hover1.png');
+                }
+                return $products;
+            });
     
-        //     $user = User::find($user_id);
+            $user = User::find($user_id);
     
-        //     if ($user && $cart_products->isNotEmpty()) {
-        //         \Mail::send(new ForgetCart($cart_products, $user->name, $user->email));
-        //     }
-        // }
-    
+            if ($user && $cart_products->isNotEmpty()) {
+                Cart::whereUserId($user_id)->update(['last_reminder_date'=>\Carbon\Carbon::now()]);
+                \Mail::send(new ForgetCartMail($cart_products, $user->name, $user->email));
+            }
+        }
     }
     
     public function generatePDF()
