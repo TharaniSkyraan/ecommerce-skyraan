@@ -81,7 +81,7 @@
             scrollX: true,
             "order": [[0, "desc"]],
             ajax: {
-                url: '{!! route('admin.fetch.whychoose.data') !!}',
+                url: '{!! url('admin/whychoose/fetchData') !!}',
             }, columns: [
                 {data: 'id', name: 'id'},
                 {data: 'why_chs_title', name: 'why_chs_title'},

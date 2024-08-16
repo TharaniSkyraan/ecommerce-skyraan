@@ -115,7 +115,7 @@
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         }
-        toastr['success']('Selected product is out of stock remove and proceed', {
+        toastr['success'](data, {
             closeButton: true,
             positionClass: 'toast-top-right',
             progressBar: true,

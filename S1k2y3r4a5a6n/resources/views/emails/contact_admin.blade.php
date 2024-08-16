@@ -75,7 +75,7 @@
         </style>
     @endslot
     {{-- Body --}}
-    <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
+    <p class="title"><img src="{{ asset('storage/'.$siteSetting->site_logo) }}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/contact-admin.png')}}" alt="">
         <p class="title-content text-center"><b>Hello Team!</b></p>
@@ -90,8 +90,7 @@
         <hr>       
         <div class="p1">Feedback</div>
         <div class="p2">I hope you’re doing well. I’m sending this email regarding the issue I faced while using the website. I lost all my data and the products I added to the cart since I did not log in for a while. Also, the delivery is getting delayed more than the estimated time.I hope your team will help me resolve this issue as soon as possible.</div>
-    </div>
-   
+    </div>   
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')

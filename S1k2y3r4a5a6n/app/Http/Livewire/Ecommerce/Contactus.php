@@ -18,11 +18,11 @@ class Contactus extends Component
             'name' => 'required|string|min:3|max:30',
             'feedback' => 'required|string|min:3|max:300',
         ]);
-        // \Mail::send(new ContactAdminMail($data));
-        // \Mail::send(new ContactUserMail($data));
+        \Mail::send(new ContactAdminMail($data));
+        \Mail::send(new ContactUserMail($data));
         $this->reset(['name', 'email', 'feedback']);  
 
-        $this->emit('SendSuccess','');
+        $this->emit('SendSuccess','Feedback send successfully');
     }
     public function render()
     {
