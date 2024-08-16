@@ -40,9 +40,9 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
+            }
+            .title img{
+                width:170px;
             }
             .title-content{
                 color: #000000bd !important;
@@ -65,7 +65,7 @@
                 margin: 0px 17px;
             }
             .footer-content p{
-                font-size:14px!important;
+                font-size:13px!important;
             }
             .py-2 {
                 padding-top: .5rem !important;

@@ -32,10 +32,11 @@
                 color: #5f5f5f !important;
                 width: 99%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:170px;
+            }
+            
             .title-content{
                 color: #000000bd !important;
                 line-height: 1.5em;
@@ -77,7 +78,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{ asset('storage/'.$siteSetting->site_logo) }}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/contact-admin.png')}}" alt="">
+        <img src="{{asset('asset/home/contact-admin.svg')}}" alt="">
         <p class="title-content text-center"><b>Hello Team!</b></p>
         <p class="text-left text-center">We've got a new form submission.</p>
     </div>

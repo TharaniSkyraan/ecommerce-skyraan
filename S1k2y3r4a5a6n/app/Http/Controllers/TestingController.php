@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Mail\ContactUserMail;
+use App\Mail\WelcomeMail;
 use App\Models\NofityAvailableProduct;
 use App\Models\ProductVariant;
 use App\Traits\ZoneConfig;
@@ -15,11 +15,10 @@ class TestingController extends Controller
 
     public function testingfun()
     {
-        $data['name'] = 'Tharani';
-        $data['email'] = 'tharani@skyraan.com';
-        $data['feedback'] = 'kjkjnkjjknkjn';
+        $name = 'Tharani';
+        $email = 'tharani@skyraan.com';
         
-        \Mail::send(new ContactUserMail($data));
+        return new WelcomeMail($name,$email);
 
         // $notifications = NofityAvailableProduct::whereAttempts(0)->get()
         //                                         ->each(function ($items) {

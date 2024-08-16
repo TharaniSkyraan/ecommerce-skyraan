@@ -33,9 +33,9 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
+            }
+            .title img{
+                width:170px;
             }
 
             .title-content{
@@ -61,17 +61,18 @@
                 background-color:#ebebeb80;
                 border:none;
                 box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-                span{
-                    font-size:18px;
-                }
-                .numbers{
-                    font-weight:700;
-                    color:#111;
-                    font-size:24px;
-                    margin-top:5px;
-                    margin-bottom:5px;
-                }
             }
+            .card span{
+                font-size:18px;
+            }
+            .card .numbers{
+                font-weight:700;
+                color:#111;
+                font-size:24px;
+                margin-top:5px;
+                margin-bottom:5px;
+            }
+            
             .text-white{
                 color:#fff;
             }
@@ -88,30 +89,30 @@
             }
             .main-div{
                 margin-top:20px;
-                img{
-                    padding-left: 237px;
-                    top: -29px;
-                }
             }
+            .main-div img{
+                padding-left: 237px;
+                top: -29px;
+            }
+            
             a{
                 text-decoration:none;
             }
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                }
+            .footer-content p{
+                color:#111111;
+                font-size:13px;
             }
             .card-div{
                 margin:0px 130px 0px 130px;
             }
             .notes{
                 margin: -11px 35px 26px 20px;
-                p{
-                    margin:0px;
-                }
+            }
+            .notes p{
+                margin:0px;
             }
             .green{
                 color:#4CAF50!important;
