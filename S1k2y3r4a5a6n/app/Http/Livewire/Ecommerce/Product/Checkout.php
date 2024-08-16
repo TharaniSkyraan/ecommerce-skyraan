@@ -37,7 +37,6 @@ class Checkout extends Component
     public $payment_method = 'cash';
     public $summary_show = false;
     public $addresslist = false;
-    public $isload = false;
     public $warehouse_ids = [];
     
     public $total_price = 0;
@@ -124,7 +123,6 @@ class Checkout extends Component
     public function cartList($index='')
     {
         if(!empty($index)){
-            $this->isload = true;
             $productindex  = explode('-',$index);
             CartItem::whereProductId($productindex[0])
                 ->whereProductVariantId($productindex[1])
