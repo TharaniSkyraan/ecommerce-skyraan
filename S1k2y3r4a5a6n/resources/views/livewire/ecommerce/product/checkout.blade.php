@@ -1,4 +1,4 @@
-<div >
+<div>
     <div class="text-center py--7">
         <div class="checkoutpageloader d-none">
             <div class="">

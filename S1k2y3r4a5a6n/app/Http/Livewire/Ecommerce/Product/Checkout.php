@@ -43,7 +43,7 @@ class Checkout extends Component
     public $coupon_discount = 0;
     public $shipping_charges = 0;
 
-    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied','cartList','calculateShippingCharges'];
+    protected $listeners = ['colapseSummaryShow','colapseAddressList','addressList','completeOrder','CouponApplied','cartList'];
 
     protected $queryString = ['payment_id'];
 
@@ -120,22 +120,12 @@ class Checkout extends Component
         $this->calculateShippingCharges();
     }
     
-    public function cartList($index='')
+    public function cartList()
     {
-        if(!empty($index)){
-            $productindex  = explode('-',$index);
-            CartItem::whereProductId($productindex[0])
-                ->whereProductVariantId($productindex[1])
-                ->whereUserId(auth()->user()->id)->delete();
-            if(UserCart::whereUserId(auth()->user()->id)->count()==0){
-                UserCart::whereUserId(auth()->user()->id)->delete();
-            }
-        }
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
         $this->lat = $zone['latitude'];
         $this->lng = $zone['longitude'];
-
 
         $datas = CartItem::whereUserId(auth()->user()->id)->get()->toArray();
        

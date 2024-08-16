@@ -54,10 +54,13 @@ trait ZoneConfig
                     // Further processing
                 }
                 curl_close($ch);
+                $data['latitude'] = $result['results'][0]['geometry']['location']['lat']??0;
+                $data['longitude'] = $result['results'][0]['geometry']['location']['lng']??0;
+            }else{
+                $data['latitude'] = $result->results[0]->geometry->location->lat??0;
+                $data['longitude'] = $result->results[0]->geometry->location->lng??0;
             }
-            $data['latitude'] = $result->results[0]->geometry->location->lat??($result['results'][0]['geometry']['location']['lat']??0);
-            $data['longitude'] = $result->results[0]->geometry->location->lng??($result['results'][0]['geometry']['location']['lng']??0);
-            
+           
         }else
 
         if(empty($data['postal_code']) && (!empty($data['latitude']) && !empty($data['longitude'])))
