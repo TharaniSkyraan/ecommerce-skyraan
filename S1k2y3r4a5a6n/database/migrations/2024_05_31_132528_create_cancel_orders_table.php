@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('reason',255);
-            $table->string('notes',255);
+            $table->string('notes',255)->nullable();
             $table->timestamps();
         });
     }
