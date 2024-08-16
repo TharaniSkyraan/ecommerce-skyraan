@@ -235,6 +235,7 @@
     $(document).on('click','#availableCoupon', function(){
         Livewire.emit('availableCoupon',{{$total_price}});
     });
+    
     document.addEventListener('livewire:load', function () {    
         @this.set('place_order','{{ $siteSetting->place_order }}');        
         Livewire.on('initiateRazorpay', data => {            
