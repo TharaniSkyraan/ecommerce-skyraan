@@ -33,7 +33,7 @@ class ForgetCart extends Command
         $date = \Carbon\Carbon::now()->subDays(15);
         $carts = Cart::whereNull('last_reminder_date')
             ->where('attempt', 0)
-            ->whereDate('updated_at', '<=', $date)
+            // ->whereDate('updated_at', '<=', $date)
             ->groupBy('user_id')
             ->pluck('user_id')->toArray();
     
