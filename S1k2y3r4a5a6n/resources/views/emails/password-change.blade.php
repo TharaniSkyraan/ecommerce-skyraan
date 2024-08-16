@@ -32,10 +32,11 @@
                 color: #5f5f5f !important;
                 width: 99%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:170px;
+            }
+            
             .title-content{
                 color: #000000bd !important;
                 line-height: 1.5em;
@@ -46,7 +47,6 @@
             }
         
             .footer-content{
-                font-size: 14px;
                 text-align:center !important;
                 padding: 1.5rem 0rem;
                 border-top: 2px solid #e0dede;
@@ -60,10 +60,11 @@
                 background-color:#797676;
                 border:none;
                 border-radius:5px;
-                span{
-                    font-size:18px;
-                }
             }
+            button span{
+                font-size:18px;
+            }
+            
             .text-white{
                 color:#fff;
             }
@@ -87,10 +88,9 @@
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                }
+            .footer-content p{
+                color:#111111;
+                font-size: 13px;
             }
             .acc{
                font-size:15px; 
@@ -108,12 +108,12 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/password-change.png')}}" alt="">
+        <img src="{{asset('asset/home/password-change.svg')}}" alt="">
         <p class="title-content text-center"><b>Password Changed Successfully!</b></p>
         <p class="text-left">Hi {{$name}}, We wanted to let you know that your password was successfully changed</p>
         <p class="text-center acc">You can now log in to your account with your new password.</p>
         <img src="{{asset('asset/home/Whats_Next.png')}}" alt="word" class="word">
-        <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">Login</span></button></div>
+        <div class="text-center my-3"><a href="{{url('/')}}"><button class="px-3 py-2"><span class="text-white">Login</span></button></a></div>
     </div>
     <div class="footer-content">
         <p class="text-center">If it’s not you, then kindly contact our support team immediately via <a href="" class="green">{{$siteSetting->mail_support_address}} </a>As our users’ security is our top priority, we will investigate further to ensure the safety of your account.</p>

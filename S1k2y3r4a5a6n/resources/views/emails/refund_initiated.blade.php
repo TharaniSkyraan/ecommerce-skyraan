@@ -32,10 +32,11 @@
                 color: #5f5f5f !important;
                 width: 99%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:170px;
+            }
+            
             .title-content{
                 color: #000000bd !important;
                 line-height: 1.5em;
@@ -76,12 +77,10 @@
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                    margin-bottom:0px;
-                    font-size: 14px!important;
-                }
+            .footer-content p{
+                color:#111111;
+                margin-bottom:0px;
+                font-size: 13px!important;
             }
             .text-start{
                font-size:23px;
@@ -159,7 +158,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/refund_request_initiated.png')}}" alt="">
+        <img src="{{asset('asset/home/refund_request_initiated.svg')}}" alt="">
         <p class="title-content text-center"><b>Refund Request Initiated</b></p>
         <p class="text-left text-center">The refund has been initiated, it may take 2 to 3 business days for the refunded amount to reflect in your account. </p>
     </div>

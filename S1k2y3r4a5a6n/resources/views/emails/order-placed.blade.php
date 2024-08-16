@@ -32,10 +32,11 @@
                 color: #5f5f5f !important;
                 width: 99%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:170px;
+            }
+            
             .title-content{
                 color: #000000bd !important;
                 line-height: 1.5em;
@@ -57,10 +58,11 @@
                 background-color:#797676;
                 border:none;
                 border-radius:5px;
-                span{
-                    font-size:18px;
-                }
             }
+            button span{
+                font-size:18px;
+            }
+            
             .text-white{
                 color:#fff;
             }
@@ -86,11 +88,11 @@
             }
             .footer-content{
                 margin-top: 129px;
-                p{
-                    color:#111111;
-                    margin-bottom:0px;
-                    font-size: 14px!important;
-                }
+            }
+            .footer-content p{
+                color:#111111;
+                margin-bottom:0px;
+                font-size: 14px!important;
             }
             .text-start{
                font-size:23px;
@@ -140,14 +142,14 @@
             .products table{
                 margin-top:20px;
                 margin-bottom:20px;
-                th{
-                    color:#000;
-                    background-color:#F9FCF6;
-                    padding:8px;
-                }
-                .th1{
-                    width:900px;
-                }
+            }
+            .products table th{
+                color:#000;
+                background-color:#F9FCF6;
+                padding:8px;
+            }
+            .products table .th1{
+                width:900px;
             }
             .products table img{
                 width:54px;
@@ -180,7 +182,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/password-change.png')}}" alt="">
+        <img src="{{asset('asset/home/order-placed.svg')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
         <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">View Order</span></button></div>

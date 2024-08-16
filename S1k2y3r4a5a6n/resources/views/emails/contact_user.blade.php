@@ -32,9 +32,9 @@
                 color: #5f5f5f !important;
                 width: 99%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
+            }
+            .title img{
+                width:170px;
             }
             .title-content{
                 color: #000000bd !important;
@@ -76,12 +76,10 @@
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                    margin-bottom:0px;
-                    font-size: 14px!important;
-                }
+            .footer-content p{
+                color:#111111;
+                margin-bottom:0px;
+                font-size: 13px!important;
             }
             .text-start{
                font-size:23px;
@@ -125,7 +123,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{ asset('storage/'.$siteSetting->site_logo) }}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/contact-user.png')}}" alt="">
+        <img src="{{asset('asset/home/contact-user.svg')}}" alt="">
         <p class="title-content text-center"><b>Support Team</b></p>
         <p class="text-left text-center">We are here to assist you!</p>
     </div>

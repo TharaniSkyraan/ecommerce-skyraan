@@ -40,9 +40,9 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
+            }
+            .title img{
+                width:170px;
             }
             .title-content{
                 color: #000000bd !important;
@@ -65,7 +65,7 @@
                 margin: 0px 17px;
             }
             .footer-content p{
-                font-size:14px!important;
+                font-size:13px!important;
             }
             .py-2 {
                 padding-top: .5rem !important;
@@ -175,7 +175,7 @@
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
-    <img class="welcome-img" src="{{asset('asset/home/forget-order.png')}}" alt="welocme-mail">
+    <img class="welcome-img" src="{{asset('asset/home/forget-order.svg')}}" alt="welocme-mail">
     <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
         <table>
@@ -193,7 +193,7 @@
             @endforeach
         </table>
     </div>
-    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{ url('/') }}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
+    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{ url('/cart') }}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
     <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     {{-- Footer --}}
     @slot('footer')

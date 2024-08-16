@@ -32,9 +32,9 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
+            }
+            .title img{
+                width:170px;
             }
 
             .title-content{
@@ -47,7 +47,7 @@
             }
         
             .footer-content{
-                font-size: 14px;
+                font-size: 13px;
                 text-align:center !important;
                 padding: 1.5rem 0rem;
                 border-top: 2px solid #e0dede;
@@ -61,10 +61,11 @@
                 background-color:#797676;
                 border:none;
                 border-radius:5px;
-                span{
-                    font-size:18px;
-                }
             }
+            button span{
+                font-size:18px;
+            }
+            
             .text-white{
                 color:#fff;
             }
@@ -88,10 +89,8 @@
             b{
                 color:#242323;
             }
-            .footer-content{
-                p{
-                    color:#111111;
-                }
+            .footer-content  p{
+                color:#111111;
             }
             .green{
                 color:#4CAF50!important;
@@ -101,7 +100,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/reset-password.png')}}" alt="">
+        <img src="{{asset('asset/home/reset-password.svg')}}" alt="">
         <p class="title-content text-center"><b>No Worries, We Got You!</b></p>
         <p class="text-left">Hi {{$name}}, We have received a request to reset the password for your {{ $siteSetting->site_name }} account</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$resetLink}}"><span class="text-white">Reset Password Link</span></a></button></div>

@@ -37,10 +37,11 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:170px;
+            }
+            
             .title-content{
                 color: #000 !important;
                 line-height: 1.5em;

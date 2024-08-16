@@ -29,6 +29,7 @@
             }
             .welcome-img{
                 margin:7px 10px 0px 10px;
+                width:550px;
             }
             .title{
                 font-size: 25px;
@@ -40,10 +41,11 @@
                 color: #5f5f5f !important;
                 width: 80%;
                 margin: 0 auto;
-                img{
-                    width:170px;
-                }
             }
+            .title img{
+                width:150px;
+            }
+        
             .title-content{
                 color: #000000bd !important;
                 line-height: 1.5em;
@@ -67,6 +69,9 @@
                 padding: 1.5rem 0rem;
                 border-top: 1px #e0dede solid;
                 margin: 0px 10px;
+            }
+            .footer-content p{
+                font-size:13px;
             }
             .rounded-circle {
                 border-radius: 50% !important;
@@ -104,17 +109,17 @@
                 border-top: #e0dede 1px solid;
                 border-bottom: #e0dede 1px solid;
                 margin: 23px 0 38px 0;
-
-                td{
-                    font-size:14px;
-                }
-              
-                table{
-                    margin-left: auto;
-                    margin-right: auto;             
-                }
-
             }
+            .delivery-cnt td{
+                font-size:14px;
+            }
+            
+            .delivery-cnt table{
+                margin-left: auto;
+                margin-right: auto;             
+            }
+
+            
             button{
                 background-color:#797676;
                 border:none;
@@ -139,7 +144,7 @@
             .center {
                 margin-left: auto;
                 margin-right: auto;
-                }
+            }
             .green{
                 color:#4CAF50!important;
             }
@@ -156,17 +161,17 @@
             <tr>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel2.png')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel2.svg')}}" alt="welocme-mail">
                     </div>
                 </td>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel1.png')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel1.svg')}}" alt="welocme-mail">
                     </div>
                 </td>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel3.png')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel3.svg')}}" alt="welocme-mail">
                     </div>
                 </td>
             </tr>
