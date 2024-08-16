@@ -101,7 +101,7 @@
                 top:-14px;
             }
             .green{
-                color:#4CAF50!important;
+                color:#073affc9!important;
             }
         </style>
     @endslot

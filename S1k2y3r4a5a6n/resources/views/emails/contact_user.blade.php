@@ -115,7 +115,7 @@
                 color:#FF4C4C!important;
             }
             .green{
-                color:#4CAF50!important;
+                color:#073affc9!important;
 
             }
         </style>

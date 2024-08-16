@@ -128,7 +128,7 @@
                 font-weight: 500;
             }
             .green{
-                color:#4CAF50!important;
+                color:#073affc9!important;
             }
             @media only screen and (max-width:460px){
                 .title-contents{
