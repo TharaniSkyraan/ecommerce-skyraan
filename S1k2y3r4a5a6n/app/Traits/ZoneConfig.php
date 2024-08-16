@@ -36,11 +36,29 @@ trait ZoneConfig
     {
         if((empty($data['latitude']) || empty($data['longitude'])) && !empty($data['postal_code']))
         {
-            $result = @json_decode(file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=".$data['postal_code']."&sensor=false&key=".config('shipping.google_map_api_key')));
-
-            $data['latitude'] = $result->results[0]->geometry->location->lat??0;
-            $data['longitude'] = $result->results[0]->geometry->location->lng??0;
-        }
+            
+            $result = @json_decode(file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=".$data['postal_code']."&key=".config('shipping.google_map_api_key')));
+            
+            if(empty($result)){
+                $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$data['postal_code']."&key=".config('shipping.google_map_api_key');
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $response = curl_exec($ch);
+                if (curl_errno($ch)) {
+                    // Handle curl error
+                    echo 'Curl error: ' . curl_error($ch);
+                } else {
+                    // Process the response
+                    $result = json_decode($response, true);
+                    // Further processing
+                }
+                curl_close($ch);
+            }
+            $data['latitude'] = $result->results[0]->geometry->location->lat??($result['results'][0]['geometry']['location']['lat']??0);
+            $data['longitude'] = $result->results[0]->geometry->location->lng??($result['results'][0]['geometry']['location']['lng']??0);
+            
+        }else
 
         if(empty($data['postal_code']) && (!empty($data['latitude']) && !empty($data['longitude'])))
         {
@@ -56,19 +74,20 @@ trait ZoneConfig
                 }
                 if(empty($data['city']))
                 { 
-                    if (in_array('locality', $types)) {
+                    if(in_array('locality', $types)){
                         $locality = $longName;
-                    } elseif (in_array('administrative_area_level_1', $types)) {
+                    } elseif (in_array('administrative_area_level_1', $types)){
                         $region1 = $longName;
-                    } elseif (in_array('administrative_area_level_2', $types)) {
+                    }elseif (in_array('administrative_area_level_2', $types)){
                         $region2 = $longName;
-                    }elseif (in_array('administrative_area_level_3', $types)) {
+                    }elseif (in_array('administrative_area_level_3', $types)){
                         $region3 = $longName;
                     }
                     $data['city'] = isset($region3) ? trim($region3) : (isset($locality) ? $locality : (isset($region2) ? $region2 : null));
                 }
             }
         }
+        
         $zone_id = null;
         $warehouse_ids = '';
 

@@ -54,7 +54,6 @@ class NotifyAvailableProduct extends Command
             );  
 
             $result = $this->configzone($data); 
-
             $warehouse_ids = array_filter(explode(',',$result['warehouse_ids']));
             if(count($warehouse_ids)!=0)
             {
@@ -74,6 +73,7 @@ class NotifyAvailableProduct extends Command
                 $data['link'] =  route('ecommerce.product.detail', ['slug' => $productVariant->product->slug])."?prdRef=".\Carbon\Carbon::parse($productVariant->product->created_at)->timestamp."&product_variant=".$productVariant->id;
                 if(isset($productVariant)){
                     \Mail::send(new RestockMail($data,$nofi['user']['name'],$nofi['user']['email']));
+                    NofityAvailableProduct::where('id',$nofi['id'])->delete();
                 }
                 
             }         

@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:forget-cart')->everyMinute();
+        $schedule->command('app:forget-cart-reremiander')->everyMinute();
         $schedule->command('notifyavailableproduct:mail')->everyMinute();
     }
 
