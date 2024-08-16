@@ -1642,7 +1642,7 @@ padding-top: 155px!important;
 /* Define styles for the loader */
 .loader {
   border: 1px solid #f3f3f3;
-  border-top: 2px solid #4caf50;
+  border-top: 2px solid var(--next-prev-arrow-color);
   border-radius: 50%;
   width: 80px;
   height: 80px;
@@ -2202,3 +2202,7 @@ fill: var(--next-prev-arrow-color);
     }
     }
     
+
+    #Editaddress .form-control{
+        border: 1px solid var(--items-list-border-color);
+    }

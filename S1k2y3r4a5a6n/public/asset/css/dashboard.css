@@ -414,6 +414,9 @@
 #cancel-order .form-check-input:checked {
    background-color: var(--next-prev-arrow-color) !important;
 }
+#cancel-order .form-control{
+   border: 1px solid var(--items-list-border-color);
+}
 #cancel-order .form-check-input:focus {
    box-shadow: 0 0 10px var(--items-list-border-color) !important;
 }
@@ -861,12 +864,12 @@
    background-color: var(--next-prev-arrow-color);
 }
 #Editaddress .dial_code{
-   border: var(--bs-border-width) solid var(--bs-border-color);
+   border: var(--bs-border-width) solid var(--items-list-bg-color);
    border-radius: 5px;
    border-right: unset;
    border-bottom-right-radius: unset;
    border-top-right-radius: unset;
-   color: #707070;
+   color: #000;
 }
 #Editaddress .form-select{
    color:#707070!important;
