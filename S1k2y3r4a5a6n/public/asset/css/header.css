@@ -2017,6 +2017,10 @@ padding-top: 155px!important;
     background: gray !important;
     width: 2px !important;
 }
+.py--7{
+    padding-top: 7rem!important;
+    padding-bottom: 7rem!important;
+}
 
 /* loader */
 

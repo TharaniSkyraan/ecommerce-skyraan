@@ -1,8 +1,8 @@
 <x-ecommerce.app-layout>   
     <style>
-        .cart-btn{
+        /* .cart-btn{
             display:none;
-        }
+        } */
         .badge-div{
             display:none!important;
         }

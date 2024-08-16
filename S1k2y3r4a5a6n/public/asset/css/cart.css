@@ -263,6 +263,9 @@ hr{
         font-size: 14px;
         color: #707070;
      }
+     .no-product img {
+        width: 55%!important;
+    }
 }
 @media (min-width: 600px) and (max-width: 1024px){
     /* .nsc img {
@@ -282,7 +285,7 @@ hr{
     text-align-last: center;
 }
 .no-product img {
-    width: 20%;
+    width: 30%;
 }
 .btns{
     border:1px solid var(--next-prev-arrow-color) ;

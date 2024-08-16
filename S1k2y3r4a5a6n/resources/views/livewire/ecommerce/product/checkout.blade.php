@@ -1,5 +1,5 @@
 <div >
-    <div class="text-center">
+    <div class="text-center py--7">
         <div class="checkoutpageloader d-none">
             <div class="">
                 <svg width="150px" height="75px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
@@ -188,7 +188,7 @@
         @else
             <section class="product-list">
                 <div class="container">
-                    <div class="row py-5">
+                    <div class="row py--7">
                         <div class="col-12 no-product">
                             <img src="{{asset('asset/home/empty-cart-placeholder.svg')}}" alt="no-product">
                             <h5 class="py-4">No product in cart !</h5>
