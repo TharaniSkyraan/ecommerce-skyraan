@@ -247,7 +247,7 @@ class Settings extends Component
                 $this->sms_gateway = $setting->sms_gateway;
                 $this->twilio_number = $setting->twilio_number;
                 $this->twilio_auth_token = $setting->twilio_auth_token;
-                $this->twilio_account_sid = $setting->twilio_auth_token;
+                $this->twilio_account_sid = $setting->twilio_account_sid;
             }
     
             // Shipment

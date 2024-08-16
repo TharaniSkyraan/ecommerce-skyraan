@@ -9,14 +9,14 @@ use App\Models\User;
 use App\Mail\ForgetCartMail;
 use App\Models\ProductVariant;
 
-class ForgetCart extends Command
+class ForgetCartReRemainder extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:forget-cart';
+    protected $signature = 'app:forget-cart-reremiander';
 
     /**
      * The console command description.
@@ -32,7 +32,7 @@ class ForgetCart extends Command
     {
         $date = \Carbon\Carbon::now()->subDays(15);
         $carts = Cart::whereNull('last_reminder_date')
-            ->where('attempt', 0)
+            ->where('attempt', 1)
             // ->whereDate('updated_at', '<=', $date)
             ->groupBy('user_id')
             ->pluck('user_id')->toArray();
@@ -55,7 +55,7 @@ class ForgetCart extends Command
             $user = User::find($user_id);
     
             if ($user && $cart_products->isNotEmpty()) {
-                Cart::whereUserId($user_id)->update(['last_reminder_date'=>\Carbon\Carbon::now(),'attempt'=>1]);
+                Cart::whereUserId($user_id)->update(['last_reminder_date'=>\Carbon\Carbon::now(),'attempt'=>2]);
                 \Mail::send(new ForgetCartMail($cart_products, $user->name, $user->email));
             }
         }
