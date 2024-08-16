@@ -170,14 +170,12 @@ $(document).on('click','.deleteCart', function()
     var index = product_id+'-'+variant_id;
     delete productsArray[index];    
     localStorage.setItem('cart',JSON.stringify(productsArray));
+    Livewire.emit('RemoveProductFromCart',index);
     
     if($('.checkoutpage').hasClass("check_out_li")){
-        $('.checkoutpageloader').removeClass('d-none');
-        $('#checkoutpage').addClass('d-none');
         $(this).closest('.PrdRow').remove();
-        Livewire.emit('cartList',index);
+        Livewire.emit('cartList');
     }else if($(".product-list").hasClass('cartpage')){
-        Livewire.emit('RemoveProductFromCart',index);
         if($(".cartList.price-list").length==1){
             $('#cartpage').hide();
             $('.product-list').removeClass('d-none');
@@ -192,7 +190,6 @@ $(document).on('click','.deleteCart', function()
         });
         $('.sub-total').html(price);
     }else{
-        Livewire.emit('RemoveProductFromCart',index);
         $(this).closest('.PrdRow').remove();
         Livewire.emit('MyCart',productsArray);
         cartProductQuantity();
