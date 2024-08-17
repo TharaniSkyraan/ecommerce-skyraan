@@ -273,7 +273,7 @@ class Orders extends Component
             $orders = OrderItem::whereHas('product', function($q1){
                             $q1->where('status','active');
                         })->whereIn('order_id',$orderIds)
-                        ->select('product_id', 'attribute_set_ids', DB::raw('MIN(order_id) as order_id'))
+                        ->select('product_id', 'attribute_set_ids', \DB::raw('MIN(order_id) as order_id'))
                         ->groupBy('product_id', 'attribute_set_ids')
                         ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
                         ->paginate(2, ['*'], 'page', $this->page);
