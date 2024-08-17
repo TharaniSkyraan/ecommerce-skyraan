@@ -19,12 +19,14 @@ class OrderPlacedMail extends Mailable
     public function build()
     {
         $order = $this->order;
+        $timestamp = \Carbon\Carbon::parse($order->created_at)->timestamp;
         return $this->from(config('mail.from.address'), config('mail.from.name'))
                     ->to($order->user->email, $order->user->name)
                     ->subject('Order Placed Successfully '. config('siteSetting.site_name'))
                     ->markdown('emails.order-placed')
                     ->with([
-                        'order' => $this->order
+                        'order' => $this->order,
+                        'link' => route('ecommerce.order-detail')."?ordId=".$order->code."&ordRef=".$timestamp
                     ]);
     }
 

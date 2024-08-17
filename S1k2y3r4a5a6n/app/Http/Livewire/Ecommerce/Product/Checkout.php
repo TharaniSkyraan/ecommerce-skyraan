@@ -686,7 +686,7 @@ class Checkout extends Component
             CartItem::whereUserId(auth()->user()->id)->delete();
         }
         $order= Order::where('code',$order_code)->first();
-        // \Mail::send(new OrderPlacedMail($order));
+        \Mail::send(new OrderPlacedMail($order));
 
         $this->emit('clearCart',$order_code);
 

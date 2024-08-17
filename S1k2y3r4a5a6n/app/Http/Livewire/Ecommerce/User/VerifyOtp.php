@@ -28,6 +28,7 @@ class VerifyOtp extends Component
             $this->error = 'Invalid OTP. Please try again.';
         }else{
             $this->verified_status = 'success';
+            $this->emit('OtpVerifiedSuccess','');
             $this->emit('PhoneNumberVerified');
         }
     }
