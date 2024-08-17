@@ -2,7 +2,7 @@
    <div class="footer-body">
       <div class="container">
          <div class="row">
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  pt-xl-5 pt-lg-5 pt-sm-3 pt-md-5 pt-3">
+               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12  pt-xl-5 pt-lg-5 pt-sm-3 pt-md-2 pt-3">
                   <a href="{{ url('/') }}" class="d-flex justify-content-center pb-3"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="" class="logo_img"></a>
                   <h6 class="text-white lh-base text-start fw-normal foo-des">{{ $siteSetting->footer_content }}</h6>
                </div>
