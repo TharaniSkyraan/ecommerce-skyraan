@@ -265,18 +265,18 @@ class Orders extends Component
             $this->pageloading = 'false';
         }else
         {
-            $orderIds = Order::where('user_id',auth()->user()->id)
-                            ->where('status','delivered')
-                            ->orderBy('invoice_date','desc')
-                            ->pluck('id')->toArray();
-            
-            $orders = OrderItem::whereHas('product', function($q1){
-                                    $q1->where('status','active');
-                                })->whereIn('order_id',$orderIds)
-                                ->select('product_id', 'attribute_set_ids')
-                                ->groupBy('product_id', 'attribute_set_ids')
-                                // ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
-                                ->paginate(20, ['*'], 'page', $this->page);
+            $subQuery = OrderItem::whereHas('product', function($q1) {
+                $q1->where('status', 'active');
+            })
+            ->whereIn('order_id', $orderIds)
+            ->select('product_id', 'attribute_set_ids', 'order_id')
+            ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')');
+
+$orders = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
+  ->mergeBindings($subQuery->getQuery())
+  ->select('product_id', 'attribute_set_ids')
+  ->groupBy('product_id', 'attribute_set_ids')
+  ->paginate(2, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages(); 
