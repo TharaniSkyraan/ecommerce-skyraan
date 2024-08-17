@@ -271,12 +271,12 @@ class Orders extends Component
                             ->pluck('id')->toArray();
             
             $orders = OrderItem::whereHas('product', function($q1){
-                            $q1->where('status','active');
-                        })->whereIn('order_id',$orderIds)
-                        ->select('product_id', 'attribute_set_ids')
-                        ->groupBy('product_id', 'attribute_set_ids')
-                        // ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
-                        ->paginate(20, ['*'], 'page', $this->page);
+                                    $q1->where('status','active');
+                                })->whereIn('order_id',$orderIds)
+                                ->select('product_id', 'attribute_set_ids')
+                                ->groupBy('product_id', 'attribute_set_ids')
+                                // ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
+                                ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages(); 
