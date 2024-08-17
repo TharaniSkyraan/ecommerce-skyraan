@@ -87,11 +87,6 @@ function handleOtp(e) {
     otp = cotp; 
     if (otp.length == inputs.length) {
         @this.set('otp', otp);
-        setTimeout(function(){ 
-            if($('#verified_status').val()=='success'){
-                $('.changeNumber').trigger('click');
-            }
-        }, 300);
     }
 }
 
@@ -104,17 +99,15 @@ function handleOnPasteOtp(e) {
     otp = cotp;
     if (value.length === inputs.length) {
         @this.set('otp', otp);
-        setTimeout(function(){ 
-            if($('#verified_status').val()=='success'){
-                $('.changeNumber').trigger('click');
-            }
-        }, 300);
     }
 }
 
 document.addEventListener('livewire:load', function () {        
     Livewire.on('CalculateTimer', time => {
         runTimer(time);
+    });
+    Livewire.on('OtpVerifiedSuccess', data => {
+        $('.changeNumber').trigger('click');
     });
 });
 
