@@ -49,7 +49,7 @@
                                     @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
                                     <div>
                                         <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                            <img src="{{asset('asset/home/3917361.png')}}" alt="edit" class="edi-btn">
+                                            <img src="{{asset('asset/home/edit.svg')}}" alt="edit" class="edi-btn">
                                         </button>
                                     </div>
                                     @endif

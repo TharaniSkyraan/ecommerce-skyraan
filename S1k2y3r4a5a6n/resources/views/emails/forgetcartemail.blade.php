@@ -193,7 +193,7 @@
             @endforeach
         </table>
     </div>
-    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{ url('/cart') }}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
+    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{url('/cart')}}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
     <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     {{-- Footer --}}
     @slot('footer')
