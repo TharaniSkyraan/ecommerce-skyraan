@@ -275,7 +275,7 @@ class Orders extends Component
                         })->whereIn('order_id',$orderIds)
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
-                        ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
+                        // ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
                         ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();
