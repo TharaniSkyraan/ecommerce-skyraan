@@ -265,18 +265,17 @@ class Orders extends Component
             $this->pageloading = 'false';
         }else
         {
-            $orderIds = Order::where('user_id',auth()->user()->id)
-                            ->where('status','delivered')
-                            ->orderBy('invoice_date','desc')
-                            ->pluck('id')->toArray();
-            
-            $orders = OrderItem::whereHas('product', function($q1){
+            $orders = OrderItem::whereHas('orders', function($q){
+                            $q->where('user_id',auth()->user()->id)
+                            ->where('status','delivered');
+                        })->whereHas('product', function($q1){
                             $q1->where('status','active');
-                        })->whereIn('order_id',$orderIds)
+                        })
                         ->select('product_id', 'attribute_set_ids')
                         ->groupBy('product_id', 'attribute_set_ids')
-                        ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
-                        ->paginate(2, ['*'], 'page', $this->page);
+                        // ->orderBy('created_at','desc')
+                        ->paginate(20, ['*'], 'page', $this->page);
+                        
             $this->total_orders = $orders->total();
             $this->morepage = $orders->hasMorePages(); 
 
