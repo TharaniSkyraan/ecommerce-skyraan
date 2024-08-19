@@ -129,8 +129,6 @@ class Signup extends Component
     
             if (auth()->attempt($credentials)) {  
                 return redirect()->to($this->redirect_url);
-                // $this->ipzone();           
-                // $this->emit('SignupComplete', '');
             }
         }
     }

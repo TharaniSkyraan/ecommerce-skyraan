@@ -1,10 +1,3 @@
-
-document.addEventListener('livewire:load', function () {        
-    Livewire.on('updateSigninCart', message => {
-        var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
-        Livewire.emit('addCartinUserCart',productsArray,'login');
-    });     
-});
 $('#username').on('input', function() {
     var phoneNumber = $(this).val();
     var regex = /^\d+$/; // Regex for a 10-digit phone number (modify according to your requirements)

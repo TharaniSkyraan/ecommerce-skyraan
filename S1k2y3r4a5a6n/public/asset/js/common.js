@@ -74,8 +74,7 @@ window.addEventListener('scroll', function() {
 
 
 $(document).ready(function() {
-    Livewire.emit('MyCart',JSON.parse(localStorage.getItem('cart'))??{});
-    cartProductQuantity();
+    cartProductQuantity('refreshCart');
 
     $(document).on('click', '.qty-dropdown .card', function(e) {
         e.stopPropagation(); // Prevent the event from bubbling up
@@ -196,7 +195,7 @@ $(document).on('click','.deleteCart', function()
     }
 });
 
-function cartProductQuantity(){
+function cartProductQuantity(isload=''){
     
     var productsArray = JSON.parse(localStorage.getItem('cart'))??{};
     var quantity = 0;
@@ -227,7 +226,7 @@ function cartProductQuantity(){
             price = price + product_subtotal_price;
         });
         $('.sub-total').html(price);
-        Livewire.emit('addCartinUserCart',productsArray);
+        Livewire.emit('addCartinUserCart',productsArray, isload);
     }
 }
 

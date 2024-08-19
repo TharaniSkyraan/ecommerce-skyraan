@@ -177,10 +177,9 @@ class Nav extends Component
             }
             if($page=='cartpage'){
                 $this->emit('cartList');
-            }elseif($page=='login' || $page=='refreshCart'){
+            }elseif($page=='refreshCart'){
+            \Log::info('sd');
                 $this->emit('updateCart', $datas, $page);
-            }elseif($page=='signup'){
-                $this->emit('updateSignupCart', $datas);
             }else{
                 $this->emit('updateCartQuantity', $datas);
             }

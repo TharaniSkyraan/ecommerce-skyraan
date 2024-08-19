@@ -50,7 +50,6 @@ class Login extends Component
 
         if (auth()->attempt($credentials)) {         
             return redirect()->to($this->redirect_url);
-            // $this->emit('updateSigninCart', '');
         }else{
             $this->errorMessage = 'Invalid password.';
         }
