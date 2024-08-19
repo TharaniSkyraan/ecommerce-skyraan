@@ -33,6 +33,7 @@ class Orders extends Component
     public $tab='all';
     public $pageloading = 'false';
     public $morepage = false;
+    public $cancelorderLoader = true;
     public $page = 1;
     public $orders = [];
     public $reasons = [];
@@ -43,7 +44,7 @@ class Orders extends Component
 
     protected $queryString = ['tab','sort_by'];
 
-    protected $listeners = ['loadMore','CloseModel'];
+    protected $listeners = ['loadMore'];
     
     protected $rules = [
         'reason' => 'required|string',
@@ -60,12 +61,7 @@ class Orders extends Component
         $this->order_id = Order::whereCode($ordRef)->pluck('id')->first();
         $this->order_code = $ordRef;
         $this->isopenmodel = 'show';
-        $this->emit('OpenCancelRequestModel');
-    }
-    public function CloseModel()
-    {
-        $this->isopenmodel = '';
-        $this->emit('CloseCancelRequestModel');
+        $this->cancelorderLoader = false;
     }
     public function cancelOrder()
     {
@@ -74,6 +70,8 @@ class Orders extends Component
             'reason'=>'required',
             'notes'=>'nullable|string|min:3|max:255',
         ]);
+        $this->cancelorderLoader = true;
+        
         $order = Order::find($this->order_id);
         
         CancelOrder::updateOrCreate(
@@ -127,7 +125,7 @@ class Orders extends Component
 
         // Order cancelled mail
         $order= Order::find($this->order_id);
-        \Mail::send(new OrderCancelMail($order));
+        // \Mail::send(new OrderCancelMail($order));
 
         if(!empty($order->payments->charge_id)){
             try {

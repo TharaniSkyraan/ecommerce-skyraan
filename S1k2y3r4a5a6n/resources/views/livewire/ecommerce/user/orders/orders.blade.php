@@ -102,7 +102,7 @@
                                 @endif
                                 @if($order['status']=='new_request'||$order['status']=='order_confirmed')
                                     <div class="text-end">
-                                        <a href="javascript:void(0);" class="btns-danger h-sms py-xl-2 py-lg-2 py-md-2 py-sm-2 py-1 px-xl-5 px-lg-5 px-sm-5 px-md-5 px-2 rounded-0 cancel-order-request" id="cancellord_{{$order['code']}}" wire:click="cancelOrderRequest('{{$order['code']}}')">Cancel Order</a>
+                                        <a href="javascript:void(0);" class="btns-danger h-sms py-xl-2 py-lg-2 py-md-2 py-sm-2 py-1 px-xl-5 px-lg-5 px-sm-5 px-md-5 px-2 rounded-0 cancel-order-request" id="cancellord_{{$order['code']}}" wire:click="cancelOrderRequest('{{$order['code']}}')" data-bs-toggle="modal" data-bs-target="#cancel-order">Cancel Order</a>
                                     </div>
                                 @endif
                             </div>
@@ -241,7 +241,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="text-end sys-view">
-                <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn">
+                <img src="{{asset('asset/home/close.svg')}}" alt="close" aria-label="Close" class="close-btn" data-bs-dismiss="modal">
             </div>
                 <div class="modal-bodys p-3">
                     <div class="text-end mbl-view">
@@ -251,36 +251,45 @@
                         <h4 class="hding">Cancel order</h4>
                     </div>
                     <hr>
-                    <div class="d-flex justify-content-start ">
-                        <div>
-                            <small class="fw-bold">Order ID &nbsp;: &nbsp;</small>
+                    <div class="{{ ($cancelorderLoader)?'d-none':'' }}">
+                        <div class="d-flex justify-content-start ">
+                            <div>
+                                <small class="fw-bold">Order ID &nbsp;: &nbsp;</small>
+                            </div>
+                            <div>
+                                <small class="fw-bold"> {{ $order_code }}</small>
+                                <small class="fw-bold"> {{ $cancelorderLoader }}</small>
+                            </div>
                         </div>
-                        <div>
-                            <small class="fw-bold"> {{ $order_code }}</small>
-                        </div>
-                    </div>
 
-                    <div class="card p-2 pt-4 rounded-0">  
-                        <div class="py-1">           
-                            <div class="form-group">
-                                <label for="reason" class="fw-bold h-sms pb-2">Please select the reason for your cancellation</label>
-                                <select class="form-select h-sms w-100" wire:model="reason" placeholder="Select">
-                                    <option value="">Select Reason</option>
-                                    @foreach($reasons as $reaso)
-                                        <option value="{{$reaso}}">{{$reaso}}</option>
-                                    @endforeach
-                                </select>
-                            </div>                    
-                            @error('reason') <span class="error">{{$message}}</span> @endif
+                        <div class="card p-2 pt-4 rounded-0">  
+                            <div class="py-1">           
+                                <div class="form-group">
+                                    <label for="reason" class="fw-bold h-sms pb-2">Please select the reason for your cancellation</label>
+                                    <select class="form-select h-sms w-100" wire:model="reason" placeholder="Select">
+                                        <option value="">Select Reason</option>
+                                        @foreach($reasons as $reaso)
+                                            <option value="{{$reaso}}">{{$reaso}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>                    
+                                @error('reason') <span class="error">{{$message}}</span> @endif
+                            </div>
+                            <div class="py-1">         
+                                <label for="notes" class="fw-bold h-sms">Notes</label>         
+                                <textarea class="form-control" id="notes" placeholder="Notes" wire:model="notes"> </textarea>              
+                                @error('notes') <span class="error">{{$message}}</span> @endif
+                            </div>
                         </div>
-                        <div class="py-1">         
-                            <label for="notes" class="fw-bold h-sms">Notes</label>         
-                            <textarea class="form-control" id="notes" placeholder="Notes" wire:model="notes"> </textarea>              
-                            @error('notes') <span class="error">{{$message}}</span> @endif
+                        <div class="d-flex justify-content-center pt-2">
+                            <button class="btn text-white h-sms" wire:click.prevent="cancelOrder">Submit Request</button>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center pt-2">
-                        <button class="btn text-white h-sms" wire:click.prevent="cancelOrder">Submit Request</button>
+                    <div class="text-center py-5 {{ ($cancelorderLoader)?'':'d-none' }}">
+                        <svg width="150px" height="75px" viewBox="0 0 187.3 93.7" preserveAspectRatio="xMidYMid meet">
+                            <path  stroke="#565454" id="outline" fill="none" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 -8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z"></path>
+                            <path id="outline-bg" opacity="0.05" fill="none" stroke="#565454" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93.9,46.4c9.3,9.5,13.8,17.9,23.5,17.9s17.5-7.8,17.5-17.5s-7.8-17.6-17.5-17.5c-9.7,0.1-13.3,7.2-22.1,17.1 -8.9,8.8-15.7,17.9-25.4,17.9s-17.5-7.8-17.5-17.5s7.8-17.5,17.5-17.5S86.2,38.6,93.9,46.4z"></path>
+                        </svg>
                     </div>
                 </div>   
             </div>   

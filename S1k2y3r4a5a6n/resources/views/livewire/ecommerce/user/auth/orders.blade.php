@@ -105,7 +105,8 @@ $(document).ready(function(){
 $(document).ready(function() {
     $(document).on('click','.close-btn', function()
     {
-        Livewire.emit('CloseModel');
+        @this.set('isopenmodel', '');
+        @this.set('cancelorderLoader', true);
     });
     $(window).scroll(function() {  
         if($('#load-more').html()){
@@ -124,13 +125,7 @@ $(document).ready(function() {
         }
     });
 });
-document.addEventListener('livewire:load', function () {    
-    Livewire.on('OpenCancelRequestModel', message => {
-        $('#cancel-order').modal('show');
-    });
-    Livewire.on('CloseCancelRequestModel', message => {
-        $('#cancel-order').modal('hide');
-    });
+document.addEventListener('livewire:load', function () {   
     Livewire.on('OrderCancelSuccessfully', data => {
         $('#cancel-order').modal('hide');
         $('#cancellord_'+data).closest('.OrdRow').find('.shipmentstatus').html('Cancelled');
