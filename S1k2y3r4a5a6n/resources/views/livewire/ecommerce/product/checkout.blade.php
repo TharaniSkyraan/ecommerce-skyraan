@@ -250,6 +250,8 @@
                     // Handle successful payment response
                     @this.set('payment_id', response.razorpay_payment_id);
                     Livewire.emit('completeOrder');
+                    $('.checkoutpageloader').removeClass('d-none');
+                    $('#checkoutpage').addClass('d-none');
                 },
                 prefill: {
                    name : data.name,

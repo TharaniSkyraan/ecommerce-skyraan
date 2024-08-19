@@ -300,7 +300,6 @@ class Checkout extends Component
                 $this->removeCoupon();
             }
         }
-
     }
 
     public function completeOrder(){
@@ -729,7 +728,6 @@ class Checkout extends Component
                 $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
                 $address = SavedAddress::find($this->address_id);
                 $amount = round(((($this->total_price - $this->coupon_discount)+$this->shipping_charges)*100), 0);
-                dd($amount);
                 $order = $api->order->create([
                     'receipt' => 'order_rcptid_' . time(),
                     'amount' => $amount,
