@@ -190,7 +190,7 @@ const rangeInput = document.querySelectorAll(".range-input input"),
         urlParams.forEach(function(value, key) {
             queryParams[key] = value;
 
-            if(key!='category' && key!='q'){
+            if(key!='category' && key!='q' && key!='min_price' && key!='max_price'){
                 url = url+'&'+key+'='+value;
             }
         });
