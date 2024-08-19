@@ -125,7 +125,7 @@ class Orders extends Component
 
         // Order cancelled mail
         $order= Order::find($this->order_id);
-        // \Mail::send(new OrderCancelMail($order));
+        \Mail::send(new OrderCancelMail($order));
 
         if(!empty($order->payments->charge_id)){
             try {
