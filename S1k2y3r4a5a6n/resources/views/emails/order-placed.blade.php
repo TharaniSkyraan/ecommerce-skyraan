@@ -227,8 +227,14 @@
         </table>
         <div class="text-end total">
             <p class="mb-0">Items Subtotal : <span >₹{{$order->sub_total}}</span></p>
+            @if($order->discount_amount!=0)
             <p class="mb-0">Coupon Discount : <span>₹{{$order->discount_amount}}</span></p>
+            @endif
+            @if($order->shipping_amount==0)
+            <p class="mb-0">Shipping Cost : <span>Free shipping</span></p>
+            @else
             <p class="mb-0">Shipping Cost : <span>₹{{$order->shipping_amount}}</span></p>
+            @endif
             <p class="mb-0 font-bold text-dark">Total <span >₹{{$order->total_amount}}</span></p>
         </div>
     </div>
