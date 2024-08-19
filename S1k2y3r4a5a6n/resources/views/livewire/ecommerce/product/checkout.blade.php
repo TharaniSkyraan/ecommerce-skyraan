@@ -111,23 +111,23 @@
                                 </div>
                                 <div class="input-group css">
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="radio" id="payment_method1" wire:model="payment_method" value="cash" aria-label="Radio button for following text input">
+                                        <input class="form-check-input mt-0" type="radio" id="payment_method1" name="payment_method" wire:model="payment_method" value="cash" aria-label="Radio button for following text input">
                                     </div>
                                     <label class="form-control" for="payment_method1">Cash on delivery</label>
                                 </div>
                                 @if(!empty($siteSetting->payment_platform))
                                 <div class="input-group mt-3 css">
                                     <div class="input-group-text">
-                                        <input class="form-check-input mt-0" type="radio" id="payment_method2" wire:model="payment_method" value="net_banking" aria-label="Radio button for following text input">
+                                        <input class="form-check-input mt-0" type="radio" id="payment_method2" name="payment_method" wire:model="payment_method" value="net_banking" aria-label="Radio button for following text input">
                                     </div>
                                     <label class="form-control" for="payment_method2">Net Banking</label>
                                 </div>                    
                                 @endif
                                 <div class="text-center py-4">
                                     @if($payment_method=='cash')
-                                        <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" @if(empty($action)) wire:click="completeOrder" @endif><h6> Place Order </h6></a>
+                                        <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" wire:click="completeOrder"><h6> Place Order </h6></a>
                                     @else
-                                        <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" @if(empty($action)) wire:click="initiatePayment" @endif><h6> Pay Now  </h6></a>
+                                        <a href="javascript:void(0)" class="btnss btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-75 {{ !empty($action)?'outof-stock':'' }}" wire:click="initiatePayment"><h6> Pay Now  </h6></a>
                                         <div id="razorpay-container"></div>
                                     @endif
                                 </div>
