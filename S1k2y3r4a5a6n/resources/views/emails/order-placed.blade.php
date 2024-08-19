@@ -185,7 +185,7 @@
         <img src="{{asset('asset/home/order-placed.svg')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
-        <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">View Order</span></button></div>
+        <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
     </div>
     <div class="order-summary">
         <div class="div1">
