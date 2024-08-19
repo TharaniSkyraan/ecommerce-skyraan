@@ -37,4 +37,7 @@
 </div>
 @push('scripts')
 <script src="{{asset('asset/livewire/js/lgn!24.js')}}"></script>
+<script>
+    @this.set('redirect_url', window.location.href); 
+</script>
 @endpush

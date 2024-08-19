@@ -15,7 +15,7 @@ class Signup extends Component
     use ZoneConfig;
 
     public $email,$password,$phone,$name,$password_strength,$verified_status,$verified_phone_number;
-    public $phone_validate;
+    public $phone_validate,$redirect_url;
     
     protected $listeners = ['PhoneNumberVerified'];
 
@@ -127,10 +127,10 @@ class Signup extends Component
                 'password' => $this->password,
             ];
     
-            if (auth()->attempt($credentials)) {             
-                // return redirect()->to($this->redirect_url);
-                $this->ipzone();
-                $this->emit('SignupComplete', '');
+            if (auth()->attempt($credentials)) {  
+                $this->ipzone();           
+                return redirect()->to($this->redirect_url);
+                // $this->emit('SignupComplete', '');
             }
         }
     }

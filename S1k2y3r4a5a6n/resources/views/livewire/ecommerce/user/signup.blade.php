@@ -98,4 +98,7 @@
 
 @push('scripts')
 <script src="{{asset('asset/livewire/js/sngup.js')}}"></script>
+<script>
+    @this.set('redirect_url', window.location.href); 
+</script>
 @endpush

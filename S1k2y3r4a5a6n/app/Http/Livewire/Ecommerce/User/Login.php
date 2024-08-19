@@ -11,7 +11,7 @@ class Login extends Component
 
     use ZoneConfig;
     
-    public $username,$password,$errorMessage,$success;
+    public $username,$password,$errorMessage,$success,$redirect_url;
 
     public function signin()
     {
@@ -48,10 +48,10 @@ class Login extends Component
             ];
         }
 
-        if (auth()->attempt($credentials)) {             
-            // return redirect()->to($this->redirect_url);
+        if (auth()->attempt($credentials)) {         
             $this->ipzone();
-            $this->emit('updateSigninCart', '');
+            return redirect()->to($this->redirect_url);
+            // $this->emit('updateSigninCart', '');
         }else{
             $this->errorMessage = 'Invalid password.';
         }
