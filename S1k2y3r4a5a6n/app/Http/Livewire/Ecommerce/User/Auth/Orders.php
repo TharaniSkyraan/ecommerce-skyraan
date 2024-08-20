@@ -33,6 +33,7 @@ class Orders extends Component
     public $tab='all';
     public $pageloading = 'false';
     public $morepage = false;
+    public $cancelorderLoader = true;
     public $page = 1;
     public $orders = [];
     public $reasons = [];
@@ -43,7 +44,7 @@ class Orders extends Component
 
     protected $queryString = ['tab','sort_by'];
 
-    protected $listeners = ['loadMore','CloseModel'];
+    protected $listeners = ['loadMore'];
     
     protected $rules = [
         'reason' => 'required|string',
@@ -60,12 +61,7 @@ class Orders extends Component
         $this->order_id = Order::whereCode($ordRef)->pluck('id')->first();
         $this->order_code = $ordRef;
         $this->isopenmodel = 'show';
-        $this->emit('OpenCancelRequestModel');
-    }
-    public function CloseModel()
-    {
-        $this->isopenmodel = '';
-        $this->emit('CloseCancelRequestModel');
+        $this->cancelorderLoader = false;
     }
     public function cancelOrder()
     {
@@ -74,6 +70,8 @@ class Orders extends Component
             'reason'=>'required',
             'notes'=>'nullable|string|min:3|max:255',
         ]);
+        $this->cancelorderLoader = true;
+        
         $order = Order::find($this->order_id);
         
         CancelOrder::updateOrCreate(
@@ -265,17 +263,13 @@ class Orders extends Component
             $this->pageloading = 'false';
         }else
         {
-            $orderIds = Order::where('user_id',auth()->user()->id)
-                            ->where('status','delivered')
-                            ->orderBy('invoice_date','desc')
-                            ->pluck('id')->toArray();
             
-            $orders = OrderItem::whereHas('product', function($q1){
+            $orders = OrderItem::whereHas('orders', function($q1){
+                                    $q1->where('status','delivered');
+                                })->whereHas('product', function($q1){
                                     $q1->where('status','active');
-                                })->whereIn('order_id',$orderIds)
-                                ->select('product_id', 'attribute_set_ids', \DB::raw('MIN(order_id) as order_id'))
+                                })->select('product_id', 'attribute_set_ids')
                                 ->groupBy('product_id', 'attribute_set_ids')
-                                ->orderByRaw('FIELD(order_id, ' . implode(',', $orderIds) . ')')
                                 ->paginate(20, ['*'], 'page', $this->page);
                         
             $this->total_orders = $orders->total();

@@ -64,17 +64,19 @@
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name'] }}</h6>
                                     <div class="container-fluid">
                                         <div class="row align-items-center">
+                                        @if($product['discount']!=0)
                                             <div class="col-xl-2 col-lg-3 col-md-2 col-sm-3 col-6 px-0">
                                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                             </div>
                                             <div class="col-xl-2 col-lg-3 col-md-2 col-sm-3 col-6 px-0">
-                                                @if($product['discount']!=0)
                                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
-                                                @else
-                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
-                                                @endif
                                             </div>
                                             <div class="col-xl-2 col-lg-4 col-md-2 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        @else
+                                            <div class="col-6 px-0">
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                            </div>
+                                        @endif
                                         </div>
                                     </div>                                
                                     <div class="row align-items-center">
@@ -222,17 +224,19 @@
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="container-fluid">
                                     <div class="row align-items-center">
-                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
-                                        </div>
-                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
-                                            @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
-                                            @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
-                                            @endif
-                                        </div>
-                                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        @if($product['discount']!=0)
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6 px-0">
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                            </div>
+                                            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        @else
+                                            <div class="col-6 px-0">                                           
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
@@ -381,17 +385,19 @@
                                 <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
                                 <div class="container-fluid">
                                     <div class="row align-items-center">
-                                        <div class="col-4 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
-                                        </div>
-                                        <div class="col-4 px-0">
-                                            @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
-                                            @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
-                                            @endif
-                                        </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        @if($product['discount']!=0)
+                                            <div class="col-4 px-0">
+                                                <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                            </div>
+                                            <div class="col-4 px-0">
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        @else
+                                            <div class="col-12 px-0">
+                                                <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>                                
                                 <div class="row align-items-center">
@@ -529,10 +535,10 @@
                                 @if($product['discount']!=0)
                                 <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                <div class=" px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                                 @else
                                 <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
                                 @endif
-                                <div class=" px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
                             </div>
                             <h6 class="text-secondary text-opacity-50 pb-2 lh-base h-sms">Ajwain The benefits of these seeds are not only limited to the taste but go much beyond that. The goodness of these tiny fruit pods also includes weight loss. Ajwain...</h6>
                             <div class="d-flex gap-3 align-items-center pb-2">

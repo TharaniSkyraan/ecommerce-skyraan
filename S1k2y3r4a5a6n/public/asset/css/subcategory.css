@@ -258,7 +258,7 @@ input[type="range"]::-moz-range-thumb {
     width:-webkit-fill-available;    
 }
 .card-skeleton {
-    background: #f0f0f0;
+    background: #f0f0f078;
     border-radius: 8px;
     animation: shimmer 1.5s infinite;
 }

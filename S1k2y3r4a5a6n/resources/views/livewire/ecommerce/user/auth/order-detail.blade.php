@@ -480,9 +480,8 @@
     </section>
 </div>
 <script>
-
-document.addEventListener('livewire:load', function () {
-            var width = screen.width;
-            Livewire.emit('screenSizeCaptured', width);
-        });
-        </script>
+    document.addEventListener('livewire:load', function () {
+        var width = screen.width;
+        Livewire.emit('screenSizeCaptured', width);
+    });
+</script>

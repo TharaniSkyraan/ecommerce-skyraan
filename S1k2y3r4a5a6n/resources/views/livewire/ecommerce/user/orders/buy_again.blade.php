@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-9 align-self-center">
                             <div class="d-flex gap-2 align-items-center">
-                                <a href="{{ route('ecommerce.product.detail', ['slug' => $order['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($order['product']['created_at'])->timestamp}}" target="_blank"><h5 class="fw-bold pb-1 buy-color"> {{ $order['product']['name'] }} {{ $order['product']['attributes']? '| '.$order['product']['attributes']:''}}</h5></a>
+                                <a href="{{ route('ecommerce.product.detail', ['slug' => $order['product']['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($order['product']['created_at'])->timestamp}}" target="_blank"><h5 class="fw-bold pb-1 buy-color"> {{ $order['product']['product_name'] }}</h5></a>
                             </div>                            
                             @if($order['product']['discount']!=0)
                             <div class="d-flex py-2">

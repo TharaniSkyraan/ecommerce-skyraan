@@ -167,7 +167,7 @@
         <img src="{{asset('asset/home/order-placed.svg')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
-        <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">View Order</span></button></div>
+        <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
     </div>
     <table class="order-summary" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F9FCF6;">
             <tr>
@@ -212,8 +212,14 @@
         </table>
         <div class="text-end total">
             <p class="mb-0">Items Subtotal : <span >₹{{$order->sub_total}}</span></p>
+            @if($order->discount_amount!=0)
             <p class="mb-0">Coupon Discount : <span>₹{{$order->discount_amount}}</span></p>
+            @endif
+            @if($order->shipping_amount==0)
+            <p class="mb-0">Shipping Cost : <span>Free shipping</span></p>
+            @else
             <p class="mb-0">Shipping Cost : <span>₹{{$order->shipping_amount}}</span></p>
+            @endif
             <p class="mb-0 font-bold text-dark">Total <span >₹{{$order->total_amount}}</span></p>
         </div>
     </div>

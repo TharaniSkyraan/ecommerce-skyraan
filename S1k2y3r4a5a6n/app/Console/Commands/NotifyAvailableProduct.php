@@ -38,7 +38,7 @@ class NotifyAvailableProduct extends Command
                                                     $items->append(['address']);
                                                     return $items;
                                                 })->toArray();
-                
+                                                
         $notifications = array_filter($notifications, function($notification) {
             return $notification['address'] !== null;
         });

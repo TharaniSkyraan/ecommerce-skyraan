@@ -131,6 +131,7 @@ class Checkout extends Component
        
         $cart_products = [];
         $total_price = 0;
+        $action = '';
 
         foreach($datas as $data)
         {
@@ -226,8 +227,7 @@ class Checkout extends Component
                 $product['distance'] = $distance??0;
                 $product['cart_limit'] = $default->cart_limit??0;
                 $limit = ($product['available_quantity'] <= $product['cart_limit'])? $product['available_quantity'] : $product['cart_limit'];
-                $this->action = (empty($this->action))?($data['quantity']>$limit)?'disabled':'':'';
-
+                $action = empty($action)?(($data['quantity']>$limit)?'disabled':''):$action;
                 $total_price += $product['total_price']??0;
                 $cart_products[$data['id']] = $product;
 
@@ -236,6 +236,7 @@ class Checkout extends Component
             }
            
         }
+        $this->action = $action;
         $this->total_price = $total_price;
         $this->cart_products = $cart_products;
     }
@@ -299,306 +300,54 @@ class Checkout extends Component
                 $this->removeCoupon();
             }
         }
-
     }
 
     public function completeOrder(){
-       
-        $address = SavedAddress::where('id',$this->address_id)->first();
 
-        $data = array(
-            'address_id' => $this->address_id,
-            'city' => $address->city??'', 
-            'latitude' => '', 
-            'longitude' => '', 
-            'postal_code' => $address->postal_code??''
-        );  
+        if(empty($this->action))
+        {
+            $address = SavedAddress::where('id',$this->address_id)->first();
 
-        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
-                $result = $this->configzone($data); 
-                if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available for this location.');
-                }
-            }]
-        ],[
-            'address_id.not_in' => 'Please add the Address to proceed.',
-            'address_id.required' => 'Please add the Address to proceed.',
-         
-         ]);
+            $data = array(
+                'address_id' => $this->address_id,
+                'city' => $address->city??'', 
+                'latitude' => '', 
+                'longitude' => '', 
+                'postal_code' => $address->postal_code??''
+            );  
 
-        $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
-        $setting = Setting::first();
-        $carts = $this->cart_products;
-        if(!empty($this->coupon_code)){
-            $coupon_update = Coupon::where('coupon_code',$this->coupon_code)->update(['used_count'=>$coupon->used_count+1]);
-        }
-
-        if($this->place_order=='common'){
-
-            $orderData['user_id'] = auth()->user()->id;
-            $orderData['coupon_code'] = $this->coupon_code;
-            $orderData['sub_total'] = $this->total_price;
-            $orderData['total_amount'] = ($this->total_price - $this->coupon_discount)+$this->shipping_charges;
-            $orderData['discount_amount'] = $this->coupon_discount;
-            $orderData['description'] = auth()->user()->usercart->notes??'';
-            $orderData['shipping_amount'] = $this->shipping_charges;
-            $orderData['is_confirmed'] = 1;
-            $orderData['status'] = 'new_request';
-
-
-            
-            $order = Order::create($orderData);
-            $order_id = $order->id;
-
-            $paymentData['order_id'] = $order_id;
-            $paymentData['user_id'] = auth()->user()->id;
-            $paymentData['currency'] = 'INR';
-            $paymentData['charge_id'] = $this->payment_id??'';
-            $paymentData['payment_chennal'] = empty($this->payment_id)?'cod':'card';
-            $paymentData['amount'] = $order->total_amount;
-            $paymentData['status'] = empty($this->payment_id)?'pending':'completed';
-            $paymentData['payment_type'] = empty($this->payment_id)?'pending':'confirm';
-            $payment = OrderPayment::create($paymentData);
-            $order_code = $this->generateOrderCode($order->id);
-    
-            Order::where('id',$order->id)->update(['code'=>$order_code,'payment_id'=>$payment->id]);
-            
-            foreach($carts as $cart)
-            {
-                $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
-                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
-                $tax = Tax::find($cart['tax_ids']);
-                $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
-
-                $price = $productvariant->price;
-                $sale_price = 0;
-
-                if($productvariant->sale_price!=0){
-                    
-                    if($productvariant->discount_duration=='yes'){
-
-                        $currentDate = Carbon::now()->format('d-m-Y H:i');
-
-                        // Start and end date from user input or database
-                        $startDate = Carbon::parse($productvariant->discount_start_date)->format('d-m-Y H:i'); 
-                        $endDate = Carbon::parse($productvariant->discount_end_date)->format('d-m-Y H:i'); 
-
-                        // Validate start date
-                        if ($startDate <= $currentDate && $currentDate <= $endDate) {
-                            $sale_price = $price = $productvariant->sale_price;
-                        } 
-
-                    }else{
-                        $sale_price = $price = $productvariant->sale_price;
+            $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
+                    $result = $this->configzone($data); 
+                    if(empty($result['zone_id'])) {
+                        $fail('Delivery is not available for this location.');
                     }
-                    
-                }
-                
-                $discount = $cart['discount_coupon']??0;
-                $shipping_tax = $cart['shipping_tax'];
-                $shipping_gross_amount = $cart['shipping_gross_amount'];
-                $shipping_charge = $shipping_gross_amount - $shipping_tax;
-                $shipping_discount = (isset($cart['free_shipping'])&&$cart['free_shipping']==0)?$shipping_gross_amount:0;
+                }]
+            ],[
+                'address_id.not_in' => 'Please add the Address to proceed.',
+                'address_id.required' => 'Please add the Address to proceed.',
+            
+            ]);
 
-                // Coupon discount check
-                if($this->apply_for=='all' && !empty($this->coupon_code)){
-                    $discount_type = $coupon->discount_type;
-                    $coupon_discount = $coupon->discount;
-                    if($discount_type=='flat'){
-                        $discount = $coupon_discount / count($carts);
-                    }elseif($discount_type=='free_shipping'){
-                        $shipping_charges = 0;
-                        $shipping_discount = $shipping_gross_amount;
-                    }elseif($discount_type=='percentage'){
-                        $discount = ($this->total_price * ($discount / 100)) / count($carts);
-                    }
-                }
-                $orderitem["order_id"] = $order_code;
-                $orderitem["product_id"] = $cart['id'];
-                $orderitem['product_name'] = $productvariant->product_name;
-                $orderitem['product_image'] = $cart['image'];
-                $orderitem['quantity'] = $cart['quantity'];
-                $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
-                $orderitem['wide'] = $productvariant->wide*$cart['quantity'];
-                $orderitem['height'] = $productvariant->height*$cart['quantity'];
-                $orderitem['length'] = $productvariant->length*$cart['quantity'];
-                $orderitem["price"] = $productvariant->price;
-                $orderitem["sale_price"] = $sale_price;
-                $orderitem["tax"] = $tax->name??'';
-                $orderitem["tax_id"] = $tax->id??0;
-                $orderitem["taxable_amount"] = $price * $cart['quantity'];
-                $orderitem["tax_amount"] = ($tax->percentage * ($orderitem["taxable_amount"] / 100));
-                $orderitem["gross_amount"] = $orderitem["tax_amount"] + $orderitem["taxable_amount"];
-                $orderitem["discount_amount"] = $discount;
-                $orderitem["sub_total"] = $orderitem["gross_amount"] - $orderitem["discount_amount"];
-
-                $orderitem["shipping_charge"] = $shipping_charge;
-                $orderitem["shipping_tax"] = $shippingtax->name??'';
-                $orderitem["shipping_tax_id"] = $shippingtax->id??0;
-                $orderitem["shipping_tax_amount"] = $shipping_tax??0;
-                $orderitem["shipping_taxable_amount"] = $shipping_charge;
-                $orderitem["shipping_gross_amount"] = $shipping_gross_amount;
-                $orderitem["shipping_discount_amount"] = $shipping_discount;
-                $orderitem["shipping_sub_total"] = $shipping_gross_amount - $shipping_discount;
-                $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
-                $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
-
-                $product_stock_id = $cart['product_stock_id'];
-
-                $product_stock = ProductStock::find($product_stock_id);
-                $warehouse_id = $product_stock->warehouse_id;
-                $available_stock = $product_stock->available_quantity;
-                $product_stock->available_quantity -= $cart['quantity'];
-                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
-                $product_stock->save();
-
-                $date = Carbon::now();
-
-                $stock_history =  StockHistory::updateOrCreate([
-                    'reference_number' => $order_id,
-                    'warehouse_to_id' => $warehouse_id,
-                    'stock_type' => 'order',
-                ],[
-                    'warehouse_from_id' => 0,
-                    'sent_date' => $date,
-                    'status' => 'new_order'
-                ]);
-
-                // Product Stock Quantity Update History
-                $quantity_update_history = ProductStockUpdateQuantityHistory::create([
-                    'history_id' => $stock_history->id,
-                    'warehouse_id' => $warehouse_id,
-                    'product_name' => $productvariant->product_name,
-                    'product_id' => $cart['id'],
-                    'product_variant_id' => $cart['variant_id'],
-                    'previous_available_quantity' => $available_stock,
-                    'updated_quantity' => $cart['quantity'],
-                    'available_quantity' => $available_stock - $cart['quantity'],
-                ]);
-                    
-                $orderitem["order_id"] = $order_id;
-                $orderitem["warehouse_id"] = $warehouse_id;
-
-                OrderItem::create($orderitem);
+            $coupon = Coupon::where('coupon_code',$this->coupon_code)->first();
+            $setting = Setting::first();
+            $carts = $this->cart_products;
+            if(!empty($this->coupon_code)){
+                $coupon_update = Coupon::where('coupon_code',$this->coupon_code)->update(['used_count'=>$coupon->used_count+1]);
             }
-    
-            SavedAddress::query()
-                ->where('id', $this->address_id)
-                ->each(function ($oldRecord) use($order_id) {
-                    $newRecord = $oldRecord->replicate();
-                    unset($newRecord['is_default']);
-                    $newRecord->setTable('shipping_addresses');
-                    $newRecord->order_id = $order_id;
-                    $newRecord->save();
-                }); 
-    
-            UserCart::whereUserId(auth()->user()->id)->delete();
-            CartItem::whereUserId(auth()->user()->id)->delete();
-        
-            $orderShipment['order_id'] = $order_id;
-            $orderShipment['user_id'] = auth()->user()->id;
-            $orderShipment['cod_amount'] = empty($this->payment_id)?$order->total_amount:0;
-            $orderShipment['cod_status'] = empty($this->payment_id)?'pending':null;
-            $orderShipment['cross_checking_status'] = 'pending';
-            $orderShipment['tracking_id'] = $this->generateTrackingId($order_id);
-            // $orderShipment['shipping_company_name'] = null;
-            // $orderShipment['tracking_link'] = null;
-            // $orderShipment['estimate_date_shipped'] = null;
-            // $orderShipment['date_shipped'] = null;
-            $orderShipment['note'] = auth()->user()->usercart->notes??'';
-            $orderShipment['status'] = 'order_placed';
 
-            OrderShipment::create($orderShipment);
-
-        }else{
-
-            foreach($carts as $cart)
-            {
-                    
-                $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
-                $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
-                $tax = Tax::find($cart['tax_ids']);
-                $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
-
-                $price = $productvariant->price;
-                $sale_price = 0;
-                
-                if($productvariant->sale_price!=0){
-                    
-                    if($productvariant->discount_duration=='yes'){
-
-                        $currentDate = Carbon::now()->format('d-m-Y H:i');
-
-                        // Start and end date from user input or database
-                        $startDate = Carbon::parse($productvariant->discount_start_date)->format('d-m-Y H:i'); 
-                        $endDate = Carbon::parse($productvariant->discount_end_date)->format('d-m-Y H:i'); 
-
-                        // Validate start date
-                        if ($startDate <= $currentDate && $currentDate <= $endDate) {
-                            $sale_price = $price = $productvariant->sale_price;
-                        } 
-                    }else{
-                        $sale_price = $price = $productvariant->sale_price;
-                    }
-                    
-                }
-                $discount = $cart['discount_coupon']??0;
-                $shipping_tax = $cart['shipping_tax'];
-                $shipping_gross_amount = $cart['shipping_gross_amount'];
-                $shipping_charge = $shipping_gross_amount - $shipping_tax;
-                $shipping_discount = (isset($cart['free_shipping'])&&$cart['free_shipping']==0)?$shipping_gross_amount:0;
-
-                // Coupon discount check
-                if($this->apply_for=='all' && !empty($this->coupon_code)){
-                    $discount_type = $coupon->discount_type;
-                    $coupon_discount = $coupon->discount;
-                    if($discount_type=='flat'){
-                        $discount = $coupon_discount / count($carts);
-                    }elseif($discount_type=='free_shipping'){
-                        $shipping_charges = 0;
-                        $shipping_discount = $shipping_gross_amount;
-                    }elseif($discount_type=='percentage'){
-                        $discount = ($this->total_price * ($discount / 100)) / count($carts);
-                    }
-                }
-                $orderitem["product_id"] = $cart['id'];
-                $orderitem['product_name'] = $productvariant->product_name;
-                $orderitem['product_image'] = $cart['image'];
-                $orderitem['quantity'] = $cart['quantity'];
-                $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
-                $orderitem['wide'] = $productvariant->wide*$cart['quantity'];
-                $orderitem['height'] = $productvariant->height*$cart['quantity'];
-                $orderitem['length'] = $productvariant->length*$cart['quantity'];
-                $orderitem["price"] = $productvariant->price;
-                $orderitem["sale_price"] = $sale_price;
-                $orderitem["tax"] = $tax->name??'';
-                $orderitem["tax_id"] = $tax->id??0;
-                $orderitem["taxable_amount"] = $price * $cart['quantity'];
-                $orderitem["tax_amount"] = (($tax->percentage??0) * ($orderitem["taxable_amount"] / 100));
-                $orderitem["gross_amount"] = $orderitem["tax_amount"] + $orderitem["taxable_amount"];
-                $orderitem["discount_amount"] = $discount;
-                $orderitem["sub_total"] = $orderitem["gross_amount"] - $orderitem["discount_amount"];
-
-                $orderitem["shipping_charge"] = $shipping_charge;
-                $orderitem["shipping_tax"] = $shippingtax->name??'';
-                $orderitem["shipping_tax_id"] = $shippingtax->id??0;
-                $orderitem["shipping_tax_amount"] = $shipping_tax??0;
-                $orderitem["shipping_taxable_amount"] = $shipping_charge;
-                $orderitem["shipping_gross_amount"] = $shipping_gross_amount;
-                $orderitem["shipping_discount_amount"] = $shipping_discount;
-                $orderitem["shipping_sub_total"] = $shipping_gross_amount - $shipping_discount;
-                $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
-                $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
+            if($this->place_order=='common'){
 
                 $orderData['user_id'] = auth()->user()->id;
                 $orderData['coupon_code'] = $this->coupon_code;
-                $orderData['sub_total'] = $orderitem["sub_total"];
-                $orderData['total_amount'] = $orderitem["total_amount"];
-                $orderData['discount_amount'] = $discount;
-                $orderData['shipping_amount'] = $orderitem["shipping_sub_total"];
+                $orderData['sub_total'] = $this->total_price;
+                $orderData['total_amount'] = ($this->total_price - $this->coupon_discount)+$this->shipping_charges;
+                $orderData['discount_amount'] = $this->coupon_discount;
                 $orderData['description'] = auth()->user()->usercart->notes??'';
+                $orderData['shipping_amount'] = $this->shipping_charges;
                 $orderData['is_confirmed'] = 1;
                 $orderData['status'] = 'new_request';
+
+
                 
                 $order = Order::create($orderData);
                 $order_id = $order->id;
@@ -616,45 +365,138 @@ class Checkout extends Component
         
                 Order::where('id',$order->id)->update(['code'=>$order_code,'payment_id'=>$payment->id]);
                 
-                
-                $product_stock_id = $cart['product_stock_id'];
+                foreach($carts as $cart)
+                {
+                    $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
+                    $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
+                    $tax = Tax::find($cart['tax_ids']);
+                    $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
 
-                $product_stock = ProductStock::find($product_stock_id);
-                $warehouse_id = $product_stock->warehouse_id;
-                $available_stock = $product_stock->available_quantity;
-                $product_stock->available_quantity -= $cart['quantity'];
-                $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
-                $product_stock->save();
+                    $price = $productvariant->price;
+                    $sale_price = 0;
 
-                $date = Carbon::now();
+                    if($productvariant->sale_price!=0){
+                        
+                        if($productvariant->discount_duration=='yes'){
 
-                $stock_history =  StockHistory::updateOrCreate([
-                    'reference_number' => $order_code,
-                    'warehouse_to_id' => $warehouse_id,
-                    'stock_type' => 'order',
-                ],[
-                    'warehouse_from_id' => 0,
-                    'sent_date' => $date,
-                    'status' => 'new_order'
-                ]);
+                            $currentDate = Carbon::now()->format('d-m-Y H:i');
 
-                // Product Stock Quantity Update History
-                $quantity_update_history = ProductStockUpdateQuantityHistory::create([
-                    'history_id' => $stock_history->id,
-                    'warehouse_id' => $warehouse_id,
-                    'product_name' => $productvariant->product_name,
-                    'product_id' => $cart['id'],
-                    'product_variant_id' => $cart['variant_id'],
-                    'previous_available_quantity' => $available_stock,
-                    'updated_quantity' => $cart['quantity'],
-                    'available_quantity' => $available_stock - $cart['quantity'],
-                ]);
+                            // Start and end date from user input or database
+                            $startDate = Carbon::parse($productvariant->discount_start_date)->format('d-m-Y H:i'); 
+                            $endDate = Carbon::parse($productvariant->discount_end_date)->format('d-m-Y H:i'); 
+
+                            // Validate start date
+                            if ($startDate <= $currentDate && $currentDate <= $endDate) {
+                                $sale_price = $price = $productvariant->sale_price;
+                            } 
+
+                        }else{
+                            $sale_price = $price = $productvariant->sale_price;
+                        }
+                        
+                    }
                     
-                $orderitem["order_id"] = $order_id;
-                $orderitem["warehouse_id"] = $warehouse_id;
+                    $discount = $cart['discount_coupon']??0;
+                    $shipping_tax = $cart['shipping_tax'];
+                    $shipping_gross_amount = $cart['shipping_gross_amount'];
+                    $shipping_charge = $shipping_gross_amount - $shipping_tax;
+                    $shipping_discount = (isset($cart['free_shipping'])&&$cart['free_shipping']==0)?$shipping_gross_amount:0;
 
-                OrderItem::create($orderitem);
+                    // Coupon discount check
+                    if($this->apply_for=='all' && !empty($this->coupon_code)){
+                        $discount_type = $coupon->discount_type;
+                        $coupon_discount = $coupon->discount;
+                        if($discount_type=='flat'){
+                            $discount = $coupon_discount / count($carts);
+                        }elseif($discount_type=='free_shipping'){
+                            $shipping_charges = 0;
+                            $shipping_discount = $shipping_gross_amount;
+                        }elseif($discount_type=='percentage'){
+                            $discount = ($this->total_price * ($discount / 100)) / count($carts);
+                        }
+                    }
+                    $orderitem["order_id"] = $order_code;
+                    $orderitem["product_id"] = $cart['id'];
+                    $orderitem['product_name'] = $productvariant->product_name;
+                    $orderitem['product_image'] = $cart['image'];
+                    $orderitem['quantity'] = $cart['quantity'];
+                    $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
+                    $orderitem['wide'] = $productvariant->wide*$cart['quantity'];
+                    $orderitem['height'] = $productvariant->height*$cart['quantity'];
+                    $orderitem['length'] = $productvariant->length*$cart['quantity'];
+                    $orderitem["price"] = $productvariant->price;
+                    $orderitem["sale_price"] = $sale_price;
+                    $orderitem["tax"] = $tax->name??'';
+                    $orderitem["tax_id"] = $tax->id??0;
+                    $orderitem["taxable_amount"] = $price * $cart['quantity'];
+                    $orderitem["tax_amount"] = ($tax->percentage * ($orderitem["taxable_amount"] / 100));
+                    $orderitem["gross_amount"] = $orderitem["tax_amount"] + $orderitem["taxable_amount"];
+                    $orderitem["discount_amount"] = $discount;
+                    $orderitem["sub_total"] = $orderitem["gross_amount"] - $orderitem["discount_amount"];
 
+                    $orderitem["shipping_charge"] = $shipping_charge;
+                    $orderitem["shipping_tax"] = $shippingtax->name??'';
+                    $orderitem["shipping_tax_id"] = $shippingtax->id??0;
+                    $orderitem["shipping_tax_amount"] = $shipping_tax??0;
+                    $orderitem["shipping_taxable_amount"] = $shipping_charge;
+                    $orderitem["shipping_gross_amount"] = $shipping_gross_amount;
+                    $orderitem["shipping_discount_amount"] = $shipping_discount;
+                    $orderitem["shipping_sub_total"] = $shipping_gross_amount - $shipping_discount;
+                    $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
+                    $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
+
+                    $product_stock_id = $cart['product_stock_id'];
+
+                    $product_stock = ProductStock::find($product_stock_id);
+                    $warehouse_id = $product_stock->warehouse_id;
+                    $available_stock = $product_stock->available_quantity;
+                    $product_stock->available_quantity -= $cart['quantity'];
+                    $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                    $product_stock->save();
+
+                    $date = Carbon::now();
+
+                    $stock_history =  StockHistory::updateOrCreate([
+                        'reference_number' => $order_id,
+                        'warehouse_to_id' => $warehouse_id,
+                        'stock_type' => 'order',
+                    ],[
+                        'warehouse_from_id' => 0,
+                        'sent_date' => $date,
+                        'status' => 'new_order'
+                    ]);
+
+                    // Product Stock Quantity Update History
+                    $quantity_update_history = ProductStockUpdateQuantityHistory::create([
+                        'history_id' => $stock_history->id,
+                        'warehouse_id' => $warehouse_id,
+                        'product_name' => $productvariant->product_name,
+                        'product_id' => $cart['id'],
+                        'product_variant_id' => $cart['variant_id'],
+                        'previous_available_quantity' => $available_stock,
+                        'updated_quantity' => $cart['quantity'],
+                        'available_quantity' => $available_stock - $cart['quantity'],
+                    ]);
+                        
+                    $orderitem["order_id"] = $order_id;
+                    $orderitem["warehouse_id"] = $warehouse_id;
+
+                    OrderItem::create($orderitem);
+                }
+        
+                SavedAddress::query()
+                    ->where('id', $this->address_id)
+                    ->each(function ($oldRecord) use($order_id) {
+                        $newRecord = $oldRecord->replicate();
+                        unset($newRecord['is_default']);
+                        $newRecord->setTable('shipping_addresses');
+                        $newRecord->order_id = $order_id;
+                        $newRecord->save();
+                    }); 
+        
+                UserCart::whereUserId(auth()->user()->id)->delete();
+                CartItem::whereUserId(auth()->user()->id)->delete();
+            
                 $orderShipment['order_id'] = $order_id;
                 $orderShipment['user_id'] = auth()->user()->id;
                 $orderShipment['cod_amount'] = empty($this->payment_id)?$order->total_amount:0;
@@ -669,70 +511,233 @@ class Checkout extends Component
                 $orderShipment['status'] = 'order_placed';
 
                 OrderShipment::create($orderShipment);
-                    
-                SavedAddress::query()
-                    ->where('id', $this->address_id)
-                    ->each(function ($oldRecord) use($order_id) {
-                        $newRecord = $oldRecord->replicate();
-                        unset($newRecord['is_default']);
-                        $newRecord->setTable('shipping_addresses');
-                        $newRecord->order_id = $order_id;
-                        $newRecord->save();
-                    }); 
-        
-            }
-    
-            UserCart::whereUserId(auth()->user()->id)->delete();
-            CartItem::whereUserId(auth()->user()->id)->delete();
-        }
-        $order= Order::where('code',$order_code)->first();
-        \Mail::send(new OrderPlacedMail($order));
 
-        $this->emit('clearCart',$order_code);
+            }else{
+
+                foreach($carts as $cart)
+                {
+                        
+                    $attribute_set_ids = ProductAttributeSet::whereProductVariantId($cart['variant_id'])->pluck('attribute_set_id')->toArray();
+                    $productvariant = ProductVariant::where('id',$cart['variant_id'])->select('product_name','price','sale_price','discount_duration','discount_start_date','discount_end_date','shipping_weight as weight','shipping_wide as wide','shipping_height as height','shipping_length as length')->first();
+                    $tax = Tax::find($cart['tax_ids']);
+                    $shippingtax = Tax::where('id',$setting->shipping_tax)->where('status','active')->first();
+
+                    $price = $productvariant->price;
+                    $sale_price = 0;
+                    
+                    if($productvariant->sale_price!=0){
+                        
+                        if($productvariant->discount_duration=='yes'){
+
+                            $currentDate = Carbon::now()->format('d-m-Y H:i');
+
+                            // Start and end date from user input or database
+                            $startDate = Carbon::parse($productvariant->discount_start_date)->format('d-m-Y H:i'); 
+                            $endDate = Carbon::parse($productvariant->discount_end_date)->format('d-m-Y H:i'); 
+
+                            // Validate start date
+                            if ($startDate <= $currentDate && $currentDate <= $endDate) {
+                                $sale_price = $price = $productvariant->sale_price;
+                            } 
+                        }else{
+                            $sale_price = $price = $productvariant->sale_price;
+                        }
+                        
+                    }
+                    $discount = $cart['discount_coupon']??0;
+                    $shipping_tax = $cart['shipping_tax'];
+                    $shipping_gross_amount = $cart['shipping_gross_amount'];
+                    $shipping_charge = $shipping_gross_amount - $shipping_tax;
+                    $shipping_discount = (isset($cart['free_shipping'])&&$cart['free_shipping']==0)?$shipping_gross_amount:0;
+
+                    // Coupon discount check
+                    if($this->apply_for=='all' && !empty($this->coupon_code)){
+                        $discount_type = $coupon->discount_type;
+                        $coupon_discount = $coupon->discount;
+                        if($discount_type=='flat'){
+                            $discount = $coupon_discount / count($carts);
+                        }elseif($discount_type=='free_shipping'){
+                            $shipping_charges = 0;
+                            $shipping_discount = $shipping_gross_amount;
+                        }elseif($discount_type=='percentage'){
+                            $discount = ($this->total_price * ($discount / 100)) / count($carts);
+                        }
+                    }
+                    $orderitem["product_id"] = $cart['id'];
+                    $orderitem['product_name'] = $productvariant->product_name;
+                    $orderitem['product_image'] = $cart['image'];
+                    $orderitem['quantity'] = $cart['quantity'];
+                    $orderitem['weight'] = $productvariant->weight*$cart['quantity'];
+                    $orderitem['wide'] = $productvariant->wide*$cart['quantity'];
+                    $orderitem['height'] = $productvariant->height*$cart['quantity'];
+                    $orderitem['length'] = $productvariant->length*$cart['quantity'];
+                    $orderitem["price"] = $productvariant->price;
+                    $orderitem["sale_price"] = $sale_price;
+                    $orderitem["tax"] = $tax->name??'';
+                    $orderitem["tax_id"] = $tax->id??0;
+                    $orderitem["taxable_amount"] = $price * $cart['quantity'];
+                    $orderitem["tax_amount"] = (($tax->percentage??0) * ($orderitem["taxable_amount"] / 100));
+                    $orderitem["gross_amount"] = $orderitem["tax_amount"] + $orderitem["taxable_amount"];
+                    $orderitem["discount_amount"] = $discount;
+                    $orderitem["sub_total"] = $orderitem["gross_amount"] - $orderitem["discount_amount"];
+
+                    $orderitem["shipping_charge"] = $shipping_charge;
+                    $orderitem["shipping_tax"] = $shippingtax->name??'';
+                    $orderitem["shipping_tax_id"] = $shippingtax->id??0;
+                    $orderitem["shipping_tax_amount"] = $shipping_tax??0;
+                    $orderitem["shipping_taxable_amount"] = $shipping_charge;
+                    $orderitem["shipping_gross_amount"] = $shipping_gross_amount;
+                    $orderitem["shipping_discount_amount"] = $shipping_discount;
+                    $orderitem["shipping_sub_total"] = $shipping_gross_amount - $shipping_discount;
+                    $orderitem["total_amount"] = $orderitem["sub_total"] + $orderitem["shipping_sub_total"];
+                    $orderitem["attribute_set_ids"] = implode(',',$attribute_set_ids);
+
+                    $orderData['user_id'] = auth()->user()->id;
+                    $orderData['coupon_code'] = $this->coupon_code;
+                    $orderData['sub_total'] = $orderitem["sub_total"];
+                    $orderData['total_amount'] = $orderitem["total_amount"];
+                    $orderData['discount_amount'] = $discount;
+                    $orderData['shipping_amount'] = $orderitem["shipping_sub_total"];
+                    $orderData['description'] = auth()->user()->usercart->notes??'';
+                    $orderData['is_confirmed'] = 1;
+                    $orderData['status'] = 'new_request';
+                    
+                    $order = Order::create($orderData);
+                    $order_id = $order->id;
+
+                    $paymentData['order_id'] = $order_id;
+                    $paymentData['user_id'] = auth()->user()->id;
+                    $paymentData['currency'] = 'INR';
+                    $paymentData['charge_id'] = $this->payment_id??'';
+                    $paymentData['payment_chennal'] = empty($this->payment_id)?'cod':'card';
+                    $paymentData['amount'] = $order->total_amount;
+                    $paymentData['status'] = empty($this->payment_id)?'pending':'completed';
+                    $paymentData['payment_type'] = empty($this->payment_id)?'pending':'confirm';
+                    $payment = OrderPayment::create($paymentData);
+                    $order_code = $this->generateOrderCode($order->id);
+            
+                    Order::where('id',$order->id)->update(['code'=>$order_code,'payment_id'=>$payment->id]);
+                    
+                    
+                    $product_stock_id = $cart['product_stock_id'];
+
+                    $product_stock = ProductStock::find($product_stock_id);
+                    $warehouse_id = $product_stock->warehouse_id;
+                    $available_stock = $product_stock->available_quantity;
+                    $product_stock->available_quantity -= $cart['quantity'];
+                    $product_stock->stock_status = ($product_stock->available_quantity<1)?'out_of_stock':'in_stock';
+                    $product_stock->save();
+
+                    $date = Carbon::now();
+
+                    $stock_history =  StockHistory::updateOrCreate([
+                        'reference_number' => $order_code,
+                        'warehouse_to_id' => $warehouse_id,
+                        'stock_type' => 'order',
+                    ],[
+                        'warehouse_from_id' => 0,
+                        'sent_date' => $date,
+                        'status' => 'new_order'
+                    ]);
+
+                    // Product Stock Quantity Update History
+                    $quantity_update_history = ProductStockUpdateQuantityHistory::create([
+                        'history_id' => $stock_history->id,
+                        'warehouse_id' => $warehouse_id,
+                        'product_name' => $productvariant->product_name,
+                        'product_id' => $cart['id'],
+                        'product_variant_id' => $cart['variant_id'],
+                        'previous_available_quantity' => $available_stock,
+                        'updated_quantity' => $cart['quantity'],
+                        'available_quantity' => $available_stock - $cart['quantity'],
+                    ]);
+                        
+                    $orderitem["order_id"] = $order_id;
+                    $orderitem["warehouse_id"] = $warehouse_id;
+
+                    OrderItem::create($orderitem);
+
+                    $orderShipment['order_id'] = $order_id;
+                    $orderShipment['user_id'] = auth()->user()->id;
+                    $orderShipment['cod_amount'] = empty($this->payment_id)?$order->total_amount:0;
+                    $orderShipment['cod_status'] = empty($this->payment_id)?'pending':null;
+                    $orderShipment['cross_checking_status'] = 'pending';
+                    $orderShipment['tracking_id'] = $this->generateTrackingId($order_id);
+                    // $orderShipment['shipping_company_name'] = null;
+                    // $orderShipment['tracking_link'] = null;
+                    // $orderShipment['estimate_date_shipped'] = null;
+                    // $orderShipment['date_shipped'] = null;
+                    $orderShipment['note'] = auth()->user()->usercart->notes??'';
+                    $orderShipment['status'] = 'order_placed';
+
+                    OrderShipment::create($orderShipment);
+                        
+                    SavedAddress::query()
+                        ->where('id', $this->address_id)
+                        ->each(function ($oldRecord) use($order_id) {
+                            $newRecord = $oldRecord->replicate();
+                            unset($newRecord['is_default']);
+                            $newRecord->setTable('shipping_addresses');
+                            $newRecord->order_id = $order_id;
+                            $newRecord->save();
+                        }); 
+                    $order= Order::where('code',$order_code)->first();
+                    \Mail::send(new OrderPlacedMail($order));
+                }
+        
+                UserCart::whereUserId(auth()->user()->id)->delete();
+                CartItem::whereUserId(auth()->user()->id)->delete();
+            }
+
+            $this->emit('clearCart',$order_code);
+       }
+       
 
     }
     
     public function initiatePayment()
     {      
-          
-        $address = SavedAddress::where('id',$this->address_id)->first();
-
-        $data = array(
-            'address_id' => $this->address_id,
-            'city' => $address->city??'', 
-            'latitude' => '', 
-            'longitude' => '', 
-            'postal_code' => $address->postal_code??''
-        );  
-
-        $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
-                $result = $this->configzone($data); 
-                if(empty($result['zone_id'])) {
-                    $fail('Delivery is not available for this location.');
-                }
-            }]
-        ],[
-            
-           'address_id.not_in' => 'Please add the Address to proceed.',
-           'address_id.required' => 'Please add the Address to proceed.',
-        
-        ]);
-
-        if(config('shipping.payment_platform')=='razorpay')
+        if(empty($this->action))
         {
-            $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
-            $address = SavedAddress::find($this->address_id);
-            $amount = (($this->total_price - $this->coupon_discount)+$this->shipping_charges).'00';
-            $order = $api->order->create([
-                'receipt' => 'order_rcptid_' . time(),
-                'amount' => $amount,
-                'currency' => 'INR',
+            $address = SavedAddress::where('id',$this->address_id)->first();
+
+            $data = array(
+                'address_id' => $this->address_id,
+                'city' => $address->city??'', 
+                'latitude' => '', 
+                'longitude' => '', 
+                'postal_code' => $address->postal_code??''
+            );  
+
+            $this->validate(['address_id'=>['required','not_in:0', function ($attribute, $value, $fail) use($data) {
+                    $result = $this->configzone($data); 
+                    if(empty($result['zone_id'])) {
+                        $fail('Delivery is not available for this location.');
+                    }
+                }]
+            ],[
+                
+            'address_id.not_in' => 'Please add the Address to proceed.',
+            'address_id.required' => 'Please add the Address to proceed.',
+            
             ]);
 
-            $address->orderId = $order['id'];
-            $address->amount = $order['amount'];
+            if(config('shipping.payment_platform')=='razorpay')
+            {
+                $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
+                $address = SavedAddress::find($this->address_id);
+                $amount = round(((($this->total_price - $this->coupon_discount)+$this->shipping_charges)*100), 0);
+                $order = $api->order->create([
+                    'receipt' => 'order_rcptid_' . time(),
+                    'amount' => $amount,
+                    'currency' => 'INR',
+                ]);
 
-            $this->emit('initiateRazorpay',$address);
+                $address->orderId = $order['id'];
+                $address->amount = $order['amount'];
+
+                $this->emit('initiateRazorpay',$address);
+            }
         }
     
     }
