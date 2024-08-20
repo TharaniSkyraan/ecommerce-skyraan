@@ -140,6 +140,7 @@
             .delivery-cnt table{
                 margin:25px;
                 background-color:#FCFCFC;
+                width:100%;
             }
             .delivery-cnt td{
                 margin:25px;
