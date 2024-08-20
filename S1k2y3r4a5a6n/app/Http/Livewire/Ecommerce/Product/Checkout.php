@@ -681,14 +681,13 @@ class Checkout extends Component
                             $newRecord->order_id = $order_id;
                             $newRecord->save();
                         }); 
-            
+                    $order= Order::where('code',$order_code)->first();
+                    \Mail::send(new OrderPlacedMail($order));
                 }
         
                 UserCart::whereUserId(auth()->user()->id)->delete();
                 CartItem::whereUserId(auth()->user()->id)->delete();
             }
-            $order= Order::where('code',$order_code)->first();
-            \Mail::send(new OrderPlacedMail($order));
 
             $this->emit('clearCart',$order_code);
        }
