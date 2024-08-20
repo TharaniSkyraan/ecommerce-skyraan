@@ -1460,9 +1460,7 @@ padding-top: 155px!important;
     .btn.QuickShop .Quick-shop-img-bottom{
         display: none!important;
     }
-    .top_re_cart .btn{
-        display: none;
-    }
+
 }
 
 @media (min-width: 768px) and (max-width: 900px){
@@ -1474,9 +1472,7 @@ padding-top: 155px!important;
     }
 }
 @media (min-width: 600px) and (max-width: 1024px){
-    .top_re_cart .btn{
-        display: none;
-    }
+
     h4{
         font-size: small;
     }

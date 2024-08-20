@@ -43,7 +43,7 @@
                                     @endif
 
                                     @if($cart_product['quantity']>$limit)
-                                        <span class="error h-sm">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                                        <span class="error h-sm sys-view">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
                                     @endif
 
                                     @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
@@ -57,6 +57,9 @@
                                         <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
                                     </div>
                                 </div>
+                                @if($cart_product['quantity']>$limit)
+                                        <span class="error h-sm mbl-view">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                                @endif
                             </div>
                         </div>
                     </a>

@@ -122,32 +122,43 @@
                width:100%;
                margin-bottom:0px;
             }
-            .delivery-cnt p{
-                margin-bottom:0px;
+            .delivery-cnt p {
+                margin-bottom: 0px;
             }
-            .delivery-cnt span{
-                font-weight:bold;
-                font-size:17px;
-                color:#000;
+
+            .delivery-cnt span {
+                font-weight: bold;
+                font-size: 17px;
+                color: #000;
             }
-            .delivery-cnt .margin-left p,span{
-                margin:0px 25px 0px 28px;
+
+            .delivery-cnt .margin-left p,
+            .delivery-cnt .margin-left span {
+                margin: 0px 25px 0px 28px;
+                word-wrap: break-word;
+                white-space: normal;
             }
-            .delivery-cnt img{
+
+            .delivery-cnt img {
                 margin: 18px 25px 24px 26px;
-                width:80px;
+                width: 80px;
             }
-            .delivery-cnt table{
-                margin:25px;
-                background-color:#FCFCFC;
-                width:100%;
+
+            .delivery-cnt table {
+                margin: 25px;
+                background-color: #FCFCFC;
+                width: 100%;
             }
-            .delivery-cnt td{
-                margin:25px;
+
+            .delivery-cnt td {
+                margin: 25px;
+                vertical-align: top;
             }
-            .delivery-cnt tr{
-                border-bottom:1px solid #000;
+
+            .delivery-cnt tr {
+                border-bottom: 1px solid #000;
             }
+
             .mt-3{
                 margin-top:20px;
             }
@@ -180,17 +191,17 @@
     <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
         <table>
-        @foreach($cart_products as $cart)
-            <tr>
-                <td>
-                    <img src="{{ $cart->image }}" alt="">
-                </td>
-                <td class="margin-left">
-                    <p>{{ $cart->name }}</p>
-                    <p>Quantity: <b>{{ $cart->quantity }} nos</b></p>
-                    <span>₹{{ $cart->price }}</span>
-                </td>
-            </tr>
+            @foreach($cart_products as $cart)
+                <tr>
+                    <td>
+                        <img src="{{ $cart->image }}" alt="">
+                    </td>
+                    <td class="margin-left">
+                        <p>{{ $cart->name }}</p>
+                        <p>Quantity: <b>{{ $cart->quantity }} nos</b></p>
+                        <span>₹{{ $cart->price }}</span>
+                    </td>
+                </tr>
             @endforeach
         </table>
     </div>
