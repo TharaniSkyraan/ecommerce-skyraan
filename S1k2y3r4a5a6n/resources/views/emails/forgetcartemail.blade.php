@@ -102,9 +102,9 @@
                 border:none;
             }
             .forward-icon{
-                filter: brightness(0) invert(1) grayscale(1);
+                filter: brightness(0) invert(1) grayscale(1)!important;
                 width:15px;
-                bottom: -4px;
+                bottom: -4px!important;
                 left: 10px;                
             }
             .my-3{

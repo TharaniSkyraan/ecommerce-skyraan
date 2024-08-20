@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use App\Mail\WelcomeMail;
+use App\Mail\OrderPlacedMail;
 use App\Models\NofityAvailableProduct;
 use App\Models\ProductVariant;
 use App\Traits\ZoneConfig;
@@ -18,7 +18,7 @@ class TestingController extends Controller
         $name = 'Tharani';
         $email = 'tharani@skyraan.com';
         
-        return new WelcomeMail($name,$email);
+        return new OrderPlacedMail($name,$email);
 
         // $notifications = NofityAvailableProduct::whereAttempts(0)->get()
         //                                         ->each(function ($items) {

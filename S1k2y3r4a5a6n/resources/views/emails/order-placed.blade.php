@@ -110,25 +110,7 @@
                 margin-bottom:2px;
                 color:#000;
             }
-            .order-summary {
-                background-color:#F9FCF6;
-            }
-            .order-summary p{
-               color:#000;
-               margin-bottom:5px;
-            }
-            .div1{
-                width: 48%;
-                border-right: 1px solid #b9b9b9;
-                padding: 14px;
-            }
-            .div2{
-                width: 50%;
-                position: absolute;
-                left: 51%;
-                top: 3px;
-                padding: 14px;
-            }
+
             .fs-2{
                 font-size:14px;
             }
@@ -187,22 +169,25 @@
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
         <div class="text-center my-3"><button class="px-3 py-2"><span class="text-white">View Order</span></button></div>
     </div>
-    <div class="order-summary">
-        <div class="div1">
-            <p class="font-bold">Order Summary</p>
-            <p class="fs-2">Order Id : #{{$order->code}}</p>
-            <p class="fs-2">Order Placed : {{$order->order_histories['order_placed']}}</p>
-            <p class="fs-2">Order Total : ₹{{ $order->total_amount }}</p>
-        </div>
-        <div class="div2">
-            <p class="font-bold">Shipping Address</p>
-            <p class="fs-2">
-                {{ $order->shipmentAddress->address }}, <br>
-                {{ $order->shipmentAddress->city }}, <br>
-                {{ $order->shipmentAddress->postal_code }}
-            </p>
-        </div>
-    </div>
+    <table class="order-summary" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F9FCF6;">
+            <tr>
+                <td class="div1" width="48%" style="border-right: 1px solid #b9b9b9; padding: 14px;">
+                    <p class="font-bold" style="color:#000; margin-bottom:5px;">Order Summary</p>
+                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Id : #{{$order->code}}</p>
+                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Placed : {{$order->order_histories['order_placed']}}</p>
+                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Total : ₹{{ $order->total_amount }}</p>
+                </td>
+                <td class="div2" width="50%" style="padding: 14px;" valign="top">
+                    <p class="font-bold" style="color:#000; margin-bottom:5px;">Shipping Address</p>
+                    <p class="fs-2" style="color:#000; margin-bottom:5px;">
+                        {{ $order->shipmentAddress->address }}, <br>
+                        {{ $order->shipmentAddress->city }}, <br>
+                        {{ $order->shipmentAddress->postal_code }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+
     <div class="products">
         <table>
             <tr>
