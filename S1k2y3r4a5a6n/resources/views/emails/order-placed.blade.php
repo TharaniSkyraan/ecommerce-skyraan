@@ -187,7 +187,6 @@
                 </td>
             </tr>
         </table>
-
     <div class="products">
         <table>
             <tr>
