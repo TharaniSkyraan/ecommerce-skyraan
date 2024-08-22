@@ -128,9 +128,15 @@
             <div class="col-12">
                 <h1 class="font-bold mb-3">Product Stock List</h1>
                 <div class="float-end">
-                    <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  
-                    <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> 
-                    <a class="btn btn-d btn-lg m-0 modify-stock-modal " href="javascript:void(0)"><i class="bx bx-edit" aria-hidden="true"></i> Modify Uploaded Stock</a> 
+                    @if(in_array('transfer',$privileges) || in_array('all',$privileges))
+                        <a class="btn btn-pp btn-lg m-0 add-transfer-stock-modal " href="javascript:void(0)"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Stock</a>  
+                    @endif
+                    @if(in_array('upload',$privileges) || in_array('all',$privileges))
+                        <a class="btn btn-p btn-lg m-0 add-stock-modal" href="javascript:void(0)"><i class="bx bx-upload" aria-hidden="true"></i> Upload Stock</a> 
+                    @endif
+                    @if(in_array('modify',$privileges) || in_array('all',$privileges))
+                        <a class="btn btn-d btn-lg m-0 modify-stock-modal " href="javascript:void(0)"><i class="bx bx-edit" aria-hidden="true"></i> Modify Uploaded Stock</a> 
+                    @endif   
                 </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
@@ -165,9 +171,11 @@
                     </table>
                 </div>
             </div>
-            <div class="mt-2">
-                <button href="javascript:void(0);" class="btn btn-lg btn-pp m-0 bulk-update-stock-transfer-modal"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Bulk Stock</button>
-                <button href="javascript:void(0);" class="btn btn-lg btn-p m-0 bulk-update-stock-modal"><i class="bx bx-upload" aria-hidden="true"></i> Upload Bulk Stock</button>
+            <div class="mt-2">            
+                @if(in_array('upload',$privileges) || in_array('all',$privileges))
+                    <button href="javascript:void(0);" class="btn btn-lg btn-p m-0 bulk-update-stock-modal"><i class="bx bx-upload" aria-hidden="true"></i> Upload Bulk Stock</button>
+                @endif
+                <!-- <button href="javascript:void(0);" class="btn btn-lg btn-pp m-0 bulk-update-stock-transfer-modal"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer Bulk Stock</button> -->
             </div>
         </div>
 

@@ -11,6 +11,22 @@ use DataTables;
 
 class ManageStockController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (!in_array('manage-stock',\Auth::guard('admin')->user()->check_privileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('manage-stock');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -126,9 +142,14 @@ class ManageStockController extends Controller
                             }
                         })
                         ->addColumn('action', function ($product_stocks) {
-							$action = '<button href="javascript:void(0);" class="btn btn-pp transfer-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>
-                           <button href="javascript:void(0);"  class="btn btn-p update-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>';
-                            return $action;
+                            $action = '';
+                            if(in_array('transfer',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<button href="javascript:void(0);" class="btn btn-pp transfer-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-transfer" aria-hidden="true"></i> Transfer</button>';
+                            }
+                            if(in_array('upload',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<button href="javascript:void(0);"  class="btn btn-p update-stock-modal" data-id="'.$product_stocks->id.'"><i class="bx bx-upload" aria-hidden="true"></i> Upload</button>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','warehouse','status','checkbox'])
                         ->setRowId(function($product_stocks) {
