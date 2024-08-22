@@ -1,4 +1,4 @@
-<div class="offcanvas-body cart_add_section">
+<div class="offcanvas-body cart_add_section d-flex justify-content-center">
     @if(count($cart_products)!=0)
         <div class="offcanvas-height">
             @foreach($cart_products as $cart_product)
@@ -25,38 +25,46 @@
                                     @endif
                                 </h6>
                                 <div class="d-flex justify-content-between align-items-center pt-1 gap-2">
-                                    @php $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit'])? $cart_product['available_quantity'] : $cart_product['cart_limit'];  @endphp
-                                    @if($cart_product['quantity']<=$limit)
+                                    @php 
+                                        $limit = ($cart_product['available_quantity'] <= $cart_product['cart_limit']) 
+                                                ? $cart_product['available_quantity'] 
+                                                : $cart_product['cart_limit'];  
+                                    @endphp
+                                    
+                                    @if($cart_product['quantity'] <= $limit)
                                         <div class="qty-dropdown jkef2 position-relative cursor">
                                             <div class="card rounded-0 p-1">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <p class="h-sms input-qty">{{ $cart_product['quantity'] }}</p>
-                                                    <img src="{{asset('asset/home/down-ar.svg')}}" alt="arrow">
+                                                    <img src="{{ asset('asset/home/down-ar.svg') }}" alt="arrow">
                                                 </div>
                                             </div>
                                             <div class="card-bodys" style="display:none;">
                                                 @for ($i = 1; $i <= $limit; $i++) 
-                                                <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{$i}}</p>
+                                                    <p class="h-sms p-1 qty-option" data-qty="{{ $i }}">{{ $i }}</p>
                                                 @endfor
                                             </div>
                                         </div>
                                     @endif
 
-                                    @if($cart_product['quantity']>$limit)
-                                        <span class="error">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
-                                    @endif
+                                    <div class="ms-auto d-flex align-items-center gap-2">
+                                        @if($cart_product['product_type'] > 1 || ($cart_product['quantity'] > $limit && $cart_product['available_quantity'] != 0))
+                                            <div>
+                                                <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
+                                                    <img src="{{ asset('asset/home/edit.svg') }}" alt="edit" class="edi-btn">
+                                                </button>
+                                            </div>
+                                        @endif
 
-                                    @if($cart_product['product_type']>1 || ($cart_product['quantity']>$limit && $cart_product['available_quantity']!=0))
-                                    <div>
-                                        <button class="bg-unset border-0 QuickShop p-0" data-bs-toggle="modal" data-bs-target="#Editpopup">
-                                            <img src="{{asset('asset/home/edit.svg')}}" alt="edit" class="edi-btn">
-                                        </button>
-                                    </div>
-                                    @endif
-                                    <div class="deleteCart cursor">
-                                        <img src="{{asset('asset/home/3917378.svg')}}" alt="delete" class="w-75">
+                                        <div class="deleteCart cursor">
+                                            <img src="{{ asset('asset/home/3917378.svg') }}" alt="delete" class="w-75">
+                                        </div>
                                     </div>
                                 </div>
+
+                                @if($cart_product['quantity']>$limit)
+                                    <span class="error h-sm ">{{ ($cart_product['available_quantity']==0)?'Out of stock':(($cart_product['quantity']>$cart_product['available_quantity'])?'Only '.$cart_product['available_quantity'].' quantity is available.':'Only '.$limit.' quantity is allowed.') }}</span>
+                                @endif
                             </div>
                         </div>
                     </a>

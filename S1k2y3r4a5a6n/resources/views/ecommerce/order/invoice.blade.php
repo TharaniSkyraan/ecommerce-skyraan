@@ -337,7 +337,7 @@
                         </td>
                         <td class="pt-0 jkef b-none text-end">
                             <div>
-                                <p>{{$siteSetting->mail_support_address}}</p>
+                                <img src="{{asset('asset/images/')}}" alt=""><p>{{$siteSetting->mail_support_address}}</p>
                                 <h6 class="pt-2">+91 {{$siteSetting->phone}}</h6>
                             </div>
                         </td>

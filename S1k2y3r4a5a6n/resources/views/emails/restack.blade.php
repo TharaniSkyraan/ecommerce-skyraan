@@ -108,9 +108,9 @@
                 border-radius:3px;
             }
             .forward-icon{
-                filter: brightness(0) invert(1) grayscale(1);
+                filter: brightness(0) invert(1) grayscale(1)!important;
                 width:15px;
-                bottom: -4px;
+                bottom: -4px!important;
                 left: 10px;                
                 /* padding:0px 10px 2px 1px; */
             }

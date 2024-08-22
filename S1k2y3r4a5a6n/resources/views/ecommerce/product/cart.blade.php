@@ -1,11 +1,12 @@
 <x-ecommerce.app-layout>   
     <style>
-        /* .cart-btn{
+        .cart-btn{
             display:none;
-        } */
+        }
         .badge-div{
             display:none!important;
         }
+
     </style>
     <x-slot name="customstyle">
         <link href="{{asset('asset/css/cart.css')}}" rel="stylesheet" type="text/css" />
