@@ -58,9 +58,29 @@ class Admin extends Authenticatable
      * @var array<int, string>
      */
     protected $appends = [
-        'profile_photo_url',
+        'profile_photo_url','check_privileges'
     ];
 
+    public function getCheckPrivilegesAttribute(){
+
+        if($this->role != 'admin'){
+            $privileges = Module::whereIn('id',explode(',',$this->privileges))->pluck('key')->toArray();
+        }else{
+            $privileges = Module::pluck('key')->toArray();
+        }
+        return $privileges;
+
+    }
+
+    public function Moduleprivileges($module_key){
+        if($this->role != 'admin'){
+            $moduleId = Module::where('key',$module_key)->pluck('id')->first();
+            $privileges = AdminPrivilege::where('admin_id',$this->id)->where('module_id',$moduleId)->pluck('privileges')->first();
+        }else{
+            $privileges = 'all';
+        }
+      return ($privileges?(explode(',',$privileges)):[]);
+    }
 
     public function privilegesData(){
 

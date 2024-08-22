@@ -57,24 +57,96 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 {{ (\Auth::guard('admin')->user()->id!=$subadmin_id)?'':'d-none'}}">
+            <div class="col-4 {{ (\Auth::guard('admin')->user()->id!= $subadmin_id)?'':'d-none'}}">
                 <div class="card">
                     <h3>Modules</h3><br>
-                    <div class="py-3">                    
+                    <div class="py-3" id="card"> 
                         @foreach($modules as $index => $module)
                             @if($module->key !='sub-admin')
-                                @if(count($module->sub_modules)==0)                      
+                                @if(count($module->sub_modules)==0)
                                     <div class="d-flex">
-                                        <input type="checkbox" wire:model="privileges.{{ $module->id }}" id="checkbox{{ $module->id }}">
+                                        <input type="checkbox" wire:model="privileges.{{ $module->id }}" id="checkbox{{ $module->id }}" class="parentModule">
                                         <label for="checkbox{{ $module->id }}"> &nbsp; {{ ucwords($module->module) }}</label>
+                                    </div>
+                                    <div class="{{ (isset($privileges[$module->id]))?'':'d-none'}} px-4 mx-4 checkbox{{ $module->id }}">
+                                        <div class="row action">
+                                            @if($module->add ==1)
+                                            <div class="col-3">
+                                                <div class="d-flex">
+                                                    <input type="checkbox" wire:model="privileges.{{ $module->id }}.add" id="checkbox-add{{ $module->id }}">
+                                                    <label for="checkbox-add{{ $module->id }}"> &nbsp; Add</label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if($module->edit ==1)
+                                            <div class="col-3">
+                                                <div class="d-flex">
+                                                    <input type="checkbox" wire:model="privileges.{{ $module->id }}.edit" id="checkbox-edit{{ $module->id }}">
+                                                    <label for="checkbox-edit{{ $module->id }}"> &nbsp; Edit</label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if($module->view ==1)
+                                            <div class="col-3">
+                                                <div class="d-flex">
+                                                    <input type="checkbox" wire:model="privileges.{{ $module->id }}.view" id="checkbox-view{{ $module->id }}">
+                                                    <label for="checkbox-view{{ $module->id }}"> &nbsp; View</label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @if($module->delete ==1)
+                                            <div class="col-3">
+                                                <div class="d-flex">
+                                                    <input type="checkbox" wire:model="privileges.{{ $module->id }}.delete" id="checkbox-delete{{ $module->id }}">
+                                                    <label for="checkbox-delete{{ $module->id }}"> &nbsp; Delete</label>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 @else
                                     <label for="" class="fw-bold">{{ ucwords($module->module)}}</label>
                                     @foreach($module->sub_modules as $index => $submodule)
                                         <div class="d-flex mx-4">                                
-                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}" id="checkbox{{ $submodule->id }}">
+                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}" id="checkbox{{ $submodule->id }}" class="subModule">
                                             <label for="checkbox{{ $submodule->id }}"> &nbsp; {{ ucwords($submodule->module) }}</label>
-                                        </div>                            
+                                        </div>  
+                                        <div class="{{ (isset($privileges[$submodule->id]))?'':'d-none'}} px-4 mx-4 checkbox{{ $submodule->id }}">
+                                            <div class="row action">
+                                                @if($submodule->add ==1)
+                                                    <div class="col-3">
+                                                        <div class="d-flex">
+                                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}.add" id="checkbox-add{{ $submodule->id }}">
+                                                            <label for="checkbox-add{{ $submodule->id }}"> &nbsp; Add</label>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($submodule->edit ==1)
+                                                    <div class="col-3">
+                                                        <div class="d-flex">
+                                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}.edit" id="checkbox-edit{{ $submodule->id }}">
+                                                            <label for="checkbox-edit{{ $submodule->id }}"> &nbsp; Edit</label>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($submodule->view ==1)
+                                                    <div class="col-3">
+                                                        <div class="d-flex">
+                                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}.view" id="checkbox-view{{ $submodule->id }}">
+                                                            <label for="checkbox-view{{ $submodule->id }}"> &nbsp; View</label>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                                @if($submodule->delete ==1)
+                                                    <div class="col-3">
+                                                        <div class="d-flex">
+                                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}.delete" id="checkbox-delete{{ $submodule->id }}">
+                                                            <label for="checkbox-delete{{ $submodule->id }}"> &nbsp; Delete</label>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>   
+                                        </div>                       
                                     @endforeach
                                 @endif
                             @endif
@@ -82,11 +154,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </form>
 </div>
-
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://s.cdpn.io/55638/selectize.min.0.6.9.js"></script> 
@@ -100,5 +170,6 @@
             }
         });
     });
+
 </script>
 @endpush

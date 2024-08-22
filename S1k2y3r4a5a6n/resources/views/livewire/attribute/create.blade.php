@@ -23,7 +23,7 @@
                             <div>
                                  <h1>Attribute List</h1>
                             </div> 
-                            <div>
+                            <div class="action-btn">
                                 <a class="btn btn-s btn-lg" href="javascript:void(0);" wire:click="addRow">Add Attribute</a> 
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group py-5">
+                <div class="form-group py-5 action-btn">
                     <div class="float-end">
                         <a href="{{ route('admin.attribute.index') }}" class="btn btn-c btn-lg" >Back</a>
                         <button wire:click.prevent="store" class="btn btn-s btn-lg">Submit</button>
@@ -106,3 +106,17 @@
     </div>
 </form>
 
+@push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+      // Get the full URL
+      var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('input, select, textarea').prop('disabled', true);
+        $('.action-btn').html('');
+    }
+</script>
+@endpush

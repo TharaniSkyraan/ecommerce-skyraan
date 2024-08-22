@@ -40,7 +40,7 @@
                     </select>
                     @error('status') <span class="error"> {{$message}}</span> @endif
                 </div>
-                <div class="form-group py-5">
+                <div class="form-group py-5 action-btn">
                     <div class="float-end">
                         <a href="{{ route('admin.brand.index') }}" class="btn btn-c btn-lg" >Back</a>
                         <button wire:click.prevent="store" class="btn btn-s btn-lg">Submit</button>
@@ -51,7 +51,7 @@
         <div class="col-4">
             <div class="card">
                 <h3>Category</h3><br>
-                <div class="py-3">                    
+                <div class="py-3" id="card">                    
                     @foreach($categories as $index => $category)
                         @if(count($category->sub_categories)==0)                      
                             <div class="d-flex">
@@ -75,6 +75,7 @@
 </form>
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>   
 
     ClassicEditor
@@ -84,6 +85,14 @@
             @this.set('description', editor.getData());
         })
     });
-    
+    // Get the full URL
+    var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('input, select, textarea').prop('disabled', true);
+        $('.action-btn').html('');
+    }
 </script>
 @endpush

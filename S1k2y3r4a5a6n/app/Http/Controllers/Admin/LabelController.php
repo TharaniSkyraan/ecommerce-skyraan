@@ -9,6 +9,25 @@ use DataTables;
 
 class LabelController extends Controller
 {
+    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('product-labels',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('product-labels');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -99,11 +118,13 @@ class LabelController extends Controller
                             }
                         })
                         ->addColumn('action', function ($labels) {
-
-							$action = '<button href="javascript:void(0);" onclick="delete_label(' . $labels->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.label.edit', $labels->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
-
-                            return $action;
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.label.edit', $labels->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('delete',$this->privileges) || in_array('all',$this->privileges)){
+							    $action .= '<button href="javascript:void(0);" onclick="delete_label(' . $labels->id .  ');" class="btn btn-d mx-2"><i class="bx bx-trash" aria-hidden="true"></i></button>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','name','status'])
                         ->setRowId(function($labels) {

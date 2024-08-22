@@ -11,10 +11,11 @@
 @endif
 <div class="row">
     <div class="col-12">
-        <div class="float-end"> <a class="btn btn-p btn-lg" href="{{ url('admin/banners-sort') }}">Sort Home Banner</a> 
+        <div class="float-end">
+        @if(in_array('edit',$privileges) || in_array('add',$privileges) || in_array('all',$privileges)) <a class="btn btn-p btn-lg" href="{{ url('admin/banners-sort') }}">Sort Home Banner</a>  @endif 
                                 <!-- <a class="btn btn-p btn-lg" href="{{ route('admin.banner.create') }}">Sort Special Product Banner</a> 
                                 <a class="btn btn-p btn-lg" href="{{ route('admin.banner.create') }}">Sort Combo Off/Promotion Banner</a>  -->
-                                <a class="btn btn-s btn-lg" href="{{ route('admin.banner.create') }}">Create Banner</a> </div>
+        @if(in_array('add',$privileges) || in_array('all',$privileges)) <a class="btn btn-s btn-lg" href="{{ route('admin.banner.create') }}">Create Banner</a> @endif </div>
         <div class="table-responsive">
             <table id="datatable" class="table key-buttons text-md-nowrap">
                 <thead>

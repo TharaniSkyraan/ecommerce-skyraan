@@ -5,7 +5,8 @@
   </x-slot>
   <ul class="breadcrumb">
     <li><a href="{{url('/')}}">Dashboard</a></li>
-    @if(\Auth::guard('admin')->user()->id!=$id)
+    @php $id= $id??''; @endphp
+    @if(\Auth::guard('admin')->user()->id != $id)
     <li><a href="{{ route('admin.subadmin.index') }}">Subadmin List</a></li>
     <li>Subadmin</li>
     @else

@@ -16,6 +16,7 @@
                                 $image = '';
                             }
                         @endphp
+        
                         <div class="col-3 {{ (empty($image))? 'd-none':''}}">
                             <div class="d-flex">                        
                                 <input type="hidden" name="id" wire:model="imageList.{{ $index }}.image" ></td>
@@ -24,7 +25,9 @@
                                     <label for="imageList.{{ $index }}.image" class="cursor-pointer" id="{{ $index }}">
                                        <img src="{{ $image??asset('admin/images/placeholder.png') }}" alt="ATtr-icon" class="my-1 cat-image">
                                     </label>
-                                    <i class="bx bx-x-circle cursor-pointer" wire:click="removeRow({{ $index }})"></i>
+                                    <div class="{{ (empty($page))? 'd-none':''}}">
+                                        <i class="bx bx-x-circle cursor-pointer" wire:click="removeRow({{ $index }})"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>  
@@ -38,7 +41,7 @@
                 </div>
             @endif       
         </div>        
-        <div class="">
+        <div class="{{ (empty($page))? 'd-none':''}}">
             <a class="cursor-pointer" href="javascript:void(0);" id="addRow" data-value="{{ count($imageList) }}">Add Product</a> 
         </div>
     </div>

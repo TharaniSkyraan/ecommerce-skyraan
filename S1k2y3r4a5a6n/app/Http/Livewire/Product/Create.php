@@ -466,9 +466,10 @@ class Create extends Component
         $this->discount_end_date = $end;
     }
 
-    public function mount($product_id)
+    public function mount($product_id,$page='create')
     {
         $this->product_id = $product_id;
+        $this->page = $page;
 
         if(!empty($product_id))
         {

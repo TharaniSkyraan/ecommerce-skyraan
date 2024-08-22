@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\Module;
+use App\Models\AdminPrivilege;
 use App\Models\Warehouse;
 
 class Create extends Component
@@ -58,6 +59,21 @@ class Create extends Component
         );
         $this->subadmin_id = $subadmin->id;
 
+        $previous_module_privileges = AdminPrivilege::whereAdminId($this->subadmin_id)->pluck('module_id')->toArray();
+
+        $unselected_privileges = array_diff($previous_module_privileges, $privileges);
+        foreach($this->privileges as $key => $privilege)
+        {
+            if(is_array($privilege))
+            {
+                $privilege = array_keys(array_filter(array_filter($privilege, function($keys) {
+                    return $keys !== "";
+                }, ARRAY_FILTER_USE_KEY)));
+                AdminPrivilege::updateOrCreate(['admin_id'=>$this->subadmin_id,'module_id'=>$key],['privileges'=>implode(',',$privilege)]);
+            }
+        }
+        AdminPrivilege::whereAdminId($this->subadmin_id)->whereIn('module_id',$unselected_privileges)->delete();
+
         $selected_warehouse_ids = $this->selected_warehouse_ids;
         $unselected_warehouse_ids = $warehouse_ids = $this->warehouse_ids;
         foreach($selected_warehouse_ids as $warehouse_id)
@@ -107,6 +123,10 @@ class Create extends Component
             $this->temp_profile_photo_path = $subadmin->profile_photo_path;
             $this->email = $subadmin->email;
             $this->privileges =  array_fill_keys(explode(',',$subadmin->privileges), true);
+            $privileges = AdminPrivilege::whereAdminId($subadmin_id)->where('privileges','!=','')->get();
+            foreach($privileges as $privilege){
+                $this->privileges[$privilege->module_id] = array_fill_keys(explode(',',$privilege->privileges), true);
+            }
             $this->warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$subadmin_id])->whereStatus('active')->pluck('id')->toArray();
             $this->selected_warehouse_ids = $this->warehouse_ids;
             $this->password_input = 'hide';

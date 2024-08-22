@@ -30,8 +30,9 @@ class Images extends Component
         $this->imageList[] = ['id' => '', 'image' => null, 'temp_image' => null];
     }
 
-    public function mount()
+    public function mount($page)
     {
+        $this->page = $page;
         $this->imageList[] = ['id' => '', 'image' => null, 'temp_image' => null];
         
     }
