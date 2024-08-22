@@ -5,8 +5,10 @@
                 <input type="hidden" wire:model="product_ids">
                 <input type="hidden" wire:model="special_id">
                 <div class="form-group position-relative">
+                    @if(in_array('edit',$privileges) || in_array('all',$privileges))
                     <label for="query">Product</label>
                     <input type="search" name="query" id="query" placeholder="Product" wire:model="query" autocomplete="off">
+                    @endif
                     @if($suggesstion)
                         @if(count($products)!=0)
                             <div class="autocomplete">
@@ -39,7 +41,7 @@
                             @endphp
                             <div class="selected-products">
                                 <div class="product"> <img src="{{ $image }}" alt="Banner-icon"> <span> {{$sproduct->name}} </span> </div>
-                                <div><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div>
+                                @if(in_array('delete',$privileges) || in_array('all',$privileges)) <div><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div> @endif
                             </div>
                         @endforeach
                     </div>

@@ -9,7 +9,23 @@ use DataTables;
 
 class WarehouseController extends Controller
 {
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('warehouse',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('warehouse');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */
@@ -41,6 +57,7 @@ class WarehouseController extends Controller
     public function show(string $id)
     {
         //
+        return view('admin.warehouses.create',compact('id'));
     }
 
     /**
@@ -96,10 +113,16 @@ class WarehouseController extends Controller
                             }
                         })
                         ->addColumn('action', function ($warehouses) {
-							$action = '<button href="javascript:void(0);" onclick="delete_warehouse(' . $warehouses->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.warehouses.edit', $warehouses->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
-
-                            return $action;
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.warehouses.edit', $warehouses->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.warehouses.show', $warehouses->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                            }
+                            // if(in_array('delete',$this->privileges) || in_array('all',$this->privileges)){
+							//     $action .= '<button href="javascript:void(0);" onclick="delete_warehouse(' . $warehouses->id .  ');" class="btn btn-d mx-2"><i class="bx bx-trash" aria-hidden="true"></i></button>';
+                            // }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','address','status'])
                         ->setRowId(function($warehouses) {

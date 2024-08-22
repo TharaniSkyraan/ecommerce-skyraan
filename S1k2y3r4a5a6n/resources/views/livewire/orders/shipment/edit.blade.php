@@ -18,7 +18,7 @@
                 <div>
                     <div class="product-det">
                         <div class="title">Order Id :</div>
-                        <div class="font-bold"><a href="{{ route('admin.orders.edit', $shipment->order_id) }}" target="_blank">#{{ $shipment->order->code }}</a></div>
+                        <div class="font-bold"><a href="{{ route('admin.orders.show', $shipment->order_id) }}" target="_blank">#{{ $shipment->order->code }}</a></div>
                     </div>
                     <div class="product-det">
                         <div class="title">Order Date :</div>
@@ -45,7 +45,7 @@
                     </div>  
                 </div> 
                 @if($order_status=='order_confirmed' || $order_status=='shipped' || $order_status=='out_for_delivery')
-                <div class="trackbutton">
+                <div class="trackbutton action-btn">
                     <a href="javascript:void(0)" class="btn btn-lg modal-edit float-end cursor-pointer" wire:click="ShipmentStatusUpdate()"><i class="bx bxs-truck"></i> Update Shipping Status </a>
                 </div>  
                 @endif
@@ -82,6 +82,7 @@
     </div>
 </div>
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).on('click', '.modal-edit', function () {   
         document.body.classList.add('modal-open');
@@ -99,5 +100,13 @@
             newWindow.document.write('<embed src="data:application/pdf;base64,' + pdfData + '" type="application/pdf" width="100%" height="100%"/>');
         });
     });
+    // Get the full URL
+    var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('.action-btn').html('');
+    }
 </script>
 @endpush

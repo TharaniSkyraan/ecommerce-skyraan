@@ -8,7 +8,24 @@ use App\Models\CancelReason;
 use DataTables;
 
 class CancelReasonController extends Controller
-{
+{   
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('cancel-reasons',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('cancel-reasons');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -89,11 +106,16 @@ class CancelReasonController extends Controller
                             return ucwords($cancel_reasonss->name);
                         })
                         ->addColumn('action', function ($cancel_reasonss) {
-
-							$action = '<button href="javascript:void(0);" onclick="delete_cancel_reasons(' . $cancel_reasonss->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.cancel_reasons.edit', $cancel_reasonss->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
-
-                            return $action;
+                            
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.cancel_reasons.edit', $cancel_reasonss->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.cancel_reasons.show', $cancel_reasonss->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                            }if(in_array('delete',$this->privileges) || in_array('all',$this->privileges)){
+							    $action .= '<button href="javascript:void(0);" onclick="delete_cancel_reasons(' . $cancel_reasonss->id .  ');" class="btn btn-d mx-2"><i class="bx bx-trash" aria-hidden="true"></i></button>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','name'])
                         ->setRowId(function($cancel_reasonss) {

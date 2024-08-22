@@ -59,6 +59,8 @@ class SpecialProductList extends Component
     }
 
     public function mount(){        
+        $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('special-products');
+
         $speciaclproducts = SpecialProduct::first();
         $this->special_id = $speciaclproducts->id??'';
         if(isset($speciaclproducts)){

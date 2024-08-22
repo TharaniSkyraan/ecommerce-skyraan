@@ -103,7 +103,7 @@
                             <div> <p class="font-bold {{ $order->payments?(($order->payments->status=='completed')?'success':'danger'):'' }}"> {{ $order->payments?(($order->payments->status=='completed')?'Paid':'Unpaid'):'' }} </p> </div>
                         </div>
                         @if($order_status=='new_request'||$order_status=='order_confirmed')
-                            <div class="card1">
+                            <div class="card1 action-btn">
                                 <div>
                                 @if($order_status=='new_request')
                                     <a href="javascript:void(0)" wire:click="confirmOrder"> <span class="btn btn-s">Confirm Order</span></a>
@@ -144,7 +144,7 @@
                 $shipmentstatus = $shipment->status;
             @endphp
             <div class="card mt-3 mx-2">
-                <h1 class="mb-3 font-bold"> Shipment Information - <a href="{{ route('admin.shipments.edit', $shipment->id) }}" class="primary" target="_blank">#{{ $shipment->tracking_id }}</a> </h1>
+                <h1 class="mb-3 font-bold"> Shipment Information - <a href="{{ route('admin.shipments.show', $shipment->id) }}" class="primary" target="_blank">#{{ $shipment->tracking_id }}</a> </h1>
                 <hr>
                 <div class="mt-3">
                     <div class="product-det">
@@ -158,7 +158,7 @@
                     </div>   
                 </div> 
                 @if($order_status=='order_confirmed' || $order_status=='shipped' || $order_status=='out_for_delivery')
-                <div class="trackbutton">
+                <div class="trackbutton action-btn">
                     <a href="javascript:void(0)" class="btn btn-lg modal-edit float-end cursor-pointer" wire:click="ShipmentStatusUpdate()"><i class="bx bxs-truck"></i> Update Shipping Status </a>
                 </div>  
                 @endif
@@ -173,6 +173,7 @@
     </div>
 </div>
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
     $(document).on('click', '.modal-edit', function () {   
@@ -203,5 +204,13 @@
             newWindow.document.write('<embed src="data:application/pdf;base64,' + pdfData + '" type="application/pdf" width="100%" height="100%"/>');
         });
     });
+    // Get the full URL
+    var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('.action-btn').html('');
+    }
 </script>
 @endpush

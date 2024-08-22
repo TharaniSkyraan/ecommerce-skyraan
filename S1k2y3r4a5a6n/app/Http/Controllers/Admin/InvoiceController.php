@@ -10,6 +10,22 @@ use DataTables;
 
 class InvoiceController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('invoices',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('invoices');         
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -48,7 +64,11 @@ class InvoiceController extends Controller
     public function edit(string $id)
     {
         //
-        return view('admin.orders.invoice.edit',compact('id'));
+        if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+            return view('admin.orders.invoice.edit',compact('id'));
+        }else{
+            abort(403);
+        }
     }
        /**
      * Update the specified resource in storage.
@@ -108,13 +128,13 @@ class InvoiceController extends Controller
                         }
                     })
                     ->editColumn('tracking_id', function ($orders) {
-                        return '<a href="' . route('admin.shipments.edit', $orders->shipment_id) . '" class="primary1">#' . $orders->tracking_id . '</a>';
+                        return '<a href="' . route('admin.shipments.show', $orders->shipment_id) . '" class="primary1">#' . $orders->tracking_id . '</a>';
                     })
                     ->editColumn('invoice_number', function ($orders) {
                         return '<a href="' . route('admin.invoices.edit', $orders->order_id) . '" class="primary1">#' . $orders->invoice_number . '</a>';
                     })
                     ->editColumn('order_code', function ($orders) {
-                        return '<a href="' . route('admin.orders.edit', $orders->order_id) . '" class="primary1" target="_blank">#' . $orders->order_code . '</a>';
+                        return '<a href="' . route('admin.orders.show', $orders->order_id) . '" class="primary1" target="_blank">#' . $orders->order_code . '</a>';
                     })
                     ->editColumn('name', function ($orders) {
                         return ucwords($orders->name);
@@ -123,8 +143,11 @@ class InvoiceController extends Controller
                         return \Carbon\Carbon::parse($orders->invoice_date)->format('Y-m-d');
                     })
                     ->addColumn('action', function ($orders) {
-                        $action = '<a href="' . route('admin.invoices.edit', $orders->order_id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
-                        return $action;
+                        $action = '';
+                        if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                            $action = '<a href="' . route('admin.invoices.edit', $orders->order_id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                        }
+                        return !empty($action)?$action:'-';
                     })
                     ->rawColumns(['action', 'invoice_number', 'order_code', 'tracking_id', 'invoice_date'])
                     ->setRowId(function ($orders) {
