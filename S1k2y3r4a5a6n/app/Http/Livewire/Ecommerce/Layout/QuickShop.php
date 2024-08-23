@@ -39,7 +39,9 @@ class QuickShop extends Component
     {
         $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                         $q->whereHas('product_stock', function($q1){
-                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            }
                                                                         });
                                                                     })->whereProductId($this->product_id)->whereAttributeSetId($this->parent_attribute_set_id)->pluck('product_variant_id')->toArray();
         $this->updateattribute($this->parent_attribute_set_id, $this->parent_available_variant_ids, $this->attributes, 'yes');
@@ -58,7 +60,9 @@ class QuickShop extends Component
                                 ->each(function ($attribute, $key) use($id) {  
                                     $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                                         $q->whereHas('product_stock', function($q1){
-                                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                        }
                                                                                         });
                                                                                     })->whereProductId($id)
                                                                                     ->whereAttributeId($attribute->id)
@@ -67,7 +71,9 @@ class QuickShop extends Component
                                                                     ->each(function ($product_attribute_set, $key) use($id) {  
                                                                         $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                             $q->whereHas('product_stock', function($q1){
-                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            }
                                                                             });
                                                                         })->whereProductId($id)
                                                                         ->whereAttributeSetId($product_attribute_set->id)
@@ -76,7 +82,9 @@ class QuickShop extends Component
                                 })->toArray();
         $available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
             $q->whereHas('product_stock', function($q1){
-                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                $q1->whereIn('warehouse_id', $this->warehouse_ids)  ;
+                                                                            }
             });
         })->whereProductId($this->product_id)->whereAttributeSetId($attribute_set_id)->pluck('product_variant_id')->toArray();
         $available_variant_ids = array_intersect($this->parent_available_variant_ids, $available_variant_ids);
@@ -315,7 +323,9 @@ class QuickShop extends Component
 
             $this->parent_available_variant_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                             $q->whereHas('product_stock', function($q1){
-                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            }
                                                                             });
                                                                         })->whereProductId($product->id)
                                                                         ->whereAttributeSetId($this->parent_attribute_set_id)
@@ -326,7 +336,9 @@ class QuickShop extends Component
                                                 ->each(function ($attribute, $key) use($id) {  
                                                     $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                                                     $q->whereHas('product_stock', function($q1){
-                                                                                                        $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                                            $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                    }
                                                                                                     });
                                                                                                 })->whereProductId($id)
                                                                                                 ->whereAttributeId($attribute->id)
@@ -335,7 +347,9 @@ class QuickShop extends Component
                                                                 ->each(function ($product_attribute_set, $key) use($id) {  
                                                                     $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                                                                             $q->whereHas('product_stock', function($q1){
-                                                                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                                            }
                                                                                                                             });
                                                                                                                         })->whereProductId($id)
                                                                                                                         ->whereAttributeSetId($product_attribute_set->id)
@@ -347,7 +361,9 @@ class QuickShop extends Component
                                             ->each(function ($attribute, $key) use($id) {  
                                                 $product_attribute_set_ids = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                                                 $q->whereHas('product_stock', function($q1){
-                                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                                        $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                }
                                                                                                 });
                                                                                             })->whereProductId($id)
                                                                                             ->whereAttributeId($attribute->id)
@@ -356,7 +372,9 @@ class QuickShop extends Component
                                                 ->each(function ($product_attribute_set, $key) use($id) {  
                                                     $product_attribute_set['available_variant_ids'] = ProductAttributeSet::whereHas('product_variant', function($q){
                                                                                                             $q->whereHas('product_stock', function($q1){
-                                                                                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                            if((count($this->warehouse_ids)!=0)){
+                                                                                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
+                                                                                                            }
                                                                                                             });
                                                                                                         })->whereProductId($id)
                                                                                                         ->whereAttributeSetId($product_attribute_set->id)
