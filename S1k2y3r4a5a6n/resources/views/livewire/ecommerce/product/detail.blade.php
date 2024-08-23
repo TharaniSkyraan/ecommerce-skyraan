@@ -42,7 +42,7 @@
                 </div>
                 <div class="detail-img text-center position-relative border">
                     <img src="{{asset('storage')}}/{{$images[0]}}" alt="image" class="w-100 demo-trigger" data-zoom="{{asset('storage')}}/{{$images[0]}}">
-                    @if($stock_status=='out_of_stock')
+                    @if($stock_status=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                         <h5 class="sold-out-text text-nowrap">SOLD OUT</h5>
                     @endif
                 </div>
@@ -150,13 +150,13 @@
                 @endif
                 <div class="container-fluid px-0">
                     <div class=" row align-items-center add-to-cart py-3 w-75 adadas">
-                        @if($stock_status=='out_of_stock')
+                        @if($stock_status=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                             <a href="javascript:void(0)" class="col-6 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                 <div class="card card2 border-0 p-3">
                                     <h5 class="text-white text-center fw-normal">Notify Me</h5>
                                 </div>
                             </a>
-                        @else
+                        @elseif(!empty($zone_data['warehouse_ids']))
                             <a href="javascript:void(0);" class="col-6 AddCart" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                                 <div class="card card1 border-0 py-3">
                                     <h5 class="text-dark text-center fw-normal">Add to cart</h5>
@@ -175,6 +175,8 @@
                                     </div>
                                 </a>
                             @endif
+                        @else
+                            <span class="text-danger">*Currently unavailable</span>
                         @endif
 
                     </div>
@@ -274,7 +276,7 @@
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
-                                        @if($product['stock_status']=='out_of_stock')
+                                        @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                         @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
@@ -310,7 +312,7 @@
                                     @endif
                                 </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['stock_status']=='out_of_stock')
+                                    @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>   
@@ -381,7 +383,7 @@
                             <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
-                                        @if($product['stock_status']=='out_of_stock')
+                                        @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                         @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
@@ -417,7 +419,7 @@
                                     @endif
                                 </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['stock_status']=='out_of_stock')
+                                    @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>       

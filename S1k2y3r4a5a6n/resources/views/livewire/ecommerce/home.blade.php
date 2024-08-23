@@ -5,7 +5,7 @@ $duration = (count($collections) / 5) * $baseDuration;
 
 <style>
 .marquee__group {
-    animation: scroll {{ $duration }}s linear infinite;
+    /* animation: scroll {{ $duration }}s linear infinite; */
 }
 </style>
 <div>
@@ -104,7 +104,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     <div class="container-fluid">
                                     <div class="row pt-1 position-absolute w-100 reviews-div">
                                         <div class="col-6 px-0">
-                                            @if($tproduct['stock_status']=='out_of_stock')
+                                            @if($tproduct['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                 <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($tproduct['label']))
                                             <div class="position-relative best-seller">
@@ -141,7 +141,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             @endif
                                         </div> 
                                     <div class="container-fluid ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0 position-absolute add-div">
-                                        @if($tproduct['stock_status']=='out_of_stock')
+                                        @if($tproduct['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                             <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                 <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                             </button>  
@@ -253,7 +253,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     <div class="container-fluid px-0">
                                         <div class="row pt-1 position-absolute w-100 reviews-div">
                                             <div class="col-6">
-                                                @if($product['stock_status']=='out_of_stock')
+                                                @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                     <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
                                                 @elseif(!empty($product['label']))
                                                 <div class="position-relative best-seller">
@@ -289,7 +289,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             @endif
                                         </div> 
                                         <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
-                                            @if($product['stock_status']=='out_of_stock')
+                                            @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                 <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                     <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                                 </button>   
@@ -381,7 +381,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             <div class="container-fluid position-absolute reviews-div">
                                                 <div class="row pt-1">
                                                     <div class="col-6 px-0">
-                                                        @if($product['stock_status']=='out_of_stock')
+                                                        @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                         <div class="ps-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms">Sold Out</h6></div></div>
                                                         @elseif(!empty($product['label']))
                                                         <div class="position-relative best-seller">
@@ -418,7 +418,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     @endif
                                                 </div> 
                                             <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">  
-                                                @if($product['stock_status']=='out_of_stock')
+                                                @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                     <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                                         <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                                     </button>

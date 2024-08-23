@@ -30,7 +30,6 @@ class ProductList extends Component
     public $products = [];
     public $warehouse_ids = [];
 
-
     protected $queryString = ['category','availablestock','rating','min_price','max_price','sort_by'];
 
     protected $listeners = ['loadMore','GetFilters','InitiateFilters','GetView','GetSortBy','addremoveWish'];
@@ -109,7 +108,9 @@ class ProductList extends Component
     public function filterProduct($init='')
     {
         $Products = Product::whereHas('product_stock', function($q){
-                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                if((count($this->warehouse_ids)!=0)){
+                                    $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                }
                                 if (!empty($this->availablestock)) { 
                                     $q->whereIn('stock_status', explode(',',$this->availablestock));
                                 }  
@@ -142,7 +143,9 @@ class ProductList extends Component
 
             $productidd = $Products->orderBy(
                             ProductVariant::whereHas('product_stock', function($q){
-                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                if((count($this->warehouse_ids)!=0)){
+                                    $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                }
                             })->select('search_price')
                             ->whereColumn('product_id', 'products.id')
                             ->whereIn('is_default', ['yes', 'no'])
@@ -152,7 +155,9 @@ class ProductList extends Component
                         )->pluck('id')->first();
 
             $this->product_max_price = ProductVariant::whereHas('product_stock', function($q){
-                            $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            if((count($this->warehouse_ids)!=0)){
+                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                            }
                         })->where('product_id', $productidd)
                         ->orderBy('search_price','desc')
                         ->pluck('search_price')->first();
@@ -169,7 +174,9 @@ class ProductList extends Component
                 
                 $productidd = $Products->orderBy(
                                 ProductVariant::whereHas('product_stock', function($q){
-                                    $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                    if((count($this->warehouse_ids)!=0)){
+                                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                    }
                                 })->select('search_price')
                                 ->whereColumn('product_id', 'products.id')
                                 ->whereIn('is_default', ['yes', 'no'])
@@ -179,7 +186,9 @@ class ProductList extends Component
                             )->pluck('id')->first();
 
                 $this->product_max_price = ProductVariant::whereHas('product_stock', function($q){
-                                $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                if((count($this->warehouse_ids)!=0)){
+                                    $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                }
                             })->where('product_id', $productidd)
                             ->orderBy('search_price','desc')
                             ->pluck('search_price')->first();
@@ -214,7 +223,9 @@ class ProductList extends Component
             if($orderby[0]=='price'){
                 $Products->orderBy(
                     ProductVariant::whereHas('product_stock', function($q){
-                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                        if((count($this->warehouse_ids)!=0)){
+                            $q->whereIn('warehouse_id', $this->warehouse_ids);
+                        }
                     })->select('search_price')
                     ->whereColumn('product_id', 'products.id')
                     ->whereIn('is_default', ['yes', 'no'])
@@ -236,7 +247,9 @@ class ProductList extends Component
         $products = array_map(function ($product) {
 
             $default = ProductVariant::whereHas('product_stock', function($q){
-                                        $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        if((count($this->warehouse_ids)!=0)){
+                                            $q->whereIn('warehouse_id', $this->warehouse_ids);
+                                        }
                                     })->select('id','price','sale_price','discount_expired','discount_start_date','discount_end_date','discount_duration','stock_status')
                                     ->whereIn('is_default', ['yes', 'no'])
                                     ->orderByRaw("is_default = 'yes' DESC")                               
