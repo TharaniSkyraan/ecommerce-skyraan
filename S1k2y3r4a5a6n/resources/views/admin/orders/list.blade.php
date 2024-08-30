@@ -4,14 +4,15 @@
         <li>Order List</li>
     </ul>
     <div class="card">
-      @if(session()->has('message'))
-          <div class="alert-success my-2">
-              {{session('message')}}
-          </div>                
-      @endif
-      <div class="row">
-          <div class="col-12">
-              <div class="table-responsive">
+        @if(session()->has('message'))
+            <div class="alert-success my-2">
+                {{session('message')}}
+            </div>                
+        @endif
+        <div class="row">
+            <div class="col-12">
+                <div class="float-end"> @if(in_array('add',$privileges) || in_array('all',$privileges)) <a class="btn btn-s btn-lg" href="{{ route('admin.orders.create') }}">Create Order</a> @endif </div>
+                <div class="table-responsive">
                   <table id="datatable" class="table key-buttons text-md-nowrap">
                       <thead>
                           <tr class="form-group">

@@ -58,7 +58,6 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
             }else{     
                 return view('admin/special-product');
             }   
-        
         })->name('special-product');
 
         Route::get('/settings', function () { return view('admin/settings/settings'); })->name('settings');
@@ -77,7 +76,6 @@ Route::group(['prefix'=>'admin','namespace'=>'App\Http\Controllers\Admin','middl
 
         Route::get('invoices/fetchData','InvoiceController@fetchData')->name('fetch.invoices.data');
         Route::resource('invoices','InvoiceController');
-
 
         Route::get('pages/fetchData','PageController@fetchData')->name('fetch.pages.data');
         Route::resource('pages','PageController');

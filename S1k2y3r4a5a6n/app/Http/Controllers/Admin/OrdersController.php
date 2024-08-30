@@ -23,6 +23,7 @@ class OrdersController extends Controller
                 abort(403);
             }   
             $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('order');         
+            \View::share('privileges', $this->privileges);
             return $next($request);
         });
     }
@@ -41,7 +42,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.orders.create');
     }
 
     /**

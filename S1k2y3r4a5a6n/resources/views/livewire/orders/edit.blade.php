@@ -124,7 +124,7 @@
                         <p><i class="bx bx-phone me-2"></i>{{ $order->user->phone }}</p>
                     </div>
                 </div>
-                
+                @isset($order->shipmentAddress)
                 <div class="col-12">
                     <div class="card mx-2">
                         <h2 class="mt-2 mb-3 font-bold">Shipping Detail</h2>
@@ -136,8 +136,10 @@
                         <p><i class="bx bx-map me-2"></i>{{ $shipment_address->address }}</p>
                     </div>
                 </div>
+                @endisset
             </div>
         </div>
+        @isset($order->shipmentAddress)
         <div class="col-12 shipment">
             @php 
                 $trackings = $shipment->shipping_history;
@@ -167,6 +169,7 @@
                 @endif
             </div>
         </div>
+        @endisset
     </div>
     <div class="modal-window {{ $modalisOpen }}">
         @include('livewire.orders.shipping_status_update_model')
