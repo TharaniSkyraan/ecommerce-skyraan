@@ -132,6 +132,12 @@
                                                             <label for="checkbox-modify{{ $submodule->id }}"> &nbsp; Modify</label>
                                                         </div>
                                                     </div>
+                                                    <div class="col-4">
+                                                        <div class="d-flex">
+                                                            <input type="checkbox" wire:model="privileges.{{ $submodule->id }}.damage" id="checkbox-damage{{ $submodule->id }}">
+                                                            <label for="checkbox-damage{{ $submodule->id }}"> &nbsp; Damage </label>
+                                                        </div>
+                                                    </div>
                                                 </div> 
                                             @else
                                             <div class="row action">

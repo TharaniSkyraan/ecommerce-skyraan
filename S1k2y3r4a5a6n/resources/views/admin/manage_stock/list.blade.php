@@ -136,6 +136,9 @@
                     @endif
                     @if(in_array('modify',$privileges) || in_array('all',$privileges))
                         <a class="btn btn-d btn-lg m-0 modify-stock-modal " href="javascript:void(0)"><i class="bx bx-edit" aria-hidden="true"></i> Modify Uploaded Stock</a> 
+                    @endif  
+                    @if(in_array('damage',$privileges) || in_array('all',$privileges))
+                        <a class="btn btn-w btn-lg m-0 damage-stock-modal " href="javascript:void(0)"><i class="bx bx-edit" aria-hidden="true"></i> Update Damage Stock</a> 
                     @endif   
                 </div>
                 <div class="table-responsive">
@@ -208,6 +211,17 @@
                 @livewire('manage-product.modify-update-stock')                
             </div>
         </div>
+    
+        <div class="modal-window modal-window-lg damage-stock">
+            <div class="modal-toggle"> 
+                <div class="modal-header">
+                    <h1> Damage Stock </h1>
+                    <a href="javascript:void(0)" title="Close" class="modal-close">Close</a>
+                </div>
+                @livewire('manage-product.damage-stock-update')                
+            </div>
+        </div>
+
 
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="{{asset('admin/js/dataTable/jquery.dataTables.min.js')}}"></script>
@@ -471,6 +485,12 @@
                     document.body.classList.add('modal-open');
                     $('.transfer-stock').addClass('show');
                 }
+            });
+
+            $(document).on('click', '.damage-stock-modal', function () {  
+                Livewire.emit('OpenStocksLimit');
+                document.body.classList.add('modal-open');
+                $('.damage-stock').addClass('show');
             });
 
             $(document).on('click', '.modal-close, .modal-dismiss', function () {   

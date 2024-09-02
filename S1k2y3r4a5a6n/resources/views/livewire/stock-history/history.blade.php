@@ -47,11 +47,13 @@
                             <div class="title">Stock Uploaded Date :</div>
                             <div class="font-bold">{{ \Carbon\Carbon::parse($stock_history->received_date)->copy()->timezone('Asia/Kolkata')->format('d M y h:i A')}}</div>
                         </div>  
-                    @else                    
+                    @else      
+                        @if($stock_history->stock_type=='order')              
                         <div class="product-det">
                             <div class="title">Order Date :</div>
                             <div class="font-bold">{{ \Carbon\Carbon::parse($stock_history->sent_date)->copy()->timezone('Asia/Kolkata')->format('d M y h:i A')}}</div>
                         </div> 
+                        @endif
                         @if(!empty($stock_history->received_date))
                             <div class="product-det">
                                 <div class="title">{{ ucwords($stock_history->status) }} Date :</div>

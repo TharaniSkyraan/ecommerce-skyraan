@@ -49,7 +49,7 @@ class ModifyUpdateStock extends Component
                 $data['upload_stock'] = $product_history->updated_quantity;
                 $data['last_modified_quantity'] = $updated_quantity??0;
                 $data['product_stock_id'] = $available_stock->id??'';
-                $data['warehouse_name'] = $product_history->warehouse->name;
+                $data['warehouse_name'] = $product_history->warehouse->name??'';
                 $data['warehouse_id'] = $product_history->warehouse_id;
                 $data['quantity'] = 0;
                 
