@@ -19,7 +19,7 @@ class DamageStockUpdate extends Component
     protected $listeners = ['suggestion', 'unsetsuggestion', 'resetInputvalues','OpenStocksLimit'];
 
     public function GenerateReference(){
-        $counter = StockHistory::select('id')->first();
+        $counter = StockHistory::select('id')->orderBy('id','desc')->first();
         $this->reference_number = 'DMG-'.Carbon::now()->format('Yhis').'-'. str_pad($counter->id??1, 4, '0', STR_PAD_LEFT);
     }
     public function updatedQuery(){

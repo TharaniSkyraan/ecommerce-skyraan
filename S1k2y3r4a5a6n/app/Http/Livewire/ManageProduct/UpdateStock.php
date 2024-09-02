@@ -19,7 +19,7 @@ class UpdateStock extends Component
     protected $listeners = ['SelectProduct','suggestion','unsetsuggestion', 'resetInputvalues','OpenUpdatestock'];
 
     public function GenerateReference(){    
-        $counter = StockHistory::select('id')->first();
+        $counter = StockHistory::select('id')->orderBy('id','desc')->first();
         $this->reference_number = 'UPLD-'.Carbon::now()->format('Yhis').'-'. str_pad($counter->id??1, 4, '0', STR_PAD_LEFT);
     }
 
