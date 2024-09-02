@@ -113,7 +113,7 @@ class CancelReasonController extends Controller
                             }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
                                 $action .= '<a href="' . route('admin.cancel_reasons.show', $cancel_reasonss->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
                             }if(in_array('delete',$this->privileges) || in_array('all',$this->privileges)){
-							    $action .= '<button href="javascript:void(0);" onclick="delete_cancel_reasons(' . $cancel_reasonss->id .  ');" class="btn btn-d mx-2"><i class="bx bx-trash" aria-hidden="true"></i></button>';
+							    $action .= '<button href="javascript:void(0);" onclick="delete_cancel_reason(' . $cancel_reasonss->id .  ');" class="btn btn-d mx-2"><i class="bx bx-trash" aria-hidden="true"></i></button>';
                             }
                             return !empty($action)?$action:'-';
                         })

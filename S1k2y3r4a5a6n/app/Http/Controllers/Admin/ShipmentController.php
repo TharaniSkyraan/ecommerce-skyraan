@@ -58,7 +58,7 @@ class ShipmentController extends Controller
     public function show(string $id)
     {
         //
-        if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+        if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
             return view('admin.orders.shipment.edit',compact('id'));
         }else{
             abort(403);
@@ -140,7 +140,7 @@ class ShipmentController extends Controller
                             }
                         })
                         ->editColumn('status', function ($shipments) {
-                            return '<span class="success">'. ucwords($shipments->status)."</span>";
+                            return '<span class="success">'. ucwords(str_replace('_',' ',$shipments->status))."</span>";
                         })
                         ->editColumn('tracking_id', function ($shipments) {
                             return '<a href="' . route('admin.shipments.show', $shipments->id) . '" class="primary1">#'.$shipments->tracking_id.'</a>';

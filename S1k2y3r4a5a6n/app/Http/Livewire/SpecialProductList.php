@@ -66,12 +66,13 @@ class SpecialProductList extends Component
         if(isset($speciaclproducts)){
             $this->selected_products = Product::Find(explode(',',$speciaclproducts->product_ids));
             $this->product_ids = explode(',',$speciaclproducts->product_ids);
+        }else{
+            $this->products = Product::limit(5)->whereNotIn('id',$this->product_ids)->get();
         }
     }
 
     public function render()
     {
-        $this->products = Product::limit(5)->whereNotIn('id',$this->product_ids)->get();
 
         return view('livewire.special-product-list');
     }
