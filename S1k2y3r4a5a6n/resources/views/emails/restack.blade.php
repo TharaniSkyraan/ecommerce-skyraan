@@ -142,7 +142,7 @@
     <p class="title-content"><b>Back In Stock!</b></p>
     <p class="text-left text-center">FINALLY!!! The wait is over. We’re so thrilled to inform you that the product you’ve been eagerly awaiting have finally been restocked.</p>
     <div class="text-center">
-        <img  src="{{ $product['image'] }}" alt="restock">
+        <img src="{{ $product['image'] }}" alt="restock">
     </div>
     <div class="bottom-classs">
         <p class="title-contents">{{ $product['name'] }}</p>

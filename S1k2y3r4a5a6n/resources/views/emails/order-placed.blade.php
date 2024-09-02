@@ -202,7 +202,7 @@
                         <span>{{$item->product_name}}</span>
                         <div>
                             <p class="txt-start text-dark">Qty : {{$item->quantity}}</p>    
-                            <p class="txt-start font-bold text-dark price">₹235.00</p>  
+                            <p class="txt-start font-bold text-dark price">₹ {{ $item->gross_amount }}</p>  
                         </div>
                     </div>
                 </td>

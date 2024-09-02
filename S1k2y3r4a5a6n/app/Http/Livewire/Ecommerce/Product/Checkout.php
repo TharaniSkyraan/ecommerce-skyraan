@@ -691,7 +691,6 @@ class Checkout extends Component
 
             $this->emit('clearCart',$order_code);
        }
-       
 
     }
     
@@ -716,10 +715,8 @@ class Checkout extends Component
                     }
                 }]
             ],[
-                
-            'address_id.not_in' => 'Please add the Address to proceed.',
-            'address_id.required' => 'Please add the Address to proceed.',
-            
+                'address_id.not_in' => 'Please add the Address to proceed.',
+                'address_id.required' => 'Please add the Address to proceed.',
             ]);
 
             if(config('shipping.payment_platform')=='razorpay')
