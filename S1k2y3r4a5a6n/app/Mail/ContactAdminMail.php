@@ -32,7 +32,7 @@ class ContactAdminMail extends Mailable
                         ->replyTo($data['email'], $data['name'])
                         ->cc($emailscc)
                         ->to(config('mail.support_receive_to.address'), config('mail.support_receive_to.name'))
-                        ->subject('Feedback Mail from'. config($data['name']))
+                        ->subject('Feedback Mail from'. $data['name'])
                         ->markdown('emails.contact_admin')
                         ->with(['data'=>$data]);
     }

@@ -188,7 +188,7 @@
         We appreciate your patience and understanding during this process<p>
     </div>
     <div class="footer-content">
-        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="" class="green">{{$siteSetting->mail_support_address}}</a> </p>
+        <p class="text-center"><b>Note:</b> If you have any query, then kindly contact our customer support via <a href="{{url('/')}}/unsubscribe?email={{$email}}" class="green">{{$siteSetting->mail_support_address}}</a> </p>
     </div>
     {{-- Footer --}}
     @slot('footer')

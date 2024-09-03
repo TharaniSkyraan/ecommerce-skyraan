@@ -208,7 +208,7 @@
     <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{url('/cart')}}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
     <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     <div class="footer-content">
-        <p class="text-center"> <b>Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails <a href=""> click here</a></p>
+        <p class="text-center"> <b>Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails <a href="{{url('/')}}/unsubscribe?email={{$email}}"> click here</a></p>
     </div>
     {{-- Footer --}}
     @slot('footer')
