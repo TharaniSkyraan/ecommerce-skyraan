@@ -31,6 +31,7 @@ class WelcomeMail extends Mailable
                     ->markdown('emails.welcomemail')
                     ->with([
                         'name' => $this->name,
+                        'email' => $this->email,
                     ]);
     }
 }
