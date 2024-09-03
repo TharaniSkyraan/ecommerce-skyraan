@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'phone',
         'signup_by',
+        'subscription'
     ];
 
     /**

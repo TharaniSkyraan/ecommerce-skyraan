@@ -20,6 +20,7 @@ return new class extends Migration
             $table->tinyInteger('phone_verified')->default(1);
             $table->string('password');
             $table->enum('signup_by', ['user', 'admin'])->default('user');
+            $table->enum('subscription', ['enabled', 'disabled'])->default('enabled');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

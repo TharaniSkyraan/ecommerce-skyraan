@@ -461,6 +461,15 @@
 .showable .btn{
    background-color: var(--next-prev-arrow-color);
 }
+.showable .btn-c{
+   background-color: var(--items-list-border-color);
+}
+.form-check-input {
+   border: var(--bs-border-width) solid var(--next-prev-arrow-color) !important;
+}
+.form-check-input:checked{
+   background-color: var(--next-prev-arrow-color) !important;
+}
 
 /* order-detail */
 .order_details .card1{

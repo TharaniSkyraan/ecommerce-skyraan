@@ -178,7 +178,6 @@ class Nav extends Component
             if($page=='cartpage'){
                 $this->emit('cartList');
             }elseif($page=='refreshCart'){
-            \Log::info('sd');
                 $this->emit('updateCart', $datas, $page);
             }else{
                 $this->emit('updateCartQuantity', $datas);
