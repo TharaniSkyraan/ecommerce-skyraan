@@ -71,6 +71,8 @@ Route::name('ecommerce.')->group(function () {
         Route::get('/aboutus', function () { return view('ecommerce/aboutus'); })->name('aboutus');
 
         Route::get('/contactus', function () { return view('ecommerce/contactus'); })->name('contactus');
+      
+        Route::get('/unsubscribe', function (Request $request)  { $email = $request->email; return view('ecommerce/unsubscribe', compact('email')); })->name('unsubscribe');
 
         Route::get('/product/{slug}', function (Request $request, $slug) { 
             try {

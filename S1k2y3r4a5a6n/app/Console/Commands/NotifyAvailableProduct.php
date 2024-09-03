@@ -33,7 +33,9 @@ class NotifyAvailableProduct extends Command
     public function handle()
     {
 
-        $notifications = NofityAvailableProduct::whereAttempts(0)->get()
+        $notifications = NofityAvailableProduct::whereHas('user', function($q){
+                                                    $q->whereSubscription('enabled');
+                                                })->whereAttempts(0)->get()
                                                 ->each(function ($items) {
                                                     $items->append(['address']);
                                                     return $items;

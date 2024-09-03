@@ -682,7 +682,9 @@ class Checkout extends Component
                             $newRecord->save();
                         }); 
                     $order= Order::where('code',$order_code)->first();
-                    \Mail::send(new OrderPlacedMail($order));
+                    if($order->user->subscription=='enabled'){
+                        \Mail::send(new OrderPlacedMail($order));
+                    }
                 }
         
                 UserCart::whereUserId(auth()->user()->id)->delete();

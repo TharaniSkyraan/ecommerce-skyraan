@@ -125,7 +125,10 @@ class Orders extends Component
 
         // Order cancelled mail
         $order= Order::find($this->order_id);
-        \Mail::send(new OrderCancelMail($order));
+        
+        if($order->user->subscription=='enabled'){
+            \Mail::send(new OrderCancelMail($order));
+        }
 
         if(!empty($order->payments->charge_id)){
             try {
@@ -136,17 +139,21 @@ class Orders extends Component
                 ]);
                 // \Log::info('Refund successful: ' . $refund['id']);
                 // Refund request mail
-                \Mail::send(new RefundRequestedMail($order));
-                // Refund initiate mail
-                \Mail::send(new RefundInitiated($order));
+                
+                if($order->user->subscription=='enabled'){
+                    \Mail::send(new RefundRequestedMail($order));
+                    // Refund initiate mail
+                    \Mail::send(new RefundInitiated($order));
+                }
 
             } catch (\Exception $e) {
                 // \Log::info('Refund failed: ' . $e->getMessage());
-                // Refund request mail
-                \Mail::send(new RefundRequestedMail($order));
-                // Refund cancelled mail
-                \Mail::send(new RefundCancelMail($order));
-
+                if($order->user->subscription=='enabled'){
+                    // Refund request mail
+                    \Mail::send(new RefundRequestedMail($order));
+                    // Refund cancelled mail
+                    \Mail::send(new RefundCancelMail($order));
+                }
             }
         }
         
