@@ -115,13 +115,13 @@
                             </tbody> 
                         </table>
                     </div>
-                    @error('productVariantList') <span class="error"> Add product variant atleast one </span> <br> @endif    
-                    @error('is_default') <span class="error"> {{$message}} </span>  <br>  @endif    
-                    @foreach($selectedattrList as $selectedattr)
-                        @php $sattr = 'productVariantList.*'.$selectedattr->slug; @endphp
-                        @error($sattr) <span class="error"> {{ ucwords($selectedattr->slug) }} field is required </span> <br>@endif    
-                    @endforeach
                 </div>
+                @error('productVariantList') <span class="error"> Add product variant atleast one </span> <br> @endif    
+                @error('is_default') <span class="error"> {{$message}} </span>  <br>  @endif    
+                @foreach($selectedattrList as $selectedattr)
+                    @php $sattr = 'productVariantList.*'.$selectedattr->slug; @endphp
+                    @error($sattr) <span class="error"> {{ ucwords($selectedattr->slug) }} field is required </span> <br>@endif    
+                @endforeach
             </div>
             <div class="card m-2">
                 <div class="form-group">
