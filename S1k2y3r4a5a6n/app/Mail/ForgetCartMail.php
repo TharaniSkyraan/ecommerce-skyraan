@@ -32,6 +32,7 @@ class ForgetCartMail extends Mailable
                     ->markdown('emails.forgetcartemail')
                     ->with([
                         'name' => $this->name,
+                        'email' => $this->email,
                         'cart_products' => $this->cart_products,
                     ]);
     }

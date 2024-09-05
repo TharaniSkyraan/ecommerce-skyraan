@@ -9,6 +9,23 @@ use DataTables;
 
 class ProductController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('products',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('products');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -41,6 +58,8 @@ class ProductController extends Controller
     public function show(string $id)
     {
         //
+        $page = '';
+        return view('admin.product.create',compact('id','page'));
     }
 
     /**
@@ -99,11 +118,13 @@ class ProductController extends Controller
                             }
                         })
                         ->addColumn('action', function ($products) {
-
-							$action = '<button href="javascript:void(0);" onclick="delete_product(' . $products->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.product.edit', $products->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
-
-                            return $action;
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.product.edit', $products->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.product.show', $products->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','name','status'])
                         ->setRowId(function($products) {

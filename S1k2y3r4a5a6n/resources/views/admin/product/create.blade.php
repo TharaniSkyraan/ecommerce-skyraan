@@ -12,7 +12,7 @@
       <li><a href="{{ route('admin.product.index') }}">Product List</a></li>
       <li>Product</li>
   </ul>
-  @livewire('product.create', ['product_id' => $id??''])
+  @livewire('product.create', ['product_id' => $id??'','page' => $page??'create'])
   <x-slot name="scripts">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   </x-slot>

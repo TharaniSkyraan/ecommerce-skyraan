@@ -10,7 +10,9 @@ class Order extends Model
 {
     use HasFactory,SoftDeletes;
    
-    protected $fillable = ['code','user_id','invoice_number','invoice_date','coupon_code','sub_total','total_amount','shipping_amount','discount_amount','description','status','is_confirmed','is_finished','payment_id','completed_at'];
+    protected $fillable = ['code','user_id','invoice_number','invoice_date','coupon_code','sub_total',
+                            'total_amount','shipping_amount','discount_amount','description','status',
+                            'is_confirmed','is_finished','payment_id','completed_at'];
    
     protected $append = ['order_histories'];
 

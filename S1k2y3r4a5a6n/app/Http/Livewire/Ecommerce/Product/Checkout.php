@@ -682,7 +682,9 @@ class Checkout extends Component
                             $newRecord->save();
                         }); 
                     $order= Order::where('code',$order_code)->first();
-                    \Mail::send(new OrderPlacedMail($order));
+                    if($order->user->subscription=='enabled'){
+                        \Mail::send(new OrderPlacedMail($order));
+                    }
                 }
         
                 UserCart::whereUserId(auth()->user()->id)->delete();
@@ -691,7 +693,6 @@ class Checkout extends Component
 
             $this->emit('clearCart',$order_code);
        }
-       
 
     }
     
@@ -716,10 +717,8 @@ class Checkout extends Component
                     }
                 }]
             ],[
-                
-            'address_id.not_in' => 'Please add the Address to proceed.',
-            'address_id.required' => 'Please add the Address to proceed.',
-            
+                'address_id.not_in' => 'Please add the Address to proceed.',
+                'address_id.required' => 'Please add the Address to proceed.',
             ]);
 
             if(config('shipping.payment_platform')=='razorpay')

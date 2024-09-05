@@ -54,7 +54,7 @@
                 <hr class="my-2 q-s-hr">
                 <div class="d-flex py-1">
                     <small class="text-dark fw-bold">Availablity : &nbsp;</small>
-                    <small class="text-dark ">@if(isset($stock_status) && $stock_status=='in_stock') In stock @else Sold Out @endif</small>
+                    <small class="text-dark ">@if(isset($stock_status) && $stock_status=='in_stock') In stock @else Out of stock @endif</small>
                 </div>
                 @isset($cart_product)
                     @php 
@@ -124,7 +124,7 @@
                             </a>
                         </div>
                     @endif
-                @else
+                @elseif(!empty($zone_data['warehouse_ids']))
                     <div class="row add-to-cart py-2 w-100 px-2">
                         <a href="javascript:void(0)" class="col-12 px-0 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                             <div class="card card1 border-0 py-3 px-5">
@@ -132,6 +132,8 @@
                             </div>
                         </a>
                     </div>
+                @else
+                    <span class="text-danger">*Currently unavailable</span>
                 @endif
                 @if($cart_product)
                 <div class="py-2">

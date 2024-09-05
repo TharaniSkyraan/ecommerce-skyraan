@@ -31,7 +31,9 @@ class ForgetCartReRemainder extends Command
     public function handle()
     {
         $date = \Carbon\Carbon::now()->subDays(15);
-        $carts = Cart::whereNull('last_reminder_date')
+        $carts = Cart::whereHas('user', function($q){
+                $q->whereSubscription('enabled');
+            })->whereNull('last_reminder_date')
             ->where('attempt', 1)
             // ->whereDate('updated_at', '<=', $date)
             ->groupBy('user_id')

@@ -33,7 +33,9 @@ class NotifyAvailableProduct extends Command
     public function handle()
     {
 
-        $notifications = NofityAvailableProduct::whereAttempts(0)->get()
+        $notifications = NofityAvailableProduct::whereHas('user', function($q){
+                                                    $q->whereSubscription('enabled');
+                                                })->whereAttempts(0)->get()
                                                 ->each(function ($items) {
                                                     $items->append(['address']);
                                                     return $items;
@@ -63,7 +65,7 @@ class NotifyAvailableProduct extends Command
                 })->whereHas('product_stock', function($q1) use($warehouse_ids){
                     $q1->whereIn('warehouse_id', $warehouse_ids)
                     ->where('stock_status', 'in_stock');
-                })->first();
+                })->where('id',$nofi['product_variant_id'])->first();
                 
                 $images = json_decode($productVariant->images, true);
                 $images = (count($images)!=0)?$images:json_decode($productVariant->product->images, true);

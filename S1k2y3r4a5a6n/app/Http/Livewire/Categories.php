@@ -10,8 +10,7 @@ class Categories extends Component
 {
     use WithFileUploads;
     public $categories;
-    public $name,$image,$status,$slug,$category_id,$parent_id,$temp_image,$logo,$temp_logo,$description;
-    public $page = 'category';
+    public $name,$image,$status,$slug,$category_id,$parent_id,$temp_image,$logo,$temp_logo,$description,$page;
     public $edit = false;
     
     protected $listeners = ['delete'];
@@ -160,11 +159,16 @@ class Categories extends Component
     }
 
     private function resetInputvalues(){      
-        $this->reset(['name', 'temp_image', 'image', 'temp_logo', 'logo', 'status', 'slug', 'category_id', 'parent_id', 'description','edit']);  
+        $this->reset(['name', 'temp_image', 'image', 'temp_logo', 'logo', 'status', 'slug', 'category_id', 'parent_id', 'description','edit','page']);  
     }   
+    
+    public function mount($privileges){
+        $this->privileges = $privileges;
+    }
 
     public function render()
     {
+        \Log::info($this->page);
         $this->categories = Category::whereNULL('parent_id')->orderBy('sort','asc')->get();
 
         return view('livewire.categories');

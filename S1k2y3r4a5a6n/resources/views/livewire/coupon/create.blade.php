@@ -8,7 +8,7 @@
                 <label for="coupon_code">Coupon Code</label>
                 <div class="form-group couponcode">
                     <input type="text" name="coupon_code" id="coupon_code" placeholder="Coupon Code" wire:model="coupon_code">
-                    <span wire:click="GenerateCouponCode">Generate Coupon Code</span>
+                    <span class="action-btn" wire:click="GenerateCouponCode">Generate Coupon Code</span>
                 </div>
                 @error('coupon_code') <span class="error"> {{$message}}</span> @endif
                 <div class="d-flex">
@@ -169,7 +169,7 @@
                                         @endphp
                                         <div class="selected-products">
                                             <div class="product"> <img src="{{ $image }}" alt="Collection-icon"> <span> {{$sproduct->name}} </span> </div>
-                                            <div><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div>
+                                            <div class="action-btn"><i class="bx bx-x cursor-pointer" wire:click="removeProduct({{$sproduct->id}})"></i></div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -206,7 +206,7 @@
                                     @foreach($selected_customers as $scustomer)
                                         <div class="selected-customers">
                                             <div class="customer"> <img src="{{ asset('admin/images/placeholder.png') }}" alt="Collection-icon"> <span> {{$scustomer->name}} - {{$scustomer->phone}}</span> </div>
-                                            <div><i class="bx bx-x cursor-pointer" wire:click="removeCustomer({{$scustomer->id}})"></i></div>
+                                            <div class="action-btn"><i class="bx bx-x cursor-pointer" wire:click="removeCustomer({{$scustomer->id}})"></i></div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group py-5">
+                <div class="form-group py-5 action-btn">
                     <div class="float-end">
                         <a href="{{ route('admin.coupon.index') }}" class="btn btn-c btn-lg" >Back</a>
                         <button wire:click.prevent="store" class="btn btn-s btn-lg">Submit</button>
@@ -247,9 +247,9 @@
     </div>
 </form>
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script src="{{ asset('admin/date_flatpicker/flatpickr.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('admin/date_flatpicker/flatpickr.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/shortcut-buttons-flatpickr@0.1.0/dist/shortcut-buttons-flatpickr.min.js"></script>
 <script>
     document.addEventListener('livewire:load', function () {
@@ -290,41 +290,41 @@
         });    
         
     });
-$(document).ready(function() {
 
-    var blurTimer; 
-    $(document).on('focus', '#product', function () { 
-        Livewire.emit('suggestion');
-    });
-    $(document).on('blur', '#product', function () { 
-        blurTimer = setTimeout(function() {            
-            Livewire.emit('unsetsuggestion');
-        }, 500);
-    });
-    
-    // Cancel blur timer if the input is focused again before it triggers
-    $(document).on('focus', '#product', function () { 
-        clearTimeout(blurTimer);
-    });
-});
+    $(document).ready(function() {
 
-$(document).ready(function() {
-    var blurTimer1; 
-    $(document).on('focus', '#customer', function () { 
-        Livewire.emit('customer_suggestion');
+        var blurTimer; 
+        $(document).on('focus', '#product', function () { 
+            Livewire.emit('suggestion');
+        });
+        $(document).on('blur', '#product', function () { 
+            blurTimer = setTimeout(function() {            
+                Livewire.emit('unsetsuggestion');
+            }, 500);
+        });
+        
+        // Cancel blur timer if the input is focused again before it triggers
+        $(document).on('focus', '#product', function () { 
+            clearTimeout(blurTimer);
+        });
     });
-    $(document).on('blur', '#customer', function () { 
-        blurTimer1 = setTimeout(function() {            
-            Livewire.emit('unset_customer_suggestion');
-        }, 500);
-    });
-    
-    // Cancel blur timer if the input is focused again before it triggers
-    $(document).on('focus', '#customer', function () { 
-        clearTimeout(blurTimer1);
-    });
-});
 
+    $(document).ready(function() {
+        var blurTimer1; 
+        $(document).on('focus', '#customer', function () { 
+            Livewire.emit('customer_suggestion');
+        });
+        $(document).on('blur', '#customer', function () { 
+            blurTimer1 = setTimeout(function() {            
+                Livewire.emit('unset_customer_suggestion');
+            }, 500);
+        });
+        
+        // Cancel blur timer if the input is focused again before it triggers
+        $(document).on('focus', '#customer', function () { 
+            clearTimeout(blurTimer1);
+        });
+    });
 
     ClassicEditor
     .create(document.querySelector('#terms_and_condition'))
@@ -333,7 +333,16 @@ $(document).ready(function() {
             @this.set('terms_and_condition', editor.getData());
         })
     });
-    
+
+    // Get the full URL
+    var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('input, select, textarea').prop('disabled', true);
+        $('.action-btn').html('');
+    }
 </script>
 @endpush
 

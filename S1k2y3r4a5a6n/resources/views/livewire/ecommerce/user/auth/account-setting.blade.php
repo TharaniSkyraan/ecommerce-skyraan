@@ -50,10 +50,23 @@
                                     @error('phone') <span class="error"> {{$message}}</span> @endif
                                     @if($verified_status!='' && $verified_status!='verified') <span class="error">{{$verified_status}}</span> @endif
                                 </div>
+                                <div class="col-12">
+                                    <h6 class="text-start pb-1">Subscribe to Notifications</h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input mt-2 cursor" type="checkbox" @if(!$is_edit) disabled @endif id="subscription" wire:model="subscription">
+                                        <label class="form-check-label cursor mt-1 @if(!$is_edit) opacity-50 @endif" for="subscription">
+                                            I want to receive emails about exclusive deals and update special promotions.
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="text-start pt-3">
-                                <button class="btn text-white px-5 h-sms edit-info {{ ($is_edit)?'d-none':'' }}" wire:click.prevent="EditEnable">Edit info</button>
-                                <button class="btn text-white px-5 h-sms save-info {{ ($is_edit)?'':'d-none' }}" wire:click.prevent="AccountUpdate">save</button>
+                            <div class="text-start pt-3 {{ ($is_edit)?'d-none':'' }}">
+                                <button class="btn text-white px-5 h-sms edit-info" wire:click.prevent="EditEnable">Edit info</button>
+                            </div> 
+                            <div class="text-start pt-3 {{ ($is_edit)?'':'d-none' }}">
+                                <button class="btn text-white px-5 h-sms edit-info" wire:click.prevent="AccountUpdate">Save</button>
+                                <button class="btn btn-c text-white px-5 h-sms " wire:click.prevent="EditEnable">Cancel</button>
                             </div> 
                         </div>
                     </div>

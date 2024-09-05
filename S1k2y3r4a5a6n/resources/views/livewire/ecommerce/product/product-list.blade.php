@@ -10,7 +10,7 @@
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
-                                            @if($product['stock_status']=='out_of_stock')
+                                            @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                 <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0 "><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
@@ -47,7 +47,7 @@
                                         @endif
                                     </div>
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
-                                    @if($product['stock_status']=='out_of_stock')
+                                    @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>
@@ -170,7 +170,7 @@
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
-                                            @if($product['stock_status']=='out_of_stock')
+                                            @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                 <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
@@ -207,7 +207,7 @@
                                         @endif
                                     </div> 
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
-                                    @if($product['stock_status']=='out_of_stock')
+                                    @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>
@@ -330,7 +330,7 @@
                                 <div class="container-fluid position-absolute reviews-div">
                                     <div class="row pt-1">
                                         <div class="col-6 px-0">
-                                            @if($product['stock_status']=='out_of_stock')
+                                            @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                                 <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                             @elseif(!empty($product['label']))
                                             <div class="position-relative best-seller">
@@ -368,7 +368,7 @@
                                     </div> 
 
                                 <div class="container-fluid position-absolute add-div ps-xl-1 ps-lg-1 ps-sm-1 ps-md-1 ps-0">
-                                    @if($product['stock_status']=='out_of_stock')
+                                    @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>
@@ -490,7 +490,7 @@
                             <div class="container-fluid position-absolute reviews-div">
                                 <div class="row pt-1">
                                     <div class="col-6 px-0">
-                                        @if($product['stock_status']=='out_of_stock')
+                                        @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                             <div class="ps-xl-1 ps-lg-1 ps-md-1 ps-sm-1 px-0"><div class="card bg-secondary p-2 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sm text-nowrap">Sold Out</h6></div></div>
                                         @elseif(!empty($product['label']))
                                         <div class="position-relative best-seller">
@@ -557,7 +557,7 @@
                                 @endif
                                 <h6 class="text-secondary text-opacity-50 ">{{$product['review_count']}} reviews</h6>
                             </div>
-                            @if($product['stock_status']=='out_of_stock')
+                            @if($product['stock_status']=='out_of_stock' && !empty($zone_data['warehouse_ids']))
                                 <button class="btn d-flex justify-content-center align-items-center bg-clr add-to-cart rounded-1 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                     <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                 </button>

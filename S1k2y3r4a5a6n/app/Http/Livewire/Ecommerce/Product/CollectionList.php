@@ -25,9 +25,9 @@ class CollectionList extends Component
                                 ->first();
                         })
                         ->toArray();
-        $collections = array_filter($collections, function($collection) {
-            return $collection['product_stock'] !== null;
-        });
+        // $collections = array_filter($collections, function($collection) {
+        //     return $collection['product_stock'] !== null;
+        // });
         // Check if collections are less than 5, if so, duplicate the items to make a continuous loop
         if (count($collections) < 4) {
             $collections = array_merge($collections, $collections, $collections); // Duplicate to fill space

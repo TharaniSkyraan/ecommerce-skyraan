@@ -59,17 +59,20 @@ class SpecialProductList extends Component
     }
 
     public function mount(){        
+        $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('special-products');
+
         $speciaclproducts = SpecialProduct::first();
         $this->special_id = $speciaclproducts->id??'';
         if(isset($speciaclproducts)){
             $this->selected_products = Product::Find(explode(',',$speciaclproducts->product_ids));
             $this->product_ids = explode(',',$speciaclproducts->product_ids);
+        }else{
+            $this->products = Product::limit(5)->whereNotIn('id',$this->product_ids)->get();
         }
     }
 
     public function render()
     {
-        $this->products = Product::limit(5)->whereNotIn('id',$this->product_ids)->get();
 
         return view('livewire.special-product-list');
     }

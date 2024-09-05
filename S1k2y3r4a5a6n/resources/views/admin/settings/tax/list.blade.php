@@ -10,15 +10,18 @@
             </div>                
         @endif
         <div class="row">
+        @if (in_array('setting',\Auth::guard('admin')->user()->check_privileges)) 
             <div class="col-12 p-5 card" style="background:#eee">
                 <h1 class="my-2 fw-bold">Tax Setting :</h1>
                 <hr><br>
                 @livewire('settings.tax.setting')
             </div>
+        @endif
+
             <div class="col-12 mt-3">
                 <h1 class="my-2 fw-bold">Tax List : </h1>
                 <hr><br>
-                <div class="float-end"> <a class="btn btn-s btn-lg" href="{{ route('admin.tax.create') }}">Create Tax</a> </div>
+                <div class="float-end"> @if(in_array('add',$privileges) || in_array('all',$privileges))  <a class="btn btn-s btn-lg" href="{{ route('admin.tax.create') }}">Create Tax</a> @endif </div>
                 <div class="table-responsive">
                     <table id="datatable" class="table key-buttons text-md-nowrap">
                         <thead>

@@ -10,6 +10,7 @@ class AccountSetting extends Component
 {
     public $name,$email,$phone,$verified_phone_number;
     public $phone_validate;
+    public $subscription = false;
     public $is_edit = false;
     public $verified_status = 'verified';
 
@@ -93,19 +94,21 @@ class AccountSetting extends Component
             $this->verified_status = 'Please verify phone number.';
         }
         if($this->verified_status=='verified'){
+            $validatedData['subscription'] = $this->subscription?'enabled':'disabled';
             User::where('id',auth()->user()->id)->update($validatedData);
             $this->message = 'success';
             $this->is_edit = false;
         }
     }
     public function EditEnable(){
-        $this->is_edit = true;
+        $this->is_edit = ($this->is_edit)?false:true;
     }
     public function mount(){
         $this->name = auth()->user()->name;
         $this->email = auth()->user()->email;
         $this->phone = auth()->user()->phone;
         $this->verified_phone_number = $this->phone;
+        $this->subscription = (auth()->user()->subscription=='enabled')?true:false;
 
     }
     public function render()

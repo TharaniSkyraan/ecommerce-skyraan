@@ -60,10 +60,12 @@
         </select>
         @error('status') <span class="error"> {{$message}}</span> @endif
     </div>
+    @if (in_array('add',$privileges) || (in_array('edit',$privileges) && !empty($category_id)) || in_array('all',$privileges)) 
     <div class="form-group">
         <div class="float-end">
             <button wire:click.prevent="cancel" class="btn btn-c btn-lg" >Discard</button>
             <button wire:click.prevent="storeCategory" class="btn btn-s btn-lg">Submit</button>
         </div>
     </div>
+    @endif
 </form>

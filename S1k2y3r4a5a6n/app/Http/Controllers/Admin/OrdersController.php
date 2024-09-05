@@ -10,6 +10,23 @@ use DataTables;
 
 class OrdersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('order',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('order');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +42,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.orders.create');
     }
 
     /**
@@ -42,6 +59,11 @@ class OrdersController extends Controller
     public function show(string $id)
     {
         //
+        if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+            return view('admin.orders.edit',compact('id'));
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -50,7 +72,11 @@ class OrdersController extends Controller
     public function edit(string $id)
     {
         //
-        return view('admin.orders.edit',compact('id'));
+        if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+            return view('admin.orders.edit',compact('id'));
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -138,9 +164,14 @@ class OrdersController extends Controller
                                 return '<button class="btn tag btn-s">'. ucwords($orders->status)."</button>";
                             }
                         })
-                        ->addColumn('action', function ($orders) {
-							$action = '<a href="' . route('admin.orders.edit', $orders->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
-                            return $action;
+                        ->addColumn('action', function ($orders) {                            
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.orders.edit', $orders->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.orders.show', $orders->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['code','action','name','status','image','payment_status'])
                         ->setRowId(function($orders) {

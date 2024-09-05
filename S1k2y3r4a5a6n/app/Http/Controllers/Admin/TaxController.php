@@ -9,6 +9,23 @@ use DataTables;
 
 class TaxController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('taxes',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('taxes');         
+            \View::share('privileges', $this->privileges);
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -102,11 +119,11 @@ class TaxController extends Controller
                             }
                         })
                         ->addColumn('action', function ($taxs) {
-
-							$action = '<button href="javascript:void(0);" onclick="delete_tax(' . $taxs->id .  ');" class="btn btn-d"><i class="bx bx-trash" aria-hidden="true"></i> Delete</button>
-                            <a href="' . route('admin.tax.edit', $taxs->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i> Edit</a>';
-
-                            return $action;
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.tax.edit', $taxs->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','name','status'])
                         ->setRowId(function($taxs) {

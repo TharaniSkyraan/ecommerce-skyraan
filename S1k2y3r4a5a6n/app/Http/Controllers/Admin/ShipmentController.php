@@ -11,6 +11,22 @@ use DataTables;
 
 class ShipmentController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->adminprivileges = \Auth::guard('admin')->user()->check_privileges;
+            if (!in_array('shipments',$this->adminprivileges)) {
+                abort(403);
+            }   
+            $this->privileges = \Auth::guard('admin')->user()->Moduleprivileges('shipments');         
+            return $next($request);
+        });
+    }
 
     /**
      * Display a listing of the resource.
@@ -42,6 +58,11 @@ class ShipmentController extends Controller
     public function show(string $id)
     {
         //
+        if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+            return view('admin.orders.shipment.edit',compact('id'));
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -50,7 +71,11 @@ class ShipmentController extends Controller
     public function edit(string $id)
     {
         //
-        return view('admin.orders.shipment.edit',compact('id'));
+        if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+            return view('admin.orders.shipment.edit',compact('id'));
+        }else{
+            abort(403);
+        }
     }
        /**
      * Update the specified resource in storage.
@@ -115,13 +140,13 @@ class ShipmentController extends Controller
                             }
                         })
                         ->editColumn('status', function ($shipments) {
-                            return '<span class="success">'. ucwords($shipments->status)."</span>";
+                            return '<span class="success">'. ucwords(str_replace('_',' ',$shipments->status))."</span>";
                         })
                         ->editColumn('tracking_id', function ($shipments) {
-                            return '<a href="' . route('admin.shipments.edit', $shipments->id) . '" class="primary1">#'.$shipments->tracking_id.'</a>';
+                            return '<a href="' . route('admin.shipments.show', $shipments->id) . '" class="primary1">#'.$shipments->tracking_id.'</a>';
                         })
                         ->editColumn('order_code', function ($shipments) {
-                            return '<a href="' . route('admin.orders.edit', $shipments->order_id) . '" class="primary1" target="_blank">#'.$shipments->order_code.'</a>';
+                            return '<a href="' . route('admin.orders.show', $shipments->order_id) . '" class="primary1" target="_blank">#'.$shipments->order_code.'</a>';
                         })
                         ->editColumn('name', function ($shipments) {
                             return ucwords($shipments->name);
@@ -130,8 +155,13 @@ class ShipmentController extends Controller
                             return \Carbon\Carbon::parse($shipments->created_at)->format('Y-m-d');
                         })
                         ->addColumn('action', function ($shipments) {
-							$action = '<a href="' . route('admin.shipments.edit', $shipments->id) . '" class="btn btn-p"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
-                            return $action;
+                            $action = '';
+                            if(in_array('edit',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.shipments.edit', $shipments->id) . '" class="btn btn-pp mx-2"><i class="bx bx-edit-alt" aria-hidden="true"></i></a>';
+                            }if(in_array('view',$this->privileges) || in_array('all',$this->privileges)){
+                                $action .= '<a href="' . route('admin.shipments.show', $shipments->id) . '" class="btn btn-p"><i class="bx bx-show" aria-hidden="true"></i></a>';
+                            }
+                            return !empty($action)?$action:'-';
                         })
                         ->rawColumns(['action','status','order_code','tracking_id','updated_at'])
                         ->setRowId(function($shipments) {

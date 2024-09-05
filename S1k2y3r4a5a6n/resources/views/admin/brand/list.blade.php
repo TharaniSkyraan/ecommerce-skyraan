@@ -11,7 +11,7 @@
 @endif
 <div class="row">
     <div class="col-12">
-        <div class="float-end"> <a class="btn btn-s btn-lg" href="{{ route('admin.brand.create') }}">Create Brand</a> </div>
+        <div class="float-end"> @if(in_array('add',$privileges) || in_array('all',$privileges)) <a class="btn btn-s btn-lg" href="{{ route('admin.brand.create') }}">Create Brand</a> @endif </div>
         <div class="table-responsive">
             <table id="datatable" class="table key-buttons text-md-nowrap">
                 <thead>

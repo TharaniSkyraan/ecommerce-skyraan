@@ -35,7 +35,7 @@
                     @error('warehouse_ids') <span class="error"> {{$message}}</span> @endif
 
                 </div>  
-                <div class="form-group">
+                <div class="form-group action-btn">
                     <div class="float-end">
                         <div id="button-container">
                             <button class="btn btn-s btn-lg" id="clear-button" wire:ignore>Clear</button>
@@ -56,7 +56,7 @@
                     </select>
                     @error('status') <span class="error"> {{$message}}</span> @endif
                 </div>
-                <div class="form-group py-5">
+                <div class="form-group py-5 action-btn">
                     <div class="float-end">
                         <div id="button-container">
                             <button class="btn btn-s btn-lg" id="submit" wire:click.prevent="store">Submit</button>
@@ -226,5 +226,14 @@
         });
 
     });
+    // Get the full URL
+    var url = window.location.href;
+    // Split the URL by '/' and get the last segment
+    var segments = url.split('/');
+    var lastSegment = segments.pop() || segments.pop();  // Handle trailing slash
+    if(lastSegment !='edit' && lastSegment !='create'){
+        $('input, select, textarea').prop('disabled', true);
+        $('.action-btn').html('');
+    }
 </script>
 @endpush
