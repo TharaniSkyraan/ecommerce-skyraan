@@ -2211,3 +2211,16 @@ fill: var(--next-prev-arrow-color);
     #Editaddress .form-control{
         border: 1px solid var(--items-list-border-color);
     }
+
+    .class-row .card-head{
+        background-color: #FCFCFC;
+    }
+    .class-row .accordian-color{
+        background-color: #FCFCFC;
+    }
+    .class-row .accordion-collapse img{
+        width: 60px;
+        height: 60px;
+    }
+
+    

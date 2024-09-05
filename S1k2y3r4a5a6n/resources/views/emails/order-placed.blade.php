@@ -170,23 +170,23 @@
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
     </div>
     <table class="order-summary" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F9FCF6;">
-            <tr>
-                <td class="div1" width="48%" style="border-right: 1px solid #b9b9b9; padding: 14px;">
-                    <p class="font-bold" style="color:#000; margin-bottom:5px;">Order Summary</p>
-                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Id : #{{$order->code}}</p>
-                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Placed : {{$order->order_histories['order_placed']}}</p>
-                    <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Total : ₹{{ $order->total_amount }}</p>
-                </td>
-                <td class="div2" width="50%" style="padding: 14px;" valign="top">
-                    <p class="font-bold" style="color:#000; margin-bottom:5px;">Shipping Address</p>
-                    <p class="fs-2" style="color:#000; margin-bottom:5px;">
-                        {{ $order->shipmentAddress->address }}, <br>
-                        {{ $order->shipmentAddress->city }}, <br>
-                        {{ $order->shipmentAddress->postal_code }}
-                    </p>
-                </td>
-            </tr>
-        </table>
+        <tr>
+            <td class="div1" width="48%" style="border-right: 1px solid #b9b9b9; padding: 14px;">
+                <p class="font-bold" style="color:#000; margin-bottom:5px;">Order Summary</p>
+                <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Id : #{{$order->code}}</p>
+                <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Placed : {{$order->order_histories['order_placed']}}</p>
+                <p class="fs-2" style="color:#000; margin-bottom:5px;">Order Total : ₹{{ $order->total_amount }}</p>
+            </td>
+            <td class="div2" width="50%" style="padding: 14px;" valign="top">
+                <p class="font-bold" style="color:#000; margin-bottom:5px;">Shipping Address</p>
+                <p class="fs-2" style="color:#000; margin-bottom:5px;">
+                    {{ $order->shipmentAddress->address }}, <br>
+                    {{ $order->shipmentAddress->city }}, <br>
+                    {{ $order->shipmentAddress->postal_code }}
+                </p>
+            </td>
+        </tr>
+    </table>
     <div class="products">
         <table>
             <tr>
@@ -201,8 +201,8 @@
                     <div class="cnt">
                         <span>{{$item->product_name}}</span>
                         <div>
-                            <p class="txt-start text-dark">Qty : {{$item->quantity}}</p>    
-                            <p class="txt-start font-bold text-dark price">₹235.00</p>  
+                            <p class="txt-start text-dark">Qty : {{$item->quantity}}</p> <br>   
+                            <p class="txt-start font-bold text-dark price">₹{{$item->total_amount}}</p>  
                         </div>
                     </div>
                 </td>
@@ -223,7 +223,7 @@
         </div>
     </div>
     <div class="footer-content" >
-        <p class="text-center">Contact us via email <a href="">{{$siteSetting->mail_support_address}}</a> regarding any queries.</p>
+        <p class="text-center">Contact us via email <a href="" >{{$siteSetting->mail_support_address}}</a> regarding any queries.</p>
     </div>
     {{-- Footer --}}
     @slot('footer')
