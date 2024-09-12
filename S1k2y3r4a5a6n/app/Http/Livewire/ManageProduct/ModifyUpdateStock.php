@@ -154,7 +154,7 @@ class ModifyUpdateStock extends Component
         {
             $admin_id = \Auth::guard('admin')->user()->id;     
             $warehouse_ids = Warehouse::whereRaw('FIND_IN_SET(?, admin_ids)', [$admin_id])->pluck('id')->toArray(); 
-            $this->stocks = StockHistory::whereDoesntHave('modify')->whereIn('warehouse_from_id', $warehouse_ids)->whereStockType('upload')->get();
+            $this->stocks = StockHistory::whereDoesntHave('modify')->whereIn('warehouse_to_id', $warehouse_ids)->whereStockType('upload')->get();
         }
         else{
             $this->stocks = StockHistory::whereDoesntHave('modify')->whereStockType('upload')->get();

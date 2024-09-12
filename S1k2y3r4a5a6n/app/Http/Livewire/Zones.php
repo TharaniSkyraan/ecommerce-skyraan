@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Zone;
 use App\Models\Warehouse;
+use App\Jobs\ProductSearchJob;
 
 class Zones extends Component
 {
@@ -16,12 +17,23 @@ class Zones extends Component
 
     public function store()
     {
+        if(!empty($this->zone_id)){
+            $zonedata = Zone::find($this->zone_id);
+            $data['id'] = $this->zone_id;
+            $data['warehouse_ids'] = $this->warehouse_ids;
+            $data['prev_warehouse_ids'] = explode(',',$zonedata->warehouse_ids);
+            $data['status'] = $this->status;
+            $data['prev_status'] = $zonedata->status;
+        }
         $validateData = $this->validate(['zone_coordinates'=>'required','warehouse_ids'=>'required','status'=>'required','zone'=>'required|max:180|min:10']);
         $validateData['zone_coordinates'] = json_encode($this->zone_coordinates);
         $validateData['lat'] = $this->lat;
         $validateData['lng'] = $this->lng;
         $validateData['warehouse_ids'] = implode(',',$this->warehouse_ids);
         Zone::updateOrCreate(['id' => $this->zone_id],$validateData);
+        if(!empty($this->zone_id)){
+            ProductSearchJob::dispatch(['type'=>'zone_update', 'id'=>$data]);
+        }
 
         session()->flash('message', 'Zone successfully saved.');
 
