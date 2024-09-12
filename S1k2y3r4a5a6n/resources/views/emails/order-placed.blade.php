@@ -230,7 +230,9 @@
                             <strong>{{$item->product_name}}</strong>
                         </p>
                         <p class="txt-start text-dark" style="margin: 5px 0;">Qty: {{$item->quantity}}</p>
-                        <p class="txt-start font-bold text-dark price " style="margin: 5px 0; display:block">₹{{$item->total_amount}}</p>
+                        <p style="margin: 0; word-wrap: break-word;" class="price">
+                            <strong>₹{{$item->total_amount}}</strong>
+                        </p>
                     </div>
                 </td>
             </tr>
