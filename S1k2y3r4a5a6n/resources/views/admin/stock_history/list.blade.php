@@ -85,7 +85,9 @@
                                     <option value="" selected="selected">Is all?</option>
                                     <option value="upload">Update</option>
                                     <option value="transfer">Transfer</option> 
-                                    <option value="order">Order</option> </select>
+                                    <option value="order">Order</option>
+                                    <option value="damage">Damage</option>
+                                    <option value="modify">Modify</option> </select>
                                 </td>
                                 <td></td>
                                 <td></td>

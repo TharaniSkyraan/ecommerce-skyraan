@@ -17,6 +17,7 @@ use App\Models\Label;
 use App\Models\Tax;
 use App\Models\Setting;
 use App\Models\Collection;
+use App\Jobs\ProductSearchJob;
 use Carbon\Carbon;
 
 class Create extends Component
@@ -443,6 +444,8 @@ class Create extends Component
             $productVariant = ProductVariant::find($product_variant_id);
             $productVariant->product_name = $productVariant->product->name.(!empty($productVariant->getSetAttribute())? '/'.$productVariant->getSetAttribute() : '');
             $productVariant->save();
+            
+            ProductSearchJob::dispatch(['type'=>'product_update', 'id'=>$product_variant_id]);
 
         }
 

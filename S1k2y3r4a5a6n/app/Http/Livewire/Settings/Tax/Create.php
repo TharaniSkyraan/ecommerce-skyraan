@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Settings\Tax;
 
 use Livewire\Component;
 use App\Models\Tax;
+use App\Jobs\ProductSearchJob;
 
 class Create extends Component
 {
@@ -26,6 +27,10 @@ class Create extends Component
             ['id' => $this->tax_id],
             $validateData
         );
+        
+        if(!empty($this->tax_id)){
+            ProductSearchJob::dispatch(['type'=>'tax_update', 'id'=>$this->tax_id]);
+        }
         $this->tax_id = $tax->id;
         session()->flash('message', 'Tax successfully saved.');
         
@@ -49,6 +54,4 @@ class Create extends Component
             $this->status = $tax->status;
         }
     }
-
-
 }

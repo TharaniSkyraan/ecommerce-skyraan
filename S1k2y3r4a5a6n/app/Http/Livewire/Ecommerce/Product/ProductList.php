@@ -312,7 +312,6 @@ class ProductList extends Component
             $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
             $product['slug'] = $product['slug'];
             $product['price'] = $price;
-            $product['slug'] = $product['slug'];
             $product['variant_id'] = $default->id??0;
             $product['sale_price'] = $sale_price;
             $product['discount'] = ($discount!=0)?(round($discount)):0;

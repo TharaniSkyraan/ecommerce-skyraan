@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Label;
 
 use Livewire\Component;
 use App\Models\Label;
+use App\Jobs\ProductSearchJob;
 
 class Create extends Component
 {
@@ -28,6 +29,9 @@ class Create extends Component
             $validateData
         );
         $this->label_id = $label->id;
+
+        ProductSearchJob::dispatch(['type'=>'label_update', 'id'=>$this->label_id]);
+
         session()->flash('message', 'Label successfully saved.');
         
         return redirect()->to('admin/label');
