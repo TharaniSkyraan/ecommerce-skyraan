@@ -108,7 +108,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/password-change.svg')}}" alt="">
+        <img src="{{asset('asset/home/password-change.png')}}" alt="">
         <p class="title-content text-center"><b>Password Changed Successfully!</b></p>
         <p class="text-left">Hi {{$name}}, We wanted to let you know that your password was successfully changed</p>
         <p class="text-center acc">You can now log in to your account with your new password.</p>

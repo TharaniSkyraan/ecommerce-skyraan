@@ -78,7 +78,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{ asset('storage/'.$siteSetting->site_logo) }}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/contact-admin.svg')}}" alt="">
+        <img src="{{asset('asset/home/contact-admin.png')}}" alt="">
         <p class="title-content text-center"><b>Hello Team!</b></p>
         <p class="text-left text-center">We've got a new form submission.</p>
     </div>
