@@ -162,7 +162,6 @@
             table {
     width: 100%;
 }
-
     td.tr {
         display: flex;
         align-items: flex-start;
@@ -192,7 +191,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/order-placed.png')}}" alt="">
+        <img src="{{asset('asset/home/orderplaced-mail.png')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
@@ -223,12 +222,9 @@
             @foreach($order->orderItems as $item)
             <tr>
                 <td class="tr" style="display: flex; align-items: flex-start;">
-                    <!-- Image Section (spanning 3 columns) -->
                     <div style="flex: 0 0 30%; padding-right: 15px;">
                         <img src="{{$item->product_image}}" alt="{{$item->product_name}}" style="width: 100%; max-width: 100px;">
                     </div>
-
-                    <!-- Content Section (spanning remaining columns) -->
                     <div style="flex: 1 1 70%;">
                         <p style="margin: 0; word-wrap: break-word;">
                             <strong>{{$item->product_name}}</strong>
