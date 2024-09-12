@@ -29,7 +29,7 @@
                                                         <div class="d-flex justify-content-between">
                                                             <span class="h-sms fw-bold ">Order ID #{{$order['code']}}</span><br>
                                                             <div class="">
-                                                            <img src="{{asset('asset/home/forward-icon.png')}}" alt="">
+                                                            <img src="{{ asset('asset/home/forward-icon.png') }}" alt="Forward Icon" style="filter: brightness(0) invert(1) grayscale(1); width:15px; position: relative; bottom: -4px; left: 10px;">
                                                             </div>
                                                         </div>
                                                     </a>

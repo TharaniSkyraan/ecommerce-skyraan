@@ -21,7 +21,7 @@
                         @if($errorMessage) <span class="error">Invalid Password</span> @endif
                         <br><span class="error nointernet" wire:ignore></span>
                     </div>
-                    <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 submitbutton" wire:click.prevent="signin" wire:loading.attr="disabled">
+                    <button class="btn px-xl-5 px-lg-5 px-sm-5 px-md-5 px-4 text-white py-2 w-100 submitbutton" id="signin-submit" wire:click.prevent="signin" wire:loading.attr="disabled">
                         <h5>Sign in</h5>
                     </button>
                     <div class="pt-2 d-flex align-items-center gap-1 justify-content-between">
