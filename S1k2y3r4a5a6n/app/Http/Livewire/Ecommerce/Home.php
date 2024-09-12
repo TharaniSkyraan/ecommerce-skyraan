@@ -186,6 +186,7 @@ class Home extends Component
 
         if($type !='new_products'){
             $Products = ProductSearches::whereIn('id',$ids)
+            ->select('*','product_created_at as created_at')
             ->get()
             ->sortBy(function ($product) use ($ids) {
                 return array_search($product->id, $ids);
