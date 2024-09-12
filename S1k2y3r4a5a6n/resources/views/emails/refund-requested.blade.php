@@ -158,7 +158,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/refund-request.svg')}}" alt="">
+        <img src="{{asset('asset/home/refund-request.png')}}" alt="">
         <p class="title-content text-center"><b>Refund Requested</b></p>
         <p class="text-left text-center">We have received your request for a refund. Our team is currently reviewing your request and will get back to you as soon as possible. </p>
     </div>

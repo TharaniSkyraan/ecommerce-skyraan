@@ -158,7 +158,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/refund_request_initiated.svg')}}" alt="">
+        <img src="{{asset('asset/home/refund_request_initiated.png')}}" alt="">
         <p class="title-content text-center"><b>Refund Request Initiated</b></p>
         <p class="text-left text-center">The refund has been initiated, it may take 2 to 3 business days for the refunded amount to reflect in your account. </p>
     </div>
