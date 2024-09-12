@@ -74,7 +74,7 @@
                     
                     <a class="nav-link d-flex align-items-center px-3 gap-1" href="{{ route('ecommerce.product.list', ['type' => 'special']) }}"><img src="{{asset('asset/home/skyraa_spl.svg')}}" alt="home"><h6 class="w-100 text-dark h-sms text-nowrap">Skyraa Specials</h6></a>
                     @if(!Auth::check())
-                    <div class="nav-link d-flex align-items-center px-3 gap-1" data-bs-toggle="modal" data-bs-target="#signin"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">Login</h6></div>
+                    <div class="nav-link d-flex align-items-center px-3 gap-1" data-bs-toggle="modal" data-bs-target="#signin" id="login-id"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms">Login</h6></div>
                     @else
                     <div>
                         <div class="nav-link align-items-center after-login px-3 mt-0"><a href="javascript:void(0);" class="d-flex gap-1 align-items-center"><img src="{{asset('asset/home/login.svg')}}" alt="home"  class="login_nav"><h6 class="text-dark h-sms name-dot">{{auth()->user()->name}}</h6><img src="{{asset('asset/home/down-ar.svg')}}" alt="" class="down-ar-nav"></a></div>
