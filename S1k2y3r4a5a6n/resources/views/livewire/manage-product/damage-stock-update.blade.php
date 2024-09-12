@@ -19,7 +19,7 @@
                                         <option value="">Select warehouse</option>
                                         @foreach($warehouses as $index => $warehouse)
                                             <option value="{{ $warehouse->id }}" @if($index == 0) selected @endif>
-                                                {{ ucwords($warehouse->address) }}
+                                                {{ ucwords($warehouse->name) }}
                                             </option>
                                         @endforeach
                                     </select>

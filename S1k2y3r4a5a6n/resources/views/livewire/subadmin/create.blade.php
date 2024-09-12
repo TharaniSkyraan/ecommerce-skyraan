@@ -44,7 +44,7 @@
                         <section wire:ignore>
                             <select name="locationSets" id="locationSets" multiple="multiple" placeholder="Filter by...">
                                 @foreach($warehouses as $warehouse)
-                                <option value="{{ $warehouse->id }}" @if(in_array($warehouse->id,$selected_warehouse_ids)) selected @endif>{{ ucwords($warehouse->address) }}</option>
+                                <option value="{{ $warehouse->id }}" @if(in_array($warehouse->id,$selected_warehouse_ids)) selected @endif>{{ ucwords($warehouse->name) }}</option>
                                 @endforeach
                             </select>
                         </section>
