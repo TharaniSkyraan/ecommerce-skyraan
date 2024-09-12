@@ -155,23 +155,23 @@
     <p class="title-content"><b>Welcome {{$name}} !</b></p>
     <p class="text-left text-center">We’re so happy to have you here! Thank you for choosing us as your go-to shopping destination.</p>
     <p class="text-left text-center">We hope to meet all your needs and expectations. {{ $siteSetting->site_name }} provides products in various categories and helps you stay updated about our new arrivals.  </p>
-    <img class="welcome-img" src="{{asset('asset/home/welcome-mail.svg')}}" alt="welocme-mail">
+    <img class="welcome-img" src="{{asset('asset/home/welcome-mail.png')}}" alt="welocme-mail">
     <div class="delivery-cnt text-center">
         <table class="center">
             <tr>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel2.svg')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel3.png')}}" alt="welocme-mail">
                     </div>
                 </td>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel1.svg')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel1.png')}}" alt="welocme-mail">
                     </div>
                 </td>
                 <td class="">
                     <div class="rounded-circle clr-grey ">
-                    <img src="{{asset('asset/home/wel3.svg')}}" alt="welocme-mail">
+                    <img src="{{asset('asset/home/wel2.png')}}" alt="welocme-mail">
                     </div>
                 </td>
             </tr>
@@ -189,7 +189,6 @@
             <button class="text-center px-3 py-3">
                 <a href="{{url('/')}}">
                     <span class="text-white">shop now</span>              
-                    <img src="{{ asset('asset/home/forward-icon.png') }}" alt="Forward Icon" style="filter: brightness(0) invert(1) grayscale(1); width:15px; position: relative; bottom: -4px; left: 10px;">
                 </a>
             </button>
         </div>
