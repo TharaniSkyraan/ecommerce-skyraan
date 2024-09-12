@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Category;
+use App\Jobs\ProductSearchJob;
 
 class Categories extends Component
 {
@@ -93,6 +94,8 @@ class Categories extends Component
             }elseif(empty($this->parent_id)){
                 Category::whereParentId($this->category_id)->update(['status' => 'active']);
             }
+            // Product search query update job
+            ProductSearchJob::dispatch(['type'=>'category_update', 'id'=>$this->category_id]);
         }
         session()->flash('message', 'Category successfully saved.');
         $this->resetInputvalues();
@@ -128,6 +131,9 @@ class Categories extends Component
             }
             $validateData['slug'] = str_replace(' ','-',strtolower($this->name));
             $catgeory->update($validateData);
+
+            // Product search query update job
+            ProductSearchJob::dispatch(['type'=>'category_update', 'id'=>$this->category_id]);
         }else
         {
             $validateData = $this->validate([
@@ -143,8 +149,8 @@ class Categories extends Component
             $logoname = $this->logo->store('files','public');
             $validateData['logo'] = $logoname;            
             $validateData['slug'] = str_replace(' ','-',strtolower($this->name));
-            Category::create($validateData);
-        }
+            $category = Category::create($validateData);
+        }        
         session()->flash('message', 'Sub Category successfully saved.');
         $this->resetInputvalues();
     } 

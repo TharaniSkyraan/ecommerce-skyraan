@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Admin;
 use App\Models\Zone;
 use App\Models\Warehouse;
+use App\Jobs\ProductSearchJob;
 
 class Warehouses extends Component
 {
@@ -26,10 +27,10 @@ class Warehouses extends Component
         
         $warehouse = Warehouse::find($this->warehouse_id);
 
-        if($warehouse->status=='active' && $this->status=='inactive'){
+        if((!empty($this->warehouse_id) && $warehouse->status=='active') && $this->status=='inactive'){
             $validateData['previous_zone_ids'] = implode(',',$this->selected_zone_ids);
         } 
-        if($warehouse->status=='inactive' && $this->status=='active'){
+        if((!empty($this->warehouse_id) && $warehouse->status=='inactive') && $this->status=='active'){
             $validateData['previous_zone_ids'] ='';
             $this->zone_ids = [];
         }
@@ -62,6 +63,10 @@ class Warehouses extends Component
             $warehouse_ids = array_diff($warehouse_ids, [$this->warehouse_id]);
             $zone->warehouse_ids = implode(',',$warehouse_ids);
             $zone->save();
+        }
+
+        if(!empty($this->warehouse_id)){
+            ProductSearchJob::dispatch(['type'=>'warehouse_update', 'id'=>$this->warehouse_id]);
         }
 
         session()->flash('message', 'Warehouse successfully saved.');
