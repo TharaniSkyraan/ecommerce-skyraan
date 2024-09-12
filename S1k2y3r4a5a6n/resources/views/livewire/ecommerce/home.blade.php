@@ -100,7 +100,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                     @forelse($top_selling_products as $tproduct)
                         <div class="col-xl-3 col-lg-3 col-sm-4 col-md-4 col-6 pb-4 ">
                             <div class="div px-2 prdDet cursor">
-                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $tproduct['id'] }}" data-variant-id="{{ $tproduct['variant_id'] }}"  data-slug="{{ $tproduct['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp }}">
+                                <div class="card border-0 round-1 p-1 PrdRow cursor h-100" data-id="{{ $tproduct['product_id'] }}" data-variant-id="{{ $tproduct['variant_id'] }}"  data-slug="{{ $tproduct['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($tproduct['created_at'])->timestamp }}">
                                     <div class="container-fluid">
                                     <div class="row pt-1 position-absolute w-100 reviews-div">
                                         <div class="col-6 px-0">
@@ -125,7 +125,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                         </div>
                                         <div class="col-6 d-flex justify-content-end pe-0 align-self-center">
                                             <div class=" rounded-circle bg-white">
-                                                @if(in_array($tproduct['id'], $wishlist)) 
+                                                @if(in_array($tproduct['product_id'], $wishlist)) 
                                                     <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike"  class="like_img likedislike">
                                                 @else
                                                     <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
@@ -156,7 +156,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     </div>
                                 </div>
                                 <div class="price_info py-2">
-                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $tproduct['name']}}</h6>
+                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $tproduct['product_name']}}</h6>
                                     <div class="container-fluid">
                                         <div class="row align-items-center">
                                             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
@@ -249,7 +249,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                     @forelse($new_products as $product)
                         <div class="col-xl-3 col-lg-3 col-sm-4 col-md-4 col-6 pb-3">
                             <div class="div px-2 prdDet cursor">
-                                <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
+                                <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['product_id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                     <div class="container-fluid px-0">
                                         <div class="row pt-1 position-absolute w-100 reviews-div">
                                             <div class="col-6">
@@ -274,7 +274,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             </div>
                                             <div class="col-6 d-flex justify-content-end pe-0 align-self-center">
                                                 <div class=" rounded-circle bg-white">
-                                                    @if(in_array($product['id'], $wishlist)) 
+                                                    @if(in_array($product['product_id'], $wishlist)) 
                                                         <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike" class="like_img likedislike">
                                                     @else
                                                         <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
@@ -304,7 +304,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                     </div>
                                 </div>
                                 <div class="price_info py-2">
-                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                    <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['product_name']}}</h6>
                                     <div class="container-fluid">
                                         <div class="row align-items-center">
                                             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
@@ -377,7 +377,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                 @if($key!=0)
                                 <div class="px-2">
                                     <div class="owl-slide px-2 prdDet cursor">
-                                        <div class="card card2 cursor border-0 round-1 p-1 PrdRow" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
+                                        <div class="card card2 cursor border-0 round-1 p-1 PrdRow" data-id="{{ $product['product_id'] }}" data-variant-id="{{ $product['variant_id'] }}"   data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
                                             <div class="container-fluid position-absolute reviews-div">
                                                 <div class="row pt-1">
                                                     <div class="col-6 px-0">
@@ -402,7 +402,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                                     </div>
                                                     <div class="col-6 d-flex justify-content-end align-self-center">
                                                         <div class="rounded-circle bg-white">
-                                                            @if(in_array($product['id'], $wishlist)) 
+                                                            @if(in_array($product['product_id'], $wishlist)) 
                                                                 <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" data-id="unlike" class="like_img likedislike">
                                                             @else
                                                                 <img src="{{asset('asset/home/like.svg')}}" alt="un-like" data-id="like" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" >
@@ -432,7 +432,7 @@ $duration = (count($collections) / 5) * $baseDuration;
                                             </div>
                                         </div>
                                         <div class="price_info py-2">
-                                            <h6 class="text-dark fw-bold align-self-center max-height h-sms">{{ $product['name']}}</h6>
+                                            <h6 class="text-dark fw-bold align-self-center max-height h-sms">{{ $product['product_name']}}</h6>
                                             <div class="container-fluid">
                                                 <div class="row align-items-center">
                                                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 px-0">
