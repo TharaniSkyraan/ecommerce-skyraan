@@ -7,6 +7,7 @@ use App\Models\StockHistory;
 use App\Models\ProductStock;
 use App\Models\Warehouse;
 use App\Models\ProductStockUpdateQuantityHistory;
+use App\Jobs\ProductSearchJob;
 use Carbon\Carbon;
 
 class History extends Component
@@ -47,6 +48,9 @@ class History extends Component
                 ]
             );
 
+            if(ProductStock::whereProductVariantId($product->product_variant_id)->whereWarehouseId($warehouse_id)->doesntExist()){
+                ProductSearchJob::dispatch(['type'=>'product_update', 'id'=>$product->product_variant_id]);
+            }
             // Product Stock Quantity Update History
             ProductStockUpdateQuantityHistory::create([
                 'history_id' => $history_id,
