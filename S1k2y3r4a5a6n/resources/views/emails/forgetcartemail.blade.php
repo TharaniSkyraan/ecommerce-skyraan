@@ -187,7 +187,7 @@
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
-    <img class="welcome-img" src="{{asset('asset/home/forget-order.svg')}}" alt="image">
+    <img class="welcome-img" src="{{asset('asset/home/forget-order.png')}}" alt="image">
     <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
         <table>
@@ -209,7 +209,6 @@
         <button class="text-center px-3 py-3">
             <a href="{{url('/cart')}}">
                 <span class="text-white">View Cart</span>
-                <img src="{{ asset('asset/home/forward-icon.png') }}" alt="Forward Icon" style="filter: brightness(0) invert(1) grayscale(1); width:15px; position: relative; bottom: -4px; left: 10px;">
             </a>
         </button>
     </div>

@@ -157,7 +157,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/cancel-mail.svg')}}" alt="">
+        <img src="{{asset('asset/home/cancel-mail.png')}}" alt="">
         <p class="title-content text-center"><b>We're Sad to See You Cancel</b></p>
         <p class="text-left text-center">We regret to let you know that your recent order has been successfully cancelled.</p>
     </div>

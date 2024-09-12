@@ -159,12 +159,40 @@
             .green{
                 color:#4CAF50!important;
             }
+            table {
+    width: 100%;
+}
+
+    td.tr {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    td.tr img {
+        max-width: 100px; /* Adjust the max width */
+        width: 100%;
+    }
+
+    td.tr div {
+        flex: 1;
+    }
+
+    td.tr .cnt {
+        flex: 1;
+        padding-left: 15px;
+    }
+
+    td.tr p {
+        margin: 5px 0;
+        word-wrap: break-word;
+    }
+
         </style>
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/order-placed.svg')}}" alt="">
+        <img src="{{asset('asset/home/order-placed.png')}}" alt="">
         <p class="title-content text-center"><b>order placed successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
@@ -190,20 +218,23 @@
     <div class="products">
         <table>
             <tr>
-                <th class="th1 "><span class="txt-start">Product</span></th>
+                <th class="th1"><span class="txt-start">Product</span></th>
             </tr>
             @foreach($order->orderItems as $item)
             <tr>
-                <td class="tr">
-                    <div>
-                        <img src="{{$item->product_image}}" alt="{{$item->product_name}}">
+                <td class="tr" style="display: flex; align-items: flex-start;">
+                    <!-- Image Section (spanning 3 columns) -->
+                    <div style="flex: 0 0 30%; padding-right: 15px;">
+                        <img src="{{$item->product_image}}" alt="{{$item->product_name}}" style="width: 100%; max-width: 100px;">
                     </div>
-                    <div class="cnt">
-                        <span>{{$item->product_name}}</span>
-                        <div>
-                            <p class="txt-start text-dark">Qty : {{$item->quantity}}</p> <br>   
-                            <p class="txt-start font-bold text-dark price">₹{{$item->total_amount}}</p>  
-                        </div>
+
+                    <!-- Content Section (spanning remaining columns) -->
+                    <div style="flex: 1 1 70%;">
+                        <p style="margin: 0; word-wrap: break-word;">
+                            <strong>{{$item->product_name}}</strong>
+                        </p>
+                        <p class="txt-start text-dark" style="margin: 5px 0;">Qty: {{$item->quantity}}</p>
+                        <p class="txt-start font-bold text-dark price" style="margin: 5px 0;">₹{{$item->total_amount}}</p>
                     </div>
                 </td>
             </tr>

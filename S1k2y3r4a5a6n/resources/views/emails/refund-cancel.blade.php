@@ -121,7 +121,7 @@
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
-        <img src="{{asset('asset/home/refund-cancel.svg')}}" alt="">
+        <img src="{{asset('asset/home/refund-cancel.png')}}" alt="">
         <p class="title-content text-center"><b>Refund Requested <span class="red">Failed</span></b></p>
         <p class="text-left text-center">We are sorry to inform you that we encountered an issue processing your refund request.</p>
     </div>
