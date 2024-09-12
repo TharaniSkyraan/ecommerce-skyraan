@@ -130,13 +130,15 @@ class Orders extends Component
             \Mail::send(new OrderCancelMail($order));
         }
 
-        if(!empty($order->payments->charge_id)){
+        if(!empty($order->payments->charge_id))
+        {
             try {
                 $amount = $order->payments->amount;
                 $api = new Api(config('shipping.razorpay.razorpay_key'), config('shipping.razorpay.razorpay_secret'));
                 $refund = $api->payment->fetch($order->payments->charge_id)->refund([
                     'amount' => $amount ? $amount * 100 : null  // Amount in paise
                 ]);
+                
                 // \Log::info('Refund successful: ' . $refund['id']);
                 // Refund request mail
                 

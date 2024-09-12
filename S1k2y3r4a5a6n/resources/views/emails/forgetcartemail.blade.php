@@ -187,7 +187,7 @@
     @endslot
     {{-- Body --}}
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
-    <img class="welcome-img" src="{{asset('asset/home/forget-order.svg')}}" alt="welocme-mail">
+    <img class="welcome-img" src="{{asset('asset/home/forget-order.svg')}}" alt="image">
     <p class="text-start">Hi {{$name}}, Your cart items displayed here</p>
     <div class="delivery-cnt">
         <table>
@@ -205,7 +205,14 @@
             @endforeach
         </table>
     </div>
-    <div class="text-center mt-3 View"><button class="text-center px-3 py-3"><a href="{{url('/cart')}}"><span class="text-white">View Cart</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
+    <div class="text-center mt-3 View">
+        <button class="text-center px-3 py-3">
+            <a href="{{url('/cart')}}">
+                <span class="text-white">View Cart</span>
+                <img src="{{ asset('asset/home/forward-icon.png') }}" alt="Forward Icon" style="filter: brightness(0) invert(1) grayscale(1); width:15px; position: relative; bottom: -4px; left: 10px;">
+            </a>
+        </button>
+    </div>
     <p class="text-left text-center">If you have any queries, feel free to reach out to our customer care support <a href="" class="green">{{$siteSetting->mail_support_address}}</a></p>
     <div class="footer-content">
         <p class="text-center"> <b>Please note : </b>This is an auto-generated email, please do not reply to this email. If you’d like to unsubscribe and stop receiving these emails <a href="{{url('/')}}/unsubscribe?email={{$email}}"> click here</a></p>
