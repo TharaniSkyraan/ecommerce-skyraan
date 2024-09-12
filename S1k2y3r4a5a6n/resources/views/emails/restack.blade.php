@@ -146,7 +146,14 @@
     </div>
     <div class="bottom-classs">
         <p class="title-contents">{{ $product['name'] }}</p>
-        <div class="text-center my-3"><button class="text-center px-3 py-3"><a href="{{ $product['link'] }}"><span class="text-white">Get it Now</span><img src="{{asset('asset/home/forward-icon.png')}}" alt="" class="forward-icon text-center"></a></button></div>
+        <div class="text-center my-3">
+            <button class="text-center px-3 py-3">
+                <a href="{{ $product['link'] }}">
+                    <span class="text-white">Get it Now</span>                
+                    <img src="{{ asset('asset/home/forward-icon.png') }}" alt="Forward Icon" style="filter: brightness(0) invert(1) grayscale(1); width:15px; position: relative; bottom: -4px; left: 10px;">
+                </a>
+            </button>
+        </div>
         <p class="title-content">Why are you still waiting?</p>
         <p class="text-center fdfd">Own it before it’s too late!</p>
     </div>

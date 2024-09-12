@@ -255,7 +255,7 @@
         @if(!Auth::check())
             <div class="px-5 text-center login pb-5 pt-3" >
                 <div class="card border-0  py-2 px-4">
-                    <div class="d-flex gap-2 justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#signin">
+                    <div class="d-flex gap-2 justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#signin" id="login-id">
                         <img src="{{asset('asset/home/login.svg')}}" alt="login" class="login-svg">
                         <h5 class="text-white text-center  h-sm">Login</h5>
                     </div>
