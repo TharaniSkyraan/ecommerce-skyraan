@@ -11,6 +11,7 @@ use App\Models\Review;
 use App\Models\Label;
 use App\Models\WishList;
 use App\Models\ProductVariant;
+use App\Models\ProductSearches;
 use App\Models\WhyChoose;
 use App\Models\ProductStock;
 use App\Models\BuyingOption;
@@ -29,6 +30,8 @@ class Home extends Component
     {
         $zone = \Session::get('zone_config');
         $this->warehouse_ids = array_filter(explode(',',$zone['warehouse_ids']));
+        $warehouse_ids = (count($this->warehouse_ids)!=0)?'(^|,)(' . implode('|', array_map('intval', $this->warehouse_ids)) . ')(,|$)':'';
+
         $banners = Banner::wherePromotionBanner('no')
                                 ->whereSpecialProduct('no')
                                 ->whereStatus('active')
@@ -40,13 +43,13 @@ class Home extends Component
                                                                           ->pluck('id')->first();
 
                                     if($items->product_type=='single'){
-                                        $product_variant = ProductVariant::whereHas('product', function($q){
-                                                                            $q->where('status','active');
-                                                                        })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                        $product_variant = ProductSearches::whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))
+                                                                        ->where('status','active')
+                                                                        ->first();
                                     }
-                                    $items['product_slug'] = $product_variant->product->slug??'';
-                                    $items['variant_id'] = $product_variant->id??'';
-                                    $items['product_created'] = $product_variant->product->created_at??'';
+                                    $items['product_slug'] = $product_variant->slug??'';
+                                    $items['variant_id'] = $product_variant->variant_id??'';
+                                    $items['product_created'] = $product_variant->product_created_at??'';
                                     // $items->append(['product_slug','product_created']);
                                     return $items;
                                 })->toArray();
@@ -60,13 +63,13 @@ class Home extends Component
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
                                                                                   ->pluck('id')->first();
                                             if($items->product_type=='single'){
-                                                $product_variant = ProductVariant::whereHas('product', function($q){
-                                                                                    $q->where('status','active');
-                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                                $product_variant = ProductSearches::whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))
+                                                                                ->where('status','active')
+                                                                                ->first();
                                             }
-                                            $items['product_slug'] = $product_variant->product->slug??'';
-                                            $items['variant_id'] = $product_variant->id??'';
-                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            $items['product_slug'] = $product_variant->slug??'';
+                                            $items['variant_id'] = $product_variant->variant_id??'';
+                                            $items['product_created'] = $product_variant->product_created_at??'';
                                             return $items;
 
                                         })->toArray();
@@ -79,15 +82,15 @@ class Home extends Component
                                         ->get()->each(function ($items) {
                                             $items['product_stock'] = ProductStock::whereProductId(array_values(array_filter(explode(',',$items->product_ids))))
                                                                                   ->whereIn('warehouse_id', $this->warehouse_ids)
-                                                                                  ->pluck('id')->first();
+                                                                                  ->pluck('id')->first();  
                                             if($items->product_type=='single'){
-                                                $product_variant = ProductVariant::whereHas('product', function($q){
-                                                                                    $q->where('status','active');
-                                                                                })->whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))->first();
+                                                $product_variant = ProductSearches::whereIn('product_id',array_values(array_filter(explode(',',$items->product_ids))))
+                                                                                ->where('status','active')
+                                                                                ->first();
                                             }
-                                            $items['product_slug'] = $product_variant->product->slug??'';
-                                            $items['variant_id'] = $product_variant->id??'';
-                                            $items['product_created'] = $product_variant->product->created_at??'';
+                                            $items['product_slug'] = $product_variant->slug??'';
+                                            $items['variant_id'] = $product_variant->variant_id??'';
+                                            $items['product_created'] = $product_variant->product_created_at??'';
                                             return $items;
                                         })->toArray();
         $this->special_products = (count($this->warehouse_ids)!=0)?array_filter($special_products, function($banner) {return $banner['product_stock'] !== null; }):$special_products;
@@ -95,62 +98,20 @@ class Home extends Component
         $categories = Category::whereNull('parent_id')
                                     ->whereStatus('active')
                                     ->orderBy('sort','asc')// ->limit(10)
-                                    ->get()->each(function ($items) {
-                                        $items['product'] = Product::whereHas('product_stock', function($q){
-                                                                        $q->whereIn('warehouse_id', $this->warehouse_ids);
-                                                                    })->where('category_ids', 'like', '%,'.$items->id.',%')
-                                                                      ->pluck('id')->first();
-
+                                    ->get()->each(function ($items) use($warehouse_ids) {                                        
+                                        $items['product'] = ProductSearches::where('warehouse_ids', 'REGEXP', $warehouse_ids)
+                                                                            ->where('category_ids', 'like', '%,'.$items->id.',%')
+                                                                            ->where('status','active')
+                                                                            ->pluck('id')->first();
                                     })->toArray();
         $this->categories = (count($this->warehouse_ids)!=0)?array_filter($categories, function($category) {
                                         return $category['product'] !== null;
                                     }):$categories;
                                     
-        $new_product_ids = ProductVariant::whereHas('product', function($q){
-                                                $q->where('status','active');
-                                            })->whereHas('product_stock', function($q1){
-                                                if((count($this->warehouse_ids)!=0)){
-                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
-                                                }
-                                            })
-                                            ->groupBy('product_id')
-                                            ->orderBy(\DB::raw('MAX(created_at)'), 'desc')
-                                            ->limit(8)
-                                            ->pluck('product_id')->toArray();
-        $this->productList('new_products',json_encode($new_product_ids));
-
-        $top_selling_product_ids = Product::whereHas('product_stock', function($q1){
-                                                if((count($this->warehouse_ids)!=0)){
-                                                    $q1->whereIn('warehouse_id', $this->warehouse_ids);
-                                                }
-                                          })->leftJoin('order_items', 'order_items.product_id', '=', 'products.id')
-                                          ->select('products.id as id', \DB::raw('COUNT(order_items.product_id) as count'))
-                                          ->groupBy('id')
-                                          ->havingRaw('count != 0')
-                                          ->orderBy('count', 'desc')
-                                          ->limit(12)
-                                          ->pluck('id')->toArray();
         
-        $this->productList('top_selling_products',json_encode($top_selling_product_ids));
-
-        $startDate = Carbon::now()->subWeek()->startOfDay();
-        $endDate = Carbon::now()->endOfDay();
-                                            
-        $hero_of_the_week_ids = Product::whereHas('product_stock', function($q1){
-                                            if((count($this->warehouse_ids)!=0)){
-                                                $q1->whereIn('warehouse_id', $this->warehouse_ids);
-                                            }
-                                        })->leftJoin('order_items', 'order_items.product_id', '=', 'products.id')
-                                       ->whereBetween('order_items.created_at', [$startDate, $endDate])
-                                       ->select('products.id as id', \DB::raw('COUNT(order_items.product_id) as count'),'products.name as name')
-                                       ->groupBy('id')
-                                       ->groupBy('name')
-                                       ->havingRaw('count != 0')
-                                       ->orderBy('count', 'desc')
-                                       ->limit(15)
-                                       ->pluck('id')->toArray();
-
-        $this->productList('hero_of_the_week',json_encode($hero_of_the_week_ids));
+        $this->productList('new_products',$warehouse_ids);
+        $this->productList('top_selling_products',$warehouse_ids);
+        $this->productList('hero_of_the_week',$warehouse_ids);
 
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
@@ -175,93 +136,76 @@ class Home extends Component
         $this->collections = $collections;  
         
     }
-    public function productList($type,$ids)
+    public function productList($type,$warehouse_ids)
     {
         
-        $ids=json_decode($ids);
-        $Products = Product::select('id','slug','name','images','label_id','tax_ids','created_at')
-                            ->whereIn('id',$ids)
-                            ->whereStatus('active')
-                            ->get()
-                            ->sortBy(function ($product) use ($ids) {
-                                return array_search($product->id, $ids);
-                            })->toArray();
+        if($type=='new_products'){
+            
+            $Products = ProductSearches::where('status','active')
+                                ->where(function($q) use($warehouse_ids){
+                                    if((count($this->warehouse_ids)!=0)){
+                                        $q->where('warehouse_ids', 'REGEXP', $warehouse_ids);
+                                    }
+                                })->orderBy('created_at', 'desc')
+                                ->limit(8)
+                                ->get()
+                                ->toArray();
+        }elseif($type=='top_selling_products')
+        {
+            $ids = ProductSearches::where('status','active')
+                                        ->where(function($q) use($warehouse_ids){
+                                            if((count($this->warehouse_ids)!=0)){
+                                                $q->where('warehouse_ids', 'REGEXP', $warehouse_ids);
+                                            }
+                                        })->leftJoin('order_items', 'order_items.product_id', '=', 'product_searches.product_id')
+                                        ->select('product_searches.id as id', \DB::raw('COUNT(order_items.product_id) as count'))
+                                        ->groupBy('id')
+                                        ->havingRaw('count != 0')
+                                        ->orderBy('count', 'desc')
+                                        ->limit(12)
+                                        ->pluck('id')->toArray();
+        }elseif($type=="hero_of_the_week"){
+            
+            $startDate = Carbon::now()->subWeek()->startOfDay();
+            $endDate = Carbon::now()->endOfDay();
+                                                
+            $ids = ProductSearches::where('status','active')
+                                        ->where(function($q) use($warehouse_ids){
+                                            if((count($this->warehouse_ids)!=0)){
+                                                $q->where('warehouse_ids', 'REGEXP', $warehouse_ids);
+                                            }
+                                        })->leftJoin('order_items', 'order_items.product_id', '=', 'product_searches.product_id')
+                                        ->whereBetween('order_items.created_at', [$startDate, $endDate])
+                                        ->select('product_searches.id as id', \DB::raw('COUNT(order_items.product_id) as count'))
+                                        ->groupBy('id')
+                                        ->havingRaw('count != 0')
+                                        ->orderBy('count', 'desc')
+                                        ->limit(15)
+                                        ->pluck('id')->toArray();
+        }
+
+        if($type !='new_products'){
+            $Products = ProductSearches::whereIn('id',$ids)
+            ->get()
+            ->sortBy(function ($product) use ($ids) {
+                return array_search($product->id, $ids);
+            })->toArray();
+        }
         $this->$type = array_map(function ($product) 
         {
-            $default = ProductVariant::whereHas('product_stock', function($q){
-                                        if((count($this->warehouse_ids)!=0)){
-                                            $q->whereIn('warehouse_id', $this->warehouse_ids);
-                                        }
-                                    })->select('id','price','sale_price','is_default','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-                                    // ->whereIsDefault('yes')    
-                                    ->whereIn('is_default', ['yes', 'no'])
-                                    ->orderByRaw("is_default = 'yes' DESC")                                 
-                                    ->whereProductId($product['id'])->first();
 
             $discount = $price = $sale_price = 0;
 
-            $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
             $rating_count = Review::whereProductId($product['id'])->count();
             $rating_sum = Review::whereProductId($product['id'])->sum('rating');
 
-            if(isset($default))
-            {
-                $product_stock = ProductStock::select('id', 'available_quantity')
-                                            ->whereIn('warehouse_id',$this->warehouse_ids)
-                                            ->whereProductVariantId($default->id)
-                                            ->groupBy('id', 'available_quantity')
-                                            ->orderBy('available_quantity','desc')
-                                            ->first();
+            $product_stock = ProductStock::select('id', 'available_quantity')
+                                        ->whereIn('warehouse_id',$this->warehouse_ids)
+                                        ->whereProductVariantId($product['variant_id'])
+                                        ->groupBy('id', 'available_quantity')
+                                        ->orderBy('available_quantity','desc')
+                                        ->first();
 
-                $price = $default->price;
-
-                if($default->sale_price!=0 && $default->discount_expired!='yes'){
-                    
-                    if($default->discount_duration=='yes'){
-
-                        $currentDate = Carbon::now()->format('d-m-Y H:i');
-
-                        // Start and end date from user input or database
-                        $startDate = Carbon::parse($default->discount_start_date)->format('d-m-Y H:i'); 
-                        $endDate = Carbon::parse($default->discount_end_date)->format('d-m-Y H:i'); 
-
-                        // Validate start date
-                        if ($startDate <= $currentDate && $currentDate <= $endDate) {
-                            $sale_price = $default->sale_price;
-                            $discount = (($price-$sale_price)/$price)*100;
-                        } 
-
-                    }else{
-                        $sale_price = $default->sale_price;
-                        $discount = (($price-$sale_price)/$price)*100;
-                    }                        
-                }
-
-                if(!empty($product['tax_ids']))
-                {
-                    if($tax = Tax::where('id',$product['tax_ids'])->where('status','active')->first())
-                    {                    
-                        $price = $price + ($tax->percentage * ($price / 100));
-                        if($sale_price!=0){
-                            $sale_price = $sale_price + ($tax->percentage * ($sale_price / 100));
-                        }
-                    }
-
-                }
-
-            }
-
-            $images = json_decode($product['images'], true);
-            $product['image1'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-            $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
-            $product['price'] = $price;
-            $product['slug'] = $product['slug'];
-            $product['variant_id'] = $default->id??0;
-            $product['cart_limit'] = $default->cart_limit??0;
-            $product['sale_price'] = $sale_price;
-            $product['discount'] = ($discount!=0)?(round($discount)):0;
-            $product['label'] = (isset($label->name))?$label->name:'';
-            $product['label_color_code'] = (isset($label->color))?$label->color:'';
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
             $product['review_count'] = $rating_count;
             $product['product_type'] = ProductVariant::whereProductId($product['id'])->count();
@@ -271,98 +215,7 @@ class Home extends Component
             return $product;
 
         }, $Products);
-        // if($type !='new_products')
-        // if($type)
-        // {
-        // }else{
-            
-        //     $ids=json_decode($ids);
-
-        //     $Products = ProductVariant::whereHas('product_stock', function($q){
-        //                                         $q->whereIn('warehouse_id', $this->warehouse_ids);
-        //                                 })->select('id as variant_id','product_id as id','price','sale_price','cart_limit','discount_expired','discount_start_date','discount_end_date','discount_duration')
-        //                                 ->whereIn('id',$ids)  
-        //                                 ->get()
-        //                                 ->sortBy(function ($product) use ($ids) {
-        //                                     return array_search($product->variant_id, $ids);
-        //                                 })->toArray();
-                                            
-        //     $this->$type = array_map(function ($default) 
-        //     {
-                
-        //         $product_stock = ProductStock::select('id', 'available_quantity')
-        //                                     ->whereIn('warehouse_id',$this->warehouse_ids)
-        //                                     ->whereProductVariantId($default['variant_id'])
-        //                                     ->groupBy('id', 'available_quantity')
-        //                                     ->orderBy('available_quantity','desc')
-        //                                     ->first();
-
-        //         $product = Product::select('id','slug','name','images','label_id','tax_ids','created_at')->where('id',$default['id'])->first()->toArray();
-
-        //         $discount = $price = $sale_price = 0;
-              
-        //         $label = Label::where('id',$product['label_id'])->whereStatus('active')->first();
-        //         $rating_count = Review::whereProductId($product['id'])->count();
-        //         $rating_sum = Review::whereProductId($product['id'])->sum('rating');
-
-        //         $price = $default['price'];
-                
-        //         if($default['sale_price']!=0 && $default['discount_expired'] != 'yes'){
-                    
-        //             if($default['discount_duration']=='yes'){
-                        
-        //                 $currentDate = Carbon::now()->format('d-m-Y H:i');
-
-        //                 // Start and end date from user input or database
-        //                 $startDate = Carbon::parse($default['discount_start_date'])->format('d-m-Y H:i'); 
-        //                 $endDate = Carbon::parse($default['discount_end_date'])->format('d-m-Y H:i'); 
-
-        //                 // Validate start date
-        //                 if ($startDate <= $currentDate && $currentDate <= $endDate) {
-        //                     $sale_price = $default['sale_price'];
-        //                     $discount = (($price-$sale_price)/$price)*100;
-        //                 } 
-
-        //             }else{                        
-        //                 $sale_price = $default['sale_price'];
-        //                 $discount = (($price-$sale_price)/$price)*100;
-        //             }
-                    
-        //         }
-
-        //         if(!empty($product['tax_ids']))
-        //         {
-        //             if($tax = Tax::where('id',$product['tax_ids'])->where('status','active')->first())
-        //             {                    
-        //                 $price = $price + ($tax->percentage * ($price / 100));
-        //                 if($sale_price!=0){
-        //                     $sale_price = $sale_price + ($tax->percentage * ($sale_price / 100));
-        //                 }
-        //             }
-        //         }
-
-        //         $images = json_decode($product['images'], true);
-        //         $product['image1'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-        //         $product['image2'] = (isset($images[1]))?asset('storage').'/'.$images[1]:asset('asset/home/default-hover1.png');
-        //         $product['slug'] = $product['slug'];
-        //         $product['price'] = $price;
-        //         $product['variant_id'] = $default['variant_id'];
-        //         $product['cart_limit'] = $default['cart_limit'];
-        //         $product['sale_price'] = $sale_price;
-        //         $product['discount'] = ($discount!=0)?(round($discount)):0;
-        //         $product['label'] = (isset($label->name))?$label->name:'';
-        //         $product['label_color_code'] = (isset($label->color))?$label->color:'';
-        //         $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
-        //         $product['review_count'] = $rating_count;
-        //         $product['product_type'] = 1;
-        //         $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
-        //         $product['available_quantity'] = $product_stock->available_quantity??0;
-        //         $product['product_stock_id'] = $product_stock->id??0;
-        //         return $product;
-
-        //     }, $Products);
-        // }
-
+      
     }   
 
     public function addremoveWish($product_id)
