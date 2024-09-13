@@ -235,8 +235,11 @@
                 padding-top:10px;
                 font-size:13px;
             }
-            {
+            * {
                 font-family: "poppins"!important;
+            }
+            .invoice-contact img{
+                width:20px;
             }
         </style>
     </head>
@@ -336,9 +339,9 @@
                             <p>{{$siteSetting->address}}</p>
                         </td>
                         <td class="pt-0 jkef b-none text-end">
-                            <div>
-                                <img src="{{asset('asset/images/')}}" alt=""><p>{{$siteSetting->mail_support_address}}</p>
-                                <h6 class="pt-2">+91 {{$siteSetting->phone}}</h6>
+                            <div class="invoice-contact">
+                                <img src="{{ $mail_icon_base64 }}" alt="mail"><p>{{$siteSetting->mail_support_address}}</p>
+                                <img src="{{ $phone_icon_base64 }}" alt="phone"><h6 class="pt-2">+91 {{$siteSetting->phone}}</h6>
                             </div>
                         </td>
                     </tr>
