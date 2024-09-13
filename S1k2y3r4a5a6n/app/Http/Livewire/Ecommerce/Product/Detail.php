@@ -81,6 +81,9 @@ class Detail extends Component
             $this->stock_status = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
             $this->available_quantity = $product_stock->available_quantity??0;
             $this->product_stock_id = $product_stock->id??0;   
+            $product = $product->append(['order_item'])->toArray();
+            $this->product['is_purchased'] = isset($product['order_item'])?'yes':'no';
+            $this->product['is_reviewed'] = isset($product['order_item']['review'])?'yes':'no';
         
         }
         $this->emit('updateCarousel','');
@@ -211,7 +214,8 @@ class Detail extends Component
         $related_product_ids = [];
 
         $product = ProductSearches::whereSlug($this->slug)->where('product_created_at',$createdDate);
-        
+       
+
         if(!empty($this->variant) && $this->variant !=0){
             $product = $product->where('variant_id',$this->variant)->first();
         }else{            
@@ -251,11 +255,6 @@ class Detail extends Component
         $category_ids = explode(',',$product->category_ids);
         $this->category = Category::where('id',$category_ids[1]??'')->whereStatus('active')->first();
         
-        $product->review = ($rating_count!=0)?round($rating_sum/$rating_count):0;
-        $product->review_count = $rating_count;
-        $product->name = $product->product_name;
-        $product->is_purchased = isset($order_item)?'yes':'no';
-        $product->is_reviewed = isset($order_item->review)?'yes':'no';
         $attribute_id = array_values(array_filter(explode(',',$product->product->attribute_ids)));   
 
         $this->parent_attribute_id = explode(',',array_shift($attribute_id));    
@@ -335,8 +334,16 @@ class Detail extends Component
         $this->buying_options  = BuyingOption::whereStatus('active')
                                 ->where('feature_type', '!=', 'product')
                                 ->get()
-                                ->toArray();  
-        $this->product  = $product->toArray();
+                                ->toArray(); 
+
+        $product = $product->append(['order_item'])->toArray();
+        $product['is_purchased'] = isset($product['order_item'])?'yes':'no';
+        $product['is_reviewed'] = isset($product['order_item']['review'])?'yes':'no';
+        $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
+        $product['review_count'] = $rating_count;
+        $product['name'] = $product['product_name'];
+        $this->product = $product;
+
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
         $wishlist = (isset($wishlist)?explode(',',$wishlist):[]);
         $this->wishlist = $wishlist;
@@ -392,9 +399,8 @@ class Detail extends Component
             $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
             $product['review_count'] = $rating_count;
             $product['name'] = $product['product_name'];
+            $product['id'] = $product['product_id'];
             $product['created_at'] = $product['product_created_at'];
-            $product['is_purchased'] = isset($order_item)?'yes':'no';
-            $product['is_reviewed'] = isset($order_item->review)?'yes':'no';
             $product['stock_status'] = (isset($product_stock))?(($product_stock->available_quantity!=0)?'in_stock':'out_of_stock'):'out_of_stock';
             $product['available_quantity'] = $product_stock->available_quantity??0;
             $product['product_stock_id'] = $product_stock->id??0;

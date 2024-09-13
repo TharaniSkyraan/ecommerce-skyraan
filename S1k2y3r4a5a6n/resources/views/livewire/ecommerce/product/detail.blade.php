@@ -19,7 +19,7 @@
 </section>
 <section  class="detail-card">
     <div class="container">
-        <div class="row PrdRow " data-id="{{ $product['id'] }}">
+        <div class="row PrdRow " data-id="{{ $product_id }}">
             <span class="variant_id d-none">{{ $variant }}</span>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="container-fluid position-relative tag">
@@ -32,9 +32,9 @@
                         <div class="col-6 text-end pt-2">
                             <div>
                                 @if(in_array($product['id'], $wishlist)) 
-                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img rounded-circle bg-white cursor">
+                                    <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product_id }}')" class="like_img rounded-circle bg-white cursor">
                                 @else
-                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img rounded-circle bg-white cursor">
+                                    <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product_id }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img rounded-circle bg-white cursor">
                                 @endif
                             </div>
                         </div>
@@ -271,20 +271,20 @@
         <div class="row py-4">
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="related-images">
-                    @foreach($related_products as $product)
+                    @foreach($related_products as $rproduct)
                         <div class="item p-2 prdDet cursor">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}"  data-slug="{{ $product['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $rproduct['id'] }}" data-variant-id="{{ $rproduct['variant_id'] }}"  data-slug="{{ $rproduct['slug'] }}" data-prdref="{{ \Carbon\Carbon::parse($rproduct['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
-                                        @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
+                                        @if($rproduct['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
-                                        @elseif(!empty($product['label']))
+                                        @elseif(!empty($rproduct['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
                                                     <g clip-path="url(#clip0_296_5)">
-                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$product['label_color_code']}}"/>
-                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$product['label_color_code']}}"/>
-                                                        <text x="10" y="28" fill="white" font-size="20">{{$product['label']}}</text>
+                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$rproduct['label_color_code']}}"/>
+                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$rproduct['label_color_code']}}"/>
+                                                        <text x="10" y="28" fill="white" font-size="20">{{$rproduct['label']}}</text>
                                                     </g>
                                                     <defs>
                                                     <clipPath id="clip0_296_5">
@@ -297,22 +297,22 @@
                                     </div>
                                     <div class="col-6 tag d-flex justify-content-end pe-0 align-self-center">
                                         <div class=" rounded-circle bg-white">
-                                            @if(in_array($product['id'], $wishlist)) 
-                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img likedislike" data-id="unlike">
+                                            @if(in_array($rproduct['id'], $wishlist)) 
+                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $rproduct['id'] }}')" class="like_img likedislike" data-id="unlike">
                                             @else
-                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" data-id="like">
+                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $rproduct['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" data-id="like">
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center position-relative">
-                                    <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                    @if(!empty($product['image2']))
-                                    <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
+                                    <img src="{{ $rproduct['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                    @if(!empty($rproduct['image2']))
+                                    <img src="{{ $rproduct['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
                                     @endif
                                 </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
+                                    @if($rproduct['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>   
@@ -326,40 +326,40 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $rproduct['name']}}</h6>
                                 <div class="container-fluid">
                                     <div class="row align-items-center">
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$rproduct['price']}}</del>
                                         </div>
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0">
-                                            @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                            @if($rproduct['discount']!=0)
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$rproduct['sale_price']}}</h6>
                                             @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$rproduct['price']}}</h6>
                                             @endif
                                         </div>
-                                        <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0"><small class="off h-sms">{{$rproduct['discount']}}% off</small></div>
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
-                                        @if($product['review']==0)
+                                        @if($rproduct['review']==0)
                                             <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==1)
+                                            @elseif($rproduct['review']==1)
                                             <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==2)
+                                            @elseif($rproduct['review']==2)
                                         <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==3)
+                                            @elseif($rproduct['review']==3)
                                             <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==4)
+                                            @elseif($rproduct['review']==4)
                                             <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==5)
+                                            @elseif($rproduct['review']==5)
                                             <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                         @endif
                                     </div>
                                     <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$rproduct['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>
@@ -378,20 +378,20 @@
         <div class="row py-4">
             <div class="carousel-wrap">
                 <div class="owl-carousel d-flex justify-content-center" id="frequent-images">                    
-                    @foreach($frequently_bought_products as $product)
+                    @foreach($frequently_bought_products as $fproduct)
                         <div class="item px-2 prdDet cursor">
-                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $product['id'] }}" data-variant-id="{{ $product['variant_id'] }}" data-slug="{{ $product['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}">
+                            <div class="card border-0 round-1 p-1 PrdRow cursor" data-id="{{ $fproduct['id'] }}" data-variant-id="{{ $fproduct['variant_id'] }}" data-slug="{{ $fproduct['slug'] }}"  data-prdref="{{ \Carbon\Carbon::parse($fproduct['created_at'])->timestamp }}">
                                 <div class="row pt-1  position-absolute w-100 reviews-div">
                                     <div class="col-6 tag">
-                                        @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
+                                        @if($fproduct['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                             <div class="ps-xl-2 ps-lg-2 ps-md-2 ps-sm-1 ps-0"><div class="card bg-secondary p-xl-2 p-lg-2 p-sm-2 p-md-2 p-1 border-0 rounded-0  bg-opacity-50"><h6 class="text-white fw-bold text-center h-sms text-nowrap">Sold Out</h6></div></div>
-                                        @elseif(!empty($product['label']))
+                                        @elseif(!empty($fproduct['label']))
                                             <div class="position-relative best-seller">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="svg-img" viewBox="0 0 198 57" fill="none">
                                                     <g clip-path="url(#clip0_296_5)">
-                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$product['label_color_code']}}"/>
-                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$product['label_color_code']}}"/>
-                                                        <text x="10" y="28" fill="white" font-size="20">{{$product['label']}}</text>
+                                                        <path d="M0.933105 0.0898438H198L179.694 21.4394L198 44.2241H0.933105V0.0898438Z" fill="{{$fproduct['label_color_code']}}"/>
+                                                        <path d="M14.2766 44.2246V56.051L0.838867 44.2246H14.2766Z" fill="{{$fproduct['label_color_code']}}"/>
+                                                        <text x="10" y="28" fill="white" font-size="20">{{$fproduct['label']}}</text>
                                                     </g>
                                                     <defs>
                                                     <clipPath id="clip0_296_5">
@@ -404,22 +404,22 @@
                                     </div>
                                     <div class="col-6 tag d-flex justify-content-end pe-0 align-self-center">
                                         <div class=" rounded-circle bg-white">
-                                            @if(in_array($product['id'], $wishlist)) 
-                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product['id'] }}')" class="like_img likedislike" data-id="unlike">
+                                            @if(in_array($fproduct['id'], $wishlist)) 
+                                                <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $fproduct['id'] }}')" class="like_img likedislike" data-id="unlike">
                                             @else
-                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" data-id="like">
+                                                <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $fproduct['id'] }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img {{ (\Auth::check())?'likedislike':''}}" data-id="like">
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-center position-relative">
-                                    <img src="{{ $product['image1'] }}" alt="list_items" class="w-100 default-img item-image">
-                                    @if(!empty($product['image2']))
-                                    <img src="{{ $product['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
+                                    <img src="{{ $fproduct['image1'] }}" alt="list_items" class="w-100 default-img item-image">
+                                    @if(!empty($fproduct['image2']))
+                                    <img src="{{ $fproduct['image2'] }}" alt="list_items_hover" class="w-100 hover-img  position-absolute  item-image">
                                     @endif
                                 </div> 
                                 <div class="container-fluid position-absolute add-div">
-                                    @if($product['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
+                                    @if($fproduct['stock_status']=='out_of_stock'  && !empty($zone_data['warehouse_ids']))
                                         <button class="btn d-flex justify-content-center w-fill align-items-center bg-clr add-to-cart rounded-1 w-100 {{ (\Auth::check())?'NotifyMe':''}}" @if(!(\Auth::check())) data-bs-toggle="modal" data-bs-target="#signin" @endif>
                                             <h6 class="text-center text-white h-sms text-nowrap">Notify Me</h6>
                                         </button>       
@@ -433,40 +433,40 @@
                                 </div>
                             </div>
                             <div class="price_info py-3">
-                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $product['name']}}</h6>
+                                <h6 class="text-dark fw-bold align-self-center h-sms max-height">{{ $fproduct['name']}}</h6>
                                 <div class="container-fluid">
                                     <div class="row align-items-center">
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0">
-                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</del>
+                                            <del class="del-clr text-secondary fw-bold lh-lg text-opacity-50 h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$fproduct['price']}}</del>
                                         </div>
                                         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0">
-                                            @if($product['discount']!=0)
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['sale_price']}}</h6>
+                                            @if($fproduct['discount']!=0)
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$fproduct['sale_price']}}</h6>
                                             @else
-                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$product['price']}}</h6>
+                                            <h6 class="price fw-bold lh-lg align-self-center h-sms">{{ $ip_data->currency_symbol??'₹' }} {{$fproduct['price']}}</h6>
                                             @endif
                                         </div>
-                                        <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0"><small class="off h-sms">{{$product['discount']}}% off</small></div>
+                                        <div  class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-4 px-0"><small class="off h-sms">{{$fproduct['discount']}}% off</small></div>
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 col-12">
-                                        @if($product['review']==0)
+                                        @if($fproduct['review']==0)
                                             <img src="{{asset('asset/home/0.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==1)
+                                            @elseif($fproduct['review']==1)
                                             <img src="{{asset('asset/home/1.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==2)
+                                            @elseif($fproduct['review']==2)
                                             <img src="{{asset('asset/home/2.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==3)
+                                            @elseif($fproduct['review']==3)
                                             <img src="{{asset('asset/home/3.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==4)
+                                            @elseif($fproduct['review']==4)
                                             <img src="{{asset('asset/home/4.svg')}}" alt="star" class="sub_star">
-                                            @elseif($product['review']==5)
+                                            @elseif($fproduct['review']==5)
                                             <img src="{{asset('asset/home/5.svg')}}" alt="star" class="sub_star">
                                         @endif
                                     </div>
                                     <div class="col-xl-8 col-lg-7 col-md-7 col-sm-6 col-12 pt-1">
-                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$product['review_count']}} reviews</h6>
+                                        <h6 class="text-secondary text-opacity-50 text-nowrap h-sms">{{$fproduct['review_count']}} reviews</h6>
                                     </div>
                                 </div>
                             </div>
