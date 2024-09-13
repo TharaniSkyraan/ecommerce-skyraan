@@ -17,5 +17,20 @@ class ProductSearches extends Model
     {
         return $this->belongsTo(ProductVariant::class, 'variant_id', 'id');
     }    
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }   
+    public function getOrderItemAttribute(){
+        
+        $attribute_set_ids = explode(',',$this->attribute_set_ids);
 
+        $order = OrderItem::whereProductId($this->product_id);
+        foreach($attribute_set_ids as $set_id){
+            $order->whereRaw("FIND_IN_SET(?, attribute_set_ids)", [$set_id]);
+        }
+        $order = $order->first();
+
+        return $order;
+    }
 }
