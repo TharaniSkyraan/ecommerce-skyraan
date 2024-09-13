@@ -156,6 +156,4 @@ class InvoiceController extends Controller
                     ->make(true);
 
     }
-
-
 }
