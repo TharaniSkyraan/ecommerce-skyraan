@@ -47,7 +47,6 @@ trait OrderInvoice
         }
     }
     
-    
     function numToWordsRec($number) {
         $words = array(
             0 => 'zero', 1 => 'one', 2 => 'two',
