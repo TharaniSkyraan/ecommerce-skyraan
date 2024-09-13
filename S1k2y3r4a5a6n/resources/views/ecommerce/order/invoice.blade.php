@@ -238,9 +238,37 @@
             * {
                 font-family: "poppins"!important;
             }
-            .invoice-contact img{
-                width:20px;
+            .invoice-contact-table {
+                width: auto;
+                border-collapse: collapse;
+                margin-left:210px;
             }
+        
+            .invoice-contact-table td {
+                vertical-align: middle;
+                padding: 5px; /* Adjust for spacing between image and text */
+            }
+        
+            .invoice-contact-table img {
+                width: 14px; /* Adjust size as needed */
+                vertical-align: bottom; 
+            }
+        
+            .invoice-contact-table p{
+                margin-top: 0;
+                font-size: 14px; /* Adjust as needed */
+                font-weight:normal!important;
+            }
+            .invoice-contact-table h6 {
+                margin: 0;
+                font-size: 14px; /* Adjust as needed */
+                font-weight:normal!important;
+            }
+            .invoice-contact-table  {
+                padding-top: 26px; /* Adjust padding-top value as needed */
+            }
+
+
         </style>
     </head>
     <body>
@@ -339,10 +367,16 @@
                             <p>{{$siteSetting->address}}</p>
                         </td>
                         <td class="pt-0 jkef b-none text-end">
-                            <div class="invoice-contact">
-                                <img src="{{ $mail_icon_base64 }}" alt="mail"><p>{{$siteSetting->mail_support_address}}</p>
-                                <img src="{{ $phone_icon_base64 }}" alt="phone"><h6 class="pt-2">+91 {{$siteSetting->phone}}</h6>
-                            </div>
+                            <table class="invoice-contact-table">
+                                <tr >
+                                    <td class="text-end"><img src="{{ $mail_icon_base64 }}" alt="mail"></td>
+                                    <td><h6 class="text-start pt-2">{{$siteSetting->mail_support_address}}</h6></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-end"><img src="{{ $phone_icon_base64 }}" alt="phone"></td>
+                                    <td><h6 class="text-start pt-2">+91 {{$siteSetting->phone}}</h6></td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </tbody>

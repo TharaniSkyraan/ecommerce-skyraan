@@ -80,9 +80,8 @@
                 justify-content: space-between;
                 padding-left: 10px;
             }
-            .product-info-left, .product-info-right {
+            .product-info-left{
                 width: 50%;
-                padding-left: 10px;
             }
             .product-info p {
                 margin: 5px 0;
@@ -122,9 +121,7 @@
                         <div class="product-info-left">
                             <p>{{ $cart->name }}</p> <!-- Long product names will wrap properly -->
                             <p>Quantity: <b>{{ $cart->quantity }} nos</b></p>
-                        </div>
-                        <div class="product-info-right">
-                            <span>₹{{ $cart->price }}</span>
+                            <P style="font-weight:bold;">₹{{ $cart->price }}</P>
                         </div>
                     </td>
                 </tr>
