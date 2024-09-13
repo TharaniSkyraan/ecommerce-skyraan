@@ -13,4 +13,9 @@ class ProductSearches extends Model
 
     protected $fillable = ['category_ids','warehouse_ids','status'];
     
+    public function productvariant()
+    {
+        return $this->belongsTo(ProductVariant::class, 'variant_id', 'id');
+    }    
+
 }

@@ -16,7 +16,7 @@
                         <a href="{{ route('ecommerce.product.detail', ['slug' => $product['slug']]) }}?prdRef={{ \Carbon\Carbon::parse($product['created_at'])->timestamp }}" class="row pb-2">
                             <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-4 px-0">
                                 <div class="card card1 position-relative border-0">
-                                    <img src="{{$product['image']}}" alt="list_items" class="srch-img">
+                                    <img src="{{$product['image1']}}" alt="list_items" class="srch-img">
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-8 price_info align-self-center">
