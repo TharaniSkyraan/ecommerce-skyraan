@@ -8,6 +8,7 @@ use App\Models\StockHistory;
 use App\Models\ProductVariant;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ProductStockUpdateQuantityHistory;
+use App\Jobs\ProductSearchJob;
 use Carbon\Carbon;
 
 class UpdateStock extends Component
@@ -168,7 +169,10 @@ class UpdateStock extends Component
                     'product_name' => $product['product_name'],
                 ]
             );
-
+            if(ProductStock::whereProductVariantId($product['variant_id'])->whereWarehouseId($product['warehouse_id'])->doesntExist()){
+                ProductSearchJob::dispatch(['type'=>'product_update', 'id'=>$product['variant_id']]);
+            }
+            
         }
 
         $this->resetInputvalues();
