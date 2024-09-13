@@ -183,7 +183,6 @@
 
     td.tr p {
         margin: 5px 0;
-        word-wrap: break-word;
     }
 
         </style>
@@ -229,10 +228,10 @@
                         <p style="margin: 0; word-wrap: break-word;">
                             <strong>{{$item->product_name}}</strong>
                         </p>
-                        <p class="txt-start text-dark" style="margin: 5px 0;">Qty: {{$item->quantity}}</p>
-                        <p style="margin: 0; word-wrap: break-word;" class="price">
-                            <strong>₹{{$item->total_amount}}</strong>
-                        </p>
+                        <!-- Quantity on one row -->
+                        <p class="txt-start text-dark" style="margin: 5px 0; display: block; width: 100%;">Qty: {{$item->quantity}}</p>
+                        <!-- Price directly below the quantity -->
+                        <p class="txt-start font-bold text-dark price" style="margin: 5px 0; display: block; width: 100%;">₹{{$item->total_amount}}</p>
                     </div>
                 </td>
             </tr>
