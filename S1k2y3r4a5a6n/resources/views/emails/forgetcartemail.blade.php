@@ -3,7 +3,7 @@
     @slot('header')
         @component('mail::header', ['url' => '{{ url("/login") }}'])
         @endcomponent
-        <style>
+               <style>
             .wrapper {
                 background-color: #EEE !important;
             }
@@ -16,7 +16,7 @@
             }
             p {
                 color: #000000bd !important;
-                margin: 5px 0;
+                margin: 15px 0px 10px 12px;
             }
             .text-center {
                 text-align: center !important;
@@ -32,7 +32,7 @@
                 width: 97%;
                 margin: 7px 10px 0px 10px;
             }
-            .title {
+            .title{
                 font-size: 25px;
                 font-weight: 400;
                 text-align: center !important;
@@ -60,7 +60,7 @@
                 font-size: 13px !important;
             }
             .delivery-cnt {
-                margin: 25px;
+                margin: 10px 10px 10px 13px;
                 background-color: #FCFCFC;
                 width: 100%;
             }
@@ -76,15 +76,14 @@
                 border-bottom: 1px solid #000;
             }
             .product-info {
-                display: flex;
-                justify-content: space-between;
                 padding-left: 10px;
+                width:70%;
             }
             .product-info-left{
-                width: 50%;
+                padding-left: 10px;
             }
             .product-info p {
-                margin: 5px 0;
+                margin: 5px 18px 10px 4px;
             }
             .product-info-left p {
                 word-wrap: break-word;
