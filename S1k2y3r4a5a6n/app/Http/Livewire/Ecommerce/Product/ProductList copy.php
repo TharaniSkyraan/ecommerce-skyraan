@@ -145,32 +145,8 @@ class ProductList extends Component
             });
         }
         if (!empty($this->rating)) { 
-            $Products = $Products->whereIn('review', explode(',',$this->rating));
+            $Products = $Products->whereIn('rating', explode(',',$this->rating));
         }  
-
-        if (!empty($this->category) || $this->type=='category') { 
-
-            $categories = !empty($this->category)?explode(',',$this->category):Category::whereSlug($this->slug)->pluck('id')->toArray();
-            $category_ids = (count($categories)!=0)?'(^|,)(' . implode('|', array_map('intval', $categories)) . ')(,|$)':'';
-            $this->category = implode(',',$categories);
-            $Products = $Products->where('category_ids', 'REGEXP', $category_ids);
-            $maxPrice = $Products;
-        }else{
-            if(!empty($init)){
-
-                $prdCategory = $maxPrice = $Products;                
-                $categories_ids = $prdCategory->pluck('category_ids')->toArray();
-                $categories_ids = array_map(function ($categories_id) {
-                    return explode(',', $categories_id);
-                }, $categories_ids);
-
-                $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
-                $this->category = implode(',',$categories_ids);
-            }
-        }  
-        if(empty($this->product_max_price)){
-            $this->product_max_price = $maxPrice->orderBy('search_price','desc')->pluck('search_price')->first();
-        }
         
         $min_price = ($this->min_price==0)?1:$this->min_price;
         $max_price = $this->max_price;
@@ -180,6 +156,30 @@ class ProductList extends Component
             $Products = $Products->whereBetween('search_price', [$min_price, $max_price]);
         }
 
+        if (!empty($this->category) || $this->type=='category') { 
+            \Log::info('categoru');
+
+            $categories = !empty($this->category)?explode(',',$this->category):Category::whereSlug($this->slug)->pluck('id')->toArray();
+            $category_ids = (count($categories)!=0)?'(^|,)(' . implode('|', array_map('intval', $categories)) . ')(,|$)':'';
+            $this->category = implode(',',$categories);
+            $Products = $Products->where('category_ids', 'REGEXP', $category_ids);
+            $this->product_max_price = $Products->orderBy('search_price','desc')->pluck('search_price')->first();
+
+        }else{
+            if(!empty($init)){
+                \Log::info('categorut');
+
+                $prdCategory = $maxPrice = $Products;                
+                $categories_ids = $prdCategory->pluck('category_ids')->toArray();
+                $categories_ids = array_map(function ($categories_id) {
+                    return explode(',', $categories_id);
+                }, $categories_ids);
+
+                $categories_ids = array_filter(array_unique(array_merge(...$categories_ids)));
+                $this->category = implode(',',$categories_ids);
+                $this->product_max_price = $maxPrice->orderBy('search_price','desc')->pluck('search_price')->first();
+            }
+        }  
         if($this->sort_by != 'all' && !empty($this->sort_by)){
             $orderby = explode('-',$this->sort_by);
 
