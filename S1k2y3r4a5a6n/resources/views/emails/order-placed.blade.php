@@ -191,7 +191,7 @@
     <p class="title"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt=""></p>
     <div class="main-div text-center">
         <img src="{{asset('asset/home/orderplaced-mail.png')}}" alt="">
-        <p class="title-content text-center"><b>order placed successfully</b></p>
+        <p class="title-content text-center"><b>Order Placed Successfully</b></p>
         <p class="text-left">Your order has been placed successfully. We will notify you once the order is shipped.</p>
         <div class="text-center my-3"><button class="px-3 py-2"><a href="{{$link}}"><span class="text-white">View Order</span></a></button></div>
     </div>
