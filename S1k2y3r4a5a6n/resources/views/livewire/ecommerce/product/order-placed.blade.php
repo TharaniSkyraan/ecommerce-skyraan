@@ -10,13 +10,13 @@
                         <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12 ">
                             <div class="row py-4">
                                 <div class="col-4">
-                                    <span class="h-sms fw-bold">Order Placed : {{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d / m / Y') }}</span>
+                                    <span class="h-sms fw-bold">Order Placed : {{ \Carbon\Carbon::parse($order->order_histories['order_placed'])->format('d M Y') }}</span>
                                 </div>
                                 <div class="col-4">
                                     <span class="h-sms fw-bold">Grand Total : {{ $ip_data->currency_symbol??'₹' }} {{$total_amount}}</span>
                                 </div>
                                 <div class="col-4">
-                                    <span class="h-sms fw-bold">Payment Mode : {{ $order->payments?ucwords(($order->payments->payment_chennal=='card')?'Online':$order->payments->payment_chennal):'' }}</span>
+                                    <span class="h-sms fw-bold">Payment Mode : {{ $order->payments?ucwords(($order->payments->payment_chennal=='card')?'Online':(($order->payments->payment_chennal=='cod')?'Cash on delivery':$order->payments->payment_chennal)):'' }}</span>
                                 </div>
                             </div>
                             <div class="container-fluid class-row">
