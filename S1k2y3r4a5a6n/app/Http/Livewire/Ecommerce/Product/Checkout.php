@@ -513,7 +513,7 @@ class Checkout extends Component
                 OrderShipment::create($orderShipment);
 
             }else{
-
+                $orderids = [];
                 foreach($carts as $cart)
                 {
                         
@@ -603,7 +603,7 @@ class Checkout extends Component
                     $orderData['status'] = 'new_request';
                     
                     $order = Order::create($orderData);
-                    $order_id = $order->id;
+                    $orderids[] = $order_id = $order->id;
 
                     $paymentData['order_id'] = $order_id;
                     $paymentData['user_id'] = auth()->user()->id;
@@ -683,15 +683,18 @@ class Checkout extends Component
                         }); 
                     $order= Order::where('code',$order_code)->first();
                     if($order->user->subscription=='enabled'){
-                        \Mail::send(new OrderPlacedMail($order));
+                        // \Mail::send(new OrderPlacedMail($order));
                     }
                 }
         
-                UserCart::whereUserId(auth()->user()->id)->delete();
-                CartItem::whereUserId(auth()->user()->id)->delete();
+                // UserCart::whereUserId(auth()->user()->id)->delete();
+                // CartItem::whereUserId(auth()->user()->id)->delete();
             }
 
-            $this->emit('clearCart',$order_code);
+            $order_id = $orderids[0];
+            $order_id1 = end($orderids);
+            
+            $this->emit('clearCart',((count($orderids)==1)?$order_id:$order_id.','.$order_id1));
        }
 
     }
