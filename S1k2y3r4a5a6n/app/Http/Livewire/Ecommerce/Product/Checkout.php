@@ -683,12 +683,12 @@ class Checkout extends Component
                         }); 
                     $order= Order::where('code',$order_code)->first();
                     if($order->user->subscription=='enabled'){
-                        // \Mail::send(new OrderPlacedMail($order));
+                        \Mail::send(new OrderPlacedMail($order));
                     }
                 }
         
-                // UserCart::whereUserId(auth()->user()->id)->delete();
-                // CartItem::whereUserId(auth()->user()->id)->delete();
+                UserCart::whereUserId(auth()->user()->id)->delete();
+                CartItem::whereUserId(auth()->user()->id)->delete();
             }
 
             $order_id = $orderids[0];
