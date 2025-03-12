@@ -140,25 +140,27 @@
 </nav>
 
 <div class="tab-views mbl-view search_menu_nav mobile-navbar" id="top-menu-res">
-    <div class="ps-md-2 ps-sm-2 ps-0 pe-md-3 pe-sm-3 pe-3 py-2 d-flex justify-content-between align-items-center">
-        <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuopen" aria-controls="offcanvasExample" id="menuIcon">
-            <img src="{{asset('asset/home/responsive-menu.svg')}}" alt="menu" >
-        </div>
-        <a href="{{ url('/') }}"><img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="" class="responsive_logo"></a>
-        <div class="top_re_cart" wire:ignore>
+   <div class="ps-md-2 ps-sm-2 ps-0 pe-md-3 pe-sm-3 pe-3 py-2 d-flex align-items-center header-container">
+    <div class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuopen" aria-controls="offcanvasExample" id="menuIcon">
+        <img src="{{asset('asset/home/responsive-menu.svg')}}" alt="menu">
+    </div>
+    <a href="{{ url('/') }}" class="logo-container">
+        <img src="{{asset('storage/'.$siteSetting->site_logo)}}" alt="" class="responsive_logo">
+    </a>
+    <div class="top_re_cart" wire:ignore>
         @if((Route::currentRouteName() != 'ecommerce.cart') && (Route::currentRouteName() != 'ecommerce.checkout'))
-            <div class="btn cart-btn cartGo" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" >
+            <div class="btn cart-btn cartGo" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                 <img src="{{asset('asset/home/cart.svg')}}" alt="cart">
-                <span class="text-white cartCount h-sm"> </span>
+                <span class="text-white cartCount h-sm"></span>
             </div>
         @else
             <div class="btn cart-btn">
                 <img src="{{asset('asset/home/cart.svg')}}" alt="cart">
-                <span class="text-white cartCount h-sm"> </span>
+                <span class="text-white cartCount h-sm"></span>
             </div>
         @endif
-        </div>
     </div>
+</div>
     
     <!-- Menu offcanva right -->
     <div class="offcanvas offcanvas-start bg-white" tabindex="-1" id="menuopen" aria-labelledby="offcanvasExampleLabel">
