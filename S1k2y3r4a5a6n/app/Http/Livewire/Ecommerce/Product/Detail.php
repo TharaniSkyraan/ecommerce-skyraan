@@ -213,9 +213,12 @@ class Detail extends Component
         
         $related_product_ids = [];
 
-        $product = ProductSearches::whereSlug($this->slug)->whereHas('product', function($q) use($createdDate){
-                                                $q->where('created_at',$createdDate);
-                                            });
+        $product = ProductSearches::whereSlug($this->slug)->where(function($q1) use($createdDate){
+
+            $q1->whereHas('product', function($q) use($createdDate){
+                $q->where('created_at',$createdDate);
+            })->orwhere('product_created_at',$createdDate);
+        });
        
         if(!empty($this->variant) && $this->variant !=0){
             $product = $product->where('variant_id',$this->variant)->first();
