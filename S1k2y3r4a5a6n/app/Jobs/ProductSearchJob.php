@@ -135,7 +135,7 @@ class ProductSearchJob implements ShouldQueue
                 $searchPrd->cart_limit = $productVariant->cart_limit;
                 $searchPrd->description = $product->description;
                 $searchPrd->content = $product->content;
-                $searchPrd->product_created_at = $product->created_at;
+                $searchPrd->product_created_at = Carbon::parse($product->created_at);
                 $searchPrd->shipping_wide = $productVariant->shipping_wide;
                 $searchPrd->shipping_length = $productVariant->shipping_length;
                 $searchPrd->shipping_height = $productVariant->shipping_height;
