@@ -2223,4 +2223,24 @@ fill: var(--next-prev-arrow-color);
         height: 60px;
     }
 
+
+ .header-container {
+        justify-content: space-between;
+    }
+
+    .logo-container {
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .cart-btn {
+            display: none;
+        }
+
+        .header-container {
+            justify-content: center;
+        }
+    }
+
+
     
