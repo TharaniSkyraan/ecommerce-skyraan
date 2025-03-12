@@ -40,6 +40,8 @@ class SavedAddresses extends Component
             $this->landmark = $address->landmark;
             $this->postal_code = $address->postal_code;
             $this->name = $address->name;
+        }else{            
+            $this->phone = \Auth::user()->phone;
         }
     }
 

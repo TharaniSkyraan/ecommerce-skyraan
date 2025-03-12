@@ -108,6 +108,7 @@ class ProductList extends Component
 
     public function filterProduct($init='')
     {
+        
         $warehouse_ids = (count($this->warehouse_ids)!=0)?'(^|,)(' . implode('|', array_map('intval', $this->warehouse_ids)) . ')(,|$)':'';
 
         $Products = ProductSearches::where('status','active')
@@ -168,7 +169,7 @@ class ProductList extends Component
                 $this->category = implode(',',$categories_ids);
             }
         }  
-        if(empty($this->product_max_price)){
+        if(empty($this->product_max_price) && isset($maxPrice)){
             $this->product_max_price = $maxPrice->orderBy('search_price','desc')->pluck('search_price')->first();
         }
         

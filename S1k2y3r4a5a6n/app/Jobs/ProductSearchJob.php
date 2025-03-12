@@ -115,8 +115,8 @@ class ProductSearchJob implements ShouldQueue
                 }
                 $product_price = (!empty($sale_price) && ($sale_price>0))?$sale_price:$price;
     
-                $images = json_decode($product->images, true);
-                $images = (count($images)!=0)?$images:json_decode($productVariant->images, true);
+                $images = json_decode($productVariant->images, true);
+                $images = (count($images)!=0)?$images:json_decode($product->images, true);
     
                 $category_ids = Category::whereIn('id',explode(',',$product->category_ids))->whereStatus('active')->pluck('id')->toArray();
                 $searchPrd->product_id = $productVariant->product_id;
@@ -135,7 +135,7 @@ class ProductSearchJob implements ShouldQueue
                 $searchPrd->cart_limit = $productVariant->cart_limit;
                 $searchPrd->description = $product->description;
                 $searchPrd->content = $product->content;
-                $searchPrd->product_created_at = $product->created_at;
+                $searchPrd->product_created_at = Carbon::parse($product->created_at);
                 $searchPrd->shipping_wide = $productVariant->shipping_wide;
                 $searchPrd->shipping_length = $productVariant->shipping_length;
                 $searchPrd->shipping_height = $productVariant->shipping_height;
@@ -156,17 +156,22 @@ class ProductSearchJob implements ShouldQueue
             $category = Category::find($this->id);
 
             if($category->status=='inactive' || !isset($category)){
-                $searchPrds = ProductSearches::where('category_ids', 'like', '%,'.$this->id.',%')->select('id','category_ids')->get();
+                $searchPrds = ProductSearches::where('category_ids', 'like', '%,'.$this->id.',%')->select('id','status','category_ids')->get();
                 foreach($searchPrds as $searchPrd){
                     $category_ids = array_filter(explode(',',$searchPrd->category_ids));
                     $category_ids = array_values(array_diff($category_ids, [$this->id]));
-                    ProductSearches::where('id',$searchPrd->id)->update(['category_ids' => ','.implode(',',$category_ids).',']);
+                    ProductSearches::where('id',$searchPrd->id)->update(['category_ids' => ','.implode(',',$category_ids).',',    
+                    'status' => (count($category_ids)==0)?'inactive':(($products->status=='active')?'active':'inactive')
+                   ]);
                 }
             }else{
-                $products = Product::where('category_ids', 'like', '%,'.$this->id.',%')->select('id','category_ids')->get();
+                
+                $products = Product::where('category_ids', 'like', '%,'.$this->id.',%')->select('id','status','category_ids')->get();
                 foreach($products as $product){
                     $category_ids = Category::whereIn('id',explode(',',$product->category_ids))->whereStatus('active')->pluck('id')->toArray();
-                    ProductSearches::where('product_id',$product->id)->update(['category_ids' => ','.implode(',',$category_ids).',']);
+                    ProductSearches::where('product_id',$product->id)->update(['category_ids' => ','.implode(',',$category_ids).',',    
+                                                                               'status' => (count($category_ids)==0)?'inactive':(($products->status=='active')?'active':'inactive')
+                                                                              ]);
                 }
             }
         }elseif($this->type=='label_update'){
