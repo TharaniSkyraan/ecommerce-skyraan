@@ -16,7 +16,7 @@ use App\Mail\WelcomeMail;
 
 
 Route::get('/sendMail', function(){
-    \Mail::send(new WelcomeMail('Tharani', 'tharani@skyraan.com'));
+    \Mail::send(new WelcomeMail('Tharani', 'tharanmca1@gmail.com'));
 });
 
 // Route::get('/view-invoice', function () {
