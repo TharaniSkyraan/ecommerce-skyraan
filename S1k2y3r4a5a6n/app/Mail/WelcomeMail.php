@@ -9,8 +9,6 @@ class WelcomeMail extends Mailable
 {
     use SerializesModels;
 
-    public $name,$email;
-
     /**
      * Create a new message instance.
      */
@@ -22,7 +20,6 @@ class WelcomeMail extends Mailable
 
     public function build()
     {
-        dd($this->email);
                     
         return $this->from(config('mail.from.address'), config('mail.from.name'))
         ->to($this->email, $this->name)
