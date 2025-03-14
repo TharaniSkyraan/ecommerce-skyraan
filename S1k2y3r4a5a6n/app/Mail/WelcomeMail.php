@@ -22,8 +22,7 @@ class WelcomeMail extends Mailable
 
     public function build()
     {
-        $name = $this->name;
-        $email = $this->email;
+        dd($this->email);
                     
         return $this->from(config('mail.from.address'), config('mail.from.name'))
         ->to($this->email, $this->name)
