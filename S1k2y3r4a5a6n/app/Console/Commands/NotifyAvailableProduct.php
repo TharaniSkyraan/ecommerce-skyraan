@@ -66,14 +66,15 @@ class NotifyAvailableProduct extends Command
                     $q1->whereIn('warehouse_id', $warehouse_ids)
                     ->where('stock_status', 'in_stock');
                 })->where('id',$nofi['product_variant_id'])->first();
-                
-                $images = json_decode($productVariant->images, true);
-                $images = (count($images)!=0)?$images:json_decode($productVariant->product->images, true);
-                    
-                $data['name'] = $productVariant->product_name;
-                $data['image'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
-                $data['link'] =  route('ecommerce.product.detail', ['slug' => $productVariant->product->slug])."?prdRef=".\Carbon\Carbon::parse($productVariant->product->created_at)->timestamp."&product_variant=".$productVariant->id;
                 if(isset($productVariant)){
+                    
+                    $images = json_decode($productVariant->images, true);
+                    $images = (count($images)!=0)?$images:json_decode($productVariant->product->images, true);
+                        
+                    $data['name'] = $productVariant->product_name;
+                    $data['image'] = (isset($images[0]))?asset('storage').'/'.$images[0]:asset('asset/home/default-hover1.png');
+                    $data['link'] =  route('ecommerce.product.detail', ['slug' => $productVariant->product->slug])."?prdRef=".\Carbon\Carbon::parse($productVariant->product->created_at)->timestamp."&product_variant=".$productVariant->id;
+                    
                     \Mail::send(new RestockMail($data,$nofi['user']['name'],$nofi['user']['email']));
                     NofityAvailableProduct::where('id',$nofi['id'])->delete();
                 }
