@@ -22,12 +22,12 @@ class WelcomeMail extends Mailable
     {
                     
         return $this->from(config('mail.from.address'), config('mail.from.name'))
-        ->to($this->email, $this->name)
-        ->subject('Welcome Mail '. config('siteSetting.site_name'))
-        ->markdown('emails.welcomemail')
-        ->with([
-            'name' => $this->name,
-            'email' => $this->email,
-        ]);
+                    ->to($this->email, $this->name)
+                    ->subject('Welcome Mail '. config('siteSetting.site_name'))
+                    ->markdown('emails.welcomemail')
+                    ->with([
+                        'name' => $this->name,
+                        'email' => $this->email,
+                    ]);
     }
 }
