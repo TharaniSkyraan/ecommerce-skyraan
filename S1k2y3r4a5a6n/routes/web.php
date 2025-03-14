@@ -17,6 +17,8 @@ use App\Mail\WelcomeMail;
 
 Route::get('/sendMail', function(){
     \Mail::send(new WelcomeMail('Tharani', 'tharani@skyraan.com'));
+    // \Mail::send(new ForgetCartMail($cart_products, $user->name, $user->email));
+
 });
 
 // Route::get('/view-invoice', function () {

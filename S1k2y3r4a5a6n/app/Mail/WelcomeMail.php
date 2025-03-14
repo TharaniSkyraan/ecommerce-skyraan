@@ -24,14 +24,14 @@ class WelcomeMail extends Mailable
     {
         $name = $this->name;
         $email = $this->email;
-
+                    
         return $this->from(config('mail.from.address'), config('mail.from.name'))
-                    ->to($email, $name)
-                    ->subject('Welcome Mail '. config('siteSetting.site_name'))
-                    ->markdown('emails.welcomemail')
-                    ->with([
-                        'name' => $this->name,
-                        'email' => $this->email,
-                    ]);
+        ->to($this->email, $this->name)
+        ->subject('Welcome Mail '. config('siteSetting.site_name'))
+        ->markdown('emails.welcomemail')
+        ->with([
+            'name' => $this->name,
+            'email' => $this->email,
+        ]);
     }
 }
