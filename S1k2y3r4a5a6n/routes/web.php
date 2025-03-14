@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Mail\WelcomeMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::get('/sendMail', function(){
+    \Mail::send(new WelcomeMail('Tharani', 'tharani@skyraan.com'));
+});
 
 // Route::get('/view-invoice', function () {
 //     return view('e-commerce/view-invoice');
