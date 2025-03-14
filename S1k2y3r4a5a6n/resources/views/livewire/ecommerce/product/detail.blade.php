@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-6 text-end pt-2">
                             <div>
-                                @if(in_array($product['id'], $wishlist)) 
+                                @if(in_array($product_id, $wishlist)) 
                                     <img src="{{asset('asset/home/like-filled.svg')}}" alt="like" wire:click.prevent="addremoveWish('{{ $product_id }}')" class="like_img rounded-circle bg-white cursor">
                                 @else
                                     <img src="{{asset('asset/home/like.svg')}}" alt="un-like" @if(\Auth::check()) wire:click.prevent="addremoveWish('{{ $product_id }}')" @else data-bs-toggle="modal" data-bs-target="#signin" @endif class="like_img rounded-circle bg-white cursor">

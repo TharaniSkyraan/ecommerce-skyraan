@@ -346,6 +346,7 @@ class Detail extends Component
         $product['review'] = ($rating_count!=0)?round($rating_sum/$rating_count):0;
         $product['review_count'] = $rating_count;
         $product['name'] = $product['product_name'];
+        $product['id'] = $this->product_id;
         $this->product = $product;
 
         $wishlist = WishList::whereUserId(\Auth::user()->id??0)->pluck('product_ids')->first();
